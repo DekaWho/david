@@ -496,12 +496,14 @@
     </p>
 
      
-  <script>
-    const codigos = [109, 111, 99, 46, 115, 101, 115, 97, 114, 102, 101, 100, 114, 111, 100, 97, 106, 114, 111, 102, 108, 101, 64, 100, 105, 118, 97, 100];
-    const correo = codigos.map(c => String.fromCharCode(c)).reverse().join('');
-    const enlace = 'mailto:' + correo;
-    document.getElementById('correo').innerHTML = `<a href="${enlace}">${correo}</a>`;
-  </script>
+<script>
+  const codigos = [109, 111, 99, 46, 97, 101, 114, 97, 118, 100, 105, 118, 97, 100, 64, 97, 108, 111, 104];
+  const correo = codigos.map(c => String.fromCharCode(c)).reverse().join('');
+  const enlace = 'mailto:' + correo;
+  document.getElementById('correo').innerHTML = `<a href="${enlace}">${correo}</a>`;
+</script>
+
+
 
   <p class="firma" style="margin-top: 7rem; margin-bottom: 0; text-align: center;">↑</p>
 
