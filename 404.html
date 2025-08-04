@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Error 404</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Sedgwick+Ave+Display&family=Staatliches&display=swap" rel="stylesheet">
+  
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon32.png"> 
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon48.png"> 
+
+  <style>
+    body {
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 16px;
+      background-color: #151515;
+      color: white;
+
+      max-width: 40vw;
+      /*Centrar el contenido */
+      margin: 1rem auto;
+      padding: 0 1rem;
+
+      margin-top: 3vw;
+      align-items: center;
+    }
+
+
+    h1 {
+      font-family: "Staatliches", sans-serif;
+      font-size: clamp(6rem, 6vw, 8rem);
+      text-align: center;
+
+      line-height: 0.8;
+      color: #00e5ff;
+
+      margin-top: clamp(3rem, 3vw, 6rem);
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-family: "Staatliches", sans-serif;
+      font-size: clamp(4rem, 3vw, 6rem);
+      text-align: center;
+      color: #FF4FDD;
+
+      line-height: 0.8;
+      margin-bottom: clamp(6rem, 4vw, 10rem);
+      margin-top: 0;
+    }
+
+    p{
+      margin: 1em 0;
+      margin-bottom: clamp(4rem, 3vw, 7rem);
+      font-size: clamp(1.5rem, 1.3vw, 2rem);
+      line-height: 2;
+    }
+
+    u {
+      text-decoration: underline;
+      text-underline-offset: 7px;
+      text-decoration-thickness: 3px;
+    }
+
+    img {
+      display: block;
+      max-width: 80%;
+      margin: 1rem auto;
+      margin-top: -2rem;
+    }
+
+    ::selection {
+      background-color: #A2FAA3;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        max-width: 90vw;
+      }
+    }
+
+  </style>
+
+  <script>
+    setTimeout(function () {
+      window.location.href = '/';
+    }, 4000); // redirige en 4 segundos
+  </script>
+</head>
+<body>
+
+  <h1>Error 404</h1>
+  <h2>Not found</h2>
+
+  
+  <p style="text-align: center;">Parece que te has perdido, vas a volver <a href="/" style="color: #00e5ff">a la homepage</a></p>
+   
+</body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>el Forjador de Frases</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Sedgwick+Ave+Display&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Staatliches&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="favicon48.png">
+
+  <meta property="og:title" content="el forjador de frases">
+  <meta property="og:description" content="En el eCommerce del herrero, cuchillos de palo: los 3 peores errores que pueden arruinar un eCom.">
+  <meta property="og:image" content="https://elforjadordefrases.com/banner.webp">
+  <meta property="og:url" content="https://elforjadordefrases.com">
+  <meta property="og:type" content="website">
+
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TTDKNDM1KR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TTDKNDM1KR');
+  </script>
+
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+      font-size: 18px;
+    }
+
+    body {
+      font-family: "IBM Plex Sans", sans-serif;
+      background-color: rgb(251, 252, 255);
+      color: #252422;
+      margin: 0;
+      padding: 0;
+    }
+
+    .banner {
+      width: 100%;
+      background-color: #151515;
+      margin-top: 0;
+
+      padding-top: 3vw;
+      padding-bottom: 1vw;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      /* Centra verticalmente */
+      gap: 1rem;
+      /* Espacio entre columnas */
+
+      max-width: 75vw;
+      margin: 1rem auto;
+      padding: 0 1rem;
+      margin-top: 0;
+
+      flex-wrap: wrap;
+      overflow-x: hidden;
+    }
+
+    .heroM {
+      display: none;
+      align-items: center;
+      /* Centra verticalmente */
+
+      max-width: 90vw;
+      margin: 1rem auto;
+      padding: 0 1rem;
+      margin-top: 0;
+
+      line-height: 1.5;
+    }
+
+    .hero-image {
+      flex: 2;
+      /* parte más pequeña */
+    }
+
+    .hero-text {
+      flex: 3;
+      /* parte más grande */
+
+      /* Evitar que se desborde */
+      box-sizing: border-box;
+      overflow-x: hidden;
+      min-width: 0;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      max-width: clamp(25rem, 28vw, 35rem);      
+      display: block;
+    }
+
+    .heroM-image img {
+      max-width: 100%;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .cuerpo {
+      max-width: 36vw;
+      /*Centrar el contenido */
+      margin: 1rem auto;
+      padding: 0 1rem;
+      padding-bottom: 0;
+      margin-top: 3vw;
+    }
+
+    h1,
+    h2,
+    h3 {
+      text-align: center;
+    }
+
+    h3 { /* el pre-título del banner*/
+      color: #FF4FDD;
+      font-weight: 400;
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: "Staatliches", sans-serif;
+      font-size: clamp(3em, 13vw, 4.5em);
+      margin-top: 0.5em;
+      margin-bottom: 0;
+      line-height: 1;
+      color: #00e5ff;
+      font-weight: 500; /* 500 porque si no Safari lo ponía mega gordo */
+      padding: 1rem;
+    }
+
+    p {
+      margin: 1em 0;
+      font-size: clamp(1.3rem, 1.3vw, 1.5rem);
+      margin-bottom: clamp(3rem, 5vw, 10rem);
+      line-height: 1.7;
+    }
+
+    .pcallout {
+      font-size: clamp(1.3rem, 1.3vw, 1.5rem);
+      margin-bottom: clamp(3rem, 4.5vw, 7rem);
+    }
+
+    .firma {
+      font-family: "Sedgwick Ave Display", cursive;
+      color: #00e5ff;
+      font-size: clamp(5rem, 6vw, 10rem);
+      margin-top: 2rem;
+      margin-bottom: 0;
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    del {
+      text-decoration: line-through;
+    }
+
+    ul {
+      padding-left: 1.5em;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    li {
+      font-size: clamp(1.3rem, 1.3vw, 1.5rem);
+      margin-bottom: 0.5em;
+      padding-bottom: clamp(2rem, 1.5vw, 4rem);
+      line-height: 1.7;
+    }
+
+    u {
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+      text-decoration-thickness: clamp(0.1rem, 0.75vw, 0.3rem);
+      text-decoration-skip-ink: none;
+    }
+
+    a {
+      color: #00e5ff;
+    }
+
+    a:hover{
+      color: #FF4FDD;
+      transition: all 0.1s ease;
+    }
+
+
+    .callout-azul,
+    .callout-rojo,
+    .callout-rosa {
+      /* hacerlo más ancho que el padre */
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 38vw;
+
+      margin: 1rem auto;
+      /* centrado horizontal */
+      padding: clamp(1rem, 3vw, 3rem);
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-bottom: clamp(5rem, 5vw, 6rem);
+    }
+
+    .callout-azul {
+      border: 2px solid #00e5ff;
+      box-shadow: 0 0 20px #00e5ff;
+    }
+
+    .callout-rosa {
+      border: 2px solid #FF4FDD;
+      box-shadow: 0 0 20px #FF4FDD;
+    }
+
+    .callout-rojo {
+      padding-top: 1rem;
+      border: 2px dashed #F40600;
+    }
+
+    .subr {
+      background-color: #00e5ff;
+    }
+
+    .subrMedio {
+      display: inline;
+      background: linear-gradient(to bottom, transparent 70%, #F40600 70%);
+    }
+
+    ::selection {
+      background-color: #A2FAA3;
+    }
+
+    @media (max-width: 1000px) {
+      .banner{
+        padding-bottom: 0;
+      }
+
+      .cuerpo {
+        max-width: 95vw;
+        margin: 1rem auto;
+        padding: 0 1rem;
+      }
+
+      .hero {
+        display: none;
+        /* oculto en móviles */
+      }
+
+      .heroM {
+        display: block;
+        /* visible en móviles */
+      }
+
+      h1 {
+        padding: 0;
+      }
+
+      p {
+      margin-bottom: clamp(5rem, 7vw, 10rem);
+      }
+
+      .callout-azul,
+      .callout-rojo,
+      .callout-rosa {
+        /* hacerlo más ancho que el padre */
+        position: relative;
+        left: 0;
+        transform: translateX(0);
+        width: 100vw;
+        max-width: 100%;
+
+        /* Evitar que se desborde */
+        box-sizing: border-box;
+        overflow-x: hidden;
+      }
+
+      .pcallout {
+        margin-bottom: 3rem;
+      }
+
+      .callout-azul {
+        border: 1px solid #00e5ff;
+        box-shadow: 0 0 10px #00e5ff;
+      }
+
+      .callout-rosa {
+        border: 1px solid #FF4FDD;
+        box-shadow: 0 0 10px #FF4FDD;
+      }
+
+    }
+  </style>
+  
+</head>
+
+<body>
+  <div class="banner">
+    <!-- Este solo se ve en PC -->
+    <section class="hero">
+      <div class="hero-image">
+        <img src="wordsmith.webp" alt="Foto siendo el forjador de frases" />
+      </div>
+
+      <div class="hero-text">
+        <h3>
+          Para negocios que ya tienen clientes:</u>
+        </h3>
+
+        <h1>
+          Cómo aumentar las ventas en tu tienda online, sin gastar más en publicidad <span style="font-family: 'IBM Plex Sans', sans-serif;">(</span>y sin reventar los precios<span style="font-family: 'IBM Plex Sans', sans-serif;">)</span>
+        </h1>
+      </div>
+    </section>
+
+    <!-- Este solo se ve en móvil -->
+    <section class="heroM">
+      <div class="heroM-text">
+        <h3>
+          Para negocios que ya tienen clientes:
+        </h3>
+
+        <h1>
+          Cómo aumentar las ventas en tu tienda online, sin gastar más en publicidad <span style="font-family: 'IBM Plex Sans', sans-serif;">(</span>y sin reventar los precios<span style="font-family: 'IBM Plex Sans', sans-serif;">)</span>
+        </h1>
+      </div>
+
+      <div class="heroM-image">
+        <img src="wordsmithMovil.webp" alt="Foto siendo el forjador de frases">
+      </div>
+    </section>
+  </div>
+
+  <div class="cuerpo">
+      <p class="pcallout">
+        Si tu eCommerce ya vende pero sientes que podría hacerlo mejor... ¿sufres algo de esto?
+      </p>
+
+      <div class="callout-rojo">
+      <ul>
+        <li>
+          <strong>
+            ¿Inviertes en captar clientes pero no tienes un sistema para retenerlos?
+          </strong>
+        </li>
+
+        <li>
+          ¿Tu web tiene visitas pero muchos se van sin comprar (ni dejar el correo)?
+        </li>
+
+        <li>
+          <strong>
+            ¿Hay semanas brillantes y otras no tanto?
+          </strong>
+        </li>
+
+        <li>
+          ¿Los usuarios compran pero pocos repiten?
+        </li>
+
+        <li>
+          <strong>
+            ¿Solo tienes picos de ventas si haces rebajas?
+          </strong>
+        </li>
+      </ul>
+      </div>
+
+      <p>
+        Si te pasa alguna hay una solución estratégica (y no es gastar más en anuncios) Te cuento cómo ya mismo pero antes me presento:
+      </p>
+
+
+    <p style="font-size: clamp(2em, 2.5vw, 5em); color: #00e5ff; font-weight: 600; text-align: center; margin-bottom: 1rem; line-height: 1;">
+        SOY DAVID VAREA 🤝
+    </p>
+
+    <div class="callout-azul">
+
+    <p class="pcallout">
+       <em>Wordsmith</em><sup>*</sup> y estratega de email marketing.
+    </p>
+ 
+    <p class="pcallout">
+      <strong>
+        <sup>*</sup>¿Qué significa <em>wordsmith</em>?</strong><br>Soy el forjador de frases, un herrero de la palabra ➜&nbsp;no funciono con 2 plantillas y un chatgpt. Construyo con fuego y sudor estrategias de email pensadas <u style="text-decoration-color: #00e5ff;">para vender</u>
+
+    </p>
+
+    <p class="pcallout" style="margin-bottom: 1em;">
+      <strong>Desde 2019 he trabajado con influencers</strong><br>Creando estatrategias de contenido para ganar visibilidad. Incluso algún canal (por ejemplo chusommontero en youtube) lo abrimos de 0 y lo llevamos a <u style="text-decoration-color: #00e5ff;">109500 seguidores</u>
+    </p>
+    </div>
+
+    <p>
+     Mucha visibilidad sí pero dependes de un tercero para hablarle a tu propia audiencia. <span style="color: white; font-weight: 500; background-color: #151515;">Cambia el algoritmo y... PUUFF&nbsp;💨</span>&nbsp;ya no te escucha nadie.
+    </p>
+
+    <p>
+      <span style="color: #F40600; font-weight: 600;">⚠️ Eso es un peligro</span> si quieres un negocio sólido y predecible. Por eso busqué otras formas de comunicarme con los clientes. Y así descubrí <span style="background-color: #00e5ff;">el canal más rentable </span>(y muchas veces subestimado) para el 99% de los negocios online: el email marketing.
+    </p>
+
+    <p>
+      <strong>
+      Por email puedes aumentar tus ventas sin gastar más en publicidad, sin reventar los precios y fidelizando al cliente (para que compre con recurrencia) usando la lista de usuarios que ya tienes.
+      </strong>
+    </p>
+
+    <p>
+        Si alguna vez has pensado que tu eCommerce vende menos de lo que debería y sientes que falla algo (pero no sabes exactamente el qué) <span style="color: #FF4FDD">lee esto&nbsp;<span style="font-size: 1.5em;">⬇</span></span>
+    </p>
+
+    <div class="callout-rosa" style="padding-top: 2rem;">
+    <ul>
+      <li>
+          <strong>
+          ¿Tienes una bienvenida que convierte a los curiosos en compradores?
+          </strong>
+          <br>
+          
+           Y no me refiero a un único correo con un 10% de descuento.     
+      </li>
+
+      <li>
+        <strong>
+          ¿Tienes otros flujos automáticos generando un ingreso pasivo?
+        </strong>
+        <br>
+          
+        No hace falta mandar correos diarios. Puedes tener flujos escritos que se activan cuando un usuario hace una acción concreta.
+      </li>
+
+
+      <li>
+        <strong>
+          ¿Mandas correos pero los abren poco?
+        </strong>
+        <br>
+
+        La gente sí lee emails. Si no los abren falla la estrategia.
+      </li>
+
+      <li>
+          <strong>
+          ¿Tus correos son interesantes para tu audiencia?
+          </strong>
+          <br>
+          
+          Si quieres venderles primero tienen que leerte. La curiosidad es una gran aliada.        
+      </li>
+
+      <li>
+          <strong>
+          ¿Haces que tus clientes sientan que forman parte de algo?
+          </strong>
+          <br>
+          
+          Si solo les hablas cuando hay un descuento (o un restock) estás desaprovechando la oportunidad de ser alguien memorable para ellos (o sea convertirte en su primera opción de compra)
+      </li>
+
+    </ul>
+    </div>
+
+    <p>
+       Con estas preguntas puedes detectar algunos puntos fuertes (y flojos) de tu estrategia de email. Y si al leerlas has sentido que <u style="text-decoration-color: #FF4FDD;">tus correos podrían trabajar mejor para ti</u> ➜&nbsp;yo construyo con fuego y sudor flujos de emails diseñados para vender. 
+    </p>    
+
+    <p>
+      <strong>
+      Para que lo <span style="color: white; font-weight: 500; background-color: #FF4FDD;">veas por ti mismo</span> puedo ayudarte con algo básico pero clave: el flujo post-compra.<span style="font-weight: 500;"> Te escribo una secuencia que fideliza al comprador y genera la siguiente venta (un solo correo de 'pedido confirmado' es una oportunidad desaprovechada)</span>
+      </strong>
+    </p>
+
+    <p>
+      Además no tienes <span style="color:#00e5ff; font-weight: 500;">nada que perder</span> porque cobro en base a resultados. Y cuando funcione ese primer flujo ya podemos seguir con el resto de la estrategia si quieres. Escríbeme a <span id="correo"></span> y dime qué vendes. Te leo.
+    </p>
+
+     
+  <script>
+    const codigos = [109, 111, 99, 46, 115, 101, 115, 97, 114, 102, 101, 100, 114, 111, 100, 97, 106, 114, 111, 102, 108, 101, 64, 100, 105, 118, 97, 100];
+    const correo = codigos.map(c => String.fromCharCode(c)).reverse().join('');
+    const enlace = 'mailto:' + correo;
+    document.getElementById('correo').innerHTML = `<a href="${enlace}">${correo}</a>`;
+  </script>
+
+  <p class="firma" style="margin-top: 7rem; margin-bottom: 0; text-align: center;">↑</p>
+
+
+</div>
+
+
+</body>
+
+</html>
