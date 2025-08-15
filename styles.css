@@ -421,7 +421,7 @@ a:hover {
 
   #sobre-mi,
   #que-hago, #mail-form {
-  scroll-margin-top: 3rem; /* que el menú deje un poco de aire cuando te lleva a algún lado */
+  scroll-margin-top: 3.5rem; /* que el menú deje un poco de aire cuando te lleva a algún lado */
 }
 
 }
