@@ -12,30 +12,18 @@
     href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Sedgwick+Ave+Display&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Staatliches&display=swap"
     rel="stylesheet">
 
+  <link rel="stylesheet" href="styles.css">
+
   <link rel="icon" type="image/png" sizes="32x32" href="favicon32.png">
   <link rel="icon" type="image/png" sizes="48x48" href="favicon48.png">
 
   <style>
-    html {
-      font-size: 18px;
-    }
-
     body {
       font-family: "IBM Plex Sans", sans-serif;
       background-color: #fff4e3;
       color: #252422;
       margin: 0;
       padding: 0;
-    }
-
-    .banner {
-      width: 60vw;
-      /*Centrar el contenido */
-      margin: 0 auto;
-      margin-bottom: 3rem;
-      padding: 5px;
-      align-items: center;
-      text-align: center;
     }
 
     .cuerpo {
@@ -45,14 +33,6 @@
       padding: 0 1rem;
       padding-bottom: 0;
       margin-top: 5vw;
-    }
-
-    img {
-      max-width: clamp(25rem, 28vw, 35rem);
-      margin-bottom: 3em;
-      /*Centrar el contenido */
-      display: block;
-      margin: 0 auto;
     }
 
     h1,
@@ -89,26 +69,6 @@
       margin-bottom: clamp(5rem, 7vw, 10rem);
       font-size: clamp(1.3rem, 1.4vw, 1.8rem);
       line-height: 1.7;
-    }
-
-    .firma {
-      font-family: "Sedgwick Ave Display", cursive;
-      color: #00e5ff;
-      font-size: clamp(5rem, 6vw, 10rem);
-      margin-bottom: 1rem;
-      margin-top: 1rem;
-    }
-
-    em {
-      font-style: italic;
-    }
-
-    strong {
-      font-weight: 600;
-    }
-
-    del {
-      text-decoration: line-through;
     }
 
     ul {
@@ -217,6 +177,17 @@
 
 
 <body>
+<nav class="menu">
+  <input type="checkbox" id="menu-toggle">
+  <label for="menu-toggle" class="burger">&#9776;</label>
+
+  <div class="links">
+    <a href="/#mail-form">Copia el secreto americano</a>
+    <a href="/#sobre-mi">Quién soy</a>
+    <a href="#">Mis 4 principios</a>
+  </div>
+</nav>
+
   <div class="cuerpo">    
     <h1>
       Estos son mis <u style="text-decoration-color: #00e5ff;">4 principios clave:</u>
