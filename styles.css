@@ -226,17 +226,17 @@ h1 {
   text-align: center;
 }
 
-h2 {
+/* h2 {
   color: #00E5FF;
   font-weight: 400;
   font-size: clamp(1rem, 1.2vw, 3rem);
   line-height: 1.5;
   text-align: left;
-  padding: 1rem; /* eliminar el scroll que sale */
+  padding: 1rem; eliminar el scroll que sale
   padding-left: 4rem;
   padding-right: 4rem;
   margin: 0 auto;
-}
+} */
 
 p{
   margin: 1em 0;
@@ -263,6 +263,15 @@ strong {
 
 del {
   text-decoration: line-through;
+}
+
+h2{/* tiene el mismo estilo que ul porque en móvil no podía ser el ul por el botón */
+  width: 82%; 
+  padding: 0;
+  font-size: clamp(1.1rem, 1.1vw, 2rem);
+  line-height: 1.2;
+  color: #FF4FDD;
+  margin: 0 auto;  
 }
 
 ul{
@@ -422,9 +431,9 @@ audio::-webkit-media-controls-panel {
     padding-left: 0.8rem;
     padding-right: 2px;
 
-    font-size: 1.7rem;
-    margin-top: 1rem;
-    text-align: left;
+    font-size: 2.2rem;
+    margin: 1em 0;
+    text-align: center;
   }
 
   .titulo-reviews{
@@ -437,29 +446,43 @@ audio::-webkit-media-controls-panel {
     margin-top: 1em;
   }
 
-  ul{
-    padding-left: 1.2rem;
+  h2{ /* tiene el mismo estilo porque en móvil no podía ser el ul por el botón */
+    
     width: 99%;        /* ocupa todo el ancho */
     box-sizing: border-box;
     margin: 0;
+    font-size: 1.2rem;
+    line-height: 1.1;
+    text-align: center;
+    
+    padding: 0 2rem;
+    font-weight: 400;
+  }
+
+  ul{
+    width: 99%;        /* ocupa todo el ancho */
+    padding-left: 1.8rem;
+    box-sizing: border-box;
+    margin: 0;
     font-size: 1rem;
-    line-height: 1.2;
+    line-height: 1.5;
   }
 
   li{
-    font-size: 1rem;
+    font-size: 1.2rem;
     margin: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
   }
 
-  h2 {
+/*   h2 {
     padding: 0;
     margin: 0;
     padding-left: 0.25rem;
     padding-right: 0.25rem;
     font-size: 1.2rem;
     font-weight: 400;
-  } 
+  } */ 
 
   p{
     margin-bottom: clamp(2rem, 3vw, 4rem);
