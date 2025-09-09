@@ -433,7 +433,7 @@ audio::-webkit-media-controls-panel {
 
     font-size: 2.2rem;
     margin: 1em 0;
-    text-align: center;
+    text-align: left;
   }
 
   .titulo-reviews{
@@ -453,9 +453,9 @@ audio::-webkit-media-controls-panel {
     margin: 0;
     font-size: 1.2rem;
     line-height: 1.1;
-    text-align: center;
+    text-align: left;
     
-    padding: 0 2rem;
+    padding: 0 1rem;
     font-weight: 400;
   }
 
@@ -519,7 +519,7 @@ audio::-webkit-media-controls-panel {
 
   .btn{
     font-size: 0.9rem;
-    padding: 1rem 5px;
+    padding: 1.2rem 1rem;
     gap: 1px;
   }
 
