@@ -32,12 +32,13 @@ html {
 
 
 .glow{
+  text-decoration: none;
   font-family: "IBM Plex Sans", "Segoe UI Emoji", sans-serif;
   color: #fff;
   font-size: 1.3rem;
   font-weight: 400;
   margin: 1rem 0;
-  padding: 0.5em 1.5em; /*el primero es arriba y abajo*/
+  padding: 0.6em 3em; /*el primero es arriba y abajo*/
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -136,6 +137,7 @@ body {
 .hero {
   display: flex;
   align-items: center;
+  justify-content: center;
   /* Centra verticalmente */
   gap: 1rem;
   /* Espacio entre columnas */
@@ -157,22 +159,30 @@ body {
 }
 
 .hero-image {
-  flex: 4;
+  flex: 3;
   /* parte más pequeña */
 }
 
 .hero-text {
-  flex: 7;
+  flex: 5;
   /* parte más grande */
+
+  display: flex;
+  flex-direction:column;
+  gap: 0;
+
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 
   /* Evitar que se desborde */
   box-sizing: border-box;
   overflow-x: hidden;
-  min-width: 0;
+  
 }
 
 .hero-image img {
-  width: 85%;
+  width: 90%;
   height: auto;
   display: block;
   min-width: 300px;
@@ -197,11 +207,11 @@ body {
 h1 {
   font-family: 'Staatliches', sans-serif;
   text-transform: uppercase;
-  font-size: clamp(3rem, 3vw, 7rem);
-  margin-top: 0;
+  font-size: clamp(2.5rem, 3vw, 7rem);
+  margin-top: 1rem;
   margin-bottom: 1em;
-  line-height: 1.2;
-  color: #151515;
+  line-height: 1;
+  color: white;
   font-weight: 500;
   text-align: center;
 }
@@ -257,23 +267,25 @@ del {
   text-decoration: line-through;
 }
 
-ul {
-  width: 55%; 
+ul{
+  width: 82%; 
   padding: 0;
-  margin: 0 auto;
-  font-size: 1rem;  
+  font-size: clamp(1rem, 1.1vw, 2rem);
+  line-height: 1.2;
+  color: #FF4FDD;
+  margin: 0;
 }
 
-li {
-  font-size: clamp(1rem, 1.3vw, 1.5rem);
+li{
+  color: white;
+  font-size: clamp(1rem, 1.1vw, 2rem);
   margin-bottom: 0.5em;
-  padding-bottom: clamp(2rem, 1.5vw, 4rem);
-  line-height: 1.7;
+  padding-bottom: clamp(0.5rem, 1vw, 2rem);
+  line-height: 1.2;
 }
 
 li::marker {
-  color:#FF4FDD;
-  font-size: 0.8rem;
+  color:#00E5FF;
 }
 
 u {
@@ -414,7 +426,6 @@ audio::-webkit-media-controls-panel {
 
     font-size: 1.9rem;
     margin-top: 1rem;
-    margin-bottom: 0.8rem;
     text-align: left;
   }
 
@@ -428,11 +439,17 @@ audio::-webkit-media-controls-panel {
     margin-top: 1em;
   }
 
-  ul {
-    margin: 0;
+  ul{
     padding-left: 1.2rem;
     width: 99%;        /* ocupa todo el ancho */
     box-sizing: border-box;
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  li{
+    font-size: 0.9rem;
+    margin: 0;
   }
 
   h2 {
