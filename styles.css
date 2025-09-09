@@ -443,7 +443,7 @@ audio::-webkit-media-controls-panel {
     box-sizing: border-box;
     margin: 0;
     font-size: 1rem;
-    line-height: 1.5;
+    line-height: 1.2;
   }
 
   li{
