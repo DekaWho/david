@@ -32,12 +32,13 @@ html {
 
 
 .glow{
+  text-align: center;
   text-decoration: none;
   font-family: "IBM Plex Sans", "Segoe UI Emoji", sans-serif;
   color: #fff;
   font-size: 1.3rem;
   font-weight: 400;
-  margin: 1rem 0;
+  margin: 1rem auto;
   padding: 0.6em 3em; /*el primero es arriba y abajo*/
   border: none;
   border-radius: 10px;
@@ -171,8 +172,6 @@ body {
   flex-direction:column;
   gap: 0;
 
-  align-items: center;
-  justify-content: center;
   width: 100%;
 
   /* Evitar que se desborde */
@@ -209,7 +208,7 @@ h1 {
   text-transform: uppercase;
   font-size: clamp(2.5rem, 3vw, 7rem);
   margin-top: 1rem;
-  margin-bottom: 1em;
+  margin-bottom: 1rem;
   line-height: 1;
   color: white;
   font-weight: 500;
@@ -270,10 +269,10 @@ del {
 ul{
   width: 82%; 
   padding: 0;
-  font-size: clamp(1rem, 1.1vw, 2rem);
+  font-size: clamp(1.1rem, 1.1vw, 2rem);
   line-height: 1.2;
   color: #FF4FDD;
-  margin: 0;
+  margin: 0 auto;
 }
 
 li{
@@ -421,7 +420,7 @@ audio::-webkit-media-controls-panel {
 
   h1 {
     padding: 0;
-    padding-left: 0.5rem;
+    padding-left: 0.8rem;
     padding-right: 2px;
 
     font-size: 1.9rem;
@@ -444,12 +443,14 @@ audio::-webkit-media-controls-panel {
     width: 99%;        /* ocupa todo el ancho */
     box-sizing: border-box;
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    line-height: 1.5;
   }
 
   li{
-    font-size: 0.9rem;
+    font-size: 1rem;
     margin: 0;
+    margin-bottom: 0.5rem;
   }
 
   h2 {
@@ -549,8 +550,8 @@ audio::-webkit-media-controls-panel {
 
   .glow {
     font-size: 1rem;
-    width: 70vw;
-    margin: 0 2rem; /*el primero es arriba y abajo*/
+    width: 50vw;
+    margin: 1rem auto; /*el primero es arriba y abajo*/
     padding: 0.5rem 0.2rem;
   }
 
