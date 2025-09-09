@@ -17,7 +17,8 @@ html {
 }
 
 
-button { /*estilo sencillo de principios */
+.btn { /* enlace estilo botón */
+  text-decoration: none;
   padding: 0.8em 1.2em;
   border-radius: 8px;
   font-size: 1rem;
@@ -27,10 +28,6 @@ button { /*estilo sencillo de principios */
   border: 2px solid #00E5FF;
   transition: all 0.3s ease; 
   box-shadow: 0 0 6px rgba(0, 229, 255,1);     
-}
-
-button:hover{
-  font-style: italic;
 }
 
 
@@ -226,7 +223,7 @@ h2 {
   font-weight: 400;
   font-size: clamp(1rem, 1.2vw, 3rem);
   line-height: 1.5;
-  text-align: center;
+  text-align: left;
   padding: 1rem; /* eliminar el scroll que sale */
   padding-left: 4rem;
   padding-right: 4rem;
@@ -380,8 +377,9 @@ audio::-webkit-media-controls-panel {
   .cuerpo {
     max-width: 99vw; /* importante que sea max-width y no solo max para que no se generen los callouts mal en móvil */
     margin: 0 auto;
-    padding: 0 1rem;
-    margin-top: 0;
+    padding: 0;
+    padding-left: 0.2rem;
+    margin-top: 1rem;
   }
 
   .hero {
@@ -408,7 +406,7 @@ audio::-webkit-media-controls-panel {
     padding-right: 2px;
 
     font-size: 1.9rem;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     margin-bottom: 0.8rem;
     text-align: left;
   }
@@ -435,7 +433,7 @@ audio::-webkit-media-controls-panel {
     margin: 0;
     padding-left: 0.25rem;
     padding-right: 0.25rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 400;
   } 
 
