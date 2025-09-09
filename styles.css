@@ -422,7 +422,7 @@ audio::-webkit-media-controls-panel {
     padding-left: 0.8rem;
     padding-right: 2px;
 
-    font-size: 1.9rem;
+    font-size: 1.7rem;
     margin-top: 1rem;
     text-align: left;
   }
@@ -547,9 +547,9 @@ audio::-webkit-media-controls-panel {
     font-size:1rem;
   }
 
-  .glow {
+  .glow{
     font-size: 1rem;
-    width: 50vw;
+    width: 70vw;
     margin: 1rem auto; /*el primero es arriba y abajo*/
     padding: 0.5rem 0.2rem;
   }
