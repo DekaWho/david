@@ -329,6 +329,13 @@ a:hover {
   border: 2px solid rgba(255, 79, 221, 0.6);
   border-radius: 10px;
   box-shadow: 0 0 4px #FF4FDD;
+
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
 }
 
 ::selection {
@@ -468,6 +475,12 @@ audio::-webkit-media-controls-panel {
 
   .callout-linea {
     box-shadow: 0 0 10px #FF4FDD;
+  }
+
+  .btn{
+    font-size: 0.9rem;
+    padding: 1rem 5px;
+    gap: 1px;
   }
 
  .menu{
