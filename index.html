@@ -1,26 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
 
-<html>
 <head>
-  <title>David Varea</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>David Varea (El forjador)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Sedgwick+Ave+Display&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Staatliches&family=Playfair+Display&family=Fjalla+One&display=swap" rel="stylesheet">
 
-  <link rel="icon" type="image/png" sizes="32x32" href="https://elforjador.com/imgs/favicon32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="https://elforjador.com/imgs/favicon48.png">
+  <link rel="stylesheet" href="styles.css">
 
-  <meta property="og:title" content="David Varea">
-  <meta property="og:description" content="Mientras aquí vivimos apagando fuegos en américa 🇺🇸 usan una fórmula para ganar más sin gastar extra en publi">
+  <link rel="icon" type="image/png" sizes="32x32" href="imgs/favicon32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="imgs/favicon48.png">
+
+  <meta property="og:title" content="David Varea (El forjador)">
+  <meta property="og:description" content="Trabajo con negocios que quieren crear clientes 'adictos' a comprar (felizmente) una y otra vez">
   <meta property="og:image" content="https://elforjador.com/imgs/banner.webp">
-  <meta property="og:url" content="https://elforjador.com/ecommerce">
-  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://elforjador.com">
+  <meta property="og:type" content="website"> 
 
-  <script>
-    location.replace("https://www.elforjador.com/ecommerce");
-  </script>
-  <noscript>
-    <meta http-equiv="refresh" content="0; url=https://www.elforjador.com/ecommerce">
-  </noscript>
-  
+  <script src="menu.js" defer></script> <!--defer para que cargue primero el DOM del HTML y ejecute el JS al final-->
 </head>
-<body></body>
+
+<body>
+  <nav class="menu">
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="burger">&#9776;</label>
+
+    <div class="links">
+      <a href="#reviews">[ qué opinan de mí ]</a>
+      <a href="https://www.elforjador.com/principios" target="_blank">[ cómo trabajar juntos ]</a>
+      <a href="https://www.elforjador.com" target="_blank">[ mi newsletter ]</a>
+    </div>
+  </nav>
+
+  <div class="banner">
+    <!-- Este solo se ve en PC -->
+    <section class="hero">
+      <div class="hero-image">
+        <img src="imgs/wordsmith.webp">
+      </div>
+
+      <div class="hero-text">
+
+        <h1 style="color: #00E5FF; margin-bottom: 0;">David Varea <img class="emoji" src="imgs/handshake.svg" alt="🤝"></h1>
+
+        <h1 style="color: white">
+          Trabajo con negocios que quieren crear clientes "adictos" a comprar (felizmente) una y otra vez
+        </h1>
+
+        <h2>
+          Soy especialista en marketing directo y ventas cruzadas. ¿Copywriter? Sí aunque prefiero el término <em>wordsmith</em> <span style="color:#FF4FDD">➜&nbsp;Forjador de palabras</span>
+        </h2>
+
+      </div>
+
+    </section>
+
+    <!-- Este solo se ve en móvil -->
+    <section class="heroM">
+      
+      <div class="hero-text">
+
+        <h1 style="color: #00E5FF; margin-bottom: 0;">David Varea <img class="emoji" src="imgs/handshake.svg" alt="🤝"></h1>
+
+        <h1 style="color: white">
+          Trabajo con negocios que quieren crear clientes "adictos" a comprar (felizmente) una y otra vez
+        </h1>
+
+        <h2>
+          Soy especialista en marketing directo y ventas cruzadas. ¿Copywriter? Sí aunque prefiero el término <em>wordsmith</em> <span style="color:#FF4FDD">➜&nbsp;Forjador de palabras</span>
+        </h2>
+
+      </div>
+
+      <div class="heroM-image">
+        <img src="imgs/wordsmithMovil.webp">
+      </div>
+    </section>
+
+  </div> <!--banner-->
+
+  <div class="cuerpo">
+    <p style="margin-bottom: 1rem;">
+      Desde 2019 he trabajado junto a grandes influencers. En ese sector aprendí mucho sobre <span style="background-color: #FFE066;">cómo mantener la atención</span> de una visita porque el primer paso para vender es que te presten atención.
+    </p> 
+
+    <section id="reviews">
+
+      <h1 class="titulo-reviews">
+          Esto opinan de mi trabajo
+      </h1>
+
+        <div class="player-container">
+          <img class="avatar" src="reviews/rioboo.webp">
+
+          <audio controls controlslist="nodownload noplaybackrate">
+            <source src="reviews/rioboo.mp3" type="audio/mpeg">
+            Tu navegador no soporta audio HTML5.
+          </audio>
+        </div>
+
+        <p>
+          Has escuchado a Rioboo. Es creador de contenido y cofundador de CORI (e-commerce de café) Aunque no sigas el mundo influencers igual te suena por haberlo visto con Ibai.
+        </p>
+
+        <p>
+          <strong>
+            Antes de seguir mostrándote <span style="background-color: #FFE066;">la infinidad de opiniones</span> sobre mí ➜&nbsp;Me llamo David pero en internet me conocen como Deka (soy dekawho en redes) Seguimos:
+          </strong>
+        </p>
+
+        <div class="player-container">
+          <img class="avatar" src="reviews/chuso.jpg">
+
+          <audio controls controlslist="nodownload noplaybackrate">
+            <source src="reviews/chuso.mp3" type="audio/mpeg">
+            Tu navegador no soporta audio HTML5.
+          </audio>
+        </div>
+
+        <p>
+          Este es Chuso Montero. Abrimos su canal desde 0 y lo llevamos hasta 109.500 seguidores potenciando su personalidad. Aquí tienes la buena percepción que tiene su audiencia de nosotros: 
+        </p>
+
+        <a href="reviews/chuso01.webp" target="_blank">
+          <img src="reviews/chuso01.webp" width="100%">
+        </a>
+        <br>
+
+        <a href="reviews/chuso02.webp" target="_blank">
+          <img src="reviews/chuso02.webp" width="100%">
+        </a>
+        <br>
+
+        <a href="reviews/chuso03.webp" target="_blank">
+          <img src="reviews/chuso03.webp" width="100%">
+        </a>
+        <br>
+
+        <img src="reviews/magnates.webp" width="100%">
+
+        <p>
+          Este último es Carlos Lana. Uno de los editores de Magnates Media (un canal en inglés con 185 millones de reproducciones en vídeos largos) Después de ver una de las piezas en las que yo había trabajado me escribió para felicitarme.
+        </p>
+
+        <div class="player-container">
+          <img class="avatar" src="reviews/lou.jpg">
+
+          <audio controls controlslist="nodownload noplaybackrate">
+            <source src="reviews/lou.mp3" type="audio/mpeg">
+            Tu navegador no soporta audio HTML5.
+          </audio>
+        </div>
+
+        <img src="reviews/lou.webp" width="100%">
+
+        <p>
+          Es Loulogio. Igual te suena su nombre. Fue uno de los primeros españoles en viralizarse con el nacimiento de youtube. Millones de visitas cuando tener solo mil ya era un logro. Hizo vídeos míticos como «La Batamanta». En esa época no trabajábamos juntos pero años después sí lo hicimos.
+        </p>
+
+        <img src="reviews/padre.webp" width="100%">
+
+        <p>
+          Esta es la review más importante, la de mis padres.
+        </p>
+
+        <iframe width="100%" src="https://www.youtube-nocookie.com/embed/G4j2lOfzXJE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+        <p>
+          Outconsumer: otro de los padres de Youtube en español. Es alguien muy respetado por la comunidad gamer y por otros creadores de renombre.
+        </p>
+
+    </section>  
+      
+    <div style="display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 1rem;
+                  margin-bottom: 3rem;">     
+
+      <button onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+        Volver a arriba
+      </button>
+    </div>
+
+  </div> <!--cuerpo-->
+
+
+</body>
+
 </html>
-
-
