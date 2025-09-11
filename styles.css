@@ -19,11 +19,10 @@ html{
 
 .btn{ /* enlace estilo botón */
   text-decoration: none;
-  text-transform: uppercase;
-  padding: 0.8em 2em;
+  padding: 1rem 3em;
   border-radius: 10px;
-  font-size: 1.2em;
-  font-weight: 500;
+  font-size: 1.2rem;
+  font-weight: 300;
   color: white;
   background: #00E5FF;
   transition: all 0.3s ease; 
@@ -36,6 +35,7 @@ html{
   transform: translateY(-2px);
   text-decoration-thickness: .15em;
   text-underline-offset: 0.25em;
+  font-weight: 500;
 }
 
 
@@ -47,7 +47,7 @@ html{
   font-size: 1.3rem;
   font-weight: 300;
   margin: 1rem auto;
-  padding: 0.6em 3em; /*el primero es arriba y abajo*/
+  padding: 1.2rem 3em; /*el primero es arriba y abajo*/
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -73,7 +73,9 @@ html{
 
 .glow:hover{
   transform: translateY(-4px);
-  font-weight: 400;
+  font-weight: 500;
+  text-decoration-thickness: .15em;
+  text-underline-offset: 0.25em;
 }
 
 
@@ -128,6 +130,14 @@ body{
   text-decoration: none;
 }
 
+.links a:hover{
+  text-decoration: underline;
+  text-decoration-color: #FFE066;
+  text-decoration-thickness: .15em;
+  text-underline-offset: 0.25em;
+  transition: all 0.1s ease;
+}
+
 /* Ocultar checkbox */
 #menu-toggle{
   display: none;
@@ -164,8 +174,8 @@ body{
   /* parte más pequeña */
   flex: 3;
   display: flex;
-  align-items: center;
-  margin: 0 auto;
+  align-items: center;     /* centra vertical en el eje cruzado */
+  justify-content: center; /* centra horizontal en el eje principal */
 }
 
 
@@ -237,9 +247,9 @@ h1{
 
 p{
   margin: 1rem .5rem;
-  font-size: clamp(1.1rem, 1.3vw, 1.5rem);
-  margin-bottom: clamp(3rem, 3vw, 5rem);
-  line-height: 1.7;
+  font-size: clamp(1.2rem, 1.3vw, 1.5rem);
+  line-height: 1.5;
+  margin-bottom: 5rem;
 }
 
 .flecha{
@@ -281,8 +291,8 @@ ul{
 li{
   color: #252422;
   padding: 0;
-  font-size: clamp(1.1rem, 1.3vw, 1.5rem);
-  margin-bottom: clamp(2.5rem, 3vw, 4rem);
+  font-size: clamp(1.2rem, 1.3vw, 1.5rem);
+  margin-bottom: 3rem;
   line-height: 1.5;
 }
 
@@ -368,7 +378,7 @@ audio::-webkit-media-controls-panel{
 
 .feature{
   text-align: center;      /* centra texto dentro de la celda */
-  max-width: 11rem;
+  max-width: 15rem;
 }
 
 .feature img{
@@ -380,7 +390,7 @@ audio::-webkit-media-controls-panel{
 
 .feature-title{            /* no usamos h2 para evitar tu estilo global */
   margin-top: 1rem;
-  font-size: clamp(1rem, 1vw, 1.5rem);
+  font-size: 1.3rem;
   line-height: 1;
   color: #FF4FDD;
 }
@@ -392,10 +402,10 @@ audio::-webkit-media-controls-panel{
   font-weight: 400 !important;
 }
 
-@media (max-width: 1000px){
+@media (max-width: 900px){
   .banner{
     padding: 0;
-    padding-top: 1rem;
+    padding-top: 1.5rem;
   }
 
   .cuerpo{
@@ -416,7 +426,8 @@ audio::-webkit-media-controls-panel{
   }
 
   .hero-image{
-    margin-top: .5rem;
+    align-items: center;
+    margin-top: 1rem;
     margin-bottom: 4rem;
   }
 
@@ -487,7 +498,7 @@ audio::-webkit-media-controls-panel{
   } */ 
 
   p{
-    margin-bottom: clamp(2rem, 3vw, 4rem);
+    margin-bottom: 3rem;
   }
 
   .callout{
@@ -504,9 +515,10 @@ audio::-webkit-media-controls-panel{
   }
 
   .btn{
-    font-size: 0.9rem;
-    padding: 1.2rem 1rem;
-    gap: 1px;
+    font-size: 1.4rem;
+    margin: 1rem auto; /*el primero es arriba y abajo*/
+    padding: 1rem 0;
+    width: 60vw;
   }
 
  .menu{
@@ -557,10 +569,10 @@ audio::-webkit-media-controls-panel{
   }
 
   .glow{
-    font-size: 1rem;
-    width: 70vw;
+    font-size: 1.2rem;
     margin: 1rem auto; /*el primero es arriba y abajo*/
-    padding: 0.5rem 0.2rem;
+    padding: 1rem 0;
+    width: 70vw;
   }
 
   .forjador{
@@ -568,9 +580,14 @@ audio::-webkit-media-controls-panel{
   }
 
   .features{
-    gap: 3rem;
+    gap: 2rem;
+    padding: 0 1rem;
     justify-items: center;
     margin: 0 auto;
+  }
+
+  .feature-title{
+    font-size: 1rem;
   }
 
   #menu-toggle{ display:none; }

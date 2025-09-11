@@ -38,12 +38,19 @@
   <div class="banner">
     <!-- Este solo se ve en PC -->
     <section class="hero">
+
       <div class="hero-image">
-        <video id="presentacion" controlslist="nodownload noplaybackrate" style="width:60%; height: auto; margin: 0 auto; border-radius: 20px;"
-                poster="imgs/miniatura.webp" preload="none" >
+
+        <video id="presentacion" 
+              controls
+              controlslist="nodownload noplaybackrate" 
+              style="width:60%; height:auto; border-radius:20px;" 
+              playsinline
+              poster="imgs/miniatura.webp">
           <source src="imgs/presentacion.webm" type="video/webm">
           Tu navegador no soporta el video.
         </video>
+
       </div>
 
 
@@ -71,7 +78,7 @@
            
         </div>
 
-        <a href="#trabajar" target="_blank" class="glow">
+        <a href="#trabajar" class="glow">
           Cómo trabajar juntos
         </a>
         
@@ -79,14 +86,13 @@
 
     </section>
 
-    <!-- Este solo se ve en móvil-->
+    <!-- Este solo se ve en móvil y tiene DISTINTOS ESTILOS AL DE PC-->
     <section class="heroM">
 
       <div class="hero-text">
-        <!--el margin es distinto aquí a PC-->
-        <h1 style="color: #00E5FF; margin-bottom: 0.8em;">David Varea <img class="emoji" src="imgs/handshake.svg" alt="🤝"></h1>
+        <h1 style="color: #00E5FF; margin-bottom: 0.8em; font-size: 2.3rem;">David Varea <img class="emoji" src="imgs/handshake.svg" alt="🤝"></h1>
 
-        <h1>
+        <h1 style="font-size: 1.9rem;">
           Trabajo con negocios que quieren crear clientes "adictos" a comprar <span style="font-family: 'Segoe UI', sans-serif;">(</span>felizmente<span style="font-family: 'Segoe UI', sans-serif;">)</span> una y otra vez
         </h1>
 
@@ -94,29 +100,37 @@
           
           <div class="features">
             <div class="feature">
-              <img src="imgs/directM.svg" alt="Direct response marketing">
+              <img src="imgs/directM.svg" style="width: 70px">
               <p class="feature-title">Marketer de respuesta directa</p>
             </div>
 
             <div class="feature">
-              <img src="imgs/postcompra.svg" alt="Sistemas postcompra">
+              <img src="imgs/postcompra.svg" style="width: 70px">
               <p class="feature-title">Especialista en sistemas postcompra</p>
             </div>
           </div>      
            
         </div>
 
-        <a href="#trabajar" target="_blank" class="glow">
+        <a href="#trabajar" class="glow">
           Cómo trabajar juntos
         </a>
 
       <div class="hero-image">
-        <video id="presentacion" controlslist="nodownload noplaybackrate" style="width:60%; height: auto; margin: 0 auto; border-radius: 20px;"
-                poster="imgs/miniatura.webp" preload="none" >
+
+        <video id="presentacion" 
+              controls
+              controlslist="nodownload noplaybackrate" 
+              style="width:60%; height:auto; border-radius:20px;" 
+              playsinline
+              poster="imgs/miniatura.webp">
           <source src="imgs/presentacion.webm" type="video/webm">
           Tu navegador no soporta el video.
         </video>
+
       </div>
+
+
     </section>
 
   </div> <!--banner-->
@@ -150,7 +164,7 @@
           Evito que tu cliente se enfríe después de la primera compra usando la fórmula americana
         </li>
 
-        <li>
+        <li style="margin-bottom: 4rem;">
           <strong>
             Recuperar el carrito abandonado es la venta más fácil y provechosa de todas. Aún así muchos cometen el gran error de enviar un simple email-plantilla "finaliza tu compra"
           </strong>
@@ -256,17 +270,23 @@
       </p>
 
       <p>      
-        También descubrí que la visibilidad sola no sirve (algunos influencers con millones de seguidores no venden ni 50 camisetas).
+        <img src="imgs/alert.svg" class="emoji" alt="⚠"> También descubrí que la visibilidad sola no sirve (algunos influencers con millones de seguidores no venden ni 50 camisetas).
       </p>
 
-      <p style="font-size: 1.5rem; font-weight: 600; text-align: center;">
+      <p style="font-size: 1.7rem; font-weight: 600; text-align: center;">
         <u>
           Todo esto lo entendí mirando datos (no opiniones)
         </u>
       </p>
 
       <p>
-          Por eso abrí una newsletter para los que están cansados de confiar en la intuición (y de las campañas de branding donde no pueden medir resultados) Ahí hablo del marketing que sigue el método científico ➜&nbsp;Donde puedes medir los resultados de manera directa y no tirar dinero a un pozo.
+          Y por eso abrí una newsletter para los que están cansados de confiar en la intuición (y de las campañas de branding donde no pueden medir resultados).
+      </p>
+
+      <p>
+        <strong>
+          En mis correos divulgo sobre marketing con método científico ➜&nbsp;Para medir lo que de verdad funciona y no tirar el dinero a un pozo <img src="imgs/money.svg" class="emoji" alt="💸">
+        </strong>
       </p>
         
       <div style="display: flex; align-items: center; justify-content: space-around;">  
@@ -280,7 +300,7 @@
     <section id="trabajar">      
       <p class="flecha">↑</p>
 
-        <h1 class="titulo-reviews" style="margin: 0; padding: 0 .5em">
+        <h1 class="titulo-reviews" style="margin: 0; padding: 0 1rem">
           Cómo trabajar juntos
         </h1>
 
