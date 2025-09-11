@@ -92,7 +92,7 @@ body{
   margin-top: 0;
 
   padding-top: 4rem;
-  padding-bottom: 5rem;
+  padding-bottom: 4rem;
 
   position: relative;
   overflow: hidden;
@@ -246,7 +246,7 @@ h1{
 } */
 
 p{
-  margin: 1rem .5rem;
+  margin: 1rem .3rem;
   font-size: clamp(1.2rem, 1.3vw, 1.5rem);
   line-height: 1.5;
   margin-bottom: 5rem;
