@@ -518,6 +518,7 @@ audio::-webkit-media-controls-panel{
   .btn{
     font-size: 1.4rem;
     margin: 1rem auto; /*el primero es arriba y abajo*/
+    margin-bottom: 0;
     padding: 1rem 0;
     width: 60vw;
   }
