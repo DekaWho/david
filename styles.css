@@ -405,7 +405,7 @@ audio::-webkit-media-controls-panel{
 @media (max-width: 900px){
   .banner{
     padding: 0;
-    padding-top: 1.5rem;
+    padding-top: 1.2rem;
   }
 
   .cuerpo{
@@ -446,7 +446,7 @@ audio::-webkit-media-controls-panel{
 
     font-size: 2.2rem;
     margin: 0;
-    margin-bottom: 1em;
+    margin-bottom: 0;
   }
 
   .titulo-reviews{
@@ -573,6 +573,7 @@ audio::-webkit-media-controls-panel{
     margin: 1rem auto; /*el primero es arriba y abajo*/
     padding: 1rem 0;
     width: 70vw;
+    margin-top: 0;
   }
 
   .forjador{
@@ -599,7 +600,12 @@ audio::-webkit-media-controls-panel{
   }
 
   [id]{
-  scroll-margin-top: 3rem; /* que el menú deje un poco de aire cuando te lleva a algún lado */
+    scroll-margin-top: 3rem; /* que el menú deje un poco de aire cuando te lleva a algún lado */
   }
+
+  #trabajar{
+    scroll-margin-top: 6rem;
+  }
+
 }
 
