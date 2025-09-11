@@ -26,3 +26,17 @@
 
     // Ejecutar cada vez que cambie el hash (clic o scroll con hash)
     window.addEventListener("hashchange", actualizarActiveLink);
+
+
+
+//play al pulsar la miniatura
+  const video = document.getElementById("presentacion");
+
+  // Al hacer clic sobre el póster
+  video.addEventListener("click", () => {
+    // Activo los controles
+    video.setAttribute("controls", "controls");
+
+    // Reproduzco el vídeo
+    video.play();
+  });
