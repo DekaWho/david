@@ -507,8 +507,8 @@ audio::-webkit-media-controls-panel{
     position: relative;
     left: 0;
     transform: translateX(0);
-    width: 98%;
-    padding: 1rem;
+    width: 99%;
+    padding: .5rem;
 
     /* Evitar que se desborde */
     box-sizing: border-box;
