@@ -48,7 +48,7 @@ html{
   font-size: 1.3rem;
   font-weight: 300;
   margin: 1rem auto;
-  padding: 1.2rem 3em; /*el primero es arriba y abajo*/
+  padding: 1rem 3em; /*el primero es arriba y abajo*/
   border: none;
   border-radius: 10px;
   cursor: pointer;
