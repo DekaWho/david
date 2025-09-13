@@ -93,7 +93,7 @@ body{
   margin-top: 0;
 
   padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-bottom: 2.5rem;
 
   position: relative;
   overflow: hidden;
@@ -400,7 +400,7 @@ audio::-webkit-media-controls-panel{
 
 .feature img{
   display: block;
-  width: 100px;
+  width: 90px;
   margin: 0 auto;
 }
 
@@ -622,7 +622,7 @@ audio::-webkit-media-controls-panel{
   }
 
   [id]{
-    scroll-margin-top: 3rem; /* que el menú deje un poco de aire cuando te lleva a algún lado */
+    scroll-margin-top: .5rem; /* que el menú deje un poco de aire cuando te lleva a algún lado */
   }
 
 }
