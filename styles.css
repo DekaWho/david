@@ -626,7 +626,7 @@ audio::-webkit-media-controls-panel{
   }
 
   #reviews{
-    scroll-margin-top: 2rem;
+    scroll-margin-top: 5rem;
   }
 
 }
