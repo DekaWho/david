@@ -413,6 +413,7 @@ audio::-webkit-media-controls-panel{
   line-height: 1.2;
   color: #FF4FDD;
   font-weight: 300;
+  hyphens: none;
 }
 
 .active{
