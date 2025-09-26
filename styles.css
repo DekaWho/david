@@ -343,7 +343,7 @@ a:hover{
   margin: 1rem auto;
   /* centrado horizontal */
   padding: 0 1em;
-  margin-bottom: 0;
+  margin-bottom: 5rem;
 
   border: 2px solid #FFE066;
   border-radius: 10px;
@@ -352,8 +352,9 @@ a:hover{
 }
 
 .callout p{
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
+
 
 
 ::selection{
@@ -533,6 +534,10 @@ audio::-webkit-media-controls-panel{
     overflow-x: hidden;
   }
 
+  .callout p{
+    margin-bottom: 2rem;
+  }
+
   .btn{
     font-size: 1.2rem;
     margin: 1rem auto; /*el primero es arriba y abajo*/
@@ -552,7 +557,7 @@ audio::-webkit-media-controls-panel{
     position: fixed;
     right: 0;
     top: 0;
-    font-size: 1rem;
+    font-size: 1.2rem;
     padding: .5em .7em;
 
     color:#fff; cursor:pointer;
