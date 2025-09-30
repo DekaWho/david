@@ -101,7 +101,8 @@ body{
   margin: 2rem auto;
 }
 
-h1,h2,h3,.banner p{
+h1,h2,h3{
+  text-align: center;
   hyphens: none;
 }
 
@@ -211,7 +212,12 @@ h2{
 }
 
 .hero-B img{
-  max-width: 430px;
+  max-width: 500px;
+}
+
+.hero-A img{ /* en móvil la imagen está dentro del A no aparte */
+  max-width: 300px;
+  margin: 0 auto;
 }
 
 .hero-A{
@@ -420,6 +426,10 @@ audio::-webkit-media-controls-panel{
 }
 
 @media (max-width: 900px){
+  html{    
+    hyphens: auto;
+  }
+
   .banner{
     padding: 0;
     padding-top: 1.2rem;
@@ -458,10 +468,9 @@ audio::-webkit-media-controls-panel{
 
   h1{
     padding: 0 2px;
-
-    font-size: clamp(1.5rem, 1.8vw, 3rem);
+    font-size: 2rem;
     margin: 0;
-    margin-bottom: 0;
+    margin-bottom: 1em;
   }
 
   .titulo-reviews{
@@ -474,15 +483,16 @@ audio::-webkit-media-controls-panel{
     padding: 0;
   }
 
-  h2{ /* tiene el mismo estilo porque en móvil no podía ser el ul por el botón */
+  h2{
     
     width: 99%;        /* ocupa todo el ancho */
     box-sizing: border-box;
-    margin: 0;
-    font-size: 1.2rem;
+    margin: 0 auto;
+    margin-bottom: 1.5rem;
+    font-size: .9rem;
     line-height: 1.1;
     
-    padding: 0 1rem;
+    padding: 0;
     font-weight: 400;
   }
 
@@ -502,8 +512,9 @@ audio::-webkit-media-controls-panel{
     line-height: 1.5;
   }
 
-  p{
-    margin-bottom: 3rem;
+  .banner p{
+    padding: 0;
+    margin-bottom: 1rem;
   }
 
   .callout{
@@ -579,11 +590,11 @@ audio::-webkit-media-controls-panel{
   }
 
   .glow{
-    font-size: 1.1rem;
+    font-size: .9rem;
     margin: 1rem auto; /*el primero es arriba y abajo*/
     padding: .8rem 0;
     width: 70vw;
-    margin-top: 0;
+    margin-top: 1.5rem;
   }
 
   .forjador{
