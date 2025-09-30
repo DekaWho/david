@@ -470,7 +470,6 @@ audio::-webkit-media-controls-panel{
     padding: 0 2px;
     font-size: 2.4rem;
     margin: 0;
-    margin-bottom: 1rem;
   }
 
   .titulo-reviews{
@@ -483,17 +482,14 @@ audio::-webkit-media-controls-panel{
     padding: 0;
   }
 
-  h2{
-    
+  h2{    
     width: 99%;        /* ocupa todo el ancho */
     box-sizing: border-box;
     margin: 0 auto;
     margin-bottom: 1.5rem;
     font-size: .9rem;
-    line-height: 1.1;
-    
-    padding: 0;
-    font-weight: 400;
+    line-height: 1.1;    
+    padding: 0 1em;
   }
 
   ul{
