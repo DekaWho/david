@@ -216,7 +216,7 @@ h2{
 }
 
 .hero-A img{ /* en móvil la imagen está dentro del A no aparte */
-  max-width: 300px;
+  max-width: 270px;
   margin: 0 auto;
 }
 
@@ -432,7 +432,7 @@ audio::-webkit-media-controls-panel{
 
   .banner{
     padding: 0;
-    padding-top: 1.2rem;
+    padding-top: .7rem;
   }
 
   .cuerpo{
@@ -468,9 +468,9 @@ audio::-webkit-media-controls-panel{
 
   h1{
     padding: 0 2px;
-    font-size: 2rem;
+    font-size: 2.4rem;
     margin: 0;
-    margin-bottom: 1em;
+    margin-bottom: 1rem;
   }
 
   .titulo-reviews{
