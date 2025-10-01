@@ -175,6 +175,7 @@ body{
   /* parte más pequeña */
   flex: 3;
   display: flex;
+  flex-direction: column;
   align-items: center;     /* centra vertical en el eje cruzado */
   justify-content: center; /* centra horizontal en el eje principal */
 }
@@ -432,8 +433,7 @@ audio::-webkit-media-controls-panel{
 
 @media (max-width: 900px){
   .banner{
-    padding: 0;
-    padding-top: 1.2rem;
+    padding: 1rem 0;
   }
 
   .cuerpo{
@@ -609,8 +609,7 @@ audio::-webkit-media-controls-panel{
     gap: 0;
     padding: 0 2px;
     justify-items: center;
-    margin: 0;
-    margin-bottom: 2rem;
+    margin: 1rem 0;
   }
 
   .feature-title{
