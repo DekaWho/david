@@ -416,6 +416,13 @@ audio::-webkit-media-controls-panel{
   hyphens: none;
 }
 
+.banner video{
+  width: 20vw;
+  max-width: 350px;
+  height:auto;
+  border-radius:20px;
+}
+
 .active{
   color: #FFE066 !important;
   text-decoration: underline !important;
@@ -444,12 +451,6 @@ audio::-webkit-media-controls-panel{
   .heroM{
     display: block;
     /* visible en móviles */
-  }
-
-  .hero-image{
-    align-items: center;
-    margin-top: 1rem;
-    margin-bottom: 4rem;
   }
 
   .pre-titulo{
@@ -608,8 +609,8 @@ audio::-webkit-media-controls-panel{
     gap: 0;
     padding: 0 2px;
     justify-items: center;
-    margin: 2rem auto;
-    margin-top: 10px;
+    margin: 0;
+    margin-bottom: 2rem;
   }
 
   .feature-title{
@@ -618,6 +619,13 @@ audio::-webkit-media-controls-panel{
 
   .feature img{
     width: 65px;
+  }
+
+  .banner video{
+    width:50vw;
+    height:auto;
+    border-radius:20px;
+    margin: 1rem auto;
   }
 
   #menu-toggle{ display:none; }

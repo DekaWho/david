@@ -95,9 +95,8 @@ body{
   padding: 0;
   font-size: clamp(1.1rem, 1.1vw, 1.5rem);
   font-weight: 300;
-  padding: 0;
   line-height: 1.7;
-  width: 80%;
+  width: 85%;
   margin: 2rem auto;
 }
 
@@ -111,7 +110,7 @@ h1{
   text-transform: uppercase;
   font-size: clamp(2.5rem, 3.5vw, 4rem);
   margin: 0;
-  margin-bottom: 1em;
+  margin-bottom: .7em;
   line-height: 1;
   color: white;
   font-weight: 500;
@@ -281,7 +280,7 @@ input[type="checkbox"]:disabled{
 }
 
 ul{ 
-  width: 90%;   
+  width: 70%;   
   font-size: clamp(1.1rem, 1.1vw, 1.5rem);
   font-weight: 300;
   padding: 0;
@@ -495,10 +494,10 @@ audio::-webkit-media-controls-panel{
   }
 
   ul{
-    width: 99%;        /* ocupa todo el ancho */
+    width: 85%;        /* ocupa todo el ancho */
     padding-left: 1.8rem;
     box-sizing: border-box;
-    margin: 0;
+    margin: 0 auto;
     font-size: 1rem;
     line-height: 1.5;
   }
