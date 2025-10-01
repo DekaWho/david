@@ -182,7 +182,8 @@ h2{
 
 .hero{
   display: flex;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
   justify-content: center;
   /* Centra verticalmente */
   gap: 1rem;
@@ -204,20 +205,16 @@ h2{
   /* parte más pequeña */
   flex: 3;
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   gap: 0;
-
-  align-items: center;     /* centra vertical en el eje cruzado */
+  align-items: center;
   justify-content: center; /* centra horizontal en el eje principal */
+  padding-top: 4rem;
 }
 
-.hero-B img{
-  max-width: 500px;
-}
-
-.hero-A img{ /* en móvil la imagen está dentro del A no aparte */
-  max-width: 270px;
-  margin: 0 auto;
+.sobre{
+  width: auto;
+  max-width: 24vw;
 }
 
 .hero-A{
@@ -456,6 +453,11 @@ audio::-webkit-media-controls-panel{
     align-items: center;
     margin-top: 1rem;
     margin-bottom: 4rem;
+  }
+
+  .sobre{
+    max-width: 270px;
+    margin: 0 auto;
   }
 
   .pre-titulo{
