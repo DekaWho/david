@@ -1,3 +1,30 @@
+   
+// FORM SCRIPT
+
+//incrustar form de mailerlite
+function insertForm(targetId) {
+  const template = document.getElementById('lite-form').content;
+  document.getElementById(targetId).appendChild(template.cloneNode(true));
+}
+
+insertForm('formPC');
+insertForm('formMobile');
+
+
+// scroll del CTA de la hero section (con iluminacion del menú)
+// ya no hay scroll porque hay varios forms
+/*function scrollToSection(id) {
+  const section = document.getElementById(id);
+  if (!section) return;
+
+  section.scrollIntoView({ behavior: 'smooth' });
+  history.pushState(null, null, `#${id}`);
+  actualizarActiveLink();
+}*/
+
+
+// MENÚ SCRIPT
+
 // Cerrar el menu burger al pulsar en un enlace
     document.querySelectorAll('.links a').forEach(link => {
       link.addEventListener('click', () => {
