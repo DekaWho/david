@@ -59,7 +59,7 @@
         <h1 style="color: #00E5FF; margin-bottom: .5em;">David Varea <img class="emoji" src="imgs/handshake.svg" alt="🤝"></h1>
 
         <h1>
-          Trabajo con quien quiere vender más (y mejor) para ganar tiempo y tranquilidad
+          Trabajo con quien quiere vender más y mejor (por internet) para ganar tiempo y tranquilidad
         </h1>
 
         <div style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
@@ -88,7 +88,7 @@
            
         </div>
 
-        <a href="#detector" class="glow">
+        <a href="#detector" class="btn glow">
           Cómo trabajar juntos
         </a>
         
@@ -103,7 +103,7 @@
         <h1 style="color: #00E5FF; margin-bottom: 0.7em; font-size: 1.8rem;">David Varea <img class="emoji" src="imgs/handshake.svg" alt="🤝"></h1>
 
         <h1>
-          Trabajo con quien quiere vender más (y mejor) para ganar tiempo y tranquilidad
+          Trabajo con quien quiere vender más y mejor (por internet) para ganar tiempo y tranquilidad
         </h1>
 
         <video id="presentacion" 
@@ -116,7 +116,7 @@
         </video>       
            
 
-          <a href="#detector" class="glow">
+          <a href="#detector" class="btn glow">
             Cómo trabajar juntos
           </a>         
         
@@ -147,7 +147,7 @@
           </div>
         </div>
 
-        <a href="#reviews" style="font-weight: 300; margin: 1rem auto; text-underline-offset: 0.3rem; text-decoration-thickness: 1px;">
+        <a href="#reviews" class="btn">
             Qué opinan de mí
         </a>
           
@@ -388,7 +388,6 @@
                     #mlb2-27786331.ml-form-embedContainer span,
                     #mlb2-27786331.ml-form-embedContainer button {
                       text-transform: none !important;
-                      letter-spacing: normal !important;
                     }
 
                     #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper {
@@ -892,7 +891,7 @@
                     }
 
                     #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button {
-                      color: #fff;
+                      color: #151515 !important;
                       /* background: linear-gradient(to left, #FF4FDD, #14E1FE); 
                       border-color: #14E1FE;
                       border-style: solid;
@@ -931,8 +930,8 @@
                     }
 
                     #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button:hover {
-                transform: translateY(-2px) !important;
-                background-position: 100% 0 !important;
+                  background-color: rgba(30,102,255,.15) !important;
+                  text-decoration: none;
                     }
 
                     #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow input[type="checkbox"] {
@@ -992,38 +991,46 @@
                     }
 
                     #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button {
-                      color: #fff;
-                      
-                      /*
-                      color: #fff;
-                      font-size: 1.4rem;
-                      font-weight: 300;
-                      padding: 0.6em 1.2em;
+                      text-align: center;
+                      text-decoration: none;
+                      font-family: "Inter", "Segoe UI Emoji", sans-serif;
+                      color: white;
+                      font-size: 1.3rem;
+                      font-weight: 500;
+                      margin: 1rem auto;
+                      padding: 1rem 3em; /*el primero es arriba y abajo*/
                       border: none;
-                      border-radius: 8px;
+                      border-radius: 1rem;
                       cursor: pointer;
-                      letter-spacing: 1px;
+                      letter-spacing: 0.05em;
+                      min-width: 20vw;
                       transition: transform 0.2s ease, box-shadow 0.2s ease;
-                      margin-top: 1rem;
-                      margin-bottom: 2em;
-                      background: linear-gradient(90deg, #00E5FF, #4F86C6, #00E5FF);
-                      background-size: 200% 200%;
+                      /* background: linear-gradient(270deg, #FF4FDD, #b202f8, #FF4FDD);*/
+                      background: linear-gradient(90deg, #00E5FF, #4F86C6);
+                      background: linear-gradient(0deg, #E2C044, #FFE066);
                       box-shadow: 
-                        inset 2px 2px 6px rgba(255,255,255,0.3),  brillo interior arriba
-                        inset -2px -2px 6px rgba(0,0,0,0.4),      sombra interior abajo 
-                        0 2px 8px rgba(0, 0, 0, 0.3);               sombra exterior
-                      transition: background-position 0.3s ease;
-                      */     
-                    }
+                        inset 2px 2px 6px rgba(255,255,255,0.3),  /* relieve arriba*/
+                        inset -2px -2px 6px rgba(0,0,0,0.4);              /* brillo exterior*/  
+                        animation: glowA 1s ease-in-out infinite alternate;
+                      }
+
+                      @keyframes glowA{
+                        from{
+                          filter: drop-shadow(0 0 8px rgba(255,224,102,0.8));
+                        }
+                        to{
+                          filter: drop-shadow(0 0 16px rgba(255,224,102,1));
+                        }
+                      }
 
                     #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button.loading {
                       display: none;
                     }
 
-                    #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover {
+                    /* #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover {
                 transform: translateY(-2px);
                 background-position: 100% 0;
-                    }
+                    } */
 
                     .ml-subscribe-close {
                       width: 30px;
@@ -1328,7 +1335,7 @@
 
                             <div class="ml-form-embedSubmit">
 
-                              <button type="submit" class="primary glow" style="margin-top: 5px;">Analizar fugas <img src="imgs/money.svg" class="emoji" alt="💸"></button>
+                              <button type="submit" class="primary btn glow" style="margin-top: 5px;">Analizar fugas <img src="imgs/money.svg" class="emoji" alt="💸"></button>
 
                               <button disabled="disabled" style="display: none;" type="button" class="loading">
                                 <div class="ml-form-embedSubmitLoad"></div>

@@ -1,94 +1,116 @@
-html{
-  scroll-behavior: smooth;
-  font-size: 18px;
+:root{
   font-family: "Inter", "Segoe UI Emoji", sans-serif;
-  font-weight: 400;
-  hyphens: auto;
 
-  /* PALETA */
+  /* PALETA */ 
+  --azul: #00E5FF;
+  --rosa: #FF4FDD;
 
-  /*
-  color: #00E5FF;
-  color: #FF4FDD;
+  --amarillo: #FFE066;
+  --rojo: #F40600;
+  --verde: #BAFF29;
 
-  color: #FFE066;
-  color: #F40600;
-  color: #BAFF29;
-  */
+  --negro: #151515;
+  --gris: #252422;
+  --blanco: rgb(251, 252, 255); 
 }
 
+html{
+  font-size: 18px;
+  scroll-behavior: smooth;
+  font-weight: 400;
+  hyphens: auto; 
+}
 
-.btn{ /* enlace estilo botón */
-  text-decoration: none;
-  padding: 1rem 3em;
-  border-radius: 10px;
-  font-size: 1.2rem;
-  font-weight: 300;
+a{
+  color: var(--azul);
+}
+
+a:hover{
+  text-decoration: underline;
+  text-decoration-color: var(--amarillo);
+  transition: all 0.1s ease;
+}
+
+.btn{
+  display: inline-block;
+  padding: .6rem 1rem;
+  border: 1px solid var(--azul);
   color: white;
-  background: #00E5FF;
-  transition: all 0.3s ease; 
-  box-shadow: 2px 2px 4px rgba(0,0,0,0.3),
-    inset 2px 2px 6px rgba(255,255,255,0.3),  /* relieve arriba*/
-    inset -2px -2px 6px rgba(0,0,0,0.4);      /* relieve abajo*/    
+  background: var(--negro);
+  text-decoration: none;
+  font-weight: 300;
+  border-radius: 1.5rem;
+
+  /* Sombra sólida para efecto 3D */
+  box-shadow: 
+    inset 2px 2px 4px rgba(255, 255, 255,.2),
+    inset -2px -2px 6px rgba(30,102,255,.3),
+    0 .2rem 0 0 var(--azul);
+
+  transform: translateY(0);
+  margin: 1em auto;
+
+  /* Transiciones sutiles */
+  transition: transform .06s ease, box-shadow .06s ease, background-color .15s ease;
 }
 
 .btn:hover{
-  transform: translateY(-2px);
-  text-decoration-thickness: .15em;
-  text-underline-offset: 0.25em;
-  font-weight: 500;
+  background-color: rgba(30,102,255,.15);
+  text-decoration: none;
+}
+
+.btn:active{
+  background-color: rgba(30,102,255,.15);
+  transform: translateY(.2rem);
+  box-shadow: 0 0 0 0 var(--azul);
 }
 
 
 .glow{
-  text-align: center;
-  text-decoration: none;
-  font-family: "Inter", "Segoe UI Emoji", sans-serif;
-  color: #fff;
+  color: var(--azul);
   font-size: 1.3rem;
-  font-weight: 300;
+  font-weight: 500;
+  text-align: center;
   margin: 1rem auto;
   padding: 1rem 3em; /*el primero es arriba y abajo*/
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  letter-spacing: 0.05em;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  /* background: linear-gradient(270deg, #FF4FDD, #b202f8, #FF4FDD);*/
-  background: linear-gradient(90deg, #00E5FF, #4F86C6);
+  letter-spacing: 1px;
   box-shadow: 
-    inset 2px 2px 6px rgba(255,255,255,0.3),  /* relieve arriba*/
-    inset -2px -2px 6px rgba(0,0,0,0.4);      /* relieve abajo*/
-    /*0 6px 18px rgba(0,0,0,0.5);                sombra exterior*/  
-  animation: glow 2s ease-in-out infinite alternate;
+    inset 2px 2px 4px rgba(255, 255, 255,.4),
+    inset -2px -2px 6px rgba(30,102,255,.6),
+    0 .4rem 0 0 var(--azul);
+
+  animation: glow 1s ease-in-out infinite alternate;
 }
 
 @keyframes glow{
   from{
-    filter: drop-shadow(0 0 6px rgba(0, 229, 255,0.5));
+    filter: drop-shadow(0 0 6px rgba(0, 229, 255,0.7));
   }
   to{
-    filter: drop-shadow(0 0 6px rgba(0, 229, 255,1));
+    filter: drop-shadow(0 0 7px rgba(0, 229, 255,1));
   }
 }
 
 .glow:hover{
-  transform: translateY(-4px);
-  font-weight: 500;
-  text-decoration-thickness: .15em;
-  text-underline-offset: 0.25em;
+  text-decoration: none;
+}
+
+.glow:active{
+  background-color: rgba(30,102,255,.15);
+  transform: translateY(.5rem);
+  box-shadow: 0 0 0 0 var(--azul);
 }
 
 
 body{
-  color: #252422;
+  color: var(--gris);
   margin: 0;
   padding: 0;
-  background-color: rgb(251, 252, 255);
+  background-color: var(--blanco);
 }
 
 .banner{
-  background-color: #151515;
+  background-color: var(--negro);
   width: 100%;
   margin-top: 0;
 
@@ -133,7 +155,7 @@ body{
 
 .links a:hover{
   text-decoration: underline;
-  text-decoration-color: #FFE066;
+  text-decoration-color: var(--amarillo);
   text-decoration-thickness: .15em;
   text-underline-offset: 0.25em;
   transition: all 0.1s ease;
@@ -230,7 +252,7 @@ h1{
   font-size: 4rem;
   line-height: 1;
   font-weight: 500;
-  color: #151515;
+  color: var(--negro);
   margin-bottom: 1em;  
   padding: 2rem;
   text-align: center;
@@ -240,14 +262,14 @@ h1{
   font-size: 3.3rem;
   line-height: 1;
   font-weight: 500;
-  color: #FFE066;
+  color: var(--amarillo);
   text-align: center;
   margin-bottom: 1rem;
 }
 
 
 /* h2{
-  color: #00E5FF;
+  color: var(--azul);
   font-weight: 400;
   font-size: clamp(1rem, 1.2vw, 3rem);
   line-height: 1.5;
@@ -267,7 +289,7 @@ p{
 
 .flecha{
   font-family: "Sedgwick Ave Display", cursive;
-  color: #00E5FF;
+  color: var(--azul);
   font-size: 7rem;
   margin: 0;
   margin-top: 8rem;
@@ -303,7 +325,7 @@ ul{
 }
 
 li{
-  color: #252422;
+  color: var(--gris);
   padding: 0;
   font-size: clamp(1.2rem, 1.3vw, 1.5rem);
   margin-bottom: 3rem;
@@ -312,7 +334,7 @@ li{
 }
 
 li::marker{
-  color:#00E5FF;
+  color:var(--azul);
 }
 
 u{
@@ -321,17 +343,6 @@ u{
   text-decoration-thickness: 0.15em;
   text-decoration-skip-ink: none;
 }
-
-a{
-  color: #00E5FF;
-}
-
-a:hover{
-  text-decoration: underline;
-  text-decoration-color: #FFE066;
-  transition: all 0.1s ease;
-}
-
 
 .callout{
   /* hacerlo más ancho que el padre */
@@ -345,9 +356,9 @@ a:hover{
   padding: 0 1em;
   margin-bottom: 5rem;
 
-  border: 3px solid #FFE066;
+  border: 3px solid var(--amarillo);
   border-radius: 10px;
-  box-shadow: 0 0 20px #FFE066;
+  box-shadow: 0 0 20px var(--amarillo);
   padding: 2rem;
 }
 
@@ -358,8 +369,8 @@ a:hover{
 
 
 ::selection{
-  background-color: #FFE066;
-  color: #252422;
+  background-color: var(--amarillo);
+  color: var(--gris);
 }
 
 .emoji{
@@ -412,7 +423,7 @@ audio::-webkit-media-controls-panel{
   margin-top: 1rem;
   font-size: 1rem;
   line-height: 1.2;
-  color: #FF4FDD;
+  color: var(--rosa);
   font-weight: 300;
   hyphens: none;
 }
@@ -425,7 +436,7 @@ audio::-webkit-media-controls-panel{
 }
 
 .active{
-  color: #FFE066 !important;
+  color: var(--amarillo) !important;
   text-decoration: underline !important;
   text-underline-offset: 0.25em !important;
   font-weight: 400 !important;
@@ -538,14 +549,6 @@ audio::-webkit-media-controls-panel{
     margin-bottom: 2rem;
   }
 
-  .btn{
-    font-size: 1.2rem;
-    margin: 1rem auto; /*el primero es arriba y abajo*/
-    margin-bottom: 0;
-    padding: 1rem 0;
-    width: 80vw;
-  }
-
  .menu{
     position: fixed; top:0; width:100%;
     background:none; backdrop-filter:none;
@@ -560,7 +563,7 @@ audio::-webkit-media-controls-panel{
     font-size: 1.2rem;
     padding: .5em .7em;
 
-    color:#fff; cursor:pointer;
+    color:white; cursor:pointer;
     background: rgba(21,21,21,.45);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
