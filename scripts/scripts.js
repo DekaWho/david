@@ -7,8 +7,9 @@ function insertForm(targetId) {
   document.getElementById(targetId).appendChild(template.cloneNode(true));
 }
 
-insertForm('formPC');
-insertForm('formMobile');
+// Hay que ejecutarlo desde el archivo que se quiera insertar:
+//insertForm('formPC');
+//insertForm('formMobile');
 
 
 // scroll del CTA de la hero section (con iluminacion del menú)

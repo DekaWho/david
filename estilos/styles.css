@@ -33,7 +33,7 @@ a:hover{
 
 .btn{
   display: inline-block;
-  padding: .6rem 1rem;
+  padding: .4rem 1rem;
   border: 1px solid var(--azul);
   color: white;
   background: var(--negro);
@@ -401,15 +401,17 @@ audio::-webkit-media-controls-panel{
 .features{
   display: grid;
   grid-template-columns: repeat(3, minmax(100px, 1fr));
-  gap: 5rem;
-  justify-items: center;   /* centra cada celda */
+  gap: 0;
+
+  justify-items: center;
   align-items: start;
   margin: 1rem auto;
 }
 
 .feature{
   text-align: center;
-  max-width: 200px;
+  align-items: center;
+  max-width: 300px;
 }
 
 .feature img{
@@ -418,8 +420,8 @@ audio::-webkit-media-controls-panel{
   margin: 0 auto;
 }
 
-.feature-title{    
-  margin: 0;
+.feature-title{   
+  margin: 0 auto;
   margin-top: 1rem;
   font-size: 1rem;
   line-height: 1.2;
@@ -597,11 +599,12 @@ audio::-webkit-media-controls-panel{
   }
 
   .glow{
-    font-size: 1.1rem;
+    font-size: 1.2rem;
+    font-weight: 400;
     margin: 1rem auto; /*el primero es arriba y abajo*/
-    padding: .8rem 0;
-    width: 70vw;
-    margin-top: 0;
+    padding: .8rem 0 !important;
+    width: 80vw;
+    margin-top: 1rem;
   }
 
   .forjador{
@@ -609,18 +612,17 @@ audio::-webkit-media-controls-panel{
   }
 
   .features{
-    gap: 0;
     padding: 0 2px;
     justify-items: center;
     margin: 1rem 0;
   }
 
   .feature-title{
-    font-size: 0.8rem;
+    font-size: .7rem;
   }
 
   .feature img{
-    width: 65px;
+    width: 70px;
   }
 
   .banner video{
