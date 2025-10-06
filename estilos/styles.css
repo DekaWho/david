@@ -654,5 +654,9 @@ audio::-webkit-media-controls-panel{
     margin: 4rem auto;
   }
 
+  #ganchos p{
+    font-size: clamp(1rem, 1.1vw, 1.4rem);
+  }
+
 }
 
