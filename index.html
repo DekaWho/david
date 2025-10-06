@@ -1013,32 +1013,63 @@
                     }
 
                     #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button {
+                      --amarillo: #FFE066; /*(255,224,102)*/
+
+                      /*class btn*/
+                      display: inline-block;
+                      border: 1px solid #424242;
+                      color: #424242 !important;
+                      background: var(--amarillo);
+                      text-decoration: none;
+                      border-radius: 1.5rem;
+                      cursor: pointer;
+
+                      /* class glow*/
+                      color: var(--amarillo);
+                      font-size: 1.3rem;
                       text-align: center;
+                      margin: 1rem auto;
+                      padding: 1rem 3em;
+                      letter-spacing: 1px;
+                      
+                      font-weight: 500 !important;
+
+                      box-shadow: 
+                        inset 1px 1px 2px rgb(255, 240, 185),
+                        inset -2px -2px 2px rgb(173, 136, 0),
+                        0 .4rem 0 0 #424242;
+                        
+                      animation: glowA 1s ease-in-out infinite alternate;
+                                              
+                      /*Botón classic*/
+
+                      /*text-align: center;
                       text-decoration: none;
                       font-family: "Inter", "Segoe UI Emoji", sans-serif;
                       color: white;
                       font-size: 1.3rem;
                       font-weight: 500;
                       margin: 1rem auto;
-                      padding: 1rem 3em; /*el primero es arriba y abajo*/
+                      padding: 1rem 3em;
                       border: none;
                       border-radius: 1rem;
                       cursor: pointer;
                       letter-spacing: 0.05em;
                       min-width: 20vw;
                       transition: transform 0.2s ease, box-shadow 0.2s ease;
-                      /* background: linear-gradient(270deg, #FF4FDD, #b202f8, #FF4FDD);*/
                       background: linear-gradient(90deg, #00E5FF, #4F86C6);
                       background: linear-gradient(0deg, #E2C044, #FFE066);
                       box-shadow: 
-                        inset 2px 2px 6px rgba(255,255,255,0.3),  /* relieve arriba*/
-                        inset -2px -2px 6px rgba(0,0,0,0.4);              /* brillo exterior*/  
+                        inset 2px 2px 6px rgba(255,255,255,0.3),  /* relieve arriba* /
+                        inset -2px -2px 6px rgba(0,0,0,0.4);              /* brillo exterior* /  
                         animation: glowA 1s ease-in-out infinite alternate;
                       }
+                                            */
+                    }
 
-                      @keyframes glowA{
+                    @keyframes glowA{
                         from{
-                          filter: drop-shadow(0 0 8px rgba(255,224,102,0.8));
+                          filter: drop-shadow(0 0 8px rgba(255,224,102,.8));
                         }
                         to{
                           filter: drop-shadow(0 0 16px rgba(255,224,102,1));
@@ -1049,10 +1080,13 @@
                       display: none;
                     }
 
-                    /* #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover {
-                transform: translateY(-2px);
-                background-position: 100% 0;
-                    } */
+                    #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover {
+                      transform: translateY(.5rem);
+                      box-shadow: 
+                        inset 1px 1px 2px rgb(255, 240, 185),
+                        inset -2px -2px 2px rgb(238, 188, 6),
+                        0 0 0 0 rgb(238, 188, 6);
+                    }
 
                     .ml-subscribe-close {
                       width: 30px;
@@ -1358,7 +1392,8 @@
 
                             <div class="ml-form-embedSubmit">
 
-                              <button type="submit" class="primary btn glow" style="margin-top: 5px;"><img src="imgs/copy.svg" class="emoji"> Copiar la fórmula</button>
+                              
+                              <button type="submit" class="primary" style="margin-top: 5px;"><img src="imgs/copy.svg" class="emoji"> Copiar la fórmula</button><!--#mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button-->
 
                               <button disabled="disabled" style="display: none;" type="button" class="loading">
                                 <div class="ml-form-embedSubmitLoad"></div>

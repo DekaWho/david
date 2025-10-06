@@ -57,12 +57,11 @@ a:hover{
 .btn:hover{
   background-color: rgba(30,102,255,.15);
   text-decoration: none;
-}
-
-.btn:active{
-  background-color: rgba(30,102,255,.15);
   transform: translateY(.2rem);
-  box-shadow: 0 0 0 0 var(--azul);
+  box-shadow: 
+    inset 2px 2px 4px rgba(255, 255, 255,.2),
+    inset -2px -2px 6px rgba(30,102,255,.3),
+    0 0 0 0 var(--azul);
 }
 
 
@@ -93,14 +92,13 @@ a:hover{
 
 .glow:hover{
   text-decoration: none;
-}
-
-.glow:active{
   background-color: rgba(30,102,255,.15);
-  transform: translateY(.5rem);
-  box-shadow: 0 0 0 0 var(--azul);
+  transform: translateY(.4rem);
+  box-shadow: 
+    inset 2px 2px 4px rgba(255, 255, 255,.4),
+    inset -2px -2px 6px rgba(30,102,255,.6),
+    0 0 0 0 var(--azul);
 }
-
 
 body{
   color: var(--gris);
