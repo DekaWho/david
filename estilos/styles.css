@@ -528,7 +528,8 @@ audio::-webkit-media-controls-panel{
     font-weight: 400;
   } */ 
 
-  p{
+  p{    
+    font-size: clamp(1rem, 1.1vw, 1.4rem);
     margin-bottom: 3rem;
   }
 
@@ -652,10 +653,6 @@ audio::-webkit-media-controls-panel{
 
   #ganchos{
     margin: 4rem auto;
-  }
-
-  #ganchos p{
-    font-size: clamp(1rem, 1.1vw, 1.4rem);
   }
 
 }
