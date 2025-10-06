@@ -1018,7 +1018,7 @@
                       /*class btn*/
                       display: inline-block;
                       border: 1px solid #424242;
-                      color: #424242 !important;
+                      color: black !important;
                       background: var(--amarillo);
                       text-decoration: none;
                       border-radius: 1.5rem;
@@ -1393,7 +1393,7 @@
                             <div class="ml-form-embedSubmit">
 
                               
-                              <button type="submit" class="primary" style="margin-top: 5px;"><img src="imgs/copy.svg" class="emoji"> Copiar la fórmula</button><!--#mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button-->
+                              <button id="ringBtn" type="submit" class="primary" style="margin-top: 5px;"><img src="imgs/copy.svg" class="emoji"> Copiar la fórmula</button><!--#mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button-->
 
                               <button disabled="disabled" style="display: none;" type="button" class="loading">
                                 <div class="ml-form-embedSubmitLoad"></div>
@@ -1446,7 +1446,29 @@
 
   </div> <!--cuerpo-->
 
+<style>
+.fx{ overflow:hidden; }
+.ring{
+  position:absolute; width:10px; height:10px; border-radius:50%;
+  border:2px solid white;
+  transform: translate(-50%,-50%) scale(0);
+  animation: ring 1s ease-out forwards;
+}
+@keyframes ring{
+  to{ transform: translate(-50%,-50%) scale(18); opacity:0; }
+}
+</style>
 
+<script>
+document.getElementById('ringBtn').addEventListener('pointerdown', e=>{
+  const el = e.currentTarget, r = el.getBoundingClientRect();
+  const x = e.clientX - r.left, y = e.clientY - r.top;
+  const ring = document.createElement('span');
+  ring.className='ring'; ring.style.left = x+'px'; ring.style.top = y+'px';
+  el.appendChild(ring);
+  ring.addEventListener('animationend', ()=> ring.remove());
+});
+</script>
 
 
 </body>
