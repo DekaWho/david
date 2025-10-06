@@ -1,9 +1,5 @@
-html{
-  scroll-behavior: smooth;
-  font-size: 18px;
+:root{
   font-family: "Inter", "Segoe UI Emoji", sans-serif;
-  font-weight: 400;
-  hyphens: auto;
 
   /* PALETA */ 
   --azul: #00E5FF;
@@ -15,7 +11,14 @@ html{
 
   --negro: #151515;
   --gris: #252422;
-  --blanco: rgb(251, 252, 255);
+  --blanco: rgb(251, 252, 255); 
+}
+
+html{
+  font-size: 18px;
+  scroll-behavior: smooth;
+  font-weight: 400;
+  hyphens: auto; 
 }
 
 
@@ -275,7 +278,7 @@ p{
 
 .banner .flecha{
   font-family: "Sedgwick Ave Display", cursive;
-  color: var(--azul);
+  color: var(--gris);
   font-size: 5rem;
   margin: 0;
   padding: 0;

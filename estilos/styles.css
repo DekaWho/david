@@ -238,7 +238,7 @@ h1{
   font-family: 'Lilita One', sans-serif;
   text-transform: uppercase;
   font-size: clamp(2.2rem, 2.5vw, 4rem);
-  margin-top: 1rem;
+  margin-top: .5rem;
   margin-bottom: 1.5rem;
   line-height: 1.2;
   color: white;
@@ -259,12 +259,12 @@ h1{
 }
 
 .titulo-trabajar{
-  font-size: 3.3rem;
+  font-size: 4rem;
   line-height: 1;
   font-weight: 500;
   color: var(--amarillo);
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 
@@ -289,10 +289,9 @@ p{
 
 .flecha{
   font-family: "Sedgwick Ave Display", cursive;
-  color: var(--azul);
+  color: var(--gris);
   font-size: 7rem;
   margin: 0;
-  margin-top: 8rem;
   padding: 0;
   text-align: center;
 }
@@ -351,10 +350,9 @@ u{
   transform: translateX(-50%);
   width: 38vw;
 
-  margin: 1rem auto;
+  margin: 0 auto;
   /* centrado horizontal */
   padding: 0 1em;
-  margin-bottom: 5rem;
 
   border: 3px solid var(--amarillo);
   border-radius: 10px;
@@ -365,7 +363,6 @@ u{
 .callout p{
   margin-bottom: 3rem;
 }
-
 
 
 ::selection{
@@ -444,6 +441,10 @@ audio::-webkit-media-controls-panel{
   font-weight: 400 !important;
 }
 
+#ganchos{
+  margin: 8rem auto;
+}
+
 @media (max-width: 900px){
   .banner{
     padding: 1rem 0;
@@ -488,7 +489,7 @@ audio::-webkit-media-controls-panel{
   }
 
   .titulo-trabajar{
-    font-size: 2rem;
+    font-size: 2.5rem;
     padding: 0;
   }
 
@@ -646,6 +647,14 @@ audio::-webkit-media-controls-panel{
 
   #reviews{
     scroll-margin-top: 5rem;
+  }
+
+  .flecha{
+    font-size: 5rem;
+  }
+
+  #ganchos{
+    margin: 4rem auto;
   }
 
 }
