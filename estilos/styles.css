@@ -112,8 +112,7 @@ body{
   width: 100%;
   margin-top: 0;
 
-  padding-top: 3rem;
-  padding-bottom: 2.5rem;
+  padding: 2rem 0;
 
   position: relative;
   overflow: hidden;
