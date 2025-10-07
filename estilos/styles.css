@@ -168,7 +168,7 @@ body{
 }
 
 [id]{
-  scroll-margin-top: 5rem; /* que el menú deje un poco de aire cuando te lleva a algún lado */
+  scroll-margin-top: 10rem; /* que el menú deje un poco de aire cuando te lleva a algún lado */
 }
 
 .hero{
@@ -262,6 +262,7 @@ h1{
   color: var(--amarillo);
   text-align: center;
   margin-bottom: 0;
+
 }
 
 
@@ -303,15 +304,6 @@ strong{
 
 del{
   text-decoration: line-through;
-}
-
-h2{/* tiene el mismo estilo que ul porque en móvil no podía ser el ul por el botón */
-  width: 82%; 
-  padding: 0;
-  font-size: clamp(1.1rem, 1.1vw, 2rem);
-  line-height: 1.2;
-  color: #FF4FDD;
-  margin: 0 auto;  
 }
 
 ul{
@@ -486,21 +478,8 @@ audio::-webkit-media-controls-panel{
   }
 
   .titulo-trabajar{
-    font-size: 2.5rem;
     padding: 0;
-  }
-
-  h2{ /* tiene el mismo estilo porque en móvil no podía ser el ul por el botón */
-    
-    width: 99%;        /* ocupa todo el ancho */
-    box-sizing: border-box;
-    margin: 0;
-    font-size: 1.2rem;
-    line-height: 1.1;
-    text-align: left;
-    
-    padding: 0 1rem;
-    font-weight: 400;
+    font-size: 2.1rem;
   }
 
   ul{
@@ -508,25 +487,15 @@ audio::-webkit-media-controls-panel{
     padding-left: 1.8rem;
     box-sizing: border-box;
     margin: 0;
-    font-size: 1rem;
     line-height: 1.5;
   }
 
   li{
-    font-size: 1.2rem;
+    font-size: clamp(1.2rem, 1.3vw, 1.5rem);
     margin: 0;
     margin-bottom: 1.5rem;
     line-height: 1.5;
   }
-
-/*   h2{
-    padding: 0;
-    margin: 0;
-    padding-left: 0.25rem;
-    padding-right: 0.25rem;
-    font-size: 1.2rem;
-    font-weight: 400;
-  } */ 
 
   p{    
     font-size: clamp(1rem, 1.1vw, 1.4rem);
