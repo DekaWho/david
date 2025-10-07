@@ -609,7 +609,7 @@ audio::-webkit-media-controls-panel{
   }
 
   [id]{
-    scroll-margin-top: .5rem; /* que el menú deje un poco de aire cuando te lleva a algún lado */
+    scroll-margin-top: 1.5rem; /* que el menú deje un poco de aire cuando te lleva a algún lado */
   }
 
   #reviews{
