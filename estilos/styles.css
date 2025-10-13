@@ -391,7 +391,7 @@ audio::-webkit-media-controls-panel{
 
   justify-items: center;
   align-items: start;
-  margin: 1rem auto;
+  margin: 4rem auto;
 }
 
 .feature{
@@ -434,7 +434,7 @@ audio::-webkit-media-controls-panel{
   margin: 8rem auto;
 }
 
-@media (max-width: 900px){
+@media (max-width: 800px){
   .banner{
     padding: 1rem 0;
   }
@@ -582,16 +582,17 @@ audio::-webkit-media-controls-panel{
   .features{
     padding: 0 2px;
     justify-items: center;
-    margin: 1rem 0;
+    grid-template-columns: 1fr;
     gap: 2rem;
   }
 
   .feature-title{
-    font-size: .7rem;
+    font-size: .8rem;
   }
 
   .feature img{
-    width: 70px;
+    width: 30vw;
+    max-width: 120px;
   }
 
   .banner video{
