@@ -386,8 +386,8 @@ audio::-webkit-media-controls-panel{
 
 .features{
   display: grid;
-  grid-template-columns: repeat(3, minmax(100px, 1fr));
-  gap: 0;
+  grid-template-columns: repeat(2, minmax(100px, 1fr));
+  gap: 10rem;
 
   justify-items: center;
   align-items: start;
@@ -583,6 +583,7 @@ audio::-webkit-media-controls-panel{
     padding: 0 2px;
     justify-items: center;
     margin: 1rem 0;
+    gap: 2rem;
   }
 
   .feature-title{
