@@ -112,7 +112,7 @@ body{
   width: 100%;
   margin-top: 0;
 
-  padding: 2rem 0;
+  padding: 3rem 0;
 
   position: relative;
   overflow: hidden;
@@ -234,13 +234,25 @@ body{
 h1{
   font-family: 'Lilita One', sans-serif;
   text-transform: uppercase;
-  font-size: clamp(2.2rem, 2.5vw, 4rem);
+  font-size: clamp(3rem, 2.5vw, 5rem);
   margin-top: .5rem;
   margin-bottom: 1.5rem;
   line-height: 1.2;
   color: white;
   font-weight: 500;
   text-align: center;
+  hyphens: none;
+}
+
+h2{
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1;
+  font-weight: bolder;
+  color: var(--negro);
+  margin-bottom: 1em;  
+  padding: 2rem 0;
+  text-align: center;
+  letter-spacing: -3px;
   hyphens: none;
 }
 
@@ -253,42 +265,43 @@ h1{
   margin-bottom: 1em;  
   padding: 2rem 0;
   text-align: center;
-  box-shadow: 0 0 5px var(--verde);
-  background-color: rgba(186,255,41,.2);
-  border: #BAFF29 3px solid; border-right: none; border-left: none;
 }
 
-.titulo-trabajar{
+.titulo-breaker{
   font-size: 4rem;
   line-height: 1;
   font-weight: 500;
-  color: var(--amarillo);
+  color: var(--negro);
   text-align: center;
-  margin-bottom: 0;
-  padding: .5em 0;
-  border: #FFE066 3px solid; border-right: none; border-left: none;
-  box-shadow: 0 0 10px var(--amarillo);  
-  background-color: white;
+  padding: 2rem 0;
 }
 
-
-/* h2{
-  color: var(--azul);
-  font-weight: 400;
-  font-size: clamp(1rem, 1.2vw, 3rem);
-  line-height: 1.5;
-  text-align: left;
-  padding: 1rem; eliminar el scroll que sale
-  padding-left: 4rem;
-  padding-right: 4rem;
-  margin: 0 auto;
-} */
+.f-verde{
+  box-shadow: 0 0 5px var(--verde);
+  background-color: rgba(186,255,41,.2);
+  border: #BAFF29 3px solid; border-right: none; border-left: none;
+  margin-top: 0;
+  margin-bottom: 2em;
+}
+.f-amarillo{
+  box-shadow: 0 0 10px var(--amarillo);  
+  background-color: rgba(255,224,102,.25);
+  border: #FFE066 3px solid; border-right: none; border-left: none;
+  margin-top: 3rem;
+  margin-bottom: 0;
+}
 
 p{
   margin: 1rem 2px;
   font-size: clamp(1.2rem, 1.3vw, 1.5rem);
   line-height: 1.5;
   margin-bottom: 5rem;
+}
+
+.cita{
+  padding-left: .4em;
+  border-left: .2em solid var(--rosa);
+  background-color: rgba(255,79,221,.1);
 }
 
 .flecha{
@@ -353,6 +366,7 @@ u{
   border-radius: 10px;
   box-shadow: 0 0 5px var(--amarillo);
   padding: 2rem;
+  margin-top: 0;
 }
 
 .callout p{
@@ -403,7 +417,7 @@ audio::-webkit-media-controls-panel{
 .feature{
   text-align: center;
   align-items: center;
-  max-width: 300px;
+  max-width: 370px;
 }
 
 .feature img{
@@ -472,17 +486,12 @@ audio::-webkit-media-controls-panel{
 
   h1{
     padding: 0 2px;
-
-    font-size: clamp(1.5rem, 1.8vw, 3rem);
     margin: 0;
     margin-bottom: 0;
+    font-size: clamp(2rem, 2vw, 3.5rem);
   }
 
-  .titulo-reviews{
-    font-size: 2.5rem;
-  }
-
-  .titulo-trabajar{
+  .titulo-breaker{
     font-size: 3rem;
   }
 
@@ -607,6 +616,10 @@ audio::-webkit-media-controls-panel{
     margin: 1rem auto;
   }
 
+  .flecha{
+    font-size: 5rem;
+  }
+
   #menu-toggle{ display:none; }
   #menu-toggle:checked + .burger + .links{ display:flex; }
 
@@ -620,11 +633,7 @@ audio::-webkit-media-controls-panel{
   }
 
   #reviews{
-    scroll-margin-top: 5rem;
-  }
-
-  .flecha{
-    font-size: 5rem;
+    scroll-margin-top: 1rem;
   }
 
   #ganchos{
