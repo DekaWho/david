@@ -256,6 +256,20 @@ h2{
   hyphens: none;
 }
 
+.banner h2{
+  font-size: 1.4rem;
+  line-height: 1;
+  font-weight: bolder;
+  color: var(--azul);
+  padding: 0;
+  margin-top: 4rem;
+  margin-bottom: .8rem;
+  text-align: center;
+  letter-spacing: 0;
+  hyphens: none;
+
+}
+
 
 .titulo-reviews{
   font-size: 4rem;
@@ -407,11 +421,11 @@ audio::-webkit-media-controls-panel{
 .features{
   display: grid;
   grid-template-columns: repeat(2, minmax(100px, 1fr));
-  gap: 10rem;
+  gap: 7rem;
 
   justify-items: center;
   align-items: start;
-  margin: 4rem auto;
+  margin: 3rem auto;
 }
 
 .feature{
