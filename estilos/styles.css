@@ -512,10 +512,15 @@ audio::-webkit-media-controls-panel{
     font-size: clamp(2rem, 2vw, 3.5rem);
   }
 
+  .banner h1{
+    font-size: 2rem;
+    line-height: 1;
+  }
+
   .banner h2{
-    margin-top: .3rem;
+    font-size: .9rem;
+    margin-top: 1.4rem;
     margin-bottom: 1rem;
-    font-size: 1rem;
   }
 
   .titulo-breaker{
