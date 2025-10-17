@@ -346,7 +346,7 @@
             Las 3 claves para hacer que tu historia apasione a la gente (y te compren gracias a ella)
           </p>
 
-          <p style="margin-bottom: 14px">
+          <p>
             Después de haber generado 100M de visitas en youtube te muestro cómo secuestrar <u style="text-decoration-thickness: 0.16em; text-decoration-color: #FF4FDD;">la atención de tu cliente ideal </u>en anuncios, contenido para redes y textos de venta.
           </p>
           
@@ -1032,10 +1032,10 @@
 
                       /* class glow*/
                       color: var(--amarillo);
-                      font-size: 1.3rem;
+                      font-size: 1.1rem;
                       text-align: center;
                       margin: 1rem auto;
-                      padding: 1rem 3em;
+                      padding: 1rem 2em;
                       letter-spacing: 1px;
                       
                       font-weight: 500 !important;
@@ -1094,16 +1094,20 @@
                         0 0 0 0 rgb(238, 188, 6);
                     }
 
-                    @media (max-width: 900px){
+                    @media (max-width: 800px){
                       #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button {
-                        font-size: 1.2rem !important;
-                        font-weight: 400 !important;
-                        padding: .8rem 0 !important;
-                        width: 80vw !important;
+                        font-size: .9rem !important;
+                        font-weight: 500 !important;
+                        padding: .5rem 4px !important;
+                        width: 82vw !important;
                       }
 
                       #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsContent.privacy-policy p {
                         padding: 0 1em;
+                      }
+
+                      #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input{
+                        font-size: .9rem !important;
                       }
                       
                     }
@@ -1356,7 +1360,7 @@
 
 
 
-                                  <!-- input -->
+                                  <!-- input #mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input-->
                                   <input aria-label="email" aria-required="true" type="email" class="form-control" data-inputmask=""
                                     name="fields[email]" placeholder="✉️ tucorreo@email.com" autocomplete="email">
                                   <!-- /input -->
@@ -1390,6 +1394,23 @@
 
                             </div>
 
+
+                            <input type="hidden" name="ml-submit" value="1">
+
+                            <div class="ml-form-embedSubmit">
+
+                              
+                              <button id="ringBtn" type="submit" class="primary" style="margin-top: 5px;">Acceder al archivo privado</button><!--#mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button-->
+
+                              <button disabled="disabled" style="display: none;" type="button" class="loading">
+                                <div class="ml-form-embedSubmitLoad"></div>
+                                <span class="sr-only">🕒 Loading...</span>
+                              </button>
+                            </div>
+
+
+                            <input type="hidden" name="anticsrf" value="true">
+
                             <!-- Privacy policy -->
                             <div class="ml-form-embedPermissions">
                               <div class="ml-form-embedPermissionsContent default privacy-policy" style="margin: 0;">
@@ -1408,21 +1429,6 @@
                             <!-- /Privacy policy -->
 
 
-                            <input type="hidden" name="ml-submit" value="1">
-
-                            <div class="ml-form-embedSubmit">
-
-                              
-                              <button id="ringBtn" type="submit" class="primary" style="margin-top: 5px;">Acceder al archivo privado</button><!--#mlb2-27786331.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button-->
-
-                              <button disabled="disabled" style="display: none;" type="button" class="loading">
-                                <div class="ml-form-embedSubmitLoad"></div>
-                                <span class="sr-only">🕒 Loading...</span>
-                              </button>
-                            </div>
-
-
-                            <input type="hidden" name="anticsrf" value="true">
                           </form>
                         </div>
 
