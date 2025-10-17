@@ -513,12 +513,12 @@ audio::-webkit-media-controls-panel{
   }
 
   .banner h1{
-    font-size: 2rem;
+    font-size: 1.9rem;
     line-height: 1;
   }
 
   .banner h2{
-    font-size: .9rem;
+    font-size: 1.1rem;
     margin-top: 1.4rem;
     margin-bottom: 1rem;
   }
@@ -613,7 +613,7 @@ audio::-webkit-media-controls-panel{
   }
 
   .glow{
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 400;
     margin: 1rem auto; /*el primero es arriba y abajo*/
     padding: .8rem 0 !important;
@@ -644,7 +644,7 @@ audio::-webkit-media-controls-panel{
   }
 
   .banner video{
-    width:50vw;
+    width:45vw;
     height:auto;
     border-radius:20px;
     margin: 1rem auto;
