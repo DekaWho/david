@@ -464,7 +464,7 @@ audio::-webkit-media-controls-panel{
   font-weight: 400 !important;
 }
 
-#ganchos{
+#servicios{
   margin: 8rem auto;
 }
 
@@ -503,6 +503,12 @@ audio::-webkit-media-controls-panel{
     margin: 0;
     margin-bottom: 0;
     font-size: clamp(2rem, 2vw, 3.5rem);
+  }
+
+  .banner h2{
+    margin-top: .3rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
   }
 
   .titulo-breaker{
@@ -616,11 +622,13 @@ audio::-webkit-media-controls-panel{
 
   .feature-title{
     font-size: .9rem;
+    padding: 0 .5rem;
   }
 
   .feature img{
-    width: 30vw;
-    max-width: 120px;
+    width: 25vw;
+    min-width: 50px;
+    max-width: 110px;
   }
 
   .banner video{
@@ -650,7 +658,7 @@ audio::-webkit-media-controls-panel{
     scroll-margin-top: 1rem;
   }
 
-  #ganchos{
+  #servicios{
     margin: 4rem auto;
   }
 
