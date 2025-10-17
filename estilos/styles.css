@@ -256,20 +256,6 @@ h2{
   hyphens: none;
 }
 
-.banner h2{
-  font-size: 1.4rem;
-  line-height: 1;
-  font-weight: bolder;
-  color: var(--azul);
-  padding: 0;
-  margin-top: 4rem;
-  margin-bottom: .8rem;
-  text-align: center;
-  letter-spacing: 0;
-  hyphens: none;
-
-}
-
 
 .titulo-reviews{
   font-size: 4rem;
@@ -421,11 +407,11 @@ audio::-webkit-media-controls-panel{
 .features{
   display: grid;
   grid-template-columns: repeat(2, minmax(100px, 1fr));
-  gap: 7rem;
+  gap: 10rem;
 
   justify-items: center;
   align-items: start;
-  margin: 3rem auto;
+  margin: 4rem auto;
 }
 
 .feature{
@@ -464,7 +450,7 @@ audio::-webkit-media-controls-panel{
   font-weight: 400 !important;
 }
 
-#servicios{
+#ganchos{
   margin: 8rem auto;
 }
 
@@ -503,12 +489,6 @@ audio::-webkit-media-controls-panel{
     margin: 0;
     margin-bottom: 0;
     font-size: clamp(2rem, 2vw, 3.5rem);
-  }
-
-  .banner h2{
-    margin-top: .3rem;
-    margin-bottom: 1rem;
-    font-size: 1rem;
   }
 
   .titulo-breaker{
@@ -622,13 +602,11 @@ audio::-webkit-media-controls-panel{
 
   .feature-title{
     font-size: .9rem;
-    padding: 0 .5rem;
   }
 
   .feature img{
-    width: 25vw;
-    min-width: 50px;
-    max-width: 110px;
+    width: 30vw;
+    max-width: 120px;
   }
 
   .banner video{
@@ -658,7 +636,7 @@ audio::-webkit-media-controls-panel{
     scroll-margin-top: 1rem;
   }
 
-  #servicios{
+  #ganchos{
     margin: 4rem auto;
   }
 
