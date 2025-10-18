@@ -114,7 +114,7 @@ body{
 
   padding: 0;
   padding-bottom: 2rem;
-  padding-top: 3rem;
+  padding-top: 2rem;
 
   position: relative;
   overflow: hidden;
@@ -135,7 +135,6 @@ body{
   -webkit-backdrop-filter: blur(5px);      /* compatibilidad Safari */
   
   border-bottom-right-radius: 40px;
-
 }
 
 .links{
@@ -157,7 +156,6 @@ body{
   text-decoration-color: var(--amarillo);
   text-decoration-thickness: .15em;
   text-underline-offset: 0.25em;
-  transition: all 0.1s ease;
 }
 
 /* Ocultar checkbox */
@@ -246,7 +244,7 @@ h1{
   hyphens: none;
 }
 
-h2{
+h2{ /* el Suficiente */
   font-size: clamp(2rem, 4vw, 3.5rem);
   line-height: 1.2;
   font-weight: bolder;
@@ -432,7 +430,7 @@ audio::-webkit-media-controls-panel{
 
   justify-items: center;
   align-items: start;
-  margin: 4rem auto;
+  margin: 3rem auto;
 }
 
 .feature{
