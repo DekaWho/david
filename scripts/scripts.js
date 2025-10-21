@@ -5,6 +5,7 @@
 function insertForm(targetId) {
   const template = document.getElementById('lite-form').content;
   document.getElementById(targetId).appendChild(template.cloneNode(true));
+  console.log(targetId + "creado");
 }
 
 // Hay que ejecutarlo desde el archivo que se quiera insertar:
