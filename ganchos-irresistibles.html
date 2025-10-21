@@ -31,7 +31,8 @@
 
     .banner h1{
       color: #252422;
-      margin-bottom: 1em;
+      font-size: 3.2rem;
+      margin-bottom: .5em;
     }
 
     .banner h2{
@@ -50,20 +51,37 @@
         font-weight: 500;
         hyphens: none;
     }
+    .hero-image{  
+      flex: 1;
+    }
+
+    .hero-text{
+      flex: 1.5;
+    }
+
+    img{
+      max-width: 500px;
+    }
 
     @media (max-width: 800px){
       .banner{        
       box-shadow: inset 0 0 2px #FF4FDD, inset 0 0 10px #FF4FDD;
       }
 
+      .banner h1{        
+        font-size: 1.9rem;
+      }
+
       .banner h2{
         padding: 0 8px;
+        font-size: .9rem;
       }
 
       .banner p{
         padding: 0 8px;
         text-align: left;
         hyphens: auto;
+        font-size: 1rem;
       }
     }
 
@@ -78,7 +96,7 @@
 
       <div class="hero-image">
 
-        <img src="imgs/dk.webp">
+        <img src="imgs/dk-pesca.webp">
 
       </div>
 
@@ -115,9 +133,7 @@
           Cómo secuestrar la atención de quien importa (tu cliente ideal)
         </h1>
 
-        <p>          
-          Después de haber generado 100M de visitas en youtube <span style="color:#00E5FF">➜&nbsp;Cópiame las 3 claves</span> para crear ganchos que atraen como un imán a tu público ideal (en anuncios, redes sociales o tu propia web). Tienes las 3 al instante en tu email. Gratis.
-        </p>
+        <img src="imgs/dk-pesca.webp" style="max-width: 50%; margin: .5rem auto;">
 
         <div style="max-width: 90%; display: flex; margin: 0 auto;">
           <div id="formMobile"></div>
@@ -125,11 +141,9 @@
         
       </div> <!-- Hero text -->
 
-      <div class="hero-image">
-
-        <img src="imgs/dk.webp" style="max-width: 50%">
-
-      </div>
+       <p>          
+          Después de haber generado 100M de visitas en youtube <span style="color:#00E5FF">➜&nbsp;Cópiame las 3 claves</span> para crear ganchos que atraen como un imán a tu público ideal (en anuncios, redes sociales o tu propia web). Tienes las 3 al instante en tu email. Gratis.
+        </p>
 
     </section>
 
