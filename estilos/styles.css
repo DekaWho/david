@@ -276,16 +276,6 @@ h2{ /* el Suficiente */
 }
 
 
-.titulo-reviews{
-  font-size: 4rem;
-  line-height: 1;
-  font-weight: 500;
-  color: var(--negro);
-  margin-bottom: 1em;  
-  padding: 2rem 0;
-  text-align: center;
-}
-
 .titulo-breaker{
   font-size: clamp(4rem, 3vw, 7rem);
   line-height: 1;
@@ -307,7 +297,7 @@ h2{ /* el Suficiente */
   background-color: rgba(255,224,102,.25);
   border: #FFE066 3px solid; border-right: none; border-left: none;
   margin-top: 3rem;
-  margin-bottom: 0;
+  margin-bottom: 8rem;
 }
 
 p{
@@ -328,6 +318,7 @@ p{
   color: var(--gris);
   font-size: 7rem;
   margin: 0;
+  margin-bottom: 5rem;
   padding: 0;
   text-align: center;
 }
@@ -386,6 +377,7 @@ u{
   box-shadow: 0 0 5px var(--amarillo);
   padding: 2rem;
   margin-top: 0;
+  margin-bottom: 8rem;
 }
 
 .callout p{
@@ -470,7 +462,7 @@ audio::-webkit-media-controls-panel{
 }
 
 #servicios{
-  margin: 8rem auto;
+    scroll-margin-top: 4rem;
 }
 
 @media (max-width: 800px){
@@ -669,7 +661,7 @@ audio::-webkit-media-controls-panel{
   }
 
   #servicios{
-    margin: 4rem auto;
+    scroll-margin-top: 1.5rem;
   }
 
 }
