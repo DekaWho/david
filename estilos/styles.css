@@ -189,6 +189,8 @@ body{
   padding: .5rem 0;
   flex-direction: column;
   min-width: 220px;
+  max-width: none;
+  white-space: nowrap;
   z-index: 1000; 
 }
 
