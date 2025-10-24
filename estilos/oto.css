@@ -1,22 +1,24 @@
-    body {
-      font-family: "IBM Plex Sans", sans-serif;
+    :root{
+      font-family: "Inter", "Segoe UI Emoji", sans-serif;
+    }
+
+    html{
       font-size: 16px;
+      scroll-behavior: smooth;
+      hyphens: auto; 
+    }
+    
+    
+    body {
       background-color: #151515;
       color: white;
-
-      max-width: 50vw;
-      /*Centrar el contenido */
-      margin: 1rem auto;
-      padding: 0 1rem;
-
-      margin-top: 3vw;
-      align-items: center;
     }
 
 
     h1 {
-      font-family: "Staatliches", sans-serif;
-      font-size: clamp(4rem, 5vw, 8rem);
+      font-family: 'Lilita One', sans-serif;
+      text-transform: uppercase;
+      font-size: clamp(3rem, 4vw, 6rem);
       text-align: center;
       font-weight: 500;
 
@@ -25,6 +27,8 @@
 
       margin-top: 1em;
       margin-bottom: 0;
+
+      hyphens: none; 
     }
 
     h2 {
@@ -41,7 +45,7 @@
     p{
       margin: 1em 0;
       margin-top: clamp(3rem, 3vw, 6rem);
-      font-size: clamp(1.5rem, 1.3vw, 2rem);
+      font-size: clamp(1rem, 1.3vw, 2rem);
       line-height: 1.5;
     }
 
@@ -58,6 +62,14 @@
       margin-top: -2rem;
     }
 
+    .cuerpo{
+      max-width: 36vw;
+      /*Centrar el contenido */
+      margin: 1rem auto;
+      padding: 0 1rem;
+      margin-bottom: 0;
+    }
+
     ::selection {
       background-color: #A2FAA3;
     }
@@ -67,8 +79,11 @@
       vertical-align: text-bottom;
     }
 
-    @media (max-width: 600px) {
-      body {
-        max-width: 90vw;
+    @media (max-width: 800px) {
+      .cuerpo{
+        max-width: 99vw; /* importante que sea max-width y no solo max para que no se generen los callouts mal en móvil */
+        margin: 0 auto;
+        padding: 0 5px;
+        margin-top: 1rem;
       }
     }
