@@ -455,6 +455,29 @@ audio::-webkit-media-controls-panel{
   object-fit: cover;  /* recorta sin deformar */
 }
 
+.classified {
+  
+  font-weight: 700;
+  font-size: 1.3rem;
+  padding: 0.7rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.5rem; /* igual altura aproximada del audio player */
+
+
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
+  color: var(--rojo);
+  border: 2px solid  var(--rojo);
+  border-radius: 4px;
+  transform: rotate(2deg);
+  background-color: #FFF8DE;
+  
+  box-shadow: 0 0 2px var(--rojo);
+}
+
 .features{
   display: grid;
   grid-template-columns: repeat(2, minmax(100px, 1fr));
