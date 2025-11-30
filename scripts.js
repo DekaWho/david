@@ -85,10 +85,6 @@ async function startTypewriter() {
   const p7 = document.querySelector(".p7");
   const p8 = document.querySelector(".p8");
   
-  
-
-  document.getElementById("form").style.display = "block"; //mostrar el form
-
   await typeWriter(t1, "[no_publicar]", 150);
   await typeWriter(p1, "¿Alguna vez has escuchado a alguien y pensado \"Menuda barbaridad acaba de soltar\"? Tú lo ves obvio, le han comido la cabeza. Repite el discurso de otra persona. Pobre...", 70);
   await typeWriter(p2, "¿Y si él piensa lo mismo de ti? ¿Y si los dos tenéis razón? No en lo que pensáis, sino en cómo llegasteis a pensarlo. \"Una mentira repetida mil veces se convierte en verdad\" ¿Te suena?", 60);
