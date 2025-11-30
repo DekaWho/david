@@ -4,392 +4,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>David Varea 🤝</title>
+  <title>__</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lilita+One&family=Sedgwick+Ave+Display&display=swap" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="estilos/styles.css">
 
   <link rel="icon" type="image/png" sizes="32x32" href="imgs/favicon32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="imgs/favicon48.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="imgs/favicon32.png">
 
-  <meta property="og:title" content="David Varea">
-  <meta property="og:description" content="Escribo textos (y guiones) que NO venden: hacen que quieran comprarte">
-  <meta property="og:image" content="https://davidvarea.com/imgs/banner.webp">
-  <meta property="og:url" content="https://davidvarea.com">
+  <meta property="og:title" content="[classified]">
+  <meta property="og:description" content="Lo que vas a leer aquí es [top_secret], hablo de...">
+  <meta property="og:url" content="https://dekawho.com">
   <meta property="og:type" content="website"> 
 
-  <script src="scripts/scripts.js" defer></script> <!--defer para que cargue primero el DOM del HTML y ejecute el JS al final-->
+  <script src="scripts.js" defer></script> <!--defer para que cargue primero el DOM del HTML y ejecute el JS al final-->
 </head>
 
-<body>
-  <nav class="menu">
-    <input type="checkbox" id="menu-toggle">
-    <label for="menu-toggle" class="burger">&#8801;</label>
-
-    <div class="links">
-
-      <a href="#reviews">[ qué opinan de mí ]</a>
-      <a href="#servicios">[ cómo trabajar juntos ]</a>
-
-<!--       <div class="dropdown">
-        <a style="pointer-events: none; cursor: pointer;">GRATIS &#9662;</a>
-        <div class="dropdown-content">
-          <a href="/ganchos-irresistibles" target="_blank">[ ganchos para pescar a tu cliente ideal ]</a>
-          <a href="/relato-inevitable" target="_blank">[ el relato para que vender sea inevitable ]</a>
-        </div>
-      </div> -->
-    </div>
-
-    
-  </nav>
-
-  <div class="banner">
-    <!-- Este solo se ve en PC -->
-    <section class="hero">
-
-      <div class="hero-image">
-
-        <video id="presentacion" 
-              controls
-              controlslist="nodownload noplaybackrate"
-              playsinline
-              poster="imgs/miniatura.webp">
-          <source src="imgs/presentacion.webm" type="video/webm">
-          Tu navegador no soporta el video.
-        </video>
-
-      </div>
-
-      <div class="hero-text">
-        <h2>
-          David Varea <img class="emoji" src="imgs/handshake.svg" alt="🤝">
-        </h2>
-
-        <h1>
-          Escribo textos (y guiones) que <u style="text-decoration-thickness: .08em; text-underline-offset: .1em; text-decoration-color: #00E5FF;">NO venden:</u> hacen que quieran comprarte
-        </h1>
-
-        <div style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
-          
-          <div class="features">
-
-            <div class="feature">
-              <img src="imgs/ticket.svg">
-              <p class="feature-title">
-                Textos de venta que reflejan credibilidad, autoridad y generan deseo de compra sin arriesgar tu reputación
-              </p>
-            </div>
-            
-            <div class="feature">
-              <img src="imgs/recurrencia.svg">
-              <p class="feature-title">
-                Campañas de email que crean expectación para vender incluso antes de que el producto esté disponible
-              </p>              
-            </div>         
-            
-          </div>    
-           
-        </div>
-
-        <a href="#servicios" class="btn glow">
-          Cómo trabajar juntos
-        </a>
-        
-      </div> <!-- Hero text -->
-
-    </section>
-
-    <!-- Este solo se ve en móvil y tiene DISTINTOS ESTILOS AL DE PC. Y un enlace extra-->
-    <section class="heroM">
-
-      <div class="hero-text">
-        <h2>
-          David Varea <img class="emoji" src="imgs/handshake.svg" alt="🤝">
-        </h2>
-
-        <h1>
-          Escribo textos (y guiones) que <u style="text-decoration-thickness: .08em; text-underline-offset: .1em; text-decoration-color: #00E5FF;">NO venden:</u> hacen que quieran comprarte
-        </h1>
-
-        <video id="presentacion" 
-              controls
-              controlslist="nodownload noplaybackrate" 
-              playsinline
-              poster="imgs/miniaM.webp">
-          <source src="imgs/presentacion.webm" type="video/webm">
-          Tu navegador no soporta el video.
-        </video>       
-           
-
-          <a href="#servicios" class="btn glow">
-            Cómo trabajar juntos
-          </a>         
-        
-      </div>
-
-      <div class="hero-image">
-
-        <div style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
-          
-          <div class="features">
-
-            <div class="feature">
-              <img src="imgs/ticket.svg">
-              <p class="feature-title">
-                Textos de venta que reflejan credibilidad, autoridad y generan deseo de compra sin arriesgar tu reputación
-              </p>
-            </div>
-            
-            <div class="feature">
-              <img src="imgs/recurrencia.svg">
-              <p class="feature-title">
-                Campañas de email que crean expectación para vender incluso antes de que el producto esté disponible
-              </p>              
-            </div>    
-
-        </div>
-
-        <a href="#reviews" class="btn">
-            Qué opinan de mí
-        </a>
-          
-      </div>
-
-    </section>
-
-  </div> <!--banner-->
+<body> 
 
   <div class="cuerpo">
+
+    <h1 class="t1"></h1>
     
-      <p style="margin-bottom: 0;">
-        <span style="background-color: #FFE066;">¿Copywriting, </span>escritura persuasiva? Esa es solo una de todas mis habilidades (además prefiero el término inglés <em>wordsmith</em> <span style="color: #FF4FDD; font-weight: 500;">➜&nbsp;Forjador de frases)</span>
-      </p>
+    <p class="p1"></p>
+    <p class="p2"></p>
+    <p class="p3"></p>
+    <p class="p4"></p>
+    <p class="p5"></p>
+    <p class="p6"></p>
+    <p class="p7"></p>
+    <p class="p8"></p>
 
+    <span id="cursor" class="cursor"></span>
+    
+    <div id="form"></div>
+
+    <div style="margin-bottom: 15rem;"></div>
       
-      <img class="forjador" src="imgs/wordsmithMovil.webp">
-      <p>
-        Aparte de escribir genero el deseo de compra <u style="text-decoration-color: #00E5FF;">en tu cliente ideal </u>y planifico lanzamientos online, pero frena un momento... En marketing hay muchas palabrejas ¡Y encima significan cosas distintas para distintas personas! <img class="emoji" src="imgs/eyeroll.svg" alt="🙄">
-      </p>
+  </div><!--cuerpo-->
 
-      <p class="cita">
-        <strong>
-          <img class="emoji" src="imgs/dedo-arriba.svg" alt="☝️"><img class="emoji" src="imgs/nerd.svg" alt="🤓"> Muchos entienden los lanzamientos como súper producciones por todo lo alto (estilo americano) Pero los lanzamientos también funcionan por todo lo bajo ➜ «Ya es primavera en el Corte Inglés»
-        </strong>
-      </p>
-
-      <p>
-        Dicho esto así es como puedo ayudarte:
-      </p>
-
-      <ul>
-
-        <li>
-          <strong>
-           Vende sin poner en juego tu reputación.<br><br>No necesitas enseñar cochazos, ni capturas de Stripe, ni una factura toda pixelada donde pone 10.000€, ni decir «Aprovecha ahora o te pierdes esta oportunidad». Te ayudo a vender con honestidad, transparencia y mostrando tu personalidad.
-          </strong>
-        </li>
-
-        <li>
-            Puedo generar picos de ventas fuera del lanzamiento (sin necesidad de descuentos ni productos nuevos) aplicando la táctica más barata pero la más efectiva que existe.
-        </li>
-
-        <li>
-          <strong>
-            Puedo evitar que tu cliente desaparezca después de su primera compra y hacer que siga comprando gracias a un sistema en piloto automático.
-          </strong>
-        </li>
-
-        <li>
-            Las tiendas online (eCommerce) pueden tener decenas de lanzamientos automáticos (y personalizados para cada cliente) pero aún así la mayoría decide enviar solo un email-plantilla con el asunto "finaliza tu compra" cuando alguien abandona el carrito...
-        </li>
-
-        <br><br>
-        <video
-            src="imgs/face.webm"            
-            muted
-            autoplay
-            loop
-            playsinline
-            webkit-playsinline
-            style="display: block; margin: 0 auto; border-radius:20px; box-shadow: 8px -8px 0 rgba(255, 79, 221, 0.7);"
-        ></video>
-
-      </ul>
-
-      <div class="callout" style="border-color: #00E5FF; box-shadow: none; margin: 8rem auto;">
-
-        <p>
-          <strong>
-            En 2019 empecé trabajando con youtubers (y generé en total más de 100Millones de reproducciones orgánicas en vídeos horizontales) <span style="color:rgba(255, 79, 221, 0.8);">➜</span>&nbsp;Saber cómo <span style="background-color: rgba(255, 79, 221, 0.4);">mantener la atención de</span> alguien en internet sigue siendo una de mis habilidades más útiles para generar ventas.
-          </strong>
-        </p>
-
-        <p style="margin-bottom: .5rem;">
-          La buena noticia es que trabajo con negocios aunque no sean influencers. Si ya tienes clientes y quieres <u>aumentar la facturación sin depender del azar: </u>Hay distintos tipos de lanzamientos (campañas, embudos, llámalo-como-quieras) para distintos tamaños de proyectos. ¿Cuál quieres?
-        </p>
-
-      </div>
-
-    </div> <!--cuerpo-->
-
-        <h1 class="titulo-breaker f-verde" id="reviews">
-            Esto piensan de mi trabajo
-        </h1>
-
-    <div class="cuerpo">
-      
-      <section> <!--reviews-->
-        <div class="player-container">
-          <img class="avatar" src="reviews/rioboo.webp">
-
-          <audio controls controlslist="nodownload noplaybackrate">
-            <source src="reviews/rioboo.mp3" type="audio/mpeg">
-            Tu navegador no soporta audio HTML5.
-          </audio>
-        </div>
-
-        <p>
-          Él es Rioboo (cofundador de CORI, tienda online de café) Aunque no sigas el mundo influencers igual te suena por haberlo visto con Ibai.
-        </p>
-
-
-
-        <div class="player-container">
-           <div class="classified">
-            CLASSIFIED REVIEW
-          </div>
-        </div>
-
-        <p>
-          He escrito en el sector financiero pero hay NDAs que me impiden enseñarte proyectos y KPIs. Sí puedo decirte que he trabajado listas con 60.000 emails y he escrito codo con codo con asesores financieros.
-        </p>
-
-        <p>
-          <strong>
-            Antes de seguir mostrándote <span style="background-color: #FFE066;">las infinitas opiniones</span> sobre mí ➜&nbsp;Me llamo David pero en internet me conocen como Deka (soy dekawho en redes) Seguimos:
-          </strong>
-        </p>
-
-        <div class="player-container">
-          <img class="avatar" src="reviews/chuso.jpg">
-
-          <audio controls controlslist="nodownload noplaybackrate">
-            <source src="reviews/chuso.mp3" type="audio/mpeg">
-            Tu navegador no soporta audio HTML5.
-          </audio>
-        </div>
-
-        <p>
-          Este es Chuso Montero. Abrimos su canal desde 0 y lo llevamos hasta 109.500 seguidores potenciando su personalidad. Aquí tienes la buena percepción que tiene su audiencia de nosotros: 
-        </p>
-
-        <a href="reviews/chuso01.webp" target="_blank">
-          <img src="reviews/chuso01.webp" width="100%">
-        </a>
-        <br>
-
-        <a href="reviews/chuso02.webp" target="_blank">
-          <img src="reviews/chuso02.webp" width="100%">
-        </a>
-        <br>
-
-        <a href="reviews/chuso03.webp" target="_blank">
-          <img src="reviews/chuso03.webp" width="100%">
-        </a>      
-
-        <div class="player-container" style="margin-top: 6rem;">
-          <img class="avatar" src="reviews/lou.jpg">
-
-          <audio controls controlslist="nodownload noplaybackrate">
-            <source src="reviews/lou.mp3" type="audio/mpeg">
-            Tu navegador no soporta audio HTML5.
-          </audio>
-        </div>
-
-        <img src="reviews/lou.webp" width="100%">
-
-        <p>
-          Es Loulogio. Igual te suena su nombre. Fue uno de los primeros españoles en viralizarse con el nacimiento de Youtube. Millones de visitas cuando tener solo mil ya era un logro. Hizo vídeos míticos como «La Batamanta». En esa época no trabajábamos juntos pero años después sí lo hicimos.
-        </p>
-
-        <img src="reviews/padre.webp" width="100%">
-
-        <p>
-          Esta es la review más importante, la de mis padres.
-        </p>
-
-        <iframe width="100%" src="https://www.youtube-nocookie.com/embed/G4j2lOfzXJE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-        <p>
-          Outconsumer: otro de los padres de Youtube en español. Es alguien muy respetado por la comunidad gamer y por otros creadores de renombre.
-        </p>
-
-        <h2>
-          Suficiente...
-        </h2>
-        
-        <p>
-          Podría abrumarte si sigo con más reseñas positivas. Vamos al lío.
-        </p>
-
-        <p class="flecha">
-          ↓
-        </p>
-
-      </section>
-</div><!--cuerpo-->
-
-      <h1 class="titulo-breaker f-amarillo">
-            Cómo trabajar juntos
-      </h1>
-
-    <div class="cuerpo">
-
-    <section id="servicios">   
-        <div class="callout" style="margin-top: 0;" id="servicios">
-          <p style="margin: 0;">
-            Tengo la agenda llena hasta enero. Si eso no te supone un problema puedo estudiar tu caso.
-          </p>
-
-          <!-- form -->
-          <iframe data-tally-src="https://tally.so/embed/wz6vZ8?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="387" frameborder="0" marginheight="0" marginwidth="0" title="Formulario de contacto"></iframe>
-          <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-
-        </div> <!-- callout -->
-
-    </section>   
-
-
-    <p class="flecha">↑</p>
-
-  </div> <!--cuerpo-->
-
-<style>
-.fx{ overflow:hidden; }
-.ring{
-  position:absolute; width:10px; height:10px; border-radius:50%;
-  border:2px solid white;
-  transform: translate(-50%,-50%) scale(0);
-  animation: ring 1s ease-out forwards;
-}
-@keyframes ring{
-  to{ transform: translate(-50%,-50%) scale(18); opacity:0; }
-}
-</style>
-
-<script>
-document.getElementById('ringBtn').addEventListener('pointerdown', e=>{
-  const el = e.currentTarget, r = el.getBoundingClientRect();
-  const x = e.clientX - r.left, y = e.clientY - r.top;
-  const ring = document.createElement('span');
-  ring.className='ring'; ring.style.left = x+'px'; ring.style.top = y+'px';
-  el.appendChild(ring);
-  ring.addEventListener('animationend', ()=> ring.remove());
-});
-</script>
 
 
 </body>
