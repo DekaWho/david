@@ -566,7 +566,7 @@ audio::-webkit-media-controls-panel{
   }
 
   .banner h1{
-    font-size: 1.9rem;
+    font-size: 1.8rem;
     line-height: 1.2;
   }
 
@@ -709,7 +709,7 @@ audio::-webkit-media-controls-panel{
 
   .feature-title{
     font-size: .9rem;
-    padding: 0 .5rem;
+    padding: 0 2rem;
   }
 
   .feature img{
