@@ -273,7 +273,6 @@ body{
 
 h1{
   font-family: 'Lilita One', sans-serif;
-  text-transform: uppercase;
   font-size: 2.8rem;
   margin: 0 auto;
   margin-bottom: .8em;
@@ -285,14 +284,13 @@ h1{
 }
 
 h2{ /* el Suficiente */
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
   line-height: 1.2;
   font-weight: bolder;
   color: var(--negro);
   margin-bottom: 3rem;
   padding: 0;
   text-align: center;
-  letter-spacing: -3px;
   hyphens: none;
 }
 
@@ -326,15 +324,13 @@ h2{ /* el Suficiente */
 }
 
 .f-verde{
-  box-shadow: 0 0 5px var(--verde);
-  background-color: rgba(186,255,41,.2);
-  border: #BAFF29 3px solid; border-right: none; border-left: none;
-  margin-top: 0;
+  text-shadow: 5px 5px var(--verde);
+  color: var(--gris);
+  margin-top: 1em;
   margin-bottom: 2em;
 }
 .f-amarillo{
-  box-shadow: 0 0 10px var(--amarillo);  
-  background-color: rgba(255,224,102,.25);
+  background-color: rgba(255,224,102,1);
   border: #FFE066 3px solid; border-right: none; border-left: none;
   margin-top: 3rem;
   margin-bottom: 8rem;
@@ -414,9 +410,8 @@ u{
   /* centrado horizontal */
   padding: 0 1em;
 
-  border: 3px var(--amarillo) solid;
+  border: 4px var(--azul) dashed;
   border-radius: 10px;
-  box-shadow: 0 0 5px var(--amarillo);
   padding: 2rem;
   margin-top: 0;
   margin-bottom: 8rem;
@@ -718,8 +713,8 @@ audio::-webkit-media-controls-panel{
   }
 
   .feature img{
-    width: 25vw;
-    min-width: 50px;
+    width: 20vw;
+    min-width: 80px;
     max-width: 110px;
   }
 
