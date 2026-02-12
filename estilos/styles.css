@@ -344,11 +344,11 @@ p{
 }
 
 .cita{
-  padding: .4em;
+  padding: .6em;
   padding-right: 0;
   border-left: .2em solid var(--rosa);
-  background-color: rgba(255,79,221,.1);
-  margin-bottom: 2em;
+  background-color: rgba(255,79,221,.05);
+  margin-bottom: 4rem;
 }
 
 .flecha{
@@ -462,6 +462,7 @@ audio::-webkit-media-controls-panel{
   align-items: center;
   justify-content: center;
   height: 1.5rem;
+  margin-top: 5rem;
 
 
   text-transform: uppercase;
