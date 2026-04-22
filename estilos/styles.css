@@ -1,7 +1,23 @@
+/* =====================================================
+   davidvarea.com — estilos principales (home + privacidad)
+   Secciones:
+   1. Variables + reset
+   2. Tipografía base y texto
+   3. Botones (.btn, .glow)
+   4. Menú / navegación
+   5. Banner + hero (PC y móvil)
+   6. Cuerpo, títulos-breaker, listas
+   7. Componentes (callout, player, avatar, classified, features, flecha)
+   8. Responsive (<=800px)
+   ===================================================== */
+
+
+/* ---------- 1. Variables + reset ---------- */
+
 :root{
   font-family: "Inter", "Segoe UI Emoji", sans-serif;
 
-  /* PALETA */ 
+  /* PALETA */
   --azul: #00E5FF;
   --rosa: #FF4FDD;
 
@@ -11,14 +27,73 @@
 
   --negro: #151515;
   --gris: #252422;
-  --blanco: rgb(251, 252, 255); 
+  --blanco: rgb(251, 252, 255);
 }
 
 html{
   font-size: 18px;
   scroll-behavior: smooth;
   font-weight: 400;
-  hyphens: auto; 
+  hyphens: auto;
+}
+
+body{
+  color: var(--gris);
+  margin: 0;
+  padding: 0;
+  background-color: var(--blanco);
+}
+
+/* deja aire al hacer scroll a anclas (menú fijo no tapa el título destino) */
+[id]{
+  scroll-margin-top: 4rem;
+}
+
+::selection{
+  background-color: var(--amarillo);
+  color: var(--gris);
+}
+
+
+/* ---------- 2. Tipografía base y texto ---------- */
+
+h1{
+  font-family: 'Lilita One', sans-serif;
+  font-size: 2.8rem;
+  margin: 0 auto .8em;
+  line-height: 1.1;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  hyphens: none;
+}
+
+h2{ /* el "Suficiente" */
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  line-height: 1.2;
+  font-weight: bolder;
+  color: var(--negro);
+  margin-bottom: 3rem;
+  padding: 0;
+  text-align: center;
+  hyphens: none;
+}
+
+p{
+  margin: 1rem 2px 5rem;
+  font-size: clamp(1.2rem, 1.3vw, 1.5rem);
+  line-height: 1.5;
+}
+
+em{ font-style: italic; }
+strong{ font-weight: 600; }
+del{ text-decoration: line-through; }
+
+u{
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 0.15em;
+  text-decoration-skip-ink: none;
 }
 
 a{
@@ -31,6 +106,31 @@ a:hover{
   transition: all 0.1s ease;
 }
 
+ul{
+  padding: 0;
+  width: 90%;
+  margin: 0 auto;
+}
+
+li{
+  color: var(--gris);
+  padding: 0;
+  font-size: clamp(1.2rem, 1.3vw, 1.5rem);
+  margin-bottom: 3rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+li::marker{ color: var(--azul); }
+
+.emoji{
+  width: 1.3em;
+  vertical-align: bottom;
+}
+
+
+/* ---------- 3. Botones ---------- */
+
 .btn{
   display: inline-block;
   padding: .4rem 1rem;
@@ -41,29 +141,27 @@ a:hover{
   font-weight: 300;
   border-radius: 1.5rem;
 
-  /* Sombra sólida para efecto 3D */
-  box-shadow: 
-    inset 2px 2px 4px rgba(255, 255, 255,.2),
-    inset -2px -2px 6px rgba(30,102,255,.3),
+  /* sombra sólida para efecto 3D */
+  box-shadow:
+    inset 2px 2px 4px rgba(255, 255, 255, .2),
+    inset -2px -2px 6px rgba(30, 102, 255, .3),
     0 .2rem 0 0 var(--azul);
 
   transform: translateY(0);
   margin: 1em auto;
 
-  /* Transiciones sutiles */
   transition: transform .06s ease, box-shadow .06s ease, background-color .15s ease;
 }
 
 .btn:hover{
-  background-color: rgba(30,102,255,.15);
+  background-color: rgba(30, 102, 255, .15);
   text-decoration: none;
   transform: translateY(.2rem);
-  box-shadow: 
-    inset 2px 2px 4px rgba(255, 255, 255,.2),
-    inset -2px -2px 6px rgba(30,102,255,.3),
+  box-shadow:
+    inset 2px 2px 4px rgba(255, 255, 255, .2),
+    inset -2px -2px 6px rgba(30, 102, 255, .3),
     0 0 0 0 var(--azul);
 }
-
 
 .glow{
   color: var(--azul);
@@ -71,69 +169,46 @@ a:hover{
   font-weight: 500;
   text-align: center;
   margin: 1rem auto;
-  padding: 1rem 3em; /*el primero es arriba y abajo*/
+  padding: 1rem 3em;
   letter-spacing: 1px;
-  box-shadow: 
-    inset 2px 2px 4px rgba(255, 255, 255,.4),
-    inset -2px -2px 6px rgba(30,102,255,.6),
+  box-shadow:
+    inset 2px 2px 4px rgba(255, 255, 255, .4),
+    inset -2px -2px 6px rgba(30, 102, 255, .6),
     0 .4rem 0 0 var(--azul);
 
   animation: glow 1s ease-in-out infinite alternate;
 }
 
-@keyframes glow{
-  from{
-    filter: drop-shadow(0 0 6px rgba(0, 229, 255,0.7));
-  }
-  to{
-    filter: drop-shadow(0 0 7px rgba(0, 229, 255,1));
-  }
-}
-
 .glow:hover{
   text-decoration: none;
-  background-color: rgba(30,102,255,.15);
+  background-color: rgba(30, 102, 255, .15);
   transform: translateY(.4rem);
-  box-shadow: 
-    inset 2px 2px 4px rgba(255, 255, 255,.4),
-    inset -2px -2px 6px rgba(30,102,255,.6),
+  box-shadow:
+    inset 2px 2px 4px rgba(255, 255, 255, .4),
+    inset -2px -2px 6px rgba(30, 102, 255, .6),
     0 0 0 0 var(--azul);
 }
 
-body{
-  color: var(--gris);
-  margin: 0;
-  padding: 0;
-  background-color: var(--blanco);
+@keyframes glow{
+  from{ filter: drop-shadow(0 0 6px rgba(0, 229, 255, .7)); }
+  to  { filter: drop-shadow(0 0 7px rgba(0, 229, 255, 1)); }
 }
 
-.banner{
-  background-color: var(--negro);
-  width: 100%;
-  margin-top: 0;
 
-  padding: 0;
-  padding-bottom: 6rem;
-  padding-top: 3rem;
-
-  position: relative;
-  overflow: hidden;
-}
+/* ---------- 4. Menú / navegación ---------- */
 
 .menu{
   position: fixed;
   top: 0;
   right: 0;
   width: 100%;
-
   padding: 1em;
   z-index: 1000;
-  display: flex-end;
 
-  background: rgb(21, 21, 21, 0.4);
-  backdrop-filter: blur(5px);              /* desenfoque del fondo */
-  -webkit-backdrop-filter: blur(5px);      /* compatibilidad Safari */
-  
+  background: rgba(21, 21, 21, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+
   border-bottom-right-radius: 40px;
 }
 
@@ -155,149 +230,36 @@ body{
   text-decoration: underline;
   text-decoration-color: var(--amarillo);
   text-decoration-thickness: .15em;
-  text-underline-offset: 0.25em;
+  text-underline-offset: .25em;
 }
 
-/* Ocultar checkbox */
-#menu-toggle{
-  display: none;
+.active{
+  color: var(--amarillo) !important;
+  text-decoration: underline !important;
+  text-underline-offset: 0.25em !important;
+  font-weight: 400 !important;
 }
 
-.burger{
-  display: none;
-}
+/* hamburguesa — oculta en desktop, visible en móvil */
+#menu-toggle{ display: none; }
+.burger{ display: none; }
 
 
-.dropdown {
-  position: relative;
-}
+/* ---------- 5. Banner + hero ---------- */
 
-
-.dropdown-content {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 1s ease, visibility 0s linear 1s; /* delay para ocultar */
-
-  position: absolute;
-  top: 42px;
-  right: -34px;
-  background: rgb(21, 21, 21, 0.4);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border-radius: 20px;
-  border-top-left-radius: 40px;
-  padding: .5rem 0;
-  flex-direction: column;
-  min-width: 220px;
-  max-width: none;
-  white-space: nowrap;
-  z-index: 1000; 
-}
-
-.dropdown-content a {
-  display: block;
-  padding: .5rem 1rem;
-  text-align: right;
-}
-
-.dropdown:hover .dropdown-content {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.1s ease, visibility 0s linear 0s;
-}
-
-
-[id]{
-  scroll-margin-top: 10rem; /* que el menú deje un poco de aire cuando te lleva a algún lado */
-}
-
-.hero{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Centra verticalmente */
-  gap: 1rem;
-  /* Espacio entre columnas */
-
-  max-width: 78vw;
-  margin: 1rem auto;
-
-  flex-wrap: wrap;
-  overflow-x: hidden;
-}
-
-.heroM{
-  display: none;
-}
-
-.hero-image{  
-  /* parte más pequeña */
-  flex: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;     /* centra vertical en el eje cruzado */
-  justify-content: center; /* centra horizontal en el eje principal */
-}
-
-
-.hero-text{
-  flex: 4;
-  /* parte más grande */
-
-  display: flex;
-  flex-direction:column;
-  gap: 0;
-
+.banner{
+  background-color: var(--negro);
   width: 100%;
-  
-  box-sizing: border-box;
-  overflow-x: hidden;  
-}
+  margin-top: 0;
+  padding: 3rem 0 6rem;
 
-.forjador{
-  width: 50%;
-  display: block;
-  min-width: 300px;  
-  margin: 2rem auto;
-}
-
-
-.cuerpo{
-  max-width: 36vw;
-  /*Centrar el contenido */
-  margin: 1rem auto;
-  padding: 0 1rem;
-  margin-bottom: 0;
-}
-
-
-h1{
-  font-family: 'Lilita One', sans-serif;
-  font-size: 2.8rem;
-  margin: 0 auto;
-  margin-bottom: .8em;
-  line-height: 1.1;
-  color: white;
-  font-weight: 500;
-  text-align: center;
-  hyphens: none;
-}
-
-h2{ /* el Suficiente */
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
-  line-height: 1.2;
-  font-weight: bolder;
-  color: var(--negro);
-  margin-bottom: 3rem;
-  padding: 0;
-  text-align: center;
-  hyphens: none;
+  position: relative;
+  overflow: hidden;
 }
 
 .banner h1{
   font-size: 3.2rem;
-  margin: 0 auto;
-  margin-bottom: .8em;
+  margin: 0 auto .8em;
   line-height: 1.1;
   color: white;
 }
@@ -308,11 +270,70 @@ h2{ /* el Suficiente */
   font-weight: bolder;
   color: var(--azul);
   padding: 0;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   letter-spacing: 0;
 }
 
+.banner video{
+  width: 20vw;
+  max-width: 350px;
+  height: auto;
+  border-radius: 20px;
+}
+
+/* hero escritorio */
+.hero{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  max-width: 78vw;
+  margin: 1rem auto;
+
+  flex-wrap: wrap;
+  overflow-x: hidden;
+}
+
+.hero-image{
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-text{
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* hero móvil — se muestra en media query */
+.heroM{
+  display: none;
+}
+
+
+/* ---------- 6. Cuerpo, títulos-breaker ---------- */
+
+.cuerpo{
+  max-width: 36vw;
+  margin: 1rem auto 0;
+  padding: 0 1rem;
+}
+
+.forjador{
+  width: 50%;
+  min-width: 300px;
+  display: block;
+  margin: 2rem auto;
+}
 
 .titulo-breaker{
   font-size: clamp(4rem, 3vw, 7rem);
@@ -329,25 +350,20 @@ h2{ /* el Suficiente */
   margin-top: 1em;
   margin-bottom: 2em;
 }
+
 .f-amarillo{
-  background-color: rgba(255,224,102,1);
-  border: #FFE066 3px solid; border-right: none; border-left: none;
+  background-color: rgba(255, 224, 102, 1);
+  border: 3px solid #FFE066;
+  border-right: none;
+  border-left: none;
   margin-top: 3rem;
   margin-bottom: 8rem;
 }
 
-p{
-  margin: 1rem 2px;
-  font-size: clamp(1.2rem, 1.3vw, 1.5rem);
-  line-height: 1.5;
-  margin-bottom: 5rem;
-}
-
 .cita{
-  padding: .6em;
-  padding-right: 0;
+  padding: .6em 0 .6em .6em;
   border-left: .2em solid var(--rosa);
-  background-color: rgba(255,79,221,.05);
+  background-color: rgba(255, 79, 221, .05);
   margin-bottom: 4rem;
 }
 
@@ -355,83 +371,32 @@ p{
   font-family: "Sedgwick Ave Display", cursive;
   color: var(--gris);
   font-size: 7rem;
-  margin: 0;
-  margin-bottom: 5rem;
+  margin: 0 0 5rem;
   padding: 0;
   text-align: center;
 }
 
-em{
-  font-style: italic;
-}
 
-strong{
-  font-weight: 600;
-}
-
-del{
-  text-decoration: line-through;
-}
-
-ul{
-  padding: 0;  
-  width: 90%; 
-  margin: 0 auto;
-}
-
-li{
-  color: var(--gris);
-  padding: 0;
-  font-size: clamp(1.2rem, 1.3vw, 1.5rem);
-  margin-bottom: 3rem;
-  line-height: 1.5;
-  font-weight: 400;
-}
-
-li::marker{
-  color:var(--azul);
-}
-
-u{
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-  text-decoration-thickness: 0.15em;
-  text-decoration-skip-ink: none;
-}
+/* ---------- 7. Componentes ---------- */
 
 .callout{
-  /* hacerlo más ancho que el padre */
   position: relative;
   left: 50%;
   transform: translateX(-50%);
   width: 38vw;
 
-  margin: 0 auto;
-  /* centrado horizontal */
-  padding: 0 1em;
-
-  border: 4px var(--azul) dashed;
-  border-radius: 10px;
+  margin: 0 auto 8rem;
   padding: 2rem;
-  margin-top: 0;
-  margin-bottom: 8rem;
+
+  border: 4px dashed var(--azul);
+  border-radius: 10px;
 }
 
 .callout p{
   margin-bottom: 3rem;
 }
 
-
-::selection{
-  background-color: var(--amarillo);
-  color: var(--gris);
-}
-
-.emoji{
-  width: 1.3em; 
-  vertical-align:bottom;
-}
-
+/* player de audio (reviews) */
 audio::-webkit-media-controls-panel{
   background-color: rgba(0, 229, 255, 0.1);
 }
@@ -441,18 +406,18 @@ audio::-webkit-media-controls-panel{
   align-items: center;
   justify-content: center;
   gap: 1rem;
-
   margin-bottom: 5rem;
 }
 
 .avatar{
   width: 60px;
   height: 60px;
-  border-radius: 50%; /* círculo */
-  object-fit: cover;  /* recorta sin deformar */
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.classified {
+/* sello CLASSIFIED con máscara de desgaste */
+.classified{
   font-family: "Special Elite", system-ui;
   font-weight: 700;
   font-size: 2rem;
@@ -464,7 +429,6 @@ audio::-webkit-media-controls-panel{
   height: 1.5rem;
   margin-top: 5rem;
 
-
   text-transform: uppercase;
   letter-spacing: 2px;
 
@@ -473,11 +437,11 @@ audio::-webkit-media-controls-panel{
   border-radius: 4px;
   transform: rotate(2deg);
 
-  /* Máscara de desgaste */
   -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.1' numOctaves='4'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 4 -1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.1' numOctaves='4'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 4 -1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+          mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.1' numOctaves='4'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 4 -1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* features en el hero */
 .features{
   display: grid;
   grid-template-columns: repeat(2, minmax(100px, 1fr));
@@ -501,9 +465,8 @@ audio::-webkit-media-controls-panel{
   margin: 0 auto;
 }
 
-.feature-title{   
-  margin: 0 auto;
-  margin-top: 1rem;
+.feature-title{
+  margin: 1rem auto 0;
   font-size: 1rem;
   line-height: 1.2;
   color: var(--rosa);
@@ -511,58 +474,40 @@ audio::-webkit-media-controls-panel{
   hyphens: none;
 }
 
-.banner video{
-  width: 20vw;
-  max-width: 350px;
-  height:auto;
-  border-radius:20px;
-}
-
-.active{
-  color: var(--amarillo) !important;
-  text-decoration: underline !important;
-  text-underline-offset: 0.25em !important;
-  font-weight: 400 !important;
-}
-
 #servicios{
-    scroll-margin-top: 4rem;
+  scroll-margin-top: 4rem;
 }
+
+
+/* ---------- 8. Responsive (<=800px) ---------- */
 
 @media (max-width: 800px){
+
+  /* reset scroll margin anclas */
+  [id]{
+    scroll-margin-top: 1.5rem;
+  }
+
+  /* layout base móvil */
   .banner{
     padding: 1rem 0;
   }
 
   .cuerpo{
-    max-width: 99vw; /* importante que sea max-width y no solo max para que no se generen los callouts mal en móvil */
-    margin: 0 auto;
+    /* importante: max-width (no max) para que los callouts no se rompan */
+    max-width: 99vw;
+    margin: 1rem auto 0;
     padding: 0 5px;
-    margin-top: 1rem;
   }
 
-  .hero{
-    display: none;
-    /* oculto en móviles */
-  }
+  /* hero: swap desktop <-> móvil */
+  .hero{ display: none; }
+  .heroM{ display: block; }
 
-  .heroM{
-    display: block;
-    /* visible en móviles */
-  }
-
-  .pre-titulo{
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    font-size: 0.8rem;
-    text-align: left;
-    padding-left: 0.5rem;
-  }
-
+  /* tipografía móvil */
   h1{
     padding: 0 2px;
     margin: 0;
-    margin-bottom: 0;
     font-size: clamp(2rem, 2vw, 3.5rem);
   }
 
@@ -581,8 +526,13 @@ audio::-webkit-media-controls-panel{
     font-size: 3rem;
   }
 
+  p{
+    font-size: clamp(1rem, 1.1vw, 1.4rem);
+    margin-bottom: 3rem;
+  }
+
   ul{
-    width: 99%;        /* ocupa todo el ancho */
+    width: 99%;
     padding-left: 1.8rem;
     box-sizing: border-box;
     margin: 0;
@@ -591,126 +541,111 @@ audio::-webkit-media-controls-panel{
 
   li{
     font-size: clamp(1rem, 1.1vw, 1.4rem);
-    margin: 0;
-    margin-bottom: 2rem;
+    margin: 0 0 2rem;
     line-height: 1.5;
   }
 
-  p{    
-    font-size: clamp(1rem, 1.1vw, 1.4rem);
-    margin-bottom: 3rem;
-  }
-
+  /* callout a ancho completo */
   .callout{
-    /* hacerlo más ancho que el padre */
     position: relative;
     left: 0;
     transform: translateX(0);
     width: 99%;
-    padding: .3rem;
+    padding: 6px;
 
-    /* Evitar que se desborde */
     box-sizing: border-box;
     overflow-x: hidden;
-    padding: 6px;
   }
 
   .callout p{
     margin-bottom: 2rem;
   }
 
- .menu{
-    position: fixed; top:0; width:100%;
-    background:none; backdrop-filter:none;
-    display:block;
+  /* menú móvil: hamburguesa + panel desplegable */
+  .menu{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: none;
+    backdrop-filter: none;
+    display: block;
   }
 
   .burger{
-    display:block;
+    display: block;
     position: fixed;
     right: 0;
     top: 0;
     font-size: 1.2rem;
     padding: .5em .7em;
 
-    color:white; cursor:pointer;
-    background: rgba(21,21,21,.45);
+    color: white;
+    cursor: pointer;
+    background: rgba(21, 21, 21, .45);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
 
-    border-bottom-left-radius:15px;
-    box-shadow:0 2px 10px rgba(0,0,0,.35);
+    border-bottom-left-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .35);
   }
 
   .links{
-    position:fixed; 
-    width: 100%;        
+    position: fixed;
+    width: 100%;
     top: 3.3rem;
-    display:none;
-    flex-direction:column;
+    display: none;
+    flex-direction: column;
     padding: 1rem;
     gap: 1rem;
     justify-content: center;
     text-align: center;
 
-    background: rgba(21,21,21,.45);
+    background: rgba(21, 21, 21, .45);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    border-bottom-left-radius:20px;
-    border-top-left-radius:20px;
-    box-shadow:0 12px 28px rgba(0,0,0,.25);
+
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .25);
   }
 
   .links a{
-    text-decoration:none;
-    font-size:1rem;
+    text-decoration: none;
+    font-size: 1rem;
   }
 
-  .dropdown-content {
-    position: static;     /* evita posición flotante */
-    opacity: 1 !important;
-    visibility: visible !important;
-    transition: none !important;
-    background: none;     /* opcional, quita fondo si no quieres duplicarlo */
-    backdrop-filter: none;
-    border-radius: 0;
-    padding: 0;
-    flex-direction: column;
-    min-width: auto;
+  /* mostrar panel al marcar el checkbox */
+  #menu-toggle:checked + .burger + .links{
+    display: flex;
   }
 
-  .dropdown-content a {
-    text-align: center;
-  }
-
-  .dropdown:hover .dropdown-content {
-    opacity: 1;
-    visibility: visible;
-  }
-
+  /* botón CTA móvil */
   .glow{
     font-size: 1rem;
     font-weight: 400;
-    margin: 1rem auto; /*el primero es arriba y abajo*/
+    margin: 1rem auto;
     padding: .8rem 0 !important;
     width: 80vw;
-    margin-top: 1rem;
   }
 
+  /* imágenes y media */
   .forjador{
     width: 80%;
   }
 
+  .banner video{
+    width: 45vw;
+    height: auto;
+    border-radius: 20px;
+    margin: 1rem auto;
+  }
+
+  /* features móvil: una columna */
   .features{
     padding: 0 2px;
     justify-items: center;
     grid-template-columns: 1fr;
     gap: 2rem;
-  }
-
-  .feature-title{
-    font-size: .9rem;
-    padding: 0 2rem;
   }
 
   .feature img{
@@ -719,29 +654,12 @@ audio::-webkit-media-controls-panel{
     max-width: 110px;
   }
 
-  .banner video{
-    width:45vw;
-    height:auto;
-    border-radius:20px;
-    margin: 1rem auto;
+  .feature-title{
+    font-size: .9rem;
+    padding: 0 2rem;
   }
 
   .flecha{
     font-size: 5rem;
   }
-
-
-  #menu-toggle{ display:none; }
-  #menu-toggle:checked + .burger + .links{ display:flex; }
-
-  /* Mostrar al marcar */
-  #menu-toggle:checked + .burger + .links{
-    display: flex;
-  }
-
-  [id]{
-    scroll-margin-top: 1.5rem; /* que el menú deje un poco de aire cuando te lleva a algún lado */
-  }
-
 }
-
