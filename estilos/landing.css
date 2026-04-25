@@ -1,0 +1,500 @@
+/* ============================================================
+   Landing — davidvarea.com (index.html)
+   Sistema visual independiente del sistema 1 (/servicios).
+   Brief: "filósofo griego / científico de gabinete con autoridad" —
+   Penguin Classics + cuaderno de campo + Notion personal.
+   Variables con prefijo --landing-* para no contaminar styles.css.
+   ============================================================ */
+
+:root {
+    /* ---- Marca — 5 colores canónicos ---- */
+    --landing-tinta: #292f36; /* Jet Black — texto principal */
+    --landing-azul: #1e5fbf; /* Azul — acento dominante */
+    --landing-blanco: #ffffff; /* White */
+    --landing-rojo: #f40600; /* Rojo — SOLO acentos puntuales, nunca fondos grandes */
+    --landing-amber: #ffe066; /* Amarillo — highlight, badges */
+
+    /* ---- Neutros derivados (azul desaturado para coherencia con la marca) ---- */
+    --landing-tinta-suave: #3a4047; /* texto secundario */
+    --landing-papel: #e8edf0; /* fondo tarjeta hero */
+    --landing-skool-bg: #eaf0f3; /* bloque Skool */
+    --landing-curso-bg: #f1f5f7; /* bloque Curso */
+    --landing-mute: #6e8590; /* mute (caret, count) */
+
+    /* ---- Otros derivados ---- */
+    --landing-postit: #ffe066; /* amarillo — fondo post-it */
+
+    /* ---- Tipografías ----
+       --serif → titulares, nombres (autoridad editorial)
+       --sans  → cuerpo, UI (legibilidad limpia)
+       --craft → detalles tipo "máquina de escribir / etiqueta de archivo" (badges, micro-copys)
+       --hand  → manuscrito post-it (cercanía, anotación)
+    */
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
+    --craft: "Special Elite", "Courier New", monospace;
+    --hand: "Kalam", "Caveat", cursive;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--landing-blanco);
+    font-family: var(--sans);
+    color: var(--landing-tinta);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Marco que limita el ancho en escritorio para mantener la sensación móvil-first */
+.stage {
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 14px 0 40px;
+}
+
+/* ---- Tarjeta hero ---- */
+.hero-card {
+    position: relative;
+    margin: 0 14px 160px;
+    background: var(--landing-papel);
+    border-radius: 26px;
+    padding: 20px 18px 42px;
+    box-shadow: 0 8px 0 var(--landing-azul);
+}
+
+.hero-photo-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.hero-photo {
+    width: 138px;
+    height: 138px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.hero-name {
+    margin-top: 16px;
+    text-align: center;
+    font-family: var(--serif);
+    font-size: 14px;
+    font-style: italic;
+    letter-spacing: 0.02em;
+    color: var(--landing-tinta);
+}
+
+.hero-headline {
+    margin: 10px 4px 0;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    color: var(--landing-tinta);
+    text-align: center;
+}
+
+.hl-marker {
+    background: linear-gradient(
+        180deg,
+        transparent 60%,
+        var(--landing-amber) 60% 92%,
+        transparent 92%
+    );
+    padding: 0 2px;
+}
+
+.hl-squiggle {
+    position: relative;
+    white-space: nowrap;
+}
+
+.hl-squiggle .squiggle-text {
+    position: relative;
+    z-index: 1;
+}
+
+.hl-squiggle .squiggle-svg {
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 10px;
+}
+
+/* ---- Post-it ---- */
+.postit-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    display: flex;
+    justify-content: center;
+    transform: translateY(-10%);
+    pointer-events: none;
+}
+
+.postit-wrap .postit {
+    pointer-events: auto;
+}
+
+.postit {
+    position: relative;
+    width: 280px;
+    background: var(--landing-postit);
+    padding: 14px 16px 16px;
+    transform: rotate(-1.8deg);
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.14),
+        0 1px 2px rgba(0, 0, 0, 0.08);
+    font-family: var(--hand);
+    font-size: 16px;
+    line-height: 1.25;
+    color: var(--landing-tinta);
+}
+
+.postit .tape {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-3deg);
+    width: 46px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.55);
+    border-left: 1px dashed rgba(0, 0, 0, 0.08);
+    border-right: 1px dashed rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.postit .strike {
+    text-decoration: line-through;
+    opacity: 0.55;
+}
+
+.postit .bold {
+    font-weight: 700;
+}
+
+/* ---- Sección "Elige tu camino" ---- */
+.section-heading {
+    margin: 18px 22px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--landing-tinta);
+}
+
+.section-heading .caret {
+    color: var(--landing-mute);
+}
+
+.section-heading .count {
+    margin-left: auto;
+    font-family: var(--craft);
+    font-size: 10px;
+    color: var(--landing-mute);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+}
+
+/* ---- Bloques ---- */
+.blocks {
+    position: relative;
+    margin: 8px 14px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.arrow-doodle {
+    position: absolute;
+    top: -103px;
+    right: 31px;
+    width: 95px;
+    height: 95px;
+    pointer-events: none;
+    z-index: 2;
+    transform: rotate(18deg);
+    transform-origin: center;
+}
+
+.block {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: var(--landing-tinta);
+    transition:
+        transform 120ms ease,
+        box-shadow 120ms ease;
+}
+
+.block:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.07);
+}
+
+.block:active {
+    transform: translateY(0);
+}
+
+.block .handle {
+    font-family: monospace;
+    color: rgba(0, 0, 0, 0.25);
+    cursor: grab;
+    touch-action: none;
+}
+
+.block .handle:active {
+    cursor: grabbing;
+}
+
+.block--ghost {
+    opacity: 0.35;
+}
+
+.block .icon {
+    width: 22px;
+    height: 22px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.block .body {
+    flex: 1;
+}
+
+.block .title {
+    display: block;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--landing-tinta);
+}
+
+.block .subtitle-hand {
+    display: block;
+    font-family: var(--hand);
+    font-size: 13px;
+    color: var(--landing-rojo);
+    margin-top: -1px;
+}
+
+.block .arrow {
+    font-size: 18px;
+    color: var(--landing-tinta);
+    opacity: 0.7;
+}
+
+/* Variantes — nombres semánticos (no por color, así sobreviven a re-skins) */
+.block--primary {
+    background: var(--landing-azul);
+    color: var(--landing-blanco);
+    padding: 14px 12px;
+}
+.block--primary .title {
+    color: var(--landing-blanco);
+}
+.block--primary .subtitle-hand {
+    color: rgba(255, 255, 255, 0.9);
+}
+.block--primary .handle {
+    color: rgba(255, 255, 255, 0.45);
+}
+.block--primary .arrow {
+    color: var(--landing-blanco);
+    opacity: 0.9;
+}
+
+.block--skool {
+    background: var(--landing-skool-bg);
+}
+.block--curso {
+    background: var(--landing-curso-bg);
+}
+
+.block--primary .title {
+    font-size: 16px;
+}
+.block--skool .title,
+.block--curso .title {
+    font-size: 14px;
+}
+
+/* Skool — badge y flecha más sutil */
+.badge-free {
+    background: var(--landing-amber);
+    color: var(--landing-tinta);
+    font-family: var(--craft);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--landing-tinta);
+    transform: rotate(4deg);
+}
+
+.arrow--mute {
+    font-size: 16px;
+    color: var(--landing-tinta);
+    opacity: 0.5;
+    margin-left: 4px;
+}
+
+/* "Mejor que un curso" — tachado decorativo */
+.block--curso .title-stack {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.1;
+    color: var(--landing-tinta);
+}
+
+.block--curso .strike-prefix {
+    position: relative;
+    display: inline-block;
+    margin-right: 4px;
+    font-weight: 400;
+}
+
+.block--curso .strike-prefix .strike-text {
+    position: relative;
+    opacity: 0.4;
+}
+
+.block--curso .strike-prefix .strike-svg {
+    position: absolute;
+    left: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: calc(100% + 4px);
+    height: 10px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* En pantallas pequeñas, deja respirar el card */
+@media (max-width: 380px) {
+    .hero-headline {
+        font-size: 22px;
+    }
+    .postit {
+        width: 252px;
+    }
+}
+
+/* ---- Escritorio ----
+   Mantenemos la sensación móvil-first (columna estrecha centrada) pero
+   ensanchamos el lienzo y escalamos tipografías para que no se vea
+   raquítico. Todas las medidas verticales usan clamp(min, vh, max) para
+   que la landing entera se contraiga cuando el alto del viewport es
+   menor (ej: monitores 2K con Windows scaling 125-150%) y nunca exija
+   scroll. Mínimos pensados para ~680px de viewport efectivo.
+*/
+@media (min-width: 700px) {
+    .stage {
+        max-width: 520px;
+        padding: clamp(8px, 1.6vh, 18px) 0 clamp(20px, 3.6vh, 40px);
+    }
+
+    .hero-card {
+        margin: 0 14px clamp(135px, 19vh, 200px);
+        padding: clamp(14px, 2vh, 22px) 22px clamp(30px, 4.2vh, 46px);
+        border-radius: 28px;
+    }
+
+    .hero-photo {
+        width: clamp(110px, 14vh, 156px);
+        height: clamp(110px, 14vh, 156px);
+    }
+
+    .hero-name {
+        font-size: 15px;
+        margin-top: 18px;
+    }
+
+    .hero-headline {
+        font-size: clamp(22px, 2.6vh, 28px);
+        margin: clamp(8px, 1.1vh, 12px) 6px 0;
+    }
+
+    .postit {
+        width: clamp(260px, 30vh, 320px);
+        padding: clamp(12px, 1.5vh, 16px) clamp(14px, 1.7vh, 18px)
+            clamp(14px, 1.7vh, 18px);
+        font-size: clamp(15px, 1.7vh, 18px);
+        line-height: 1.28;
+    }
+
+    .section-heading {
+        margin: clamp(12px, 2vh, 22px) 22px 0;
+        font-size: 16px;
+    }
+
+    .blocks {
+        margin: clamp(6px, 1vh, 10px) 14px 0;
+        gap: clamp(6px, 1vh, 10px);
+    }
+
+    .arrow-doodle {
+        top: clamp(-130px, -13vh, -88px);
+        right: 32px;
+        width: clamp(85px, 11vh, 110px);
+        height: clamp(85px, 11vh, 110px);
+    }
+
+    .block {
+        padding: clamp(10px, 1.4vh, 14px);
+        gap: 10px;
+    }
+
+    .block .icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .block .title {
+        font-size: 17px;
+    }
+
+    .block .subtitle-hand {
+        font-size: 14px;
+    }
+
+    .block--primary {
+        padding: clamp(12px, 1.6vh, 16px) 14px;
+    }
+
+    .block--primary .title {
+        font-size: 18px;
+    }
+
+    .block--skool .title,
+    .block--curso .title {
+        font-size: 16px;
+    }
+
+    .block--curso .title-stack {
+        font-size: 16px;
+    }
+
+    .badge-free {
+        font-size: 11px;
+        padding: 3px 7px;
+    }
+}

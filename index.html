@@ -1,275 +1,193 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>🤝 David Varea</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>🤝 David Varea</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=IBM+Plex+Sans:wght@400;500;600;700&family=Special+Elite&family=Kalam:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lilita+One&family=Sedgwick+Ave+Display&family=Special+Elite&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="/estilos/landing.css" />
 
-  <link rel="stylesheet" href="estilos/styles.css">
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/imgs/favicon32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="48x48"
+            href="/imgs/favicon48.png"
+        />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="imgs/favicon32.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="imgs/favicon48.png">
+        <meta property="og:title" content="🤝 David Varea" />
+        <meta
+            property="og:description"
+            content="Abre el enlace y descubre sobre mí."
+        />
+        <meta
+            property="og:image"
+            content="https://davidvarea.com/imgs/banner.webp"
+        />
+        <meta property="og:url" content="https://davidvarea.com" />
+        <meta property="og:type" content="website" />
+    </head>
 
-  <meta property="og:title" content="🤝 David Varea">
-  <meta property="og:description" content="Abre el enlace y descubre sobre mí.">
-  <meta property="og:image" content="https://davidvarea.com/imgs/banner.webp">
-  <meta property="og:url" content="https://davidvarea.com">
-  <meta property="og:type" content="website"> 
+    <body>
+        <main class="stage">
+            <!-- Tarjeta hero: foto + nombre + titular -->
+            <section class="hero-card">
+                <div class="hero-photo-wrap">
+                    <img
+                        class="hero-photo"
+                        src="/imgs/yo.jpg"
+                        alt="David Varea"
+                    />
+                </div>
 
-  <script src="scripts/scripts.js" defer></script> <!--defer para que cargue primero el DOM del HTML y ejecute el JS al final-->
-</head>
+                <h1 class="hero-headline">
+                    He hecho sistemas de marketing para ecommerce que facturan
+                    más de
+                    <span class="hl-squiggle">
+                        <span class="squiggle-text">un millón al mes</span>
+                        <svg
+                            class="squiggle-svg"
+                            viewBox="0 0 140 10"
+                            preserveAspectRatio="none"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M2 5 Q 35 1 70 5 T 138 5"
+                                style="stroke: var(--landing-rojo)"
+                                stroke-width="2.4"
+                                fill="none"
+                                stroke-linecap="round"
+                            />
+                        </svg>
+                    </span>
+                </h1>
 
-<body>
-  <nav class="menu">
-    <input type="checkbox" id="menu-toggle">
-    <label for="menu-toggle" class="burger">&#8801;</label>
+                <!-- Post-it -->
+                <div class="postit-wrap">
+                    <div class="postit">
+                        <span class="tape" aria-hidden="true"></span>
+                        Este título no es para ti, es para
+                        <span class="bold"
+                            >fascinar al David Varea de hace 3 años.</span
+                        >
+                        No sabía ni qué significaba funnel y quiso ser
+                        autodidacta..
+                    </div>
+                </div>
+            </section>
 
-    <div class="links">
-      <a href="#servicios">[ formulario de contacto ]</a>
-    </div>
-
-    
-  </nav>
-
-  <div class="banner">
-    <!-- Este solo se ve en PC -->
-    <section class="hero">
-
-      <div class="hero-image">
-
-        <video controls
-              controlslist="nodownload noplaybackrate"
-              playsinline
-              poster="imgs/miniatura.webp">
-          <source src="imgs/saludo.webm" type="video/webm">
-          Tu navegador no soporta el video.
-        </video>
-
-      </div>
-
-      <div class="hero-text">
-        <h2>
-          David Varea <img class="emoji" src="imgs/handshake.svg" alt="🤝">
-        </h2>
-
-        <h1>
-          ENCÁRGAME UN OBJETIVO Y <u style="text-decoration-thickness: .08em; text-underline-offset: .1em; text-decoration-color: #00E5FF;">LÍBRATE DEL PROBLEMA</u><br><span style="font-size: 0.6em;">(así de imposible, así de sencillo)</span>
-        </h1>
-
-        <div style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
-          
-          <div class="features">
-
-             <div class="feature">
-              <img src="imgs/ticket.svg">
-              <p class="feature-title">
-                Copywriting, flows de Klaviyo y viralidad en redes
-              </p>
-            </div> 
-            
-            <div class="feature">
-              <img src="imgs/recurrencia.svg">
-              <p class="feature-title">
-                Marketing centrado en rentabilidad
-              </p>              
-            </div>         
-            
-          </div>    
-           
-        </div>
-
-        <a href="#servicios" class="btn glow">
-          Formulario de contacto
-        </a>
-        
-      </div> <!-- Hero text -->
-
-    </section>
-
-    <!-- Este solo se ve en móvil y tiene DISTINTOS ESTILOS AL DE PC. Y un enlace extra-->
-    <section class="heroM">
-
-      <div class="hero-text">
-        <h2>
-          David Varea <img class="emoji" src="imgs/handshake.svg" alt="🤝">
-        </h2>
-
-        <h1>
-          ENCÁRGAME UN OBJETIVO Y <u style="text-decoration-thickness: .08em; text-underline-offset: .1em; text-decoration-color: #00E5FF;">LÍBRATE DEL PROBLEMA</u><br><span style="font-size: 0.6em;">(así de imposible, así de sencillo)</span>
-        </h1>
-
-        <video controls
-              controlslist="nodownload noplaybackrate"
-              playsinline
-              poster="imgs/miniaM.webp">
-          <source src="imgs/saludo.webm" type="video/webm">
-          Tu navegador no soporta el video.
-        </video>       
-           
-
-          <a href="#servicios" class="btn glow">
-            Formulario de contacto
-          </a>         
-        
-      </div>
-
-      <div class="hero-image">
-
-        <div style="display: flex; flex-direction:column; align-items: center; justify-content: center;">
-          
-          <div class="features">
-
-            <div class="feature">
-              <img src="imgs/ticket.svg">
-              <p class="feature-title">
-                Copywriting, flows de Klaviyo y viralidad en redes
-              </p>
+            <!-- Heading sección -->
+            <div class="section-heading">
+                <span class="caret">▾</span>
+                Elige tu camino
             </div>
-            
-            <div class="feature">
-              <img src="imgs/recurrencia.svg">
-              <p class="feature-title">
-                Marketing centrado en rentabilidad
-              </p>              
-            </div>    
 
-        </div>          
-      </div>
+            <!-- Bloques -->
+            <nav class="blocks" aria-label="Secciones">
+                <svg
+                    class="arrow-doodle"
+                    viewBox="0 0 100 100"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M 92 6 Q 28 48 35 92"
+                        style="stroke: var(--landing-rojo)"
+                        stroke-width="2.8"
+                        fill="none"
+                        stroke-linecap="round"
+                    />
+                    <path
+                        d="M 35 92 L 23 80"
+                        style="stroke: var(--landing-rojo)"
+                        stroke-width="2.8"
+                        fill="none"
+                        stroke-linecap="round"
+                    />
+                    <path
+                        d="M 35 92 L 49 82"
+                        style="stroke: var(--landing-rojo)"
+                        stroke-width="2.8"
+                        fill="none"
+                        stroke-linecap="round"
+                    />
+                </svg>
+                <a
+                    class="block block--primary"
+                    href="/servicios"
+                    draggable="false"
+                >
+                    <span class="handle" aria-hidden="true">⋮⋮</span>
+                    <img class="icon" src="/imgs/handshake.svg" alt="🤝" />
+                    <span class="body">
+                        <span class="title">Mis servicios</span>
+                        <span class="subtitle-hand">tu solución</span>
+                    </span>
+                    <span class="arrow" aria-hidden="true">↗</span>
+                </a>
 
-    </section>
+                <a class="block block--curso" href="#" draggable="false">
+                    <span class="handle" aria-hidden="true">⋮⋮</span>
+                    <img class="icon" src="/imgs/books.svg" alt="📚" />
+                    <span class="body">
+                        <span class="title-stack">
+                            <span class="strike-prefix">
+                                <span class="strike-text">otro curso más</span>
+                                <svg
+                                    class="strike-svg"
+                                    viewBox="0 0 140 10"
+                                    preserveAspectRatio="none"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M2 5 Q 35 8 70 5 T 138 5"
+                                        style="stroke: var(--landing-rojo)"
+                                        stroke-width="2.4"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                    />
+                                </svg>
+                            </span>
+                            <br />
+                            Mejor que un curso
+                        </span>
+                    </span>
+                    <span class="arrow--mute" aria-hidden="true">→</span>
+                </a>
 
-  </div> <!--banner-->
+                <!-- Skool en construcción — descomentar cuando esté lista la comunidad
+                <a class="block block--skool" href="#" draggable="false">
+                    <span class="handle" aria-hidden="true">⋮⋮</span>
+                    <img class="icon" src="/imgs/lock.svg" alt="🔒" />
+                    <span class="body">
+                        <span class="title">Skool privado</span>
+                        <span class="subtitle-hand">gratis (por ahora)</span>
+                    </span>
+                    <span class="badge-free">FREE</span>
+                    <span class="arrow--mute" aria-hidden="true">→</span>
+                </a>
+                -->
+            </nav>
+        </main>
 
-  <div class="cuerpo">
-    
-      <p>
-        Puntual, responsable, resolutivo, sincero, eficiente… Esto <span style="background-color: #FFE066;">debería ser lo mínimo en una persona. </span>Pero hoy en día es algo difícil de encontrar.      
-      </p>
-
-      <p style="margin-bottom: 0;">        
-        <strong>Yo no te voy a decir si soy todo eso o no. Prefiero</strong> que hablen los hechos a las palabras, y eso que la escritura persuasiva es una de mis habilidades (aunque prefiero el término <em>wordsmith</em> <span style="color: #FF4FDD; font-weight: 500;">➜&nbsp;Forjador de frases)
-      </p>
-
-      
-      <img class="forjador" src="imgs/wordsmithMovil.webp">
-      <p style="margin-bottom: 3em;">
-        Pero basta de hablar de mí, hablemos de <u style="text-decoration-color: #00E5FF;">mi portfolio.</u> He trabajado con infoproductos, en el sector fintech, y con varios ecommerce. Estos son algunos de mis logros en los últimos años:
-      </p>
-
-      <p class="cita">
-        <strong>
-          <img class="emoji" src="imgs/alert.svg" alt="⚠️"> Disclaimer 
-        </strong>
-        <br><br>
-          Independientemente de si fui el estratega o el copywriter detrás de estos resultados, todos se logran gracias al trabajo en conjunto de varias personas.
-      </p>
-
-      <ul>
-        <li>  
-          <strong>
-          560 pedidos en 14 minutos. Ese fue el resultado de un email único enviado al segmento de no compradores de un ecommerce. Sin hype previo ni secuencia de calentamiento.
-          </strong>
-        </li>
-
-        <li>
-          Campañas de email marketing y flows automatizados en Klaviyo para una lista con más de 340.000 emails, en un ecommerce con decenas de productos. Tasa de apertura entre los clientes de 35-60%           
-        </li>
-
-        <li>          
-          <strong>
-            Más de 100 Millones de reproducciones en total (en vídeos horizontales orgánicos) trabajando con varios youtubers de entretenimiento.
-          </strong>
-        </li>
-
-        <li>
-          Facturación de 6 cifras con un par de emails que se enviaron durante 48h vendiendo un producto low ticket.
-        </li>
-
-        <li>
-          <strong>
-          Junto a Chuso Montero levantamos su canal de YouTube desde 0 hasta 109K seguidores. En el nicho videojuegos, durante la época más saturada del sector (2020 - 2022). Generando no solo visitas sino una audiencia fiel y recurrente.
-          </strong>
-        </li>
-
-        <li>
-          Varios millones de euros. Esa es la suma de toda la facturación generada con emails (y páginas de venta) escritos por mí, para distintas empresas.
-        </li>
-
-      </ul>
-      
-        <div class="player-container">
-           <div class="classified">
-            CLASSIFIED
-          </div>
-        </div>
-
-        <p>
-          He escrito en el sector financiero &#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588; &#x2588;&#x2588;&#x2588;&#x2588;&#x2588; &#x2588;&#x2588;&#x2588;&#x2588; &#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588; pero hay acuerdos de confidenciali&#x2588;&#x2588;&#x2588; &#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588; &#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588;&#x2588; probablemente el fintech sea el sector más feroz en el que competir. 
-        </p>
-
-    </div> <!--cuerpo-->
-
-        <h1 class="titulo-breaker f-verde" id="reviews">
-            Pero no te fies de mis palabras...
-        </h1>
-
-    <div class="cuerpo">
-      
-      <section> <!--reviews-->
-
-        <p>
-          Podría <span style="background-color: #BAFF29;">abrumarte con reseñas positivas (</span>incluyendo las de mis padres) pero seamos sinceros: ¿Te vas a parar a leer decenas de comentarios? Mejor escuchar un solo audio.
-        </p>
-
-        <div class="player-container">
-          <img class="avatar" src="reviews/pascu.webp">
-
-          <audio controls controlslist="nodownload noplaybackrate">
-            <source src="reviews/pascu.mp3" type="audio/mpeg">
-            Tu navegador no soporta audio HTML5.
-          </audio>
-        </div>
-
-        <p>
-          Él es Pascual Cabedo, fundador de EAP. Uno de los ecommerce de alimentación más grandes de España: <strong>Millones de visitas en redes sociales, +220.000 clientes y +6 millones de kilos de alimento enviados.</strong> Su propuesta es vender online fruta y verdura de agricultores locales, sin químicos post-cosecha.
-        </p>
-
-        <h2>
-          Suficiente.
-        </h2>
-
-        <p class="flecha">
-          ↓
-        </p>
-
-      </section>
-</div><!--cuerpo-->
-
-      <h1 class="titulo-breaker f-amarillo" style="margin-bottom: 1em;">
-        CÓMO TRABAJAR JUNTOS
-      </h1>
-
-  <div class="cuerpo">
-      
-        <p id="servicios">
-          Estoy abierto a entrar en grandes proyectos. Convénceme de ello.
-        </p>
-
-        <div class="callout" style="margin-top: 0;">
-          <!-- form -->
-          <iframe data-tally-src="https://tally.so/embed/wz6vZ8?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="387" frameborder="0" marginheight="0" marginwidth="0" title="Formulario de contacto"></iframe>
-          <script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-
-        </div> <!-- callout -->
-
-    <p class="flecha">↑</p>
-
-  </div> <!--cuerpo-->
-
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
+        <script>
+            Sortable.create(document.querySelector(".blocks"), {
+                handle: ".handle",
+                animation: 150,
+                ghostClass: "block--ghost",
+            });
+        </script>
+    </body>
 </html>
