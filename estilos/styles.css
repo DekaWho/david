@@ -629,6 +629,50 @@ li::marker {
     text-align: center;
 }
 
+/* Fila de 5 estrellas a boli debajo del breaker "Cómo trabajar juntos".
+   Cada una con rotación distinta para que se lea como "puestas a mano",
+   no como fila perfecta de Trustpilot. Decorativas: aria-hidden en HTML. */
+.stars-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.4rem;
+    margin: 0 auto 1.5rem;
+}
+
+.stars-row .star {
+    width: clamp(1.8rem, 3vw, 2.4rem);
+    height: auto;
+}
+
+.stars-row .star:nth-child(1) { transform: rotate(-6deg); }
+.stars-row .star:nth-child(2) { transform: rotate(3deg); }
+.stars-row .star:nth-child(3) { transform: rotate(-2deg); }
+.stars-row .star:nth-child(4) { transform: rotate(5deg); }
+.stars-row .star:nth-child(5) { transform: rotate(-4deg); }
+
+/* Variante margin: estrellas como anotación a la derecha del listado de
+   logros, ancladas absolutamente al hueco entre bullets ~3 y ~4. Inclinación
+   global del bloque para reforzar el "puesto a mano sobre el dossier", no
+   en el flujo de lectura. */
+.logros {
+    position: relative;
+}
+
+.stars-row--margin {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin: 0 0 0 1.5rem;
+    transform: translateY(-50%) rotate(-8deg);
+    transform-origin: left center;
+}
+
+@media (max-width: 800px) {
+    .stars-row--margin {
+        display: none;
+    }
+}
+
 /* Cadencia compacta en desktop para la sección de contacto: el `<p>` genérico
    tiene margin-bottom 5rem (pensado para separar bloques largos del cuerpo),
    pero aquí el párrafo es de una sola línea introduciendo el formulario —
