@@ -60,10 +60,10 @@ body {
 /* ---- Tarjeta hero ---- */
 .hero-card {
     position: relative;
-    margin: 0 14px clamp(140px, 23vh, 200px);
+    margin: 0 14px clamp(125px, 20.5vh, 180px);
     background: var(--landing-papel);
     border-radius: 26px;
-    padding: clamp(14px, 2.5vh, 20px) 18px clamp(28px, 5vh, 42px);
+    padding: clamp(14px, 2.5vh, 20px) 12px clamp(40px, 6.5vh, 56px);
     box-shadow: 0 8px 0 var(--landing-azul);
 }
 
@@ -73,8 +73,8 @@ body {
 }
 
 .hero-photo {
-    width: clamp(110px, 17vh, 138px);
-    height: clamp(110px, 17vh, 138px);
+    width: clamp(96px, 14vh, 120px);
+    height: clamp(96px, 14vh, 120px);
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
@@ -95,7 +95,7 @@ body {
     margin: 10px 4px 0;
     font-family: var(--serif);
     font-weight: 700;
-    font-size: 24px;
+    font-size: 34px;
     line-height: 1.18;
     letter-spacing: -0.015em;
     color: var(--landing-tinta);
@@ -154,15 +154,15 @@ body {
 
 .postit {
     position: relative;
-    width: 280px;
+    width: 256px;
     background: var(--landing-postit);
-    padding: 14px 16px 16px;
+    padding: 12px 14px 14px;
     transform: rotate(-1.8deg);
     box-shadow:
         0 6px 14px rgba(0, 0, 0, 0.14),
         0 1px 2px rgba(0, 0, 0, 0.08);
     font-family: var(--hand);
-    font-size: 16px;
+    font-size: 14.5px;
     line-height: 1.25;
     color: var(--landing-tinta);
 }
@@ -287,14 +287,14 @@ body {
     display: block;
     font-family: var(--serif);
     font-weight: 700;
-    font-size: 16px;
+    font-size: 17px;
     color: var(--landing-tinta);
 }
 
 .block .subtitle-hand {
     display: block;
     font-family: var(--hand);
-    font-size: 13px;
+    font-size: 14px;
     color: var(--landing-rojo);
     margin-top: -1px;
 }
@@ -370,11 +370,11 @@ body {
 }
 
 .block--primary .title {
-    font-size: 16px;
+    font-size: 18px;
 }
 .block--skool .title,
 .block--curso .title {
-    font-size: 14px;
+    font-size: 15px;
 }
 
 /* Skool — badge y flecha más sutil */
@@ -402,7 +402,7 @@ body {
 .block--curso .title-stack {
     font-family: var(--serif);
     font-weight: 700;
-    font-size: 14px;
+    font-size: 15px;
     line-height: 1.1;
     color: var(--landing-tinta);
 }
@@ -433,10 +433,10 @@ body {
 /* En pantallas pequeñas, deja respirar el card */
 @media (max-width: 380px) {
     .hero-headline {
-        font-size: 22px;
+        font-size: 26px;
     }
     .postit {
-        width: 252px;
+        width: 232px;
     }
 }
 
@@ -450,13 +450,13 @@ body {
 */
 @media (min-width: 700px) {
     .stage {
-        max-width: 520px;
+        max-width: 620px;
         padding: clamp(8px, 1.6vh, 18px) 0 clamp(20px, 3.6vh, 40px);
     }
 
     .hero-card {
-        margin: 0 14px clamp(135px, 19vh, 200px);
-        padding: clamp(14px, 2vh, 22px) 22px clamp(30px, 4.2vh, 46px);
+        margin: 0 0 clamp(135px, 19vh, 200px);
+        padding: clamp(14px, 2vh, 22px) 22px clamp(42px, 5.6vh, 60px);
         border-radius: 28px;
     }
 
@@ -471,33 +471,34 @@ body {
     }
 
     .hero-headline {
-        font-size: clamp(22px, 2.6vh, 28px);
+        font-size: clamp(30px, 3.8vh, 40px);
         margin: clamp(8px, 1.1vh, 12px) 6px 0;
     }
 
     .postit {
-        width: clamp(260px, 30vh, 320px);
+        width: clamp(290px, 33vh, 360px);
         padding: clamp(12px, 1.5vh, 16px) clamp(14px, 1.7vh, 18px)
             clamp(14px, 1.7vh, 18px);
-        font-size: clamp(15px, 1.7vh, 18px);
+        font-size: clamp(17px, 1.9vh, 20px);
         line-height: 1.28;
     }
 
     .section-heading {
-        margin: clamp(12px, 2vh, 22px) 22px 0;
+        margin: clamp(12px, 2vh, 22px) 102px 0;
         font-size: 16px;
     }
 
     .blocks {
-        margin: clamp(6px, 1vh, 10px) 14px 0;
+        margin: clamp(6px, 1vh, 10px) 94px 0;
         gap: clamp(6px, 1vh, 10px);
     }
 
     .arrow-doodle {
-        top: clamp(-130px, -15vh, -100px);
+        top: clamp(-110px, -12vh, -80px);
+        right: 90px;
         width: clamp(85px, 11vh, 110px);
         height: clamp(85px, 11vh, 110px);
-        transform: rotate(35deg);
+        transform: rotate(22deg);
     }
 
     .block {
@@ -511,28 +512,28 @@ body {
     }
 
     .block .title {
-        font-size: 17px;
+        font-size: 18px;
     }
 
     .block .subtitle-hand {
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .block--primary {
-        padding: clamp(12px, 1.6vh, 16px) 14px;
+        padding: clamp(13px, 1.8vh, 17px) 14px;
     }
 
     .block--primary .title {
-        font-size: 18px;
+        font-size: 20px;
     }
 
     .block--skool .title,
     .block--curso .title {
-        font-size: 16px;
+        font-size: 17px;
     }
 
     .block--curso .title-stack {
-        font-size: 16px;
+        font-size: 17px;
     }
 
     .badge-free {

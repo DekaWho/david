@@ -7,659 +7,1000 @@
    4. Menú / navegación
    5. Banner + hero (PC y móvil)
    6. Cuerpo, títulos-breaker, listas
-   7. Componentes (callout, player, avatar, classified, features, flecha)
+   7. Componentes (callout, player, avatar, classified, flecha)
    8. Responsive (<=800px)
    ===================================================== */
 
-
 /* ---------- 1. Variables + reset ---------- */
 
-:root{
-  font-family: "Inter", "Segoe UI Emoji", sans-serif;
+:root {
+    font-family: "IBM Plex Sans", "Segoe UI Emoji", system-ui, sans-serif;
 
-  /* PALETA */
-  --azul: #00E5FF;
-  --rosa: #FF4FDD;
+    /* PALETA */
+    --azul: #1e5fbf; /* alineado con --brand-azul; antes era cyan #00e5ff */
+    --rosa: #ff4fdd;
 
-  --amarillo: #FFE066;
-  --rojo: #F40600;
-  --verde: #BAFF29;
+    --amarillo: #ffe066;
+    --rojo: #f40600;
+    --verde: #baff29;
 
-  --negro: #151515;
-  --gris: #252422;
-  --blanco: rgb(251, 252, 255);
+    --negro: #292f36; /* alineado con --brand-tinta (era #151515 negro plano) */
+    --gris: #3a4047; /* alineado con --brand-tinta-suave (era #252422 cálido) */
+    --blanco: rgb(251, 252, 255);
+
+    /* Brand v2 — sistema editorial nuevo (Penguin Classics + cuaderno).
+     Por ahora aplicado solo al banner de servicios.html; las variables
+     antiguas siguen vigentes en el resto del sitio. */
+    --brand-tinta: #292f36;
+    --brand-tinta-suave: #3a4047;
+    --brand-azul: #1e5fbf;
+    --brand-rojo: #f40600;
+    --brand-amber: #ffe066;
+    --brand-papel: #f3f5f8;
+    --brand-mute: #6f7c90;
+    --brand-verde: #d4ee8e; /* highlighter verde refinado (vs el #baff29 neon) */
 }
 
-html{
-  font-size: 18px;
-  scroll-behavior: smooth;
-  font-weight: 400;
-  hyphens: auto;
+html {
+    font-size: 18px;
+    scroll-behavior: smooth;
+    font-weight: 400;
+    hyphens: auto;
 }
 
-body{
-  color: var(--gris);
-  margin: 0;
-  padding: 0;
-  background-color: var(--blanco);
+body {
+    color: var(--gris);
+    margin: 0;
+    padding: 0;
+    background-color: var(--blanco);
 }
 
 /* deja aire al hacer scroll a anclas (menú fijo no tapa el título destino) */
-[id]{
-  scroll-margin-top: 4rem;
+[id] {
+    scroll-margin-top: 4rem;
 }
 
-::selection{
-  background-color: var(--amarillo);
-  color: var(--gris);
+::selection {
+    background-color: var(--amarillo);
+    color: var(--gris);
 }
-
 
 /* ---------- 2. Tipografía base y texto ---------- */
 
-h1{
-  font-family: 'Lilita One', sans-serif;
-  font-size: 2.8rem;
-  margin: 0 auto .8em;
-  line-height: 1.1;
-  color: white;
-  font-weight: 500;
-  text-align: center;
-  hyphens: none;
+h1 {
+    font-family: "Lilita One", sans-serif;
+    font-size: 2.8rem;
+    margin: 0 auto 0.8em;
+    line-height: 1.1;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    hyphens: none;
 }
 
-h2{ /* el "Suficiente" */
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
-  line-height: 1.2;
-  font-weight: bolder;
-  color: var(--negro);
-  margin-bottom: 3rem;
-  padding: 0;
-  text-align: center;
-  hyphens: none;
+h2 {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    line-height: 1.2;
+    font-weight: bolder;
+    color: var(--negro);
+    margin-bottom: 3rem;
+    padding: 0;
+    text-align: center;
+    hyphens: none;
 }
 
-p{
-  margin: 1rem 2px 5rem;
-  font-size: clamp(1.2rem, 1.3vw, 1.5rem);
-  line-height: 1.5;
+/* "SUFICIENTE" — declaración manuscrita en Kalam, mayúsculas, sin punto.
+   Usa la sintaxis del cuaderno: marcador rotulado más que titular tipográfico. */
+.suficiente {
+    font-family: "Kalam", "Caveat", cursive;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--brand-azul);
+    margin-bottom: 0.4rem;
 }
 
-em{ font-style: italic; }
-strong{ font-weight: 600; }
-del{ text-decoration: line-through; }
-
-u{
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-  text-decoration-thickness: 0.15em;
-  text-decoration-skip-ink: none;
+p {
+    margin: 1rem 2px 5rem;
+    font-size: clamp(1.2rem, 1.3vw, 1.5rem);
+    line-height: 1.5;
 }
 
-a{
-  color: var(--azul);
+em {
+    font-style: italic;
+}
+strong {
+    font-weight: 600;
+}
+del {
+    text-decoration: line-through;
 }
 
-a:hover{
-  text-decoration: underline;
-  text-decoration-color: var(--amarillo);
-  transition: all 0.1s ease;
+u {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 0.15em;
+    text-decoration-skip-ink: none;
 }
 
-ul{
-  padding: 0;
-  width: 90%;
-  margin: 0 auto;
+/* Subrayado manuscrito: línea casi recta con tilt sutil (sube ~1° de
+   izquierda a derecha) y un microarco en el medio, para evitar el aspecto
+   perfecto del text-decoration nativo. Una sola copia por línea de texto
+   (background-size 100% + no-repeat) — así no hay escalones en los joins
+   de tiles. vector-effect='non-scaling-stroke' mantiene el grosor del
+   trazo aunque el SVG se estire horizontalmente al ancho del span.
+   box-decoration-break: clone hace que cada renglón reciba su propia raya
+   si el span wrappea. Color hardcodeado al --azul: data URIs no soportan
+   currentColor. */
+.squiggle {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%231e5fbf' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 100% 0.35em;
+    padding-bottom: 0.18em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
 }
 
-li{
-  color: var(--gris);
-  padding: 0;
-  font-size: clamp(1.2rem, 1.3vw, 1.5rem);
-  margin-bottom: 3rem;
-  line-height: 1.5;
-  font-weight: 400;
+a {
+    color: var(--azul);
 }
 
-li::marker{ color: var(--azul); }
-
-.emoji{
-  width: 1.3em;
-  vertical-align: bottom;
+a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--amarillo);
+    transition: all 0.1s ease;
 }
 
+ul {
+    padding: 0;
+    width: 90%;
+    margin: 0 auto;
+}
+
+li {
+    color: var(--gris);
+    padding: 0;
+    font-size: clamp(1.2rem, 1.3vw, 1.5rem);
+    margin-bottom: 3rem;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+li::marker {
+    color: var(--azul);
+}
+
+.emoji {
+    width: 1.3em;
+    vertical-align: bottom;
+}
 
 /* ---------- 3. Botones ---------- */
 
-.btn{
-  display: inline-block;
-  padding: .4rem 1rem;
-  border: 1px solid var(--azul);
-  color: white;
-  background: var(--negro);
-  text-decoration: none;
-  font-weight: 300;
-  border-radius: 1.5rem;
+.btn {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--azul);
+    color: white;
+    background: var(--negro);
+    text-decoration: none;
+    font-weight: 300;
+    border-radius: 1.5rem;
 
-  /* sombra sólida para efecto 3D */
-  box-shadow:
-    inset 2px 2px 4px rgba(255, 255, 255, .2),
-    inset -2px -2px 6px rgba(30, 102, 255, .3),
-    0 .2rem 0 0 var(--azul);
+    /* sombra sólida para efecto 3D */
+    box-shadow:
+        inset 2px 2px 4px rgba(255, 255, 255, 0.2),
+        inset -2px -2px 6px rgba(30, 95, 191, 0.3),
+        0 0.2rem 0 0 var(--azul);
 
-  transform: translateY(0);
-  margin: 1em auto;
+    transform: translateY(0);
+    margin: 1em auto;
 
-  transition: transform .06s ease, box-shadow .06s ease, background-color .15s ease;
+    transition:
+        transform 0.06s ease,
+        box-shadow 0.06s ease,
+        background-color 0.15s ease;
 }
 
-.btn:hover{
-  background-color: rgba(30, 102, 255, .15);
-  text-decoration: none;
-  transform: translateY(.2rem);
-  box-shadow:
-    inset 2px 2px 4px rgba(255, 255, 255, .2),
-    inset -2px -2px 6px rgba(30, 102, 255, .3),
-    0 0 0 0 var(--azul);
+.btn:hover {
+    background-color: rgba(30, 95, 191, 0.15);
+    text-decoration: none;
+    transform: translateY(0.2rem);
+    box-shadow:
+        inset 2px 2px 4px rgba(255, 255, 255, 0.2),
+        inset -2px -2px 6px rgba(30, 95, 191, 0.3),
+        0 0 0 0 var(--azul);
 }
 
-.glow{
-  color: var(--azul);
-  font-size: 1.3rem;
-  font-weight: 500;
-  text-align: center;
-  margin: 1rem auto;
-  padding: 1rem 3em;
-  letter-spacing: 1px;
-  box-shadow:
-    inset 2px 2px 4px rgba(255, 255, 255, .4),
-    inset -2px -2px 6px rgba(30, 102, 255, .6),
-    0 .4rem 0 0 var(--azul);
+.glow {
+    color: var(--azul);
+    font-size: 1.3rem;
+    font-weight: 500;
+    text-align: center;
+    margin: 1rem auto;
+    padding: 1rem 3em;
+    letter-spacing: 1px;
+    box-shadow:
+        inset 2px 2px 4px rgba(255, 255, 255, 0.4),
+        inset -2px -2px 6px rgba(30, 95, 191, 0.6),
+        0 0.4rem 0 0 var(--azul);
 
-  animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
 }
 
-.glow:hover{
-  text-decoration: none;
-  background-color: rgba(30, 102, 255, .15);
-  transform: translateY(.4rem);
-  box-shadow:
-    inset 2px 2px 4px rgba(255, 255, 255, .4),
-    inset -2px -2px 6px rgba(30, 102, 255, .6),
-    0 0 0 0 var(--azul);
+.glow:hover {
+    text-decoration: none;
+    background-color: rgba(30, 95, 191, 0.15);
+    transform: translateY(0.4rem);
+    box-shadow:
+        inset 2px 2px 4px rgba(255, 255, 255, 0.4),
+        inset -2px -2px 6px rgba(30, 95, 191, 0.6),
+        0 0 0 0 var(--azul);
 }
 
-@keyframes glow{
-  from{ filter: drop-shadow(0 0 6px rgba(0, 229, 255, .7)); }
-  to  { filter: drop-shadow(0 0 7px rgba(0, 229, 255, 1)); }
+@keyframes glow {
+    from {
+        filter: drop-shadow(0 0 6px rgba(30, 95, 191, 0.7));
+    }
+    to {
+        filter: drop-shadow(0 0 7px rgba(30, 95, 191, 1));
+    }
 }
-
 
 /* ---------- 4. Menú / navegación ---------- */
 
-.menu{
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 100%;
-  padding: 1em;
-  z-index: 1000;
+/* Pill flotante centrada — estética cuaderno/Notion. Mismo papel + sombra
+   plana azul que el banner para que se lea como una pestaña editorial
+   suspendida sobre la página, no como una barra opaca contrastante. */
+.menu {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    width: max-content;
+    max-width: calc(100% - 28px);
+    padding: 6px 8px;
+    z-index: 1000;
 
-  background: rgba(21, 21, 21, 0.4);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-
-  border-bottom-right-radius: 40px;
+    background: var(--brand-papel);
+    border-radius: 12px;
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.08),
+        0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-.links{
-  display: flex;
-  justify-content: flex-end;
-  gap: 2rem;
-  margin-right: 1rem;
+.links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    margin: 0;
 }
 
-.links a{
-  font-size: .9rem;
-  font-weight: 200;
-  color: white;
-  text-decoration: none;
+.menu-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--brand-tinta);
+    text-decoration: none;
+
+    transition:
+        background-color 120ms ease,
+        color 120ms ease;
 }
 
-.links a:hover{
-  text-decoration: underline;
-  text-decoration-color: var(--amarillo);
-  text-decoration-thickness: .15em;
-  text-underline-offset: .25em;
+/* Hover scopeado a (hover: hover): solo dispositivos con ratón real. En
+   táctil :hover se queda pegado tras el tap (no hay mouseleave) y el amber
+   quedaba "guardado" después de pulsar. */
+@media (hover: hover) {
+    .menu-link:hover {
+        background: var(--brand-amber);
+        color: var(--brand-tinta);
+        text-decoration: none;
+    }
+    .menu-link:hover .menu-link-arrow {
+        color: var(--brand-tinta);
+    }
 }
 
-.active{
-  color: var(--amarillo) !important;
-  text-decoration: underline !important;
-  text-underline-offset: 0.25em !important;
-  font-weight: 400 !important;
+/* SVG para garantizar mismo grosor de trazo en cualquier navegador (los
+   glifos unicode ←/↓ los sustituye Chrome desktop por fuentes distintas y
+   se ven con grosores diferentes; con SVG todo es currentColor + stroke). */
+.menu-link-arrow {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    color: var(--brand-azul);
+    display: block;
 }
 
-/* hamburguesa — oculta en desktop, visible en móvil */
-#menu-toggle{ display: none; }
-.burger{ display: none; }
+.menu-divider {
+    color: var(--brand-mute);
+    font-weight: 400;
+    user-select: none;
+    padding: 0 2px;
+    line-height: 1;
+}
 
+/* legacy — el HTML viejo del burger no aplica al nuevo menú, pero por si
+   queda en alguna página lo dejamos oculto. */
+#menu-toggle,
+.burger {
+    display: none;
+}
 
 /* ---------- 5. Banner + hero ---------- */
 
-.banner{
-  background-color: var(--negro);
-  width: 100%;
-  margin-top: 0;
-  padding: 3rem 0 6rem;
+/* Banner reestilizado con la marca v2 (sistema editorial Penguin Classics +
+   cuaderno). Fondo papel, sombra plana azul que separa del cuerpo, titular
+   en serif Fraunces, acento rojo en el subrayado del verbo clave. */
+.banner {
+    background-color: var(--brand-papel);
+    max-width: 60vw;
+    margin: 14px auto 2.25rem;
+    padding: 3rem 0 3rem;
+    border-radius: 26px;
 
-  position: relative;
-  overflow: hidden;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 0 var(--brand-azul);
 }
 
-.banner h1{
-  font-size: 3.2rem;
-  margin: 0 auto .8em;
-  line-height: 1.1;
-  color: white;
+.banner h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: clamp(2.2rem, 3.2vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.18;
+    color: var(--brand-tinta);
+    margin: 0 auto 0.8em;
 }
 
-.banner h2{
-  font-size: 1.5rem;
-  line-height: 1;
-  font-weight: bolder;
-  color: var(--azul);
-  padding: 0;
-  margin: 1rem 0;
-  letter-spacing: 0;
+/* Highlighter amarillo: gradient que pinta solo la mitad inferior de las
+   letras, como un rotulador fluorescente. Mismo truco que .hl-marker en
+   landing.css. text-decoration:none anula el subrayado heredado del <u>. */
+.banner-mark {
+    text-decoration: none;
+    background-image: linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 48%,
+        var(--brand-amber) 48%,
+        var(--brand-amber) 92%,
+        transparent 92%
+    );
+    padding: 0 0.12em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
 }
 
-.banner video{
-  width: 20vw;
-  max-width: 350px;
-  height: auto;
-  border-radius: 20px;
+.banner-subline {
+    display: block;
+    font-family: "Kalam", "Caveat", cursive;
+    font-size: 0.55em;
+    font-style: normal;
+    font-weight: 400;
+    color: var(--brand-azul);
+    margin-top: 0.55em;
+    letter-spacing: 0;
+    transform: rotate(1.2deg);
+    transform-origin: left center;
 }
 
-/* hero escritorio */
-.hero{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-
-  max-width: 78vw;
-  margin: 1rem auto;
-
-  flex-wrap: wrap;
-  overflow-x: hidden;
+.banner h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 1.3rem;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--brand-tinta);
+    padding: 0;
+    margin: 0 0 1.2rem;
 }
 
-.hero-image{
-  flex: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* CTA dentro del banner: clon visual del .block--primary "Mis servicios" de
+   index.html. Tarjeta-link azul plana con icono + título serif + subtítulo
+   manuscrito + flecha ↓. Mismo lenguaje que la home para que el usuario
+   reconozca el patrón clicable sin pensarlo. */
+.banner .btn.glow {
+    display: inline-flex;
+    align-self: center;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    background: var(--brand-azul);
+    color: var(--blanco);
+    border: none;
+    border-radius: 14px;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0;
+    padding: 14px 16px;
+    text-decoration: none;
+    box-shadow: none;
+    animation: none;
+    filter: none;
+    transition:
+        transform 120ms ease,
+        box-shadow 120ms ease;
 }
 
-.hero-text{
-  flex: 4;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  width: 100%;
-
-  box-sizing: border-box;
-  overflow-x: hidden;
+/* Drag-handle decorativo (mismo glifo que en .block del index para que el
+   usuario reconozca el patrón clicable). No es interactivo aquí. */
+.banner .btn.glow .handle {
+    font-family: monospace;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 1rem;
+    line-height: 1;
+    flex-shrink: 0;
 }
 
-/* hero móvil — se muestra en media query */
-.heroM{
-  display: none;
+.banner .btn.glow .btn-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: block;
 }
 
+.banner .btn.glow .btn-body {
+    flex: 1;
+    text-align: left;
+    line-height: 1;
+}
+
+.banner .btn.glow .btn-title {
+    display: block;
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--blanco);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+}
+
+.banner .btn.glow .btn-subtitle {
+    display: block;
+    font-family: "Kalam", cursive;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.92);
+    line-height: 1.1;
+    margin-top: 1px;
+}
+
+.banner .btn.glow .btn-arrow {
+    font-size: 1.3rem;
+    color: var(--brand-amber);
+    opacity: 1;
+    flex-shrink: 0;
+    margin-left: 4px;
+}
+
+.banner .btn.glow:hover {
+    background: var(--brand-azul);
+    color: var(--blanco);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+    text-decoration: none;
+}
+
+.banner .btn.glow:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Hero unificado (PC + móvil): columna centrada con ancho de lectura
+   acotado a 720px. h2 + h1 + CTA, sin features ni vídeo. */
+.hero {
+    display: flex;
+    flex-direction: column;
+    max-width: 720px;
+    margin: 1rem auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
 
 /* ---------- 6. Cuerpo, títulos-breaker ---------- */
 
-.cuerpo{
-  max-width: 36vw;
-  margin: 1rem auto 0;
-  padding: 0 1rem;
+.cuerpo {
+    max-width: 36vw;
+    margin: 1rem auto 0;
+    padding: 0 1rem;
 }
 
-.forjador{
-  width: 50%;
-  min-width: 300px;
-  display: block;
-  margin: 2rem auto;
+.forjador {
+    width: 50%;
+    min-width: 300px;
+    display: block;
+    margin: 2rem auto;
 }
 
-.titulo-breaker{
-  font-size: clamp(4rem, 3vw, 7rem);
-  line-height: 1;
-  font-weight: 500;
-  color: var(--negro);
-  text-align: center;
-  padding: 2rem 0;
+.titulo-breaker {
+    font-size: clamp(4rem, 3vw, 7rem);
+    line-height: 1;
+    font-weight: 500;
+    color: var(--negro);
+    text-align: center;
+    padding: 2rem 0;
 }
 
-.f-verde{
-  text-shadow: 5px 5px var(--verde);
-  color: var(--gris);
-  margin-top: 1em;
-  margin-bottom: 2em;
+/* Breaker editorial verde — recuadro tipo hero-card sobre papel con sombra
+   plana en verde chillón (--verde, el lime original sin domesticar). El
+   verde recupera protagonismo aquí porque queda separado del texto, no
+   compitiendo con la lectura. Encima, anotaciones a boli azul: círculo
+   alrededor del "no" + squiggle bajo "mis palabras". */
+.titulo-breaker.f-verde {
+    display: block;
+    max-width: 52vw;
+    margin: 4rem auto;
+    padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.2rem);
+    box-sizing: border-box;
+
+    background: var(--brand-tinta);
+    border-radius: 22px;
+
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    line-height: 1.4;
+    letter-spacing: -0.005em;
+    color: var(--blanco);
+    text-shadow: none;
+    text-align: center;
 }
 
-.f-amarillo{
-  background-color: rgba(255, 224, 102, 1);
-  border: 3px solid #FFE066;
-  border-right: none;
-  border-left: none;
-  margin-top: 3rem;
-  margin-bottom: 8rem;
+/* Círculo a boli alrededor de una palabra. SVG absolute-positioned con
+   stroke="currentColor"; el color del trazo se controla aquí (no se hereda
+   del padre, así el texto sigue siendo brand-tinta). */
+.ink-circle {
+    position: relative;
+    display: inline-block;
+    padding: 0 0.18em;
 }
 
-.cita{
-  padding: .6em 0 .6em .6em;
-  border-left: .2em solid var(--rosa);
-  background-color: rgba(255, 79, 221, .05);
-  margin-bottom: 4rem;
+.ink-circle-svg {
+    position: absolute;
+    top: -24%;
+    left: -10%;
+    width: 120%;
+    height: 148%;
+    pointer-events: none;
+    color: var(--verde);
+    transform: rotate(-3deg);
+    overflow: visible;
 }
 
-.flecha{
-  font-family: "Sedgwick Ave Display", cursive;
-  color: var(--gris);
-  font-size: 7rem;
-  margin: 0 0 5rem;
-  padding: 0;
-  text-align: center;
+/* Highlighter lime — mismo recurso que .banner-mark (gradient que pinta solo
+   la mitad inferior de las letras, como rotulador fluorescente) pero en
+   --verde. Reutilizable en cualquier span de cuerpo para resaltar una idea
+   sin sacarla del flujo. */
+.mark-verde {
+    text-decoration: none;
+    background-image: linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 48%,
+        var(--amarillo) 48%,
+        var(--amarillo) 92%,
+        transparent 92%
+    );
+    padding: 0 0.12em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
 }
 
+/* Squiggle override dentro del recuadro f-verde: misma forma, pero pintado
+   en lime (--verde) en vez de azul de marca. El .squiggle global sigue
+   azul donde se usa fuera de este recuadro. */
+.titulo-breaker.f-verde .squiggle {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23baff29' stroke-width='4.5' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    background-size: 100% 0.5em;
+    padding-bottom: 0.22em;
+}
+
+/* Breaker editorial papel — variante clara del f-verde. Misma estructura de
+   tarjeta (Fraunces, padding generoso, sombra dura azul abajo) pero invertida:
+   fondo papel + tinta oscura. Comparte la firma visual con .callout (mismo
+   box-shadow azul plano) — abre y cierra la sección de contacto con el
+   mismo lenguaje. Sin italic ni SVG: es un encabezado de sección, no una
+   réplica conversacional como el f-verde. El highlighter amber se aplica
+   con .banner-mark sobre la palabra clave. */
+.titulo-breaker.f-papel {
+    display: block;
+    max-width: 52vw;
+    margin: 4rem auto 1.5rem;
+    padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.2rem);
+    box-sizing: border-box;
+
+    background: var(--brand-papel);
+    border-radius: 22px;
+
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+    color: var(--brand-tinta);
+    text-align: center;
+}
+
+/* Cadencia compacta en desktop para la sección de contacto: el `<p>` genérico
+   tiene margin-bottom 5rem (pensado para separar bloques largos del cuerpo),
+   pero aquí el párrafo es de una sola línea introduciendo el formulario —
+   5rem deja un agujero. Móvil ya tiene su propio override (3rem) y no hace
+   falta tocarlo. */
+@media (min-width: 801px) {
+    p#contacto {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Override del banner-mark dentro del breaker papel: highlighter más fino que
+   el del hero. El del hero cubre 48-92% para gritar; aquí pasamos a 56-86% —
+   solo un tercio del alto de letra, levemente despegado del baseline, sutil,
+   complementa el peso ya alto del título Fraunces sin competir con él. */
+.titulo-breaker.f-papel .banner-mark {
+    background-image: linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 56%,
+        var(--brand-amber) 56%,
+        var(--brand-amber) 86%,
+        transparent 86%
+    );
+}
+
+.cita {
+    padding: 0.6em 0.9em;
+    border-left: 0.2em solid var(--rosa);
+    border-radius: 12px;
+    background-color: rgba(255, 79, 221, 0.05);
+    margin-bottom: 4rem;
+}
+
+.flecha {
+    font-family: "Sedgwick Ave Display", cursive;
+    color: var(--brand-azul);
+    font-size: 7rem;
+    margin: 0 0 5rem;
+    padding: 0;
+    text-align: center;
+}
 
 /* ---------- 7. Componentes ---------- */
 
-.callout{
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 38vw;
+/* Estética "tarjeta papel" prestada del hero-card de la landing (sistema 2):
+   fondo papel suave, esquinas generosas y sombra dura azul de 8px sin blur
+   — efecto press editorial, no el material-blur moderno. Sin border: la
+   sombra dura ya delimita la tarjeta y se siente más sólida que un
+   contorno dasheado. */
+.callout {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 38vw;
 
-  margin: 0 auto 8rem;
-  padding: 2rem;
+    margin: 0 auto 8rem;
+    padding: 2rem;
 
-  border: 4px dashed var(--azul);
-  border-radius: 10px;
+    background: var(--brand-papel);
+    border-radius: 26px;
+    box-shadow: 0 8px 0 var(--azul);
 }
 
-.callout p{
-  margin-bottom: 3rem;
+.callout p {
+    margin-bottom: 3rem;
 }
 
 /* player de audio (reviews) */
-audio::-webkit-media-controls-panel{
-  background-color: rgba(0, 229, 255, 0.1);
+audio::-webkit-media-controls-panel {
+    background-color: rgba(30, 95, 191, 0.1);
 }
 
-.player-container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 5rem;
+.player-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 5rem;
 }
 
-.avatar{
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
+/* Tarjeta para el reproductor de reseñas. Papel + borde-acento amber a la
+   izquierda (cita visual: el audio "habla" desde la marca) + sombra suave.
+   El amber tinta sutilmente el panel del controls, calentando el gris
+   nativo del navegador sin forzar un custom player. */
+.review-card {
+    max-width: 520px;
+    margin: 0 auto 5rem;
+    padding: 0.9rem 1.1rem;
+
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.07),
+        0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.review-card .avatar {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+.review-card audio {
+    flex: 1;
+    min-width: 0;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.review-card audio::-webkit-media-controls-panel {
+    background-color: var(--verde);
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 /* sello CLASSIFIED con máscara de desgaste */
-.classified{
-  font-family: "Special Elite", system-ui;
-  font-weight: 700;
-  font-size: 2rem;
-  padding: 1rem;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 1.5rem;
-  margin-top: 5rem;
+.classified {
+    font-family: "Special Elite", system-ui;
+    font-weight: 700;
+    font-size: 2rem;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.5rem;
+    margin-top: 5rem;
 
-  text-transform: uppercase;
-  letter-spacing: 2px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 
-  color: var(--rojo);
-  border: 4px solid var(--rojo);
-  border-radius: 4px;
-  transform: rotate(2deg);
+    color: var(--rojo);
+    border: 4px solid var(--rojo);
+    border-radius: 4px;
+    transform: rotate(2deg);
 
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.1' numOctaves='4'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 4 -1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-          mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.1' numOctaves='4'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 4 -1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.1' numOctaves='4'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 4 -1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.1' numOctaves='4'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 4 -1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* features en el hero */
-.features{
-  display: grid;
-  grid-template-columns: repeat(2, minmax(100px, 1fr));
-  gap: 7rem;
-
-  justify-items: center;
-  align-items: start;
-  margin: 3rem auto;
+#contacto {
+    scroll-margin-top: 1rem;
 }
-
-.feature{
-  text-align: center;
-  align-items: center;
-  max-width: 370px;
-  margin-bottom: 2rem;
-}
-
-.feature img{
-  display: block;
-  width: 90px;
-  margin: 0 auto;
-}
-
-.feature-title{
-  margin: 1rem auto 0;
-  font-size: 1rem;
-  line-height: 1.2;
-  color: var(--rosa);
-  font-weight: 300;
-  hyphens: none;
-}
-
-#servicios{
-  scroll-margin-top: 4rem;
-}
-
 
 /* ---------- 8. Responsive (<=800px) ---------- */
 
-@media (max-width: 800px){
+@media (max-width: 800px) {
+    /* reset scroll margin anclas */
+    [id] {
+        scroll-margin-top: 1.5rem;
+    }
 
-  /* reset scroll margin anclas */
-  [id]{
-    scroll-margin-top: 1.5rem;
-  }
+    /* layout base móvil */
+    .banner {
+        max-width: none;
+        margin: 14px 14px 28px;
+        padding: 2rem 0 3rem;
+    }
 
-  /* layout base móvil */
-  .banner{
-    padding: 1rem 0;
-  }
+    .cuerpo {
+        /* importante: max-width (no max) para que los callouts no se rompan */
+        max-width: 99vw;
+        margin: 1rem auto 0;
+        padding: 0 5px;
+    }
 
-  .cuerpo{
-    /* importante: max-width (no max) para que los callouts no se rompan */
-    max-width: 99vw;
-    margin: 1rem auto 0;
-    padding: 0 5px;
-  }
+    /* tipografía móvil */
+    h1 {
+        padding: 0 2px;
+        margin: 0;
+        font-size: clamp(2rem, 2vw, 3.5rem);
+    }
 
-  /* hero: swap desktop <-> móvil */
-  .hero{ display: none; }
-  .heroM{ display: block; }
+    .banner h1 {
+        font-size: 1.8rem;
+        line-height: 1.22;
+    }
 
-  /* tipografía móvil */
-  h1{
-    padding: 0 2px;
-    margin: 0;
-    font-size: clamp(2rem, 2vw, 3.5rem);
-  }
+    .banner-subline {
+        font-size: 0.55em;
+        margin-top: 0.5em;
+    }
 
-  .banner h1{
-    font-size: 1.8rem;
-    line-height: 1.2;
-  }
+    .banner h2 {
+        font-size: 1.15rem;
+        margin-top: 0;
+        margin-bottom: 0.9rem;
+    }
 
-  .banner h2{
-    font-size: 1.1rem;
-    margin-top: 1.4rem;
-    margin-bottom: 1rem;
-  }
+    .titulo-breaker {
+        font-size: 3rem;
+    }
 
-  .titulo-breaker{
-    font-size: 3rem;
-  }
+    .titulo-breaker.f-verde,
+    .titulo-breaker.f-papel {
+        max-width: none;
+        margin: 3rem 14px;
+    }
 
-  p{
-    font-size: clamp(1rem, 1.1vw, 1.4rem);
-    margin-bottom: 3rem;
-  }
+    p {
+        font-size: clamp(1rem, 1.1vw, 1.4rem);
+        margin-bottom: 3rem;
+    }
 
-  ul{
-    width: 99%;
-    padding-left: 1.8rem;
-    box-sizing: border-box;
-    margin: 0;
-    line-height: 1.5;
-  }
+    ul {
+        width: 99%;
+        padding-left: 1.8rem;
+        box-sizing: border-box;
+        margin: 0;
+        line-height: 1.5;
+    }
 
-  li{
-    font-size: clamp(1rem, 1.1vw, 1.4rem);
-    margin: 0 0 2rem;
-    line-height: 1.5;
-  }
+    li {
+        font-size: clamp(1rem, 1.1vw, 1.4rem);
+        margin: 0 0 2rem;
+        line-height: 1.5;
+    }
 
-  /* callout a ancho completo */
-  .callout{
-    position: relative;
-    left: 0;
-    transform: translateX(0);
-    width: 99%;
-    padding: 6px;
+    /* callout a ancho completo */
+    .callout {
+        position: relative;
+        left: 0;
+        transform: translateX(0);
+        width: 99%;
+        padding: 6px;
 
-    box-sizing: border-box;
-    overflow-x: hidden;
-  }
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
 
-  .callout p{
-    margin-bottom: 2rem;
-  }
+    .callout p {
+        margin-bottom: 2rem;
+    }
 
-  /* menú móvil: hamburguesa + panel desplegable */
-  .menu{
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background: none;
-    backdrop-filter: none;
-    display: block;
-  }
+    /* menú móvil — burger desplegable. La .menu pasa a ser un contenedor
+       de posicionamiento; el fondo + sombra los lleva el burger y el panel
+       de enlaces independientemente. */
+    .menu {
+        top: 10px;
+        right: 10px;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+    }
 
-  .burger{
-    display: block;
-    position: fixed;
-    right: 0;
-    top: 0;
-    font-size: 1.2rem;
-    padding: .5em .7em;
+    /* checkbox oculto pero accesible (driver del estado abierto/cerrado) */
+    #menu-toggle {
+        display: none;
+    }
 
-    color: white;
-    cursor: pointer;
-    background: rgba(21, 21, 21, .45);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    .burger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        width: 40px;
+        height: 40px;
+        padding: 11px 9px;
+        box-sizing: border-box;
 
-    border-bottom-left-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, .35);
-  }
+        background: var(--brand-papel);
+        border-radius: 10px;
+        box-shadow:
+            0 6px 14px rgba(0, 0, 0, 0.08),
+            0 2px 4px rgba(0, 0, 0, 0.04);
+        cursor: pointer;
+    }
 
-  .links{
-    position: fixed;
-    width: 100%;
-    top: 3.3rem;
-    display: none;
-    flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
-    justify-content: center;
-    text-align: center;
+    .burger span {
+        display: block;
+        height: 2px;
+        background: var(--brand-azul);
+        border-radius: 2px;
+        transition:
+            transform 160ms ease,
+            opacity 160ms ease;
+        transform-origin: center;
+    }
 
-    background: rgba(21, 21, 21, .45);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    /* burger → X cuando está abierto */
+    #menu-toggle:checked + .burger span:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+    }
+    #menu-toggle:checked + .burger span:nth-child(2) {
+        opacity: 0;
+    }
+    #menu-toggle:checked + .burger span:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+    }
 
-    border-bottom-left-radius: 20px;
-    border-top-left-radius: 20px;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, .25);
-  }
+    /* panel de enlaces desplegable */
+    .links {
+        position: absolute;
+        top: 48px;
+        right: 0;
 
-  .links a{
-    text-decoration: none;
-    font-size: 1rem;
-  }
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        min-width: 180px;
+        padding: 6px;
 
-  /* mostrar panel al marcar el checkbox */
-  #menu-toggle:checked + .burger + .links{
-    display: flex;
-  }
+        background: var(--brand-papel);
+        border-radius: 12px;
+        box-shadow:
+            0 6px 14px rgba(0, 0, 0, 0.08),
+            0 2px 4px rgba(0, 0, 0, 0.04);
 
-  /* botón CTA móvil */
-  .glow{
-    font-size: 1rem;
-    font-weight: 400;
-    margin: 1rem auto;
-    padding: .8rem 0 !important;
-    width: 80vw;
-  }
+        opacity: 0;
+        transform: translateY(-6px);
+        pointer-events: none;
+        transition:
+            opacity 160ms ease,
+            transform 160ms ease;
+    }
 
-  /* imágenes y media */
-  .forjador{
-    width: 80%;
-  }
+    #menu-toggle:checked ~ .links {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
 
-  .banner video{
-    width: 45vw;
-    height: auto;
-    border-radius: 20px;
-    margin: 1rem auto;
-  }
+    .menu-link {
+        justify-content: flex-start;
+        padding: 8px 12px;
+        font-size: 0.92rem;
+    }
 
-  /* features móvil: una columna */
-  .features{
-    padding: 0 2px;
-    justify-items: center;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
+    /* el divisor solo tiene sentido en horizontal */
+    .menu-divider {
+        display: none;
+    }
 
-  .feature img{
-    width: 20vw;
-    min-width: 80px;
-    max-width: 110px;
-  }
+    /* botón CTA móvil */
+    .glow {
+        font-size: 1rem;
+        font-weight: 400;
+        margin: 1rem auto;
+        padding: 0.8rem 0 !important;
+        width: 80vw;
+    }
 
-  .feature-title{
-    font-size: .9rem;
-    padding: 0 2rem;
-  }
+    /* En el banner el CTA es bloque-link (icono + título + subtítulo + flecha):
+     necesita padding horizontal y no estirarse al 80vw. Pisa al .glow global. */
+    .banner .btn.glow {
+        width: auto;
+        padding: 12px 16px !important;
+        margin: 1.2rem auto;
+        gap: 10px;
+    }
+    .banner .btn.glow .btn-icon {
+        width: 26px;
+        height: 26px;
+    }
+    .banner .btn.glow .btn-title {
+        font-size: 1.05rem;
+    }
+    .banner .btn.glow .btn-subtitle {
+        font-size: 0.85rem;
+    }
 
-  .flecha{
-    font-size: 5rem;
-  }
+    /* imágenes y media */
+    .forjador {
+        width: 80%;
+    }
+
+    .flecha {
+        font-size: 5rem;
+    }
 }
