@@ -16,10 +16,9 @@
 
     /* ---- Neutros derivados (azul desaturado para coherencia con la marca) ---- */
     --landing-tinta-suave: #3a4047; /* texto secundario */
-    --landing-papel: #e8edf0; /* fondo tarjeta hero */
-    --landing-skool-bg: #eaf0f3; /* bloque Skool */
-    --landing-curso-bg: #f1f5f7; /* bloque Curso */
-    --landing-mute: #6e8590; /* mute (caret, count) */
+    --landing-papel: #f3f5f8; /* fondo tarjeta hero */
+    --landing-curso-bg: #edeff3; /* fondo bloques secundarios (curso, skool, wip) */
+    --landing-mute: #6f7c90; /* mute (caret, count) */
 
     /* ---- Otros derivados ---- */
     --landing-postit: #ffe066; /* amarillo — fondo post-it */
@@ -55,16 +54,16 @@ body {
     max-width: 430px;
     margin: 0 auto;
     min-height: 100vh;
-    padding: 14px 0 40px;
+    padding: 14px 0 clamp(20px, 4vh, 40px);
 }
 
 /* ---- Tarjeta hero ---- */
 .hero-card {
     position: relative;
-    margin: 0 14px 160px;
+    margin: 0 14px clamp(140px, 23vh, 200px);
     background: var(--landing-papel);
     border-radius: 26px;
-    padding: 20px 18px 42px;
+    padding: clamp(14px, 2.5vh, 20px) 18px clamp(28px, 5vh, 42px);
     box-shadow: 0 8px 0 var(--landing-azul);
 }
 
@@ -74,8 +73,8 @@ body {
 }
 
 .hero-photo {
-    width: 138px;
-    height: 138px;
+    width: clamp(110px, 17vh, 138px);
+    height: clamp(110px, 17vh, 138px);
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
@@ -129,6 +128,12 @@ body {
     bottom: -3px;
     width: 100%;
     height: 10px;
+}
+
+.hl-squiggle .squiggle-svg path,
+.arrow-doodle path,
+.strike-svg path {
+    stroke: var(--landing-rojo);
 }
 
 /* ---- Post-it ---- */
@@ -186,7 +191,7 @@ body {
 
 /* ---- Sección "Elige tu camino" ---- */
 .section-heading {
-    margin: 18px 22px 0;
+    margin: clamp(10px, 2vh, 18px) 22px 0;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -220,13 +225,13 @@ body {
 
 .arrow-doodle {
     position: absolute;
-    top: -103px;
-    right: 31px;
+    top: -122px;
+    right: 60px;
     width: 95px;
     height: 95px;
     pointer-events: none;
     z-index: 2;
-    transform: rotate(18deg);
+    transform: rotate(20deg);
     transform-origin: center;
 }
 
@@ -321,10 +326,47 @@ body {
 }
 
 .block--skool {
-    background: var(--landing-skool-bg);
+    background: var(--landing-curso-bg);
 }
 .block--curso {
     background: var(--landing-curso-bg);
+}
+
+/* WIP — bloque "en construcción": parece un botón normal cubierto por
+   una cinta diagonal amarillo+negro tipo valla de obras. La cinta es
+   puramente decorativa (pointer-events:none) y atraviesa el centro
+   tapando parcialmente los textos — la metáfora pide eso: hay algo
+   debajo pero no puedes acceder todavía. Encaja con el lenguaje físico
+   del resto de la landing (washi tape del post-it, manuscritos, doodle). */
+.block--wip {
+    position: relative;
+    overflow: hidden;
+    background: var(--landing-curso-bg);
+    cursor: default;
+}
+.block--wip:hover,
+.block--wip:active {
+    transform: none;
+    box-shadow: none;
+}
+.block--wip::before {
+    content: "";
+    position: absolute;
+    left: -8%;
+    right: -8%;
+    top: 50%;
+    height: 26px;
+    transform: translateY(-50%) rotate(-4deg);
+    background: repeating-linear-gradient(
+        135deg,
+        var(--landing-amber) 0,
+        var(--landing-amber) 12px,
+        var(--landing-tinta) 12px,
+        var(--landing-tinta) 24px
+    );
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+    pointer-events: none;
+    z-index: 2;
 }
 
 .block--primary .title {
@@ -452,10 +494,10 @@ body {
     }
 
     .arrow-doodle {
-        top: clamp(-130px, -13vh, -88px);
-        right: 32px;
+        top: clamp(-130px, -15vh, -100px);
         width: clamp(85px, 11vh, 110px);
         height: clamp(85px, 11vh, 110px);
+        transform: rotate(35deg);
     }
 
     .block {
