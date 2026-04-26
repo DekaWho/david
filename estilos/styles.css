@@ -330,7 +330,7 @@ li::marker {
     align-items: center;
     gap: 6px;
     padding: 6px 12px;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
 
     font-family: var(--sans);
     font-size: 0.88rem;
@@ -393,7 +393,7 @@ li::marker {
     max-width: 60vw;
     margin: 14px auto 2.25rem;
     padding: 3rem 0 3rem;
-    border-radius: 26px;
+    border-radius: var(--radius-2xl);
 
     position: relative;
     overflow: hidden;
@@ -465,7 +465,7 @@ li::marker {
     background: var(--azul);
     color: var(--blanco);
     border: none;
-    border-radius: 14px;
+    border-radius: var(--radius-lg);
     font-family: var(--sans);
     font-weight: 400;
     letter-spacing: 0;
@@ -590,7 +590,7 @@ li::marker {
     box-sizing: border-box;
 
     background: var(--negro);
-    border-radius: 22px;
+    border-radius: var(--radius-xl);
 
     font-family: var(--serif);
     font-weight: 600;
@@ -667,7 +667,7 @@ li::marker {
     box-sizing: border-box;
 
     background: var(--blanco);
-    border-radius: 22px;
+    border-radius: var(--radius-xl);
 
     font-family: var(--serif);
     font-weight: 600;
@@ -782,7 +782,7 @@ li::marker {
     padding: 2rem;
 
     background: var(--blanco);
-    border-radius: 26px;
+    border-radius: var(--radius-2xl);
     box-shadow: 0 8px 0 var(--azul);
 }
 
@@ -813,7 +813,7 @@ audio::-webkit-media-controls-panel {
     padding: 0.9rem 1.1rem;
 
     background: var(--blanco);
-    border-radius: 14px;
+    border-radius: var(--radius-lg);
     box-shadow:
         0 6px 14px rgba(0, 0, 0, 0.07),
         0 2px 4px rgba(0, 0, 0, 0.04);
@@ -837,7 +837,7 @@ audio::-webkit-media-controls-panel {
 .avatar {
     width: 60px;
     height: 60px;
-    border-radius: 50%;
+    border-radius: var(--radius-circle);
     object-fit: cover;
 }
 
