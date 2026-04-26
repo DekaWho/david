@@ -40,7 +40,6 @@
         <meta property="og:type" content="website" />
 
         <script src="/scripts/scripts.js" defer></script>
-        <!--defer para que cargue primero el DOM del HTML y ejecute el JS al final-->
     </head>
 
     <body>
@@ -65,11 +64,11 @@
                             stroke-linejoin="round"
                         />
                     </svg>
-                    <span class="menu-link-label">Inicio</span>
+                    <span>Inicio</span>
                 </a>
                 <span class="menu-divider" aria-hidden="true">·</span>
                 <a href="#contacto" class="menu-link">
-                    <span class="menu-link-label">Contacto</span>
+                    <span>Contacto</span>
                     <svg
                         class="menu-link-arrow"
                         viewBox="0 0 16 16"
@@ -103,18 +102,17 @@
                     >
                 </h1>
 
-                <a href="#contacto" class="btn glow">
+                <a href="#contacto" class="block block--primary">
                     <span class="handle" aria-hidden="true">⋮⋮</span>
-                    <img class="btn-icon" src="/imgs/email.svg" alt="" />
-                    <span class="btn-body">
-                        <span class="btn-title">Formulario de contacto</span>
-                        <span class="btn-subtitle">cuéntame</span>
+                    <img class="icon" src="/imgs/email.svg" alt="" />
+                    <span class="body">
+                        <span class="title">Formulario de contacto</span>
+                        <span class="subtitle-hand">cuéntame</span>
                     </span>
-                    <span class="btn-arrow" aria-hidden="true">↓</span>
+                    <span class="arrow" aria-hidden="true">↓</span>
                 </a>
             </section>
         </div>
-        <!--banner-->
 
         <div class="cuerpo">
             <p>
@@ -123,18 +121,14 @@
                 difícil de encontrar.
             </p>
 
-            <p style="margin-bottom: 0">
+            <p class="mb-0">
                 <strong
                     >Yo no te voy a decir si soy todo eso o no, que hablen los
                     hechos en vez de las palabras. Y eso que la escritura
                     persuasiva es una de mis habilidades
-                    <span
-                        style="
-                            font-family: &quot;Kalam&quot;, cursive;
-                            font-weight: 400;
-                        "
+                    <span class="hand"
                         >(aunque prefiero el término wordsmith
-                        <span style="color: #ff4fdd"
+                        <span class="text-rosa"
                             >➜&nbsp;Forjador de frases)</span
                         ></span
                     ></strong
@@ -142,7 +136,7 @@
             </p>
 
             <img class="forjador" src="/imgs/wordsmithMovil.webp" />
-            <p style="margin-bottom: 3em">
+            <p style="margin-bottom: var(--gap-xl)">
                 Pero basta de hablar de mí,
                 <span class="squiggle">hablemos de mi portfolio</span>. He
                 trabajado con infoproductos, en el sector fintech, y con varios
@@ -230,7 +224,6 @@
                 competir.
             </p>
         </div>
-        <!--cuerpo-->
 
         <h1 class="titulo-breaker f-verde" id="reviews">
             Pero
@@ -254,8 +247,6 @@
 
         <div class="cuerpo">
             <section>
-                <!--reviews-->
-
                 <p>
                     Podría abrumarte con reseñas positivas (incluyendo las de
                     mis padres) pero seamos sinceros: ¿Te vas a parar a leer
@@ -289,7 +280,6 @@
                 <p class="flecha">↓</p>
             </section>
         </div>
-        <!--cuerpo-->
 
         <h1 class="titulo-breaker f-papel" id="contacto">
             Cómo <span class="banner-mark">trabajar&nbsp;juntos</span>
@@ -300,8 +290,7 @@
                 Estoy abierto a entrar en grandes proyectos. Convénceme de ello.
             </p>
 
-            <div class="callout" style="margin-top: 0">
-                <!-- form -->
+            <div class="callout">
                 <iframe
                     data-tally-src="https://tally.so/embed/wz6vZ8?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
                     loading="lazy"
@@ -338,10 +327,8 @@
                     }
                 </script>
             </div>
-            <!-- callout -->
 
             <p class="flecha">↑</p>
         </div>
-        <!--cuerpo-->
     </body>
 </html>

@@ -1,14 +1,14 @@
 /* =====================================================
-   davidvarea.com — estilos principales (home + privacidad)
+   davidvarea.com — estilos del sitio entero.
    Secciones:
    1. Variables + reset
-   2. Tipografía base y texto
-   3. Botones (.btn, .glow)
-   4. Menú / navegación
-   5. Banner + hero (PC y móvil)
-   6. Cuerpo, títulos-breaker, listas
-   7. Componentes (callout, player, avatar, classified, flecha)
-   8. Responsive (<=800px)
+   2. Tipografía base, listas, utilities
+   3. Menú / navegación
+   4. Banner + hero
+   5. Cuerpo, títulos-breaker, .stars-row, .flecha
+   6. Componentes (callout, player, classified)
+   7. Responsive (<=800px)
+   8. Home (index.html) — hero-card, post-it, blocks
    ===================================================== */
 
 /* ---------- 1. Variables + reset ---------- */
@@ -16,78 +16,69 @@
 :root {
     font-family: var(--sans);
 
-    /* PALETA — una sola fuente de verdad. Jerarquía de neutros: body =
-       --papel (grisáceo); cards (banner, callout, breaker papel, menu,
-       review-card) = --blanco (puro elevado). */
-    --azul:     #1e5fbf;
-    --rosa:     #ff4fdd;
+    /* PALETA — jerarquía de neutros: body = --papel (grisáceo); cards = --blanco
+       (puro elevado). El verde (--verde) y el papel/mute comparten hue ~216°
+       con el azul desaturado para que ningún neutro chirríe contra la marca. */
+    --azul: #1e5fbf;
+    --rosa: #ff4fdd;
     --amarillo: #ffe066;
-    --rojo:     #f40600;
-    --verde:    #baff29;   /* lime neon, deliberado para highlighter chillón */
-    --negro:    #292f36;
-    --gris:     #3a4047;
-    --blanco:   #ffffff;
-    --papel:    #f7f9fc;   /* fondo del body, mismo hue azul desaturado que sistema 2 */
-    --mute:     #6f7c90;   /* texto secundario, mismo hue desaturado */
+    --rojo: #f40600;
+    --verde: #baff29; /* lime neon, deliberado para highlighter chillón */
+    --negro: #292f36;
+    --gris: #3a4047;
+    --blanco: #ffffff;
+    --papel: #f7f9fc;
+    --mute: #6f7c90;
 
-    /* OPACIDADES — derivadas vía color-mix sobre los colores base.
-       Usar en vez de rgba() literal: si el color cambia, las opacidades siguen. */
+    /* OPACIDADES vía color-mix sobre los colores base, en lugar de rgba()
+       literal: si cambia el color de marca, las opacidades siguen. */
     --azul-10: color-mix(in srgb, var(--azul) 10%, transparent);
-    --azul-15: color-mix(in srgb, var(--azul) 15%, transparent);
-    --azul-30: color-mix(in srgb, var(--azul) 30%, transparent);
-    --azul-60: color-mix(in srgb, var(--azul) 60%, transparent);
-    --azul-70: color-mix(in srgb, var(--azul) 70%, transparent);
-    --blanco-20: color-mix(in srgb, var(--blanco) 20%, transparent);
-    --blanco-40: color-mix(in srgb, var(--blanco) 40%, transparent);
-    --blanco-45: color-mix(in srgb, var(--blanco) 45%, transparent);
-    --blanco-92: color-mix(in srgb, var(--blanco) 92%, transparent);
-    --rosa-05:  color-mix(in srgb, var(--rosa) 5%, transparent);
+    --rosa-05: color-mix(in srgb, var(--rosa) 5%, transparent);
 
-    /* TIPOGRAFÍA — familias. Cualquier font-family debería referenciar una
-       de estas; añadir una nueva familia es decisión consciente. */
-    --sans:    "IBM Plex Sans", "Segoe UI Emoji", system-ui, sans-serif;
-    --serif:   "Fraunces", Georgia, serif;
-    --hand:    "Kalam", "Caveat", cursive;
+    /* TIPOGRAFÍA — añadir una familia nueva es decisión consciente. */
+    --sans: "IBM Plex Sans", "Segoe UI Emoji", system-ui, sans-serif;
+    --serif: "Fraunces", Georgia, serif;
+    --hand: "Kalam", "Caveat", cursive;
     --display: "Lilita One", sans-serif;
-    --type:    "Special Elite", system-ui;       /* máquina de escribir / etiqueta de archivo */
-    --script:  "Sedgwick Ave Display", cursive;
-    --stamp:   "Black Ops One", system-ui;       /* sello CONFIDENCIAL */
+    --type:
+        "Special Elite", system-ui; /* máquina de escribir / etiqueta de archivo */
+    --script: "Sedgwick Ave Display", cursive;
+    --stamp: "Black Ops One", system-ui; /* sello CONFIDENCIAL */
 
-    /* TIPOGRAFÍA — escala de tamaños. Modular 1.25x desde 1rem (18px base).
-       Para clamp() fluidos, usar estos buckets como min/max. */
-    --text-xs:   0.75rem;     /* 13.5px */
-    --text-sm:   0.875rem;    /* 15.75px */
-    --text-base: 1rem;        /* 18px */
-    --text-lg:   1.25rem;     /* 22.5px */
-    --text-xl:   1.5rem;      /* 27px */
-    --text-2xl:  1.875rem;    /* 33.75px */
-    --text-3xl:  2.5rem;      /* 45px */
-    --text-4xl:  3.5rem;      /* 63px */
+    /* Solo se tokenizan los font-sizes de cuerpo, que se reutilizan en todo
+       el sitio. Los demás son clamps por componente. */
+    --text-body: clamp(1.2rem, 1.3vw, 1.5rem);
+    --text-body-m: clamp(1rem, 1.1vw, 1.4rem);
 
-    /* ESPACIOS — escala 1.5x. Cualquier margin/padding vertical debería caer
-       en un bucket. Si ninguno encaja, añadir bucket; no inventar valor random. */
-    --gap-2xs: 0.25rem;       /*  4px */
-    --gap-xs:  0.5rem;        /*  8px */
-    --gap-sm:  1rem;          /* 16px */
-    --gap-md:  1.5rem;        /* 24px */
-    --gap-lg:  2.5rem;        /* 40px */
-    --gap-xl:  4rem;          /* 64px */
-    --gap-2xl: 6rem;          /* 96px */
+    /* ESPACIOS — escala descriptiva, no 1.5x estricta: refleja decisiones
+       reales del código. El 3xl (5rem) es la signature de respiración entre
+       <p> del cuerpo; el 4xl (8rem) es el separador editorial máximo. Bajar
+       cualquiera de los dos rompe el ritmo. */
+    --gap-sm: 1rem;
+    --gap-md: 1.5rem;
+    --gap-lg: 2rem;
+    --gap-xl: 3rem;
+    --gap-2xl: 4rem;
+    --gap-3xl: 5rem;
+    --gap-4xl: 8rem;
 
-    /* BORDER-RADIUS — px (no escalan con tipografía). */
-    --radius-sm:     4px;
-    --radius-md:     8px;
-    --radius-lg:    14px;
-    --radius-xl:    22px;
-    --radius-2xl:   26px;
-    --radius-pill:  9999px;
+    /* BORDER-RADIUS — escala numérica (md..2xl) para casos generales y
+       semántica (card, control, thread) para componentes con valor específico
+       que no encaja en la escala. */
+    --radius-md: 8px;
+    --radius-lg: 14px;
+    --radius-xl: 22px;
+    --radius-2xl: 26px;
     --radius-circle: 50%;
+    --radius-card: 12px;
+    --radius-control: 10px;
+    --radius-thread: 2px;
 
-    /* BOX-SHADOW — soft son sombras editoriales suaves; press es la firma
-       del sistema (sombra plana azul abajo: hero-card, callout, breakers). */
-    --shadow-soft:    0 6px 14px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
-    --shadow-soft-lg: 0 6px 14px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
-    --shadow-press:   0 8px 0 var(--azul);
+    /* BOX-SHADOW — soft = sombra editorial suave; press = firma del sistema
+       (sombra plana azul abajo, sin blur), no Material moderno. */
+    --shadow-soft:
+        0 6px 14px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+    --shadow-press: 0 8px 0 var(--azul);
 }
 
 html {
@@ -106,7 +97,7 @@ body {
 
 /* deja aire al hacer scroll a anclas (menú fijo no tapa el título destino) */
 [id] {
-    scroll-margin-top: 4rem;
+    scroll-margin-top: var(--gap-2xl);
 }
 
 ::selection {
@@ -114,7 +105,7 @@ body {
     color: var(--gris);
 }
 
-/* ---------- 2. Tipografía base y texto ---------- */
+/* ---------- 2. Tipografía base, listas, utilities ---------- */
 
 h1 {
     font-family: var(--display);
@@ -132,7 +123,7 @@ h2 {
     line-height: 1.2;
     font-weight: bolder;
     color: var(--negro);
-    margin-bottom: 3rem;
+    margin-bottom: var(--gap-xl);
     padding: 0;
     text-align: center;
     hyphens: none;
@@ -149,8 +140,8 @@ h2 {
 }
 
 p {
-    margin: 1rem 2px 5rem;
-    font-size: clamp(1.2rem, 1.3vw, 1.5rem);
+    margin: var(--gap-sm) 2px var(--gap-3xl);
+    font-size: var(--text-body);
     line-height: 1.5;
 }
 
@@ -190,6 +181,27 @@ u {
     box-decoration-break: clone;
 }
 
+.hand {
+    font-family: var(--hand);
+    font-weight: 400;
+}
+
+.text-rosa {
+    color: var(--rosa);
+}
+
+.text-verde {
+    color: var(--verde);
+}
+
+.text-rojo {
+    color: var(--rojo);
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
 a {
     color: var(--azul);
 }
@@ -209,8 +221,8 @@ ul {
 li {
     color: var(--gris);
     padding: 0;
-    font-size: clamp(1.2rem, 1.3vw, 1.5rem);
-    margin-bottom: 3rem;
+    font-size: var(--text-body);
+    margin-bottom: var(--gap-xl);
     line-height: 1.5;
     font-weight: 400;
 }
@@ -224,79 +236,7 @@ li::marker {
     vertical-align: bottom;
 }
 
-/* ---------- 3. Botones ---------- */
-
-.btn {
-    display: inline-block;
-    padding: 0.4rem 1rem;
-    border: 1px solid var(--azul);
-    color: white;
-    background: var(--negro);
-    text-decoration: none;
-    font-weight: 300;
-    border-radius: 1.5rem;
-
-    /* sombra sólida para efecto 3D */
-    box-shadow:
-        inset 2px 2px 4px var(--blanco-20),
-        inset -2px -2px 6px var(--azul-30),
-        0 0.2rem 0 0 var(--azul);
-
-    transform: translateY(0);
-    margin: 1em auto;
-
-    transition:
-        transform 0.06s ease,
-        box-shadow 0.06s ease,
-        background-color 0.15s ease;
-}
-
-.btn:hover {
-    background-color: var(--azul-15);
-    text-decoration: none;
-    transform: translateY(0.2rem);
-    box-shadow:
-        inset 2px 2px 4px var(--blanco-20),
-        inset -2px -2px 6px var(--azul-30),
-        0 0 0 0 var(--azul);
-}
-
-.glow {
-    color: var(--azul);
-    font-size: 1.3rem;
-    font-weight: 500;
-    text-align: center;
-    margin: 1rem auto;
-    padding: 1rem 3em;
-    letter-spacing: 1px;
-    box-shadow:
-        inset 2px 2px 4px var(--blanco-40),
-        inset -2px -2px 6px var(--azul-60),
-        0 0.4rem 0 0 var(--azul);
-
-    animation: glow 1s ease-in-out infinite alternate;
-}
-
-.glow:hover {
-    text-decoration: none;
-    background-color: var(--azul-15);
-    transform: translateY(0.4rem);
-    box-shadow:
-        inset 2px 2px 4px var(--blanco-40),
-        inset -2px -2px 6px var(--azul-60),
-        0 0 0 0 var(--azul);
-}
-
-@keyframes glow {
-    from {
-        filter: drop-shadow(0 0 6px var(--azul-70));
-    }
-    to {
-        filter: drop-shadow(0 0 7px var(--azul));
-    }
-}
-
-/* ---------- 4. Menú / navegación ---------- */
+/* ---------- 3. Menú / navegación ---------- */
 
 /* Pill flotante centrada — estética cuaderno/Notion. Mismo papel + sombra
    plana azul que el banner para que se lea como una pestaña editorial
@@ -311,7 +251,7 @@ li::marker {
     z-index: 1000;
 
     background: var(--blanco);
-    border-radius: 12px;
+    border-radius: var(--radius-card);
     box-shadow: var(--shadow-soft);
 }
 
@@ -342,8 +282,7 @@ li::marker {
 }
 
 /* Hover scopeado a (hover: hover): solo dispositivos con ratón real. En
-   táctil :hover se queda pegado tras el tap (no hay mouseleave) y el amber
-   quedaba "guardado" después de pulsar. */
+   táctil :hover se queda pegado tras el tap (no hay mouseleave)*/
 @media (hover: hover) {
     .menu-link:hover {
         background: var(--amarillo);
@@ -374,18 +313,17 @@ li::marker {
     line-height: 1;
 }
 
-/* legacy — el HTML viejo del burger no aplica al nuevo menú, pero por si
-   queda en alguna página lo dejamos oculto. */
+/* En desktop el menú es la pill flotante; el burger + checkbox solo se
+   activan en el @media móvil (más abajo). */
 #menu-toggle,
 .burger {
     display: none;
 }
 
-/* ---------- 5. Banner + hero ---------- */
+/* ---------- 4. Banner + hero ---------- */
 
-/* Banner reestilizado con la marca v2 (sistema editorial Penguin Classics +
-   cuaderno). Fondo papel, sombra plana azul que separa del cuerpo, titular
-   en serif Fraunces, acento rojo en el subrayado del verbo clave. */
+/* Banner editorial: card blanca elevada sobre el papel del body con sombra
+   plana azul (firma del sistema, no Material), separa del cuerpo sin línea. */
 .banner {
     background-color: var(--blanco);
     max-width: 60vw;
@@ -409,8 +347,8 @@ li::marker {
 }
 
 /* Highlighter amarillo: gradient que pinta solo la mitad inferior de las
-   letras, como un rotulador fluorescente. Mismo truco que .hl-marker en
-   landing.css. text-decoration:none anula el subrayado heredado del <u>. */
+   letras, como un rotulador fluorescente. text-decoration:none anula el
+   subrayado heredado del <u>. */
 .banner-mark {
     text-decoration: none;
     background-image: linear-gradient(
@@ -450,112 +388,33 @@ li::marker {
     margin: 0 0 1.2rem;
 }
 
-/* CTA dentro del banner: clon visual del .block--primary "Mis servicios" de
-   index.html. Tarjeta-link azul plana con icono + título serif + subtítulo
-   manuscrito + flecha ↓. Mismo lenguaje que la home para que el usuario
-   reconozca el patrón clicable sin pensarlo. */
-.banner .btn.glow {
-    display: inline-flex;
+/* CTA del banner: reutiliza .block.block--primary (sección 8). El banner
+   es flex-column con stretch por defecto, así que solo hace falta evitar
+   que el botón ocupe el 100% del ancho. La flecha amarilla se mantiene
+   como acento de marca (en la home el .block--primary usa color blanco). */
+.banner .block--primary {
     align-self: center;
-    align-items: center;
-    gap: 10px;
-    margin: 0;
-    background: var(--azul);
-    color: var(--blanco);
-    border: none;
-    border-radius: var(--radius-lg);
-    font-family: var(--sans);
-    font-weight: 400;
-    letter-spacing: 0;
-    padding: 14px 16px;
-    text-decoration: none;
-    box-shadow: none;
-    animation: none;
-    filter: none;
-    transition:
-        transform 120ms ease,
-        box-shadow 120ms ease;
 }
-
-/* Drag-handle decorativo (mismo glifo que en .block del index para que el
-   usuario reconozca el patrón clicable). No es interactivo aquí. */
-.banner .btn.glow .handle {
-    font-family: monospace;
-    color: var(--blanco-45);
-    font-size: 1rem;
-    line-height: 1;
-    flex-shrink: 0;
-}
-
-.banner .btn.glow .btn-icon {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-    display: block;
-}
-
-.banner .btn.glow .btn-body {
-    flex: 1;
-    text-align: left;
-    line-height: 1;
-}
-
-.banner .btn.glow .btn-title {
-    display: block;
-    font-family: var(--serif);
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--blanco);
-    line-height: 1.15;
-    letter-spacing: -0.005em;
-}
-
-.banner .btn.glow .btn-subtitle {
-    display: block;
-    font-family: var(--hand);
-    font-size: 0.9rem;
-    color: var(--blanco-92);
-    line-height: 1.1;
-    margin-top: 1px;
-}
-
-.banner .btn.glow .btn-arrow {
-    font-size: 1.3rem;
+.banner .block--primary .arrow {
     color: var(--amarillo);
     opacity: 1;
-    flex-shrink: 0;
-    margin-left: 4px;
 }
 
-.banner .btn.glow:hover {
-    background: var(--azul);
-    color: var(--blanco);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
-    text-decoration: none;
-}
-
-.banner .btn.glow:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
-
-/* Hero unificado (PC + móvil): columna centrada con ancho de lectura
-   acotado a 720px. h2 + h1 + CTA, sin features ni vídeo. */
+/* Hero unificado: columna centrada con ancho de lectura acotado a 720px. */
 .hero {
     display: flex;
     flex-direction: column;
     max-width: 720px;
-    margin: 1rem auto;
+    margin: var(--gap-sm) auto;
     padding: 0 1rem;
     box-sizing: border-box;
 }
 
-/* ---------- 6. Cuerpo, títulos-breaker ---------- */
+/* ---------- 5. Cuerpo, títulos-breaker, .stars-row, .flecha ---------- */
 
 .cuerpo {
     max-width: 36vw;
-    margin: 1rem auto 0;
+    margin: var(--gap-sm) auto 0;
     padding: 0 1rem;
 }
 
@@ -563,7 +422,7 @@ li::marker {
     width: 50%;
     min-width: 300px;
     display: block;
-    margin: 2rem auto;
+    margin: var(--gap-lg) auto;
 }
 
 .titulo-breaker {
@@ -575,15 +434,14 @@ li::marker {
     padding: 2rem 0;
 }
 
-/* Breaker editorial verde — recuadro tipo hero-card sobre papel con sombra
-   plana en verde chillón (--verde, el lime original sin domesticar). El
-   verde recupera protagonismo aquí porque queda separado del texto, no
-   compitiendo con la lectura. Encima, anotaciones a boli azul: círculo
-   alrededor del "no" + squiggle bajo "mis palabras". */
+/* Breaker editorial verde — recuadro sobre fondo oscuro: el verde lime
+   recupera protagonismo aquí porque queda separado del texto y no compite
+   con la lectura. Encima admite anotaciones a boli (.ink-circle, .squiggle)
+   sobre palabras concretas del titular. */
 .titulo-breaker.f-verde {
     display: block;
     max-width: 52vw;
-    margin: 4rem auto;
+    margin: var(--gap-2xl) auto;
     padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.2rem);
     box-sizing: border-box;
 
@@ -650,17 +508,13 @@ li::marker {
     padding-bottom: 0.22em;
 }
 
-/* Breaker editorial papel — variante clara del f-verde. Misma estructura de
-   tarjeta (Fraunces, padding generoso, sombra dura azul abajo) pero invertida:
-   fondo papel + tinta oscura. Comparte la firma visual con .callout (mismo
-   box-shadow azul plano) — abre y cierra la sección de contacto con el
-   mismo lenguaje. Sin italic ni SVG: es un encabezado de sección, no una
-   réplica conversacional como el f-verde. El highlighter amber se aplica
-   con .banner-mark sobre la palabra clave. */
+/* Breaker editorial papel — variante clara del f-verde, fondo blanco +
+   tinta oscura. Sin italic ni SVG: es un encabezado de sección, no una
+   réplica conversacional como el f-verde. */
 .titulo-breaker.f-papel {
     display: block;
     max-width: 52vw;
-    margin: 4rem auto 1.5rem;
+    margin: var(--gap-2xl) auto var(--gap-md);
     padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.2rem);
     box-sizing: border-box;
 
@@ -676,14 +530,13 @@ li::marker {
     text-align: center;
 }
 
-/* Fila de 5 estrellas a boli debajo del breaker "Cómo trabajar juntos".
-   Cada una con rotación distinta para que se lea como "puestas a mano",
-   no como fila perfecta de Trustpilot. Decorativas: aria-hidden en HTML. */
+/* Fila de estrellas a boli con rotación distinta cada una, para que se
+   lea como "puestas a mano", no como fila perfecta de Trustpilot. */
 .stars-row {
     display: flex;
     justify-content: center;
     gap: 0.4rem;
-    margin: 0 auto 1.5rem;
+    margin: 0 auto var(--gap-md);
 }
 
 .stars-row .star {
@@ -691,16 +544,26 @@ li::marker {
     height: auto;
 }
 
-.stars-row .star:nth-child(1) { transform: rotate(-6deg); }
-.stars-row .star:nth-child(2) { transform: rotate(3deg); }
-.stars-row .star:nth-child(3) { transform: rotate(-2deg); }
-.stars-row .star:nth-child(4) { transform: rotate(5deg); }
-.stars-row .star:nth-child(5) { transform: rotate(-4deg); }
+.stars-row .star:nth-child(1) {
+    transform: rotate(-6deg);
+}
+.stars-row .star:nth-child(2) {
+    transform: rotate(3deg);
+}
+.stars-row .star:nth-child(3) {
+    transform: rotate(-2deg);
+}
+.stars-row .star:nth-child(4) {
+    transform: rotate(5deg);
+}
+.stars-row .star:nth-child(5) {
+    transform: rotate(-4deg);
+}
 
 /* Variante margin: estrellas como anotación a la derecha del listado de
-   logros, ancladas absolutamente al hueco entre bullets ~3 y ~4. Inclinación
-   global del bloque para reforzar el "puesto a mano sobre el dossier", no
-   en el flujo de lectura. */
+   logros, ancladas absolutamente al lateral. Inclinación global del bloque
+   para reforzar el "puesto a mano sobre el dossier", no en el flujo de
+   lectura. */
 .logros {
     position: relative;
 }
@@ -709,7 +572,7 @@ li::marker {
     position: absolute;
     top: 50%;
     left: 100%;
-    margin: 0 0 0 1.5rem;
+    margin: 0 0 0 var(--gap-md);
     transform: translateY(-50%) rotate(-8deg);
     transform-origin: left center;
 }
@@ -720,14 +583,12 @@ li::marker {
     }
 }
 
-/* Cadencia compacta en desktop para la sección de contacto: el `<p>` genérico
-   tiene margin-bottom 5rem (pensado para separar bloques largos del cuerpo),
-   pero aquí el párrafo es de una sola línea introduciendo el formulario —
-   5rem deja un agujero. Móvil ya tiene su propio override (3rem) y no hace
-   falta tocarlo. */
+/* En desktop el `<p>` genérico tiene margin-bottom 5rem (separa bloques
+   largos del cuerpo); aquí el párrafo introduce el formulario y 5rem deja
+   un agujero. Móvil ya tiene su propio override (3rem). */
 @media (min-width: 801px) {
     p#contacto {
-        margin-bottom: 1.5rem;
+        margin-bottom: var(--gap-md);
     }
 }
 
@@ -749,34 +610,31 @@ li::marker {
 .cita {
     padding: 0.6em 0.9em;
     border-left: 0.2em solid var(--rosa);
-    border-radius: 12px;
+    border-radius: var(--radius-card);
     background-color: var(--rosa-05);
-    margin-bottom: 4rem;
+    margin-bottom: var(--gap-2xl);
 }
 
 .flecha {
     font-family: var(--script);
     color: var(--azul);
     font-size: 7rem;
-    margin: 0 0 5rem;
+    margin: 0 0 var(--gap-3xl);
     padding: 0;
     text-align: center;
 }
 
-/* ---------- 7. Componentes ---------- */
+/* ---------- 6. Componentes ---------- */
 
-/* Estética "tarjeta papel" prestada del hero-card de la landing (sistema 2):
-   fondo papel suave, esquinas generosas y sombra dura azul de 8px sin blur
-   — efecto press editorial, no el material-blur moderno. Sin border: la
-   sombra dura ya delimita la tarjeta y se siente más sólida que un
-   contorno dasheado. */
+/* Tarjeta blanca con sombra plana azul (firma --shadow-press): efecto press
+   editorial. Sin border — la sombra dura delimita más sólido que un contorno. */
 .callout {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
     width: 38vw;
 
-    margin: 0 auto 8rem;
+    margin: 0 auto var(--gap-4xl);
     padding: 2rem;
 
     background: var(--blanco);
@@ -785,10 +643,9 @@ li::marker {
 }
 
 .callout p {
-    margin-bottom: 3rem;
+    margin-bottom: var(--gap-xl);
 }
 
-/* player de audio (reviews) */
 audio::-webkit-media-controls-panel {
     background-color: var(--azul-10);
 }
@@ -798,7 +655,7 @@ audio::-webkit-media-controls-panel {
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    margin-bottom: 5rem;
+    margin-bottom: var(--gap-3xl);
 }
 
 /* Tarjeta para el reproductor de reseñas. Papel + borde-acento amber a la
@@ -807,7 +664,7 @@ audio::-webkit-media-controls-panel {
    nativo del navegador sin forzar un custom player. */
 .review-card {
     max-width: 520px;
-    margin: 0 auto 5rem;
+    margin: 0 auto var(--gap-3xl);
     padding: 0.9rem 1.1rem;
 
     background: var(--blanco);
@@ -823,7 +680,7 @@ audio::-webkit-media-controls-panel {
     flex: 1;
     min-width: 0;
     height: 40px;
-    border-radius: 10px;
+    border-radius: var(--radius-control);
 }
 
 .review-card audio::-webkit-media-controls-panel {
@@ -837,7 +694,6 @@ audio::-webkit-media-controls-panel {
     object-fit: cover;
 }
 
-/* sello CLASSIFIED con máscara de desgaste */
 .classified {
     font-family: var(--stamp);
     font-weight: 700;
@@ -848,7 +704,7 @@ audio::-webkit-media-controls-panel {
     align-items: center;
     justify-content: center;
     height: 1.5rem;
-    margin-top: 5rem;
+    margin-top: var(--gap-3xl);
 
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -863,18 +719,16 @@ audio::-webkit-media-controls-panel {
 }
 
 #contacto {
-    scroll-margin-top: 1rem;
+    scroll-margin-top: var(--gap-sm);
 }
 
-/* ---------- 8. Responsive (<=800px) ---------- */
+/* ---------- 7. Responsive (<=800px) ---------- */
 
 @media (max-width: 800px) {
-    /* reset scroll margin anclas */
     [id] {
-        scroll-margin-top: 1.5rem;
+        scroll-margin-top: var(--gap-md);
     }
 
-    /* layout base móvil */
     .banner {
         max-width: none;
         margin: 14px 14px 28px;
@@ -882,13 +736,11 @@ audio::-webkit-media-controls-panel {
     }
 
     .cuerpo {
-        /* importante: max-width (no max) para que los callouts no se rompan */
         max-width: 99vw;
-        margin: 1rem auto 0;
+        margin: var(--gap-sm) auto 0;
         padding: 0 5px;
     }
 
-    /* tipografía móvil */
     h1 {
         padding: 0 2px;
         margin: 0;
@@ -918,12 +770,12 @@ audio::-webkit-media-controls-panel {
     .titulo-breaker.f-verde,
     .titulo-breaker.f-papel {
         max-width: none;
-        margin: 3rem 14px;
+        margin: var(--gap-xl) 14px;
     }
 
     p {
-        font-size: clamp(1rem, 1.1vw, 1.4rem);
-        margin-bottom: 3rem;
+        font-size: var(--text-body-m);
+        margin-bottom: var(--gap-xl);
     }
 
     ul {
@@ -935,12 +787,11 @@ audio::-webkit-media-controls-panel {
     }
 
     li {
-        font-size: clamp(1rem, 1.1vw, 1.4rem);
-        margin: 0 0 2rem;
+        font-size: var(--text-body-m);
+        margin: 0 0 var(--gap-lg);
         line-height: 1.5;
     }
 
-    /* callout a ancho completo */
     .callout {
         position: relative;
         left: 0;
@@ -953,12 +804,11 @@ audio::-webkit-media-controls-panel {
     }
 
     .callout p {
-        margin-bottom: 2rem;
+        margin-bottom: var(--gap-lg);
     }
 
-    /* menú móvil — burger desplegable. La .menu pasa a ser un contenedor
-       de posicionamiento; el fondo + sombra los lleva el burger y el panel
-       de enlaces independientemente. */
+    /* En móvil el .menu deja de ser pill y pasa a contenedor de posicionamiento:
+       fondo y sombra los llevan el burger y el panel de enlaces por separado. */
     .menu {
         top: 10px;
         right: 10px;
@@ -968,7 +818,8 @@ audio::-webkit-media-controls-panel {
         border-radius: 0;
     }
 
-    /* checkbox oculto pero accesible (driver del estado abierto/cerrado) */
+    /* Patrón checkbox-hack: el checkbox queda oculto pero accesible y dispara
+       el estado abierto/cerrado vía :checked. Sin JS. */
     #menu-toggle {
         display: none;
     }
@@ -984,7 +835,7 @@ audio::-webkit-media-controls-panel {
         box-sizing: border-box;
 
         background: var(--blanco);
-        border-radius: 10px;
+        border-radius: var(--radius-control);
         box-shadow: var(--shadow-soft);
         cursor: pointer;
     }
@@ -993,14 +844,13 @@ audio::-webkit-media-controls-panel {
         display: block;
         height: 2px;
         background: var(--azul);
-        border-radius: 2px;
+        border-radius: var(--radius-thread);
         transition:
             transform 160ms ease,
             opacity 160ms ease;
         transform-origin: center;
     }
 
-    /* burger → X cuando está abierto */
     #menu-toggle:checked + .burger span:nth-child(1) {
         transform: translateY(6px) rotate(45deg);
     }
@@ -1011,7 +861,6 @@ audio::-webkit-media-controls-panel {
         transform: translateY(-6px) rotate(-45deg);
     }
 
-    /* panel de enlaces desplegable */
     .links {
         position: absolute;
         top: 48px;
@@ -1024,7 +873,7 @@ audio::-webkit-media-controls-panel {
         padding: 6px;
 
         background: var(--blanco);
-        border-radius: 12px;
+        border-radius: var(--radius-card);
         box-shadow: var(--shadow-soft);
 
         opacity: 0;
@@ -1052,40 +901,446 @@ audio::-webkit-media-controls-panel {
         display: none;
     }
 
-    /* botón CTA móvil */
-    .glow {
-        font-size: 1rem;
-        font-weight: 400;
-        margin: 1rem auto;
-        padding: 0.8rem 0 !important;
-        width: 80vw;
-    }
-
-    /* En el banner el CTA es bloque-link (icono + título + subtítulo + flecha):
-     necesita padding horizontal y no estirarse al 80vw. Pisa al .glow global. */
-    .banner .btn.glow {
-        width: auto;
-        padding: 12px 16px !important;
-        margin: 1.2rem auto;
-        gap: 10px;
-    }
-    .banner .btn.glow .btn-icon {
-        width: 26px;
-        height: 26px;
-    }
-    .banner .btn.glow .btn-title {
-        font-size: 1.05rem;
-    }
-    .banner .btn.glow .btn-subtitle {
-        font-size: 0.85rem;
-    }
-
-    /* imágenes y media */
     .forjador {
         width: 80%;
     }
 
     .flecha {
         font-size: 5rem;
+    }
+}
+
+/* ---------- 8. Home (index.html) ----------
+   Tarjeta de visita móvil-first: hero-card + post-it + lista de bloques.
+   Brief: filósofo griego / científico de gabinete con autoridad —
+   Penguin Classics + cuaderno de campo + Notion personal.
+   Jerarquía de neutros INVERTIDA respecto a /servicios: aquí el body es
+   blanco puro implícito (a través de `.stage`) y la `hero-card` se eleva
+   en blanco con sombra plana azul; los bloques también van en blanco con
+   sombra suave que desaparece al pulsar (translateY positivo: la pieza
+   se "hunde" en el papel, encaja con el lenguaje físico del cuaderno).
+*/
+.stage,
+.stage *,
+.stage *::before,
+.stage *::after {
+    box-sizing: border-box;
+}
+
+.stage {
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding: 14px 0 clamp(20px, 4vh, 40px);
+    -webkit-font-smoothing: antialiased;
+}
+
+.hero-card {
+    position: relative;
+    margin: 0 14px clamp(125px, 20.5vh, 180px);
+    background: var(--blanco);
+    border-radius: 26px;
+    padding: clamp(14px, 2.5vh, 20px) 12px clamp(40px, 6.5vh, 56px);
+    box-shadow: var(--shadow-press);
+}
+
+.hero-photo-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.hero-photo {
+    width: clamp(96px, 14vh, 120px);
+    height: clamp(96px, 14vh, 120px);
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.hero-headline {
+    margin: 10px 4px 0;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    color: var(--negro);
+    text-align: center;
+}
+
+.hl-squiggle {
+    position: relative;
+    white-space: nowrap;
+}
+
+.hl-squiggle .squiggle-text {
+    position: relative;
+    z-index: 1;
+}
+
+.hl-squiggle .squiggle-svg {
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 10px;
+}
+
+.hl-squiggle .squiggle-svg path,
+.arrow-doodle path {
+    stroke: var(--rojo);
+}
+
+.postit-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    display: flex;
+    justify-content: center;
+    transform: translateY(-10%);
+    pointer-events: none;
+}
+
+.postit-wrap .postit {
+    pointer-events: auto;
+}
+
+.postit {
+    position: relative;
+    width: 256px;
+    background: var(--amarillo);
+    padding: 12px 14px 14px;
+    transform: rotate(-1.8deg);
+    box-shadow:
+        0 6px 14px rgba(0, 0, 0, 0.14),
+        0 1px 2px rgba(0, 0, 0, 0.08);
+    font-family: var(--hand);
+    font-size: 14.5px;
+    line-height: 1.25;
+    color: var(--negro);
+}
+
+.postit .tape {
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-3deg);
+    width: 46px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.55);
+    border-left: 1px dashed rgba(0, 0, 0, 0.08);
+    border-right: 1px dashed rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.postit .bold {
+    font-weight: 700;
+}
+
+.section-heading {
+    margin: clamp(10px, 2vh, 18px) 22px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--negro);
+}
+
+.section-heading .caret {
+    color: var(--mute);
+}
+
+.blocks {
+    position: relative;
+    margin: 8px 14px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.arrow-doodle {
+    position: absolute;
+    top: -122px;
+    right: 60px;
+    width: 95px;
+    height: 95px;
+    pointer-events: none;
+    z-index: 2;
+    transform: rotate(20deg);
+    transform-origin: center;
+}
+
+.block {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: var(--negro);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.07);
+    transition:
+        transform 120ms ease,
+        box-shadow 120ms ease;
+}
+
+.block:hover {
+    transform: translateY(1px);
+    box-shadow: none;
+    text-decoration: none;
+}
+
+.block:active {
+    transform: translateY(2px);
+}
+
+.block .handle {
+    font-family: monospace;
+    color: rgba(0, 0, 0, 0.25);
+    cursor: grab;
+    touch-action: none;
+}
+
+.block .handle:active {
+    cursor: grabbing;
+}
+
+.block--ghost {
+    opacity: 0.35;
+}
+
+.block .icon {
+    width: 22px;
+    height: 22px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.block .body {
+    flex: 1;
+}
+
+.block .title {
+    display: block;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--negro);
+}
+
+.block .subtitle-hand {
+    display: block;
+    font-family: var(--hand);
+    font-size: 14px;
+    color: var(--rojo);
+    margin-top: -1px;
+}
+
+/* Stack sin "Segoe UI Emoji" para que ↗ (U+2197) y → (U+2192) se rendericen
+   como glifo de texto, no como emoji coloreado. IBM Plex Sans no incluye
+   estos caracteres, así que el navegador cae a system-ui directamente. */
+.block .arrow,
+.arrow--mute {
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+}
+
+.block .arrow {
+    font-size: 18px;
+    color: var(--negro);
+    opacity: 0.7;
+}
+
+/* Variantes — nombres semánticos (no por color, así sobreviven a re-skins) */
+.block--primary {
+    background: var(--azul);
+    color: var(--blanco);
+    padding: 14px 12px;
+}
+.block--primary .title {
+    color: var(--blanco);
+}
+.block--primary .subtitle-hand {
+    color: rgba(255, 255, 255, 0.9);
+}
+.block--primary .handle {
+    color: rgba(255, 255, 255, 0.45);
+}
+.block--primary .arrow {
+    color: var(--blanco);
+    opacity: 0.9;
+}
+
+.block--skool {
+    background: var(--blanco);
+}
+.block--curso {
+    background: var(--blanco);
+}
+
+/* WIP — bloque "en construcción": parece un botón normal cubierto por
+   una cinta diagonal amarillo+negro tipo valla de obras. La cinta es
+   puramente decorativa (pointer-events:none) y atraviesa el centro
+   tapando parcialmente los textos — la metáfora pide eso: hay algo
+   debajo pero no puedes acceder todavía. */
+.block--wip {
+    position: relative;
+    overflow: hidden;
+    background: var(--blanco);
+    box-shadow: none;
+    cursor: default;
+}
+.block--wip:hover,
+.block--wip:active {
+    transform: none;
+    box-shadow: none;
+}
+.block--wip::before {
+    content: "";
+    position: absolute;
+    left: -8%;
+    right: -8%;
+    top: 50%;
+    height: 26px;
+    transform: translateY(-50%) rotate(-4deg);
+    background: repeating-linear-gradient(
+        135deg,
+        var(--amarillo) 0,
+        var(--amarillo) 12px,
+        var(--negro) 12px,
+        var(--negro) 24px
+    );
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.block--primary .title {
+    font-size: 18px;
+}
+.block--skool .title,
+.block--curso .title {
+    font-size: 15px;
+}
+
+.badge-free {
+    background: var(--amarillo);
+    color: var(--negro);
+    font-family: var(--type);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--negro);
+    transform: rotate(4deg);
+}
+
+.arrow--mute {
+    font-size: 16px;
+    color: var(--negro);
+    opacity: 0.5;
+    margin-left: 4px;
+}
+
+@media (max-width: 380px) {
+    .hero-headline {
+        font-size: 26px;
+    }
+    .postit {
+        width: 232px;
+    }
+}
+
+/* Escritorio — mantiene la sensación móvil-first (columna estrecha
+   centrada) ensanchando lienzo y escalando tipografías. Todas las
+   medidas verticales usan clamp(min, vh, max) para que la home se
+   contraiga si el viewport es bajo (ej: 2K con Windows scaling 125-150%)
+   y nunca exija scroll. Mínimos pensados para ~680px de viewport útil. */
+@media (min-width: 700px) {
+    .stage {
+        max-width: 620px;
+        padding: clamp(8px, 1.6vh, 18px) 0 clamp(20px, 3.6vh, 40px);
+    }
+
+    .hero-card {
+        margin: 0 0 clamp(135px, 19vh, 200px);
+        padding: clamp(14px, 2vh, 22px) 22px clamp(42px, 5.6vh, 60px);
+        border-radius: 28px;
+    }
+
+    .hero-photo {
+        width: clamp(110px, 14vh, 156px);
+        height: clamp(110px, 14vh, 156px);
+    }
+
+    .hero-headline {
+        font-size: clamp(30px, 3.8vh, 40px);
+        margin: clamp(8px, 1.1vh, 12px) 6px 0;
+    }
+
+    .postit {
+        width: clamp(290px, 33vh, 360px);
+        padding: clamp(12px, 1.5vh, 16px) clamp(14px, 1.7vh, 18px)
+            clamp(14px, 1.7vh, 18px);
+        font-size: clamp(17px, 1.9vh, 20px);
+        line-height: 1.28;
+    }
+
+    .section-heading {
+        margin: clamp(12px, 2vh, 22px) 102px 0;
+        font-size: 16px;
+    }
+
+    .blocks {
+        margin: clamp(6px, 1vh, 10px) 94px 0;
+        gap: clamp(6px, 1vh, 10px);
+    }
+
+    .arrow-doodle {
+        top: clamp(-110px, -12vh, -80px);
+        right: 90px;
+        width: clamp(85px, 11vh, 110px);
+        height: clamp(85px, 11vh, 110px);
+        transform: rotate(22deg);
+    }
+
+    .block {
+        padding: clamp(10px, 1.4vh, 14px);
+        gap: 10px;
+    }
+
+    .block .icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .block .title {
+        font-size: 18px;
+    }
+
+    .block .subtitle-hand {
+        font-size: 15px;
+    }
+
+    .block--primary {
+        padding: clamp(13px, 1.8vh, 17px) 14px;
+    }
+
+    .block--primary .title {
+        font-size: 20px;
+    }
+
+    .block--skool .title,
+    .block--curso .title {
+        font-size: 17px;
+    }
+
+    .badge-free {
+        font-size: 11px;
+        padding: 3px 7px;
     }
 }
