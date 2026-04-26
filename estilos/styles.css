@@ -16,29 +16,19 @@
 :root {
     font-family: var(--sans);
 
-    /* PALETA */
-    --azul: #1e5fbf; /* alineado con --brand-azul; antes era cyan #00e5ff */
-    --rosa: #ff4fdd;
-
+    /* PALETA — una sola fuente de verdad. Jerarquía de neutros: body =
+       --papel (grisáceo); cards (banner, callout, breaker papel, menu,
+       review-card) = --blanco (puro elevado). */
+    --azul:     #1e5fbf;
+    --rosa:     #ff4fdd;
     --amarillo: #ffe066;
-    --rojo: #f40600;
-    --verde: #baff29;
-
-    --negro: #292f36; /* alineado con --brand-tinta (era #151515 negro plano) */
-    --gris: #3a4047; /* alineado con --brand-tinta-suave (era #252422 cálido) */
-    --blanco: #ffffff; /* blanco puro: fondo de cards/banner/callout/menu y texto sobre fondos oscuros */
-
-    /* Brand v2 — sistema editorial (Penguin Classics + cuaderno).
-       Jerarquía de neutros: body = --brand-papel (papel grisáceo);
-       cards (banner, callout, breaker papel, menu, review-card) = --blanco (blanco puro elevado). */
-    --brand-tinta: #292f36;
-    --brand-tinta-suave: #3a4047;
-    --brand-azul: #1e5fbf;
-    --brand-rojo: #f40600;
-    --brand-amber: #ffe066;
-    --brand-papel: #f7f9fc;
-    --brand-mute: #6f7c90;
-    --brand-verde: #d4ee8e; /* highlighter verde refinado (vs el #baff29 neon) */
+    --rojo:     #f40600;
+    --verde:    #baff29;   /* lime neon, deliberado para highlighter chillón */
+    --negro:    #292f36;
+    --gris:     #3a4047;
+    --blanco:   #ffffff;
+    --papel:    #f7f9fc;   /* fondo del body, mismo hue azul desaturado que sistema 2 */
+    --mute:     #6f7c90;   /* texto secundario, mismo hue desaturado */
 
     /* AZUL — opacidades derivadas de --azul vía color-mix.
        Usar en vez de rgba(30,95,191,X). Si el azul cambia, estas siguen. */
@@ -106,7 +96,7 @@ body {
     color: var(--gris);
     margin: 0;
     padding: 0;
-    background-color: var(--brand-papel);
+    background-color: var(--papel);
 }
 
 /* deja aire al hacer scroll a anclas (menú fijo no tapa el título destino) */
@@ -149,7 +139,7 @@ h2 {
     font-family: var(--hand);
     font-weight: 700;
     letter-spacing: 0.02em;
-    color: var(--brand-azul);
+    color: var(--azul);
     margin-bottom: 0.4rem;
 }
 
@@ -340,7 +330,7 @@ li::marker {
     font-family: var(--sans);
     font-size: 0.88rem;
     font-weight: 500;
-    color: var(--brand-tinta);
+    color: var(--negro);
     text-decoration: none;
 
     transition:
@@ -353,12 +343,12 @@ li::marker {
    quedaba "guardado" después de pulsar. */
 @media (hover: hover) {
     .menu-link:hover {
-        background: var(--brand-amber);
-        color: var(--brand-tinta);
+        background: var(--amarillo);
+        color: var(--negro);
         text-decoration: none;
     }
     .menu-link:hover .menu-link-arrow {
-        color: var(--brand-tinta);
+        color: var(--negro);
     }
 }
 
@@ -369,12 +359,12 @@ li::marker {
     width: 14px;
     height: 14px;
     flex-shrink: 0;
-    color: var(--brand-azul);
+    color: var(--azul);
     display: block;
 }
 
 .menu-divider {
-    color: var(--brand-mute);
+    color: var(--mute);
     font-weight: 400;
     user-select: none;
     padding: 0 2px;
@@ -402,7 +392,7 @@ li::marker {
 
     position: relative;
     overflow: hidden;
-    box-shadow: 0 8px 0 var(--brand-azul);
+    box-shadow: 0 8px 0 var(--azul);
 }
 
 .banner h1 {
@@ -411,7 +401,7 @@ li::marker {
     font-weight: 700;
     letter-spacing: -0.015em;
     line-height: 1.18;
-    color: var(--brand-tinta);
+    color: var(--negro);
     margin: 0 auto 0.8em;
 }
 
@@ -424,8 +414,8 @@ li::marker {
         180deg,
         transparent 0,
         transparent 48%,
-        var(--brand-amber) 48%,
-        var(--brand-amber) 92%,
+        var(--amarillo) 48%,
+        var(--amarillo) 92%,
         transparent 92%
     );
     padding: 0 0.12em;
@@ -439,7 +429,7 @@ li::marker {
     font-size: 0.55em;
     font-style: normal;
     font-weight: 400;
-    color: var(--brand-azul);
+    color: var(--azul);
     margin-top: 0.55em;
     letter-spacing: 0;
     transform: rotate(1.2deg);
@@ -452,7 +442,7 @@ li::marker {
     font-style: normal;
     font-weight: 600;
     letter-spacing: 0.02em;
-    color: var(--brand-tinta);
+    color: var(--negro);
     padding: 0;
     margin: 0 0 1.2rem;
 }
@@ -467,7 +457,7 @@ li::marker {
     align-items: center;
     gap: 10px;
     margin: 0;
-    background: var(--brand-azul);
+    background: var(--azul);
     color: var(--blanco);
     border: none;
     border-radius: 14px;
@@ -528,14 +518,14 @@ li::marker {
 
 .banner .btn.glow .btn-arrow {
     font-size: 1.3rem;
-    color: var(--brand-amber);
+    color: var(--amarillo);
     opacity: 1;
     flex-shrink: 0;
     margin-left: 4px;
 }
 
 .banner .btn.glow:hover {
-    background: var(--brand-azul);
+    background: var(--azul);
     color: var(--blanco);
     transform: translateY(-1px);
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
@@ -594,7 +584,7 @@ li::marker {
     padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.2rem);
     box-sizing: border-box;
 
-    background: var(--brand-tinta);
+    background: var(--negro);
     border-radius: 22px;
 
     font-family: var(--serif);
@@ -679,7 +669,7 @@ li::marker {
     font-size: clamp(1.8rem, 3.2vw, 2.6rem);
     line-height: 1.25;
     letter-spacing: -0.005em;
-    color: var(--brand-tinta);
+    color: var(--negro);
     text-align: center;
 }
 
@@ -747,8 +737,8 @@ li::marker {
         180deg,
         transparent 0,
         transparent 56%,
-        var(--brand-amber) 56%,
-        var(--brand-amber) 86%,
+        var(--amarillo) 56%,
+        var(--amarillo) 86%,
         transparent 86%
     );
 }
@@ -763,7 +753,7 @@ li::marker {
 
 .flecha {
     font-family: var(--script);
-    color: var(--brand-azul);
+    color: var(--azul);
     font-size: 7rem;
     margin: 0 0 5rem;
     padding: 0;
@@ -1003,7 +993,7 @@ audio::-webkit-media-controls-panel {
     .burger span {
         display: block;
         height: 2px;
-        background: var(--brand-azul);
+        background: var(--azul);
         border-radius: 2px;
         transition:
             transform 160ms ease,
