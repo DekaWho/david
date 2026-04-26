@@ -14,7 +14,7 @@
 /* ---------- 1. Variables + reset ---------- */
 
 :root {
-    font-family: "IBM Plex Sans", "Segoe UI Emoji", system-ui, sans-serif;
+    font-family: var(--sans);
 
     /* PALETA */
     --azul: #1e5fbf; /* alineado con --brand-azul; antes era cyan #00e5ff */
@@ -39,6 +39,60 @@
     --brand-papel: #f7f9fc;
     --brand-mute: #6f7c90;
     --brand-verde: #d4ee8e; /* highlighter verde refinado (vs el #baff29 neon) */
+
+    /* AZUL — opacidades derivadas de --azul vía color-mix.
+       Usar en vez de rgba(30,95,191,X). Si el azul cambia, estas siguen. */
+    --azul-10: color-mix(in srgb, var(--azul) 10%, transparent);
+    --azul-15: color-mix(in srgb, var(--azul) 15%, transparent);
+    --azul-30: color-mix(in srgb, var(--azul) 30%, transparent);
+    --azul-60: color-mix(in srgb, var(--azul) 60%, transparent);
+    --azul-70: color-mix(in srgb, var(--azul) 70%, transparent);
+
+    /* TIPOGRAFÍA — familias. Cualquier font-family debería referenciar una
+       de estas; añadir una nueva familia es decisión consciente. */
+    --sans:    "IBM Plex Sans", "Segoe UI Emoji", system-ui, sans-serif;
+    --serif:   "Fraunces", Georgia, serif;
+    --hand:    "Kalam", "Caveat", cursive;
+    --display: "Lilita One", sans-serif;
+    --type:    "Special Elite", system-ui;       /* máquina de escribir / etiqueta de archivo */
+    --script:  "Sedgwick Ave Display", cursive;
+    --stamp:   "Black Ops One", system-ui;       /* sello CONFIDENCIAL */
+
+    /* TIPOGRAFÍA — escala de tamaños. Modular 1.25x desde 1rem (18px base).
+       Para clamp() fluidos, usar estos buckets como min/max. */
+    --text-xs:   0.75rem;     /* 13.5px */
+    --text-sm:   0.875rem;    /* 15.75px */
+    --text-base: 1rem;        /* 18px */
+    --text-lg:   1.25rem;     /* 22.5px */
+    --text-xl:   1.5rem;      /* 27px */
+    --text-2xl:  1.875rem;    /* 33.75px */
+    --text-3xl:  2.5rem;      /* 45px */
+    --text-4xl:  3.5rem;      /* 63px */
+
+    /* ESPACIOS — escala 1.5x. Cualquier margin/padding vertical debería caer
+       en un bucket. Si ninguno encaja, añadir bucket; no inventar valor random. */
+    --gap-2xs: 0.25rem;       /*  4px */
+    --gap-xs:  0.5rem;        /*  8px */
+    --gap-sm:  1rem;          /* 16px */
+    --gap-md:  1.5rem;        /* 24px */
+    --gap-lg:  2.5rem;        /* 40px */
+    --gap-xl:  4rem;          /* 64px */
+    --gap-2xl: 6rem;          /* 96px */
+
+    /* BORDER-RADIUS — px (no escalan con tipografía). */
+    --radius-sm:     4px;
+    --radius-md:     8px;
+    --radius-lg:    14px;
+    --radius-xl:    22px;
+    --radius-2xl:   26px;
+    --radius-pill:  9999px;
+    --radius-circle: 50%;
+
+    /* BOX-SHADOW — soft son sombras editoriales suaves; press es la firma
+       del sistema (sombra plana azul abajo: hero-card, callout, breakers). */
+    --shadow-soft:    0 6px 14px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+    --shadow-soft-lg: 0 6px 14px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+    --shadow-press:   0 8px 0 var(--azul);
 }
 
 html {
@@ -68,7 +122,7 @@ body {
 /* ---------- 2. Tipografía base y texto ---------- */
 
 h1 {
-    font-family: "Lilita One", sans-serif;
+    font-family: var(--display);
     font-size: 2.8rem;
     margin: 0 auto 0.8em;
     line-height: 1.1;
@@ -92,7 +146,7 @@ h2 {
 /* "SUFICIENTE" — declaración manuscrita en Kalam, mayúsculas, sin punto.
    Usa la sintaxis del cuaderno: marcador rotulado más que titular tipográfico. */
 .suficiente {
-    font-family: "Kalam", "Caveat", cursive;
+    font-family: var(--hand);
     font-weight: 700;
     letter-spacing: 0.02em;
     color: var(--brand-azul);
@@ -283,7 +337,7 @@ li::marker {
     padding: 6px 12px;
     border-radius: 8px;
 
-    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-family: var(--sans);
     font-size: 0.88rem;
     font-weight: 500;
     color: var(--brand-tinta);
@@ -352,7 +406,7 @@ li::marker {
 }
 
 .banner h1 {
-    font-family: "Fraunces", Georgia, serif;
+    font-family: var(--serif);
     font-size: clamp(2.2rem, 3.2vw, 3rem);
     font-weight: 700;
     letter-spacing: -0.015em;
@@ -381,7 +435,7 @@ li::marker {
 
 .banner-subline {
     display: block;
-    font-family: "Kalam", "Caveat", cursive;
+    font-family: var(--hand);
     font-size: 0.55em;
     font-style: normal;
     font-weight: 400;
@@ -393,7 +447,7 @@ li::marker {
 }
 
 .banner h2 {
-    font-family: "Fraunces", Georgia, serif;
+    font-family: var(--serif);
     font-size: 1.3rem;
     font-style: normal;
     font-weight: 600;
@@ -417,7 +471,7 @@ li::marker {
     color: var(--blanco);
     border: none;
     border-radius: 14px;
-    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-family: var(--sans);
     font-weight: 400;
     letter-spacing: 0;
     padding: 14px 16px;
@@ -455,7 +509,7 @@ li::marker {
 
 .banner .btn.glow .btn-title {
     display: block;
-    font-family: "Fraunces", Georgia, serif;
+    font-family: var(--serif);
     font-weight: 700;
     font-size: 1.1rem;
     color: var(--blanco);
@@ -465,7 +519,7 @@ li::marker {
 
 .banner .btn.glow .btn-subtitle {
     display: block;
-    font-family: "Kalam", cursive;
+    font-family: var(--hand);
     font-size: 0.9rem;
     color: rgba(255, 255, 255, 0.92);
     line-height: 1.1;
@@ -543,7 +597,7 @@ li::marker {
     background: var(--brand-tinta);
     border-radius: 22px;
 
-    font-family: "Fraunces", Georgia, serif;
+    font-family: var(--serif);
     font-weight: 600;
     font-style: italic;
     font-size: clamp(1.6rem, 2.8vw, 2.4rem);
@@ -620,7 +674,7 @@ li::marker {
     background: var(--blanco);
     border-radius: 22px;
 
-    font-family: "Fraunces", Georgia, serif;
+    font-family: var(--serif);
     font-weight: 600;
     font-size: clamp(1.8rem, 3.2vw, 2.6rem);
     line-height: 1.25;
@@ -708,7 +762,7 @@ li::marker {
 }
 
 .flecha {
-    font-family: "Sedgwick Ave Display", cursive;
+    font-family: var(--script);
     color: var(--brand-azul);
     font-size: 7rem;
     margin: 0 0 5rem;
@@ -794,7 +848,7 @@ audio::-webkit-media-controls-panel {
 
 /* sello CLASSIFIED con máscara de desgaste */
 .classified {
-    font-family: "Black Ops One", system-ui;
+    font-family: var(--stamp);
     font-weight: 700;
     font-size: clamp(1.4rem, 4vw, 1.95rem);
     padding: 1rem;
