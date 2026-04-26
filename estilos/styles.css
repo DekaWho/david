@@ -312,9 +312,7 @@ li::marker {
 
     background: var(--blanco);
     border-radius: 12px;
-    box-shadow:
-        0 6px 14px rgba(0, 0, 0, 0.08),
-        0 2px 4px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--shadow-soft);
 }
 
 .links {
@@ -397,7 +395,7 @@ li::marker {
 
     position: relative;
     overflow: hidden;
-    box-shadow: 0 8px 0 var(--azul);
+    box-shadow: var(--shadow-press);
 }
 
 .banner h1 {
@@ -783,7 +781,7 @@ li::marker {
 
     background: var(--blanco);
     border-radius: var(--radius-2xl);
-    box-shadow: 0 8px 0 var(--azul);
+    box-shadow: var(--shadow-press);
 }
 
 .callout p {
@@ -814,9 +812,7 @@ audio::-webkit-media-controls-panel {
 
     background: var(--blanco);
     border-radius: var(--radius-lg);
-    box-shadow:
-        0 6px 14px rgba(0, 0, 0, 0.07),
-        0 2px 4px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--shadow-soft);
 }
 
 .review-card .avatar {
@@ -989,9 +985,7 @@ audio::-webkit-media-controls-panel {
 
         background: var(--blanco);
         border-radius: 10px;
-        box-shadow:
-            0 6px 14px rgba(0, 0, 0, 0.08),
-            0 2px 4px rgba(0, 0, 0, 0.04);
+        box-shadow: var(--shadow-soft);
         cursor: pointer;
     }
 
@@ -1031,9 +1025,7 @@ audio::-webkit-media-controls-panel {
 
         background: var(--blanco);
         border-radius: 12px;
-        box-shadow:
-            0 6px 14px rgba(0, 0, 0, 0.08),
-            0 2px 4px rgba(0, 0, 0, 0.04);
+        box-shadow: var(--shadow-soft);
 
         opacity: 0;
         transform: translateY(-6px);
