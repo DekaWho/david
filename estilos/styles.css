@@ -26,17 +26,17 @@
 
     --negro: #292f36; /* alineado con --brand-tinta (era #151515 negro plano) */
     --gris: #3a4047; /* alineado con --brand-tinta-suave (era #252422 cálido) */
-    --blanco: rgb(251, 252, 255);
+    --blanco: #ffffff; /* blanco puro: fondo de cards/banner/callout/menu y texto sobre fondos oscuros */
 
-    /* Brand v2 — sistema editorial nuevo (Penguin Classics + cuaderno).
-     Por ahora aplicado solo al banner de servicios.html; las variables
-     antiguas siguen vigentes en el resto del sitio. */
+    /* Brand v2 — sistema editorial (Penguin Classics + cuaderno).
+       Jerarquía de neutros: body = --brand-papel (papel grisáceo);
+       cards (banner, callout, breaker papel, menu, review-card) = --blanco (blanco puro elevado). */
     --brand-tinta: #292f36;
     --brand-tinta-suave: #3a4047;
     --brand-azul: #1e5fbf;
     --brand-rojo: #f40600;
     --brand-amber: #ffe066;
-    --brand-papel: #f3f5f8;
+    --brand-papel: #f7f9fc;
     --brand-mute: #6f7c90;
     --brand-verde: #d4ee8e; /* highlighter verde refinado (vs el #baff29 neon) */
 }
@@ -52,7 +52,7 @@ body {
     color: var(--gris);
     margin: 0;
     padding: 0;
-    background-color: var(--blanco);
+    background-color: var(--brand-papel);
 }
 
 /* deja aire al hacer scroll a anclas (menú fijo no tapa el título destino) */
@@ -261,7 +261,7 @@ li::marker {
     padding: 6px 8px;
     z-index: 1000;
 
-    background: var(--brand-papel);
+    background: var(--blanco);
     border-radius: 12px;
     box-shadow:
         0 6px 14px rgba(0, 0, 0, 0.08),
@@ -340,7 +340,7 @@ li::marker {
    cuaderno). Fondo papel, sombra plana azul que separa del cuerpo, titular
    en serif Fraunces, acento rojo en el subrayado del verbo clave. */
 .banner {
-    background-color: var(--brand-papel);
+    background-color: var(--blanco);
     max-width: 60vw;
     margin: 14px auto 2.25rem;
     padding: 3rem 0 3rem;
@@ -585,8 +585,8 @@ li::marker {
         180deg,
         transparent 0,
         transparent 48%,
-        var(--amarillo) 48%,
-        var(--amarillo) 92%,
+        var(--verde) 48%,
+        var(--verde) 92%,
         transparent 92%
     );
     padding: 0 0.12em;
@@ -617,7 +617,7 @@ li::marker {
     padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.2rem);
     box-sizing: border-box;
 
-    background: var(--brand-papel);
+    background: var(--blanco);
     border-radius: 22px;
 
     font-family: "Fraunces", Georgia, serif;
@@ -688,7 +688,7 @@ li::marker {
     margin: 0 auto 8rem;
     padding: 2rem;
 
-    background: var(--brand-papel);
+    background: var(--blanco);
     border-radius: 26px;
     box-shadow: 0 8px 0 var(--azul);
 }
@@ -719,7 +719,7 @@ audio::-webkit-media-controls-panel {
     margin: 0 auto 5rem;
     padding: 0.9rem 1.1rem;
 
-    background: #ffffff;
+    background: var(--blanco);
     border-radius: 14px;
     box-shadow:
         0 6px 14px rgba(0, 0, 0, 0.07),
@@ -738,7 +738,7 @@ audio::-webkit-media-controls-panel {
 }
 
 .review-card audio::-webkit-media-controls-panel {
-    background-color: var(--verde);
+    background-color: var(--blanco);
 }
 
 .avatar {
@@ -750,9 +750,9 @@ audio::-webkit-media-controls-panel {
 
 /* sello CLASSIFIED con máscara de desgaste */
 .classified {
-    font-family: "Special Elite", system-ui;
+    font-family: "Black Ops One", system-ui;
     font-weight: 700;
-    font-size: 2rem;
+    font-size: clamp(1.4rem, 4vw, 1.95rem);
     padding: 1rem;
     text-align: center;
     display: flex;
@@ -762,15 +762,15 @@ audio::-webkit-media-controls-panel {
     margin-top: 5rem;
 
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 
     color: var(--rojo);
     border: 4px solid var(--rojo);
-    border-radius: 4px;
+    border-radius: 6px 10px 5px 9px / 9px 5px 10px 6px;
     transform: rotate(2deg);
 
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.1' numOctaves='4'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 4 -1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.1' numOctaves='4'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 4 -1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 2 -0.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 2 -0.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 #contacto {
@@ -894,7 +894,7 @@ audio::-webkit-media-controls-panel {
         padding: 11px 9px;
         box-sizing: border-box;
 
-        background: var(--brand-papel);
+        background: var(--blanco);
         border-radius: 10px;
         box-shadow:
             0 6px 14px rgba(0, 0, 0, 0.08),
@@ -936,7 +936,7 @@ audio::-webkit-media-controls-panel {
         min-width: 180px;
         padding: 6px;
 
-        background: var(--brand-papel);
+        background: var(--blanco);
         border-radius: 12px;
         box-shadow:
             0 6px 14px rgba(0, 0, 0, 0.08),
