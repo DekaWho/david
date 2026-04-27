@@ -446,7 +446,7 @@ li::marker {
 .gladiator {
     width: clamp(5rem, 8vw, 7rem);
     aspect-ratio: 1;
-    margin: 0 auto;
+    margin: 0 auto 6rem;
 
     color: var(--azul);
     background-color: currentColor;
@@ -474,7 +474,7 @@ p:has(+ .diamond) {
 }
 
 .titulo-breaker {
-    font-size: clamp(4rem, 3vw, 7rem);
+    font-size: clamp(4.75rem, 3.5vw, 8rem);
     line-height: 1;
     font-weight: 500;
     color: var(--negro);
@@ -619,7 +619,7 @@ p:has(+ .diamond) {
     position: relative;
 }
 
-.logro--flag::before {
+.logro--flag::after {
     content: "";
     position: absolute;
     top: 0;
@@ -637,8 +637,22 @@ p:has(+ .diamond) {
 }
 
 @media (max-width: 800px) {
-    .logro--flag::before {
-        display: none;
+    /* Sin sitio al lateral: la bandera cae al flujo, bajo el último bullet.
+       Anclada a la derecha (margin-left: auto) para mantener la asimetría
+       editorial del desktop, no centrada como un icono más. */
+    .logro--flag::after {
+        position: static;
+        display: block;
+        width: clamp(3.5rem, 18vw, 5.5rem);
+        margin: -0.7rem 1rem 0 auto;
+        transform: rotate(-8deg);
+        transform-origin: center;
+    }
+
+    /* Con la bandera ya añadiendo altura bajo la lista, el gap original entre
+       <ul> y "CONFIDENCIAL" se descompensa. Lo recortamos solo en móvil. */
+    .logros + .player-container .classified {
+        margin-top: var(--gap-lg);
     }
 }
 
@@ -839,13 +853,27 @@ audio::-webkit-media-controls-panel {
     }
 
     .titulo-breaker {
-        font-size: 3rem;
+        font-size: 4rem;
     }
 
     .titulo-breaker.f-verde,
     .titulo-breaker.f-papel {
         max-width: none;
         margin: var(--gap-xl) 14px;
+    }
+
+    /* f-papel mantiene el ritmo asimétrico del desktop: el bottom corto pega
+       el primer <p> al título como continuación, no como bloque suelto. */
+    .titulo-breaker.f-papel {
+        margin-bottom: var(--gap-md);
+    }
+
+    .diamond {
+        margin-top: 1rem;
+    }
+
+    .gladiator {
+        margin-bottom: var(--gap-2xl);
     }
 
     p {
