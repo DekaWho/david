@@ -5,7 +5,7 @@
    2. Tipografía base, listas, utilities
    3. Menú / navegación
    4. Banner + hero
-   5. Cuerpo, títulos-breaker, .stars-row, .flecha
+   5. Cuerpo, títulos-breaker, .flecha
    6. Componentes (callout, player, classified)
    7. Responsive (<=800px)
    8. Home (index.html) — hero-card, post-it, blocks
@@ -33,16 +33,12 @@
     /* OPACIDADES vía color-mix sobre los colores base, en lugar de rgba()
        literal: si cambia el color de marca, las opacidades siguen. */
     --azul-10: color-mix(in srgb, var(--azul) 10%, transparent);
-    --rosa-05: color-mix(in srgb, var(--rosa) 5%, transparent);
+    --rojo-05: color-mix(in srgb, var(--rojo) 5%, transparent);
 
     /* TIPOGRAFÍA — añadir una familia nueva es decisión consciente. */
     --sans: "IBM Plex Sans", "Segoe UI Emoji", system-ui, sans-serif;
     --serif: "Fraunces", Georgia, serif;
     --hand: "Kalam", "Caveat", cursive;
-    --display: "Lilita One", sans-serif;
-    --type:
-        "Special Elite", system-ui; /* máquina de escribir / etiqueta de archivo */
-    --script: "Sedgwick Ave Display", cursive;
     --stamp: "Black Ops One", system-ui; /* sello CONFIDENCIAL */
 
     /* Solo se tokenizan los font-sizes de cuerpo, que se reutilizan en todo
@@ -108,7 +104,6 @@ body {
 /* ---------- 2. Tipografía base, listas, utilities ---------- */
 
 h1 {
-    font-family: var(--display);
     font-size: 2.8rem;
     margin: 0 auto 0.8em;
     line-height: 1.1;
@@ -198,6 +193,10 @@ u {
     color: var(--rojo);
 }
 
+.text-azul {
+    color: var(--azul);
+}
+
 .mb-0 {
     margin-bottom: 0;
 }
@@ -228,7 +227,7 @@ li {
 }
 
 li::marker {
-    color: var(--azul);
+    color: var(--rojo);
 }
 
 .emoji {
@@ -410,7 +409,7 @@ li::marker {
     box-sizing: border-box;
 }
 
-/* ---------- 5. Cuerpo, títulos-breaker, .stars-row, .flecha ---------- */
+/* ---------- 5. Cuerpo, títulos-breaker, .flecha ---------- */
 
 .cuerpo {
     max-width: 36vw;
@@ -423,6 +422,55 @@ li::marker {
     min-width: 300px;
     display: block;
     margin: var(--gap-lg) auto;
+}
+
+/* Garabato decorativo entre párrafos. Rotación negativa para escapar del
+   "puesto perfecto" — el aire dossier pide manuscrito. Mismo patrón
+   mask-image que .flecha: silueta del asset, color desde CSS.
+   El <p> que precede pierde su margin-bottom vía :has() — usar margin-top
+   negativo aquí solapaba el texto cuando el párrafo se quedaba corto (móvil). */
+.sisyphus {
+    width: clamp(5rem, 9vw, 8rem);
+    aspect-ratio: 1;
+    margin: 0 auto var(--gap-md);
+
+    color: var(--azul);
+    background-color: currentColor;
+    -webkit-mask: url(/imgs/svg/sisyphus-svgrepo-com.svg) center / contain
+        no-repeat;
+    mask: url(/imgs/svg/sisyphus-svgrepo-com.svg) center / contain no-repeat;
+
+    transform: rotate(-6deg);
+}
+
+.gladiator {
+    width: clamp(5rem, 8vw, 7rem);
+    aspect-ratio: 1;
+    margin: 0 auto;
+
+    color: var(--azul);
+    background-color: currentColor;
+    -webkit-mask: url(/imgs/svg/gladiator-svgrepo-com.svg) center / contain
+        no-repeat;
+    mask: url(/imgs/svg/gladiator-svgrepo-com.svg) center / contain no-repeat;
+}
+
+.diamond {
+    width: clamp(5rem, 8vw, 7rem);
+    aspect-ratio: 1;
+    margin: 0 auto;
+
+    color: var(--azul);
+    background-color: currentColor;
+    -webkit-mask: url(/imgs/svg/diamond-svgrepo-com.svg) center / contain
+        no-repeat;
+    mask: url(/imgs/svg/diamond-svgrepo-com.svg) center / contain no-repeat;
+}
+
+p:has(+ .sisyphus),
+p:has(+ .gladiator),
+p:has(+ .diamond) {
+    margin-bottom: 0;
 }
 
 .titulo-breaker {
@@ -530,55 +578,66 @@ li::marker {
     text-align: center;
 }
 
-/* Fila de estrellas a boli con rotación distinta cada una, para que se
-   lea como "puestas a mano", no como fila perfecta de Trustpilot. */
-.stars-row {
-    display: flex;
-    justify-content: center;
-    gap: 0.4rem;
-    margin: 0 auto var(--gap-md);
-}
-
-.stars-row .star {
-    width: clamp(1.8rem, 3vw, 2.4rem);
-    height: auto;
-}
-
-.stars-row .star:nth-child(1) {
-    transform: rotate(-6deg);
-}
-.stars-row .star:nth-child(2) {
-    transform: rotate(3deg);
-}
-.stars-row .star:nth-child(3) {
-    transform: rotate(-2deg);
-}
-.stars-row .star:nth-child(4) {
-    transform: rotate(5deg);
-}
-.stars-row .star:nth-child(5) {
-    transform: rotate(-4deg);
-}
-
-/* Variante margin: estrellas como anotación a la derecha del listado de
-   logros, ancladas absolutamente al lateral. Inclinación global del bloque
-   para reforzar el "puesto a mano sobre el dossier", no en el flujo de
-   lectura. */
-.logros {
+/* Anotación al margen izquierdo del bullet "email marketing": doodle del
+   sobre como sello manuscrito sobre el dossier (anclaje absoluto al lateral,
+   ligero rotado, oculto en móvil para no apretar el flujo). Mask-image en
+   lugar de <img> para que el color salga del CSS — el SVG está limpio con
+   stroke=currentColor. */
+.logro--email {
     position: relative;
 }
 
-.stars-row--margin {
+.logro--email::before {
+    content: "";
     position: absolute;
-    top: 50%;
-    left: 100%;
-    margin: 0 0 0 var(--gap-md);
-    transform: translateY(-50%) rotate(-8deg);
-    transform-origin: left center;
+    /* top: 0 + translateY(-50%) ancla el centro del doodle al borde superior
+       del <li>, que cae justo en el hueco entre este bullet y el anterior. */
+    top: 0;
+    right: 100%;
+    width: clamp(2.5rem, 4vw, 3.5rem);
+    aspect-ratio: 1;
+    margin-right: var(--gap-xl);
+    transform: translateY(-55%) rotate(8deg);
+    transform-origin: right center;
+
+    background-color: var(--azul);
+    -webkit-mask: url("/imgs/svg/email-svgrepo-com.svg") center / contain
+        no-repeat;
+    mask: url("/imgs/svg/email-svgrepo-com.svg") center / contain no-repeat;
 }
 
 @media (max-width: 800px) {
-    .stars-row--margin {
+    .logro--email::before {
+        display: none;
+    }
+}
+
+/* Doodle de bandera al margen derecho del último logro: misma técnica que
+   .logro--email pero anclada al borde superior del <li> y al lado opuesto,
+   para que el centro caiga en el hueco entre el penúltimo bullet y este. */
+.logro--flag {
+    position: relative;
+}
+
+.logro--flag::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: clamp(2.5rem, 4vw, 3.5rem);
+    aspect-ratio: 1;
+    margin-left: var(--gap-lg);
+    transform: translateY(-58%) rotate(-8deg);
+    transform-origin: left center;
+
+    background-color: var(--azul);
+    -webkit-mask: url("/imgs/svg/flag-svgrepo-com.svg") center / contain
+        no-repeat;
+    mask: url("/imgs/svg/flag-svgrepo-com.svg") center / contain no-repeat;
+}
+
+@media (max-width: 800px) {
+    .logro--flag::before {
         display: none;
     }
 }
@@ -609,19 +668,35 @@ li::marker {
 
 .cita {
     padding: 0.6em 0.9em;
-    border-left: 0.2em solid var(--rosa);
+    border-left: 0.2em solid var(--rojo);
     border-radius: var(--radius-card);
-    background-color: var(--rosa-05);
+    background-color: var(--rojo-05);
     margin-bottom: var(--gap-2xl);
 }
 
+/* Flecha decorativa entre secciones. Asset en /imgs/svg/arrow-wide-svgrepo-com.svg
+   aplicado como mask: la silueta sale del SVG, el color sale de CSS — así un
+   mismo asset se recolorea por contexto. background-color usa currentColor para
+   que el ancestro pueda override-ear el azul si hace falta. Modificadoras --down
+   y --up rotan el asset (apunta a la derecha en su forma base). */
 .flecha {
-    font-family: var(--script);
+    width: clamp(5rem, 7vw, 6.5rem);
+    aspect-ratio: 1;
+    margin: 0 auto var(--gap-3xl);
+
     color: var(--azul);
-    font-size: 7rem;
-    margin: 0 0 var(--gap-3xl);
-    padding: 0;
-    text-align: center;
+    background-color: currentColor;
+    -webkit-mask: url(/imgs/svg/arrow-wide-svgrepo-com.svg) center / contain
+        no-repeat;
+    mask: url(/imgs/svg/arrow-wide-svgrepo-com.svg) center / contain no-repeat;
+}
+
+.flecha--down {
+    transform: rotate(90deg);
+}
+
+.flecha--up {
+    transform: rotate(-90deg);
 }
 
 /* ---------- 6. Componentes ---------- */
@@ -904,10 +979,6 @@ audio::-webkit-media-controls-panel {
     .forjador {
         width: 80%;
     }
-
-    .flecha {
-        font-size: 5rem;
-    }
 }
 
 /* ---------- 8. Home (index.html) ----------
@@ -1082,7 +1153,7 @@ audio::-webkit-media-controls-panel {
     border-radius: 14px;
     text-decoration: none;
     color: var(--negro);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.07);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);
     transition:
         transform 120ms ease,
         box-shadow 120ms ease;
@@ -1226,13 +1297,12 @@ audio::-webkit-media-controls-panel {
     font-size: 15px;
 }
 
-.badge-free {
+.badge {
     background: var(--amarillo);
     color: var(--negro);
-    font-family: var(--type);
+    font-family: var(--hand);
     font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 0.1em;
+    font-weight: 700;
     padding: 2px 6px;
     border-radius: 4px;
     border: 1px solid var(--negro);
@@ -1339,7 +1409,7 @@ audio::-webkit-media-controls-panel {
         font-size: 17px;
     }
 
-    .badge-free {
+    .badge {
         font-size: 11px;
         padding: 3px 7px;
     }
