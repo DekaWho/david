@@ -1040,7 +1040,11 @@ audio::-webkit-media-controls-panel {
     }
     .aviso-mano p {
         align-self: stretch;
-        padding: 0 1rem;
+        /* Asimétrico a propósito: padding-left mantiene el frame del cuerpo,
+           padding-right a 0 deja que la nota se "salga" hasta el borde — refuerza
+           el aire manuscrito, como una anotación al margen que invade el papel. */
+        padding-left: 1rem;
+        padding-right: 0;
         /* Reactiva el hyphens:auto global anulado en desktop. En pantalla
            estrecha de móvil, si una palabra larga no cabe es mejor partirla
            con guion que dejar overflow o un salto antiestético — la
