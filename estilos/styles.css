@@ -776,6 +776,14 @@ p:has(+ .diamond) {
     hyphens: none;
 }
 
+/* Subrayado fino a pluma: el grosor base de <u> (marcador, 0.15em) compite
+   con el rojo manuscrito de Kalam y le roba peso al texto. Aquí queremos
+   una línea de anotación, no un highlight. */
+.aviso-mano u {
+    text-decoration-thickness: 0.1em;
+    text-underline-offset: 0.18em;
+}
+
 /* Flecha decorativa entre secciones. Asset en /imgs/svg/arrow-wide-svgrepo-com.svg
    aplicado como mask: la silueta sale del SVG, el color sale de CSS — así un
    mismo asset se recolorea por contexto. background-color usa currentColor para
