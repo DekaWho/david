@@ -82,7 +82,7 @@ html {
 }
 
 body {
-    color: var(--gris);
+    color: var(--negro);
     margin: 0;
     padding: 0;
     background-color: var(--papel);
@@ -232,7 +232,7 @@ ul {
 }
 
 li {
-    color: var(--gris);
+    color: var(--negro);
     padding: 0;
     font-size: var(--text-body);
     margin-bottom: var(--gap-xl);
@@ -339,12 +339,16 @@ li::marker {
     background-color: var(--blanco);
     max-width: 60vw;
     margin: 14px auto var(--gap-2xl);
-    padding: 3rem 0 3rem;
+    padding: 1.5rem 0 3rem;
     border-radius: var(--radius-2xl);
 
     position: relative;
     overflow: hidden;
     box-shadow: var(--shadow-press);
+}
+
+.banner .hero-photo-wrap {
+    margin: 0 0 1.5rem;
 }
 
 .banner h1 {
@@ -421,7 +425,7 @@ li::marker {
     display: flex;
     flex-direction: column;
     max-width: 720px;
-    margin: var(--gap-sm) auto;
+    margin: 0 auto var(--gap-sm);
     padding: 0 1rem;
     box-sizing: border-box;
 }
@@ -974,7 +978,7 @@ audio::-webkit-media-controls-panel {
     .banner {
         max-width: none;
         margin: 14px 6px var(--gap-xl);
-        padding: 2rem 0 3rem;
+        padding: 1rem 0 3rem;
     }
 
     .banner .hero {
