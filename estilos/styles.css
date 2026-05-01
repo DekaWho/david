@@ -69,8 +69,6 @@
     --radius-control: 10px;
     --radius-thread: 2px;
 
-    /* BOX-SHADOW — soft = sombra editorial suave; press = firma del sistema
-       (sombra plana azul abajo, sin blur), no Material moderno. */
     --shadow-soft:
         0 6px 14px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
     --shadow-press: 0 8px 0 var(--azul);
@@ -132,6 +130,22 @@ h2 {
     letter-spacing: 0.02em;
     color: var(--azul);
     margin-bottom: var(--gap-md);
+}
+
+/* Antesala manuscrita a un bloque (CTA, formulario): Kalam bold azul,
+   centrada, margin-bottom corto para que se pegue al bloque siguiente y
+   se lea como pregunta abriendo la pieza, no como párrafo independiente.
+   Tilt negativo coherente con .banner-subline y .postit — refuerza la
+   lectura "anotación al margen" sin perder protagonismo. */
+.titulo-mano {
+    font-family: var(--hand);
+    font-weight: 700;
+    font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+    line-height: 1.3;
+    color: var(--azul);
+    text-align: center;
+    margin: 0 auto var(--gap-md);
+    transform: rotate(-1.5deg);
 }
 
 p {
@@ -237,9 +251,8 @@ li::marker {
 
 /* ---------- 3. Menú / navegación ---------- */
 
-/* Pill flotante centrada — estética cuaderno/Notion. Mismo papel + sombra
-   plana azul que el banner para que se lea como una pestaña editorial
-   suspendida sobre la página, no como una barra opaca contrastante. */
+/* Pill flotante centrada — estética cuaderno/Notion: pestaña editorial
+   suspendida sobre la página, no barra opaca contrastante. */
 .menu {
     position: fixed;
     top: 14px;
@@ -321,8 +334,7 @@ li::marker {
 
 /* ---------- 4. Banner + hero ---------- */
 
-/* Banner editorial: card blanca elevada sobre el papel del body con sombra
-   plana azul (firma del sistema, no Material), separa del cuerpo sin línea. */
+/* Banner editorial: card elevada que separa del cuerpo sin border. */
 .banner {
     background-color: var(--blanco);
     max-width: 60vw;
@@ -473,12 +485,10 @@ p:has(+ .diamond) {
     text-align: center;
 }
 
-/* Zona oscura para el bloque de testimonios: invierte la paleta (texto
-   blanco sobre tinta). Va a ancho completo del body — los radius
-   generosos recortan papel en las cuatro esquinas, que es la firma del
-   bloque (no una card flotando con margen). Las review-card siguen
-   blancas y ganan presencia por contraste sin necesitar sombra (la
-   --shadow-soft rgba negra desaparece sobre tinta). */
+/* Zona oscura para el bloque de testimonios: invierte la paleta. Va a
+   ancho completo del body — los radius generosos recortan papel en las
+   cuatro esquinas, que es la firma del bloque (no una card flotando con
+   margen). */
 .seccion-tinta {
     margin: 0 0 var(--gap-md);
     padding: var(--gap-md) 0 var(--gap-lg);
@@ -826,8 +836,7 @@ p:has(+ .diamond) {
 
 /* ---------- 6. Componentes ---------- */
 
-/* Tarjeta blanca con sombra plana azul (firma --shadow-press): efecto press
-   editorial. Sin border — la sombra dura delimita más sólido que un contorno. */
+/* Sin border — la sombra delimita más sólido que un contorno. */
 .callout {
     position: relative;
     left: 50%;
@@ -858,18 +867,14 @@ audio::-webkit-media-controls-panel {
     margin-bottom: var(--gap-3xl);
 }
 
-/* Tarjeta para el reproductor de reseñas. Papel + borde-acento amber a la
-   izquierda (cita visual: el audio "habla" desde la marca) + sombra suave.
-   El amber tinta sutilmente el panel del controls, calentando el gris
-   nativo del navegador sin forzar un custom player. */
 .review-card {
     max-width: 520px;
-    margin: 0 auto var(--gap-3xl);
-    padding: 0.5rem 1.1rem;
+    margin: var(--gap-lg) auto var(--gap-xl);
+    padding: 0.5rem 1.1rem 0.5rem 0.5rem;
+    gap: 0;
 
     background: var(--blanco);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-soft);
 }
 
 .review-card .avatar {
@@ -895,6 +900,7 @@ audio::-webkit-media-controls-panel {
    así que sobra hueco lateral en la franja full-bleed. */
 .review-card--chat {
     position: relative;
+    margin-top: var(--gap-2xl);
 }
 
 .review-card--chat::after {
@@ -1184,11 +1190,9 @@ audio::-webkit-media-controls-panel {
    Tarjeta de visita móvil-first: hero-card + post-it + lista de bloques.
    Brief: filósofo griego / científico de gabinete con autoridad —
    Penguin Classics + cuaderno de campo + Notion personal.
-   Jerarquía de neutros INVERTIDA respecto a /servicios: aquí el body es
-   blanco puro implícito (a través de `.stage`) y la `hero-card` se eleva
-   en blanco con sombra plana azul; los bloques también van en blanco con
-   sombra suave que desaparece al pulsar (translateY positivo: la pieza
-   se "hunde" en el papel, encaja con el lenguaje físico del cuaderno).
+   Jerarquía de neutros INVERTIDA respecto a /servicios: body blanco puro
+   (a través de `.stage`), hero-card elevada. Los bloques se "hunden" al
+   pulsar (translateY positivo) — lenguaje físico del cuaderno.
 */
 .stage,
 .stage *,
