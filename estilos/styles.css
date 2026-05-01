@@ -582,6 +582,10 @@ p:has(+ .diamond) {
     margin-bottom: var(--gap-3xl);
 }
 
+.logros li:nth-child(odd) {
+    font-weight: bold;
+}
+
 /* Anotación al margen izquierdo del bullet "email marketing": doodle del
    sobre como sello manuscrito sobre el dossier (anclaje absoluto al lateral,
    ligero rotado, oculto en móvil para no apretar el flujo). Mask-image en
@@ -1278,7 +1282,7 @@ audio::-webkit-media-controls-panel {
 .block .subtitle-hand {
     display: block;
     font-family: var(--hand);
-    font-size: 14px;
+    font-size: 15px;
     color: var(--rojo);
     margin-top: -1px;
 }
@@ -1286,15 +1290,12 @@ audio::-webkit-media-controls-panel {
 /* Stack sin "Segoe UI Emoji" para que ↗ (U+2197) y → (U+2192) se rendericen
    como glifo de texto, no como emoji coloreado. IBM Plex Sans no incluye
    estos caracteres, así que el navegador cae a system-ui directamente. */
-.block .arrow,
-.arrow--mute {
-    font-family: "IBM Plex Sans", system-ui, sans-serif;
-}
-
 .block .arrow {
-    font-size: 18px;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-size: 16px;
     color: var(--negro);
-    opacity: 0.7;
+    opacity: 0.5;
+    margin-left: 4px;
 }
 
 /* Variantes — nombres semánticos (no por color, así sobreviven a re-skins) */
@@ -1313,14 +1314,13 @@ audio::-webkit-media-controls-panel {
     color: rgba(255, 255, 255, 0.45);
 }
 .block--primary .arrow {
+    font-size: 18px;
     color: var(--blanco);
     opacity: 0.9;
+    margin-left: 0;
 }
 
-.block--skool {
-    background: var(--blanco);
-}
-.block--curso {
+.block--secondary {
     background: var(--blanco);
 }
 
@@ -1362,11 +1362,7 @@ audio::-webkit-media-controls-panel {
 }
 
 .block--primary .title {
-    font-size: 18px;
-}
-.block--skool .title,
-.block--curso .title {
-    font-size: 15px;
+    font-size: 19px;
 }
 
 .badge {
@@ -1379,13 +1375,6 @@ audio::-webkit-media-controls-panel {
     border-radius: 4px;
     border: 1px solid var(--negro);
     transform: rotate(4deg);
-}
-
-.arrow--mute {
-    font-size: 16px;
-    color: var(--negro);
-    opacity: 0.5;
-    margin-left: 4px;
 }
 
 @media (max-width: 380px) {
@@ -1465,7 +1454,7 @@ audio::-webkit-media-controls-panel {
     }
 
     .block .subtitle-hand {
-        font-size: 15px;
+        font-size: 16px;
     }
 
     .block--primary {
@@ -1473,12 +1462,7 @@ audio::-webkit-media-controls-panel {
     }
 
     .block--primary .title {
-        font-size: 20px;
-    }
-
-    .block--skool .title,
-    .block--curso .title {
-        font-size: 17px;
+        font-size: 21px;
     }
 
     .badge {
