@@ -390,7 +390,7 @@ li::marker {
 
 .banner h2 {
     font-family: var(--serif);
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     font-style: normal;
     font-weight: 600;
     letter-spacing: 0.02em;
@@ -973,8 +973,12 @@ audio::-webkit-media-controls-panel {
 
     .banner {
         max-width: none;
-        margin: 14px 14px var(--gap-xl);
+        margin: 14px 6px var(--gap-xl);
         padding: 2rem 0 3rem;
+    }
+
+    .banner .hero {
+        padding: 0 0.4rem;
     }
 
     .cuerpo {
@@ -999,19 +1003,29 @@ audio::-webkit-media-controls-panel {
     }
 
     .banner h1 {
-        font-size: 1.8rem;
+        font-size: 2.2rem;
         line-height: 1.22;
     }
 
     .banner-subline {
-        font-size: 1.05em;
+        font-size: 1em;
         margin-top: 0.5em;
+        max-width: 85%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .banner h2 {
-        font-size: 1.15rem;
+        font-size: 1.25rem;
         margin-top: 0;
         margin-bottom: 0.9rem;
+    }
+
+    /* En móvil el banner ya es estrecho y el CTA tiene handle + icono +
+       flecha consumiendo ancho horizontal — el title baja para evitar
+       que el texto wrappee. */
+    .banner .block--primary .title {
+        font-size: 16px;
     }
 
     .titulo-breaker--tinta,
