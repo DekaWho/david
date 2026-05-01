@@ -127,11 +127,11 @@ h2 {
    Usa la sintaxis del cuaderno: marcador rotulado más que titular tipográfico. */
 .suficiente {
     font-family: var(--hand);
-    font-weight: 400;
+    font-weight: 700;
     font-size: clamp(2rem, 3.4vw, 2.9rem);
     letter-spacing: 0.02em;
     color: var(--azul);
-    margin-bottom: 0.4rem;
+    margin-bottom: var(--gap-md);
 }
 
 p {
@@ -612,29 +612,29 @@ p:has(+ .diamond) {
     font-weight: bold;
 }
 
-/* Tarjeta blanca con esquinas redondeadas: mismo lenguaje visual que
-   .titulo-breaker--papel (background --blanco + radius --xl) para que el
-   bloque "trabajar juntos" lea como continuación del titular. width 95%
-   (vs 90% del ul global) compensa el padding interior — así el ancho útil
-   de texto cuadra con el ul sin tarjeta. Padding con clamp para que en
-   móvil el ancho útil no se coma. */
+/* Tarjeta blanca con esquinas redondeadas. Solo padding vertical: el
+   horizontal viene del ul global (padding-left var(--gap-md) para los
+   markers, sin padding-right). Así los li se alinean exactamente igual
+   que en cualquier otra lista del sitio — la única diferencia es el
+   fondo blanco y el radius envolviéndolos. */
 .lista-azul {
-    width: 95%;
+    padding-top: clamp(1rem, 2.5vw, 1.75rem);
+    padding-bottom: clamp(1rem, 2.5vw, 1.75rem);
+    margin-bottom: var(--gap-2xl);
+
     background: var(--blanco);
     border-radius: var(--radius-xl);
-    padding: clamp(1rem, 2.5vw, 1.75rem) clamp(1rem, 3vw, 2rem);
-    margin-bottom: var(--gap-2xl);
-    box-sizing: border-box;
 }
 
-/* El último li no añade su margin-bottom global (var(--gap-xl)) dentro
-   de la tarjeta — duplicaba el aire del padding-bottom del bloque. */
+/* Sin margin-bottom global del último li dentro de la tarjeta: duplicaría
+   el aire del padding-bottom y la base quedaría desproporcionada. */
 .lista-azul li:last-child {
     margin-bottom: 0;
 }
 
 /* Tiñe los markers de la lista en --azul, sobreescribiendo el rojo global
-   de li::marker. */
+   de li::marker. Coherente con el strong inicial de cada li que ya va
+   en --azul. */
 .lista-azul li::marker {
     color: var(--azul);
 }
@@ -801,6 +801,21 @@ p:has(+ .diamond) {
     transform: rotate(-90deg);
 }
 
+/* La flecha--down dentro de .cuerpo precede a un titulo-breaker--papel que
+   ya aporta su propio margin-top (--gap-2xl). Sumar el margin-bottom base de
+   .flecha encima sobreseparaba el par. Aire en manos del breaker. */
+.cuerpo > .flecha--down {
+    margin-bottom: 0;
+}
+
+/* Variante con otro asset de flecha. Solo sobrescribe mask-image: posición,
+   size y no-repeat los hereda del shorthand de .flecha, y --down/--up siguen
+   rotando igual porque este SVG comparte orientación base (apunta a la derecha). */
+.flecha--alt {
+    -webkit-mask-image: url(/imgs/svg/arrow-l-svgrepo-com.svg);
+    mask-image: url(/imgs/svg/arrow-l-svgrepo-com.svg);
+}
+
 /* ---------- 6. Componentes ---------- */
 
 /* Tarjeta blanca con sombra plana azul (firma --shadow-press): efecto press
@@ -842,7 +857,7 @@ audio::-webkit-media-controls-panel {
 .review-card {
     max-width: 520px;
     margin: 0 auto var(--gap-3xl);
-    padding: 0.9rem 1.1rem;
+    padding: 0.5rem 1.1rem;
 
     background: var(--blanco);
     border-radius: var(--radius-lg);
@@ -862,6 +877,42 @@ audio::-webkit-media-controls-panel {
 
 .review-card audio::-webkit-media-controls-panel {
     background-color: var(--blanco);
+}
+
+/* Doodle de chat al margen derecho de la review-card: misma técnica de
+   mask-image que .logro--flag, pero pintado en --verde para integrarse
+   con las decoraciones lime de la zona tinta (.ink-circle, squiggle del
+   breaker, .mark-verde). El SVG cuelga fuera de la card centrado en su
+   eje vertical; la card sigue centrada en su contenedor (.cuerpo, 36vw),
+   así que sobra hueco lateral en la franja full-bleed. */
+.review-card--chat {
+    position: relative;
+}
+
+.review-card--chat::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: clamp(2.5rem, 4vw, 3.5rem);
+    aspect-ratio: 1;
+    margin-left: var(--gap-2xl);
+    transform: translateY(-100%) rotate(30deg);
+    transform-origin: left center;
+
+    background-color: var(--verde);
+    -webkit-mask: url("/imgs/svg/chat-svgrepo-com.svg") center / contain
+        no-repeat;
+    mask: url("/imgs/svg/chat-svgrepo-com.svg") center / contain no-repeat;
+}
+
+@media (max-width: 800px) {
+    /* Misma decisión que .logro--flag/.logro--email: decoración de margen
+       de desktop; en móvil la card ocupa casi todo el ancho y no hay hueco
+       lateral donde colgarla. */
+    .review-card--chat::after {
+        display: none;
+    }
 }
 
 .avatar {
@@ -916,6 +967,15 @@ audio::-webkit-media-controls-panel {
         max-width: 99vw;
         margin: var(--gap-sm) auto 0;
         padding: 0 5px;
+    }
+
+    /* En móvil la card se queda corta del borde para que se vea el negro
+       de .seccion-tinta a los lados — así la tarjeta se lee como objeto
+       sobre la franja oscura, no como banda full-bleed. Margen fijo en rem
+       (no %) para que el aire visible no se encoja con el viewport: en
+       móviles estrechos un % deja un margen demasiado tímido. */
+    .review-card {
+        max-width: calc(100% - 4rem);
     }
 
     h1 {
