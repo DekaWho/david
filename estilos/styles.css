@@ -212,7 +212,7 @@ a:hover {
 }
 
 ul {
-    padding: 0;
+    padding: 0 0 0 var(--gap-md);
     width: 90%;
     margin: 0 auto;
 }
@@ -366,13 +366,13 @@ li::marker {
 .banner-subline {
     display: block;
     font-family: var(--hand);
-    font-size: 0.55em;
+    font-size: 1.05em;
     font-style: normal;
     font-weight: 400;
     color: var(--azul);
     margin-top: 0.55em;
     letter-spacing: 0;
-    transform: rotate(1.2deg);
+    transform: rotate(-1.2deg);
     transform-origin: left center;
 }
 
@@ -429,37 +429,6 @@ li::marker {
     margin: var(--gap-lg) auto;
 }
 
-/* Garabato decorativo entre párrafos. Rotación negativa para escapar del
-   "puesto perfecto" — el aire dossier pide manuscrito. Mismo patrón
-   mask-image que .flecha: silueta del asset, color desde CSS.
-   El <p> que precede pierde su margin-bottom vía :has() — usar margin-top
-   negativo aquí solapaba el texto cuando el párrafo se quedaba corto (móvil). */
-.sisyphus {
-    width: clamp(5rem, 9vw, 8rem);
-    aspect-ratio: 1;
-    margin: 0 auto var(--gap-md);
-
-    color: var(--azul);
-    background-color: currentColor;
-    -webkit-mask: url(/imgs/svg/sisyphus-svgrepo-com.svg) center / contain
-        no-repeat;
-    mask: url(/imgs/svg/sisyphus-svgrepo-com.svg) center / contain no-repeat;
-
-    transform: rotate(-6deg);
-}
-
-.gladiator {
-    width: clamp(5rem, 8vw, 7rem);
-    aspect-ratio: 1;
-    margin: 0 auto 6rem;
-
-    color: var(--azul);
-    background-color: currentColor;
-    -webkit-mask: url(/imgs/svg/gladiator-svgrepo-com.svg) center / contain
-        no-repeat;
-    mask: url(/imgs/svg/gladiator-svgrepo-com.svg) center / contain no-repeat;
-}
-
 .diamond {
     width: clamp(5rem, 8vw, 7rem);
     aspect-ratio: 1;
@@ -472,10 +441,11 @@ li::marker {
     mask: url(/imgs/svg/diamond-svgrepo-com.svg) center / contain no-repeat;
 }
 
-p:has(+ .sisyphus),
-p:has(+ .gladiator),
+/* El <p> previo al diamante recorta su margin-bottom (default --gap-3xl
+   separa bloques narrativos): el diamante actúa como pausa decorativa que
+   remata el párrafo, no como inicio de sección. */
 p:has(+ .diamond) {
-    margin-bottom: 0;
+    margin-bottom: 1rem;
 }
 
 /* Breaker editorial tinta — recuadro sobre fondo oscuro: el verde lime
@@ -501,6 +471,66 @@ p:has(+ .diamond) {
     color: var(--blanco);
     text-shadow: none;
     text-align: center;
+}
+
+/* Zona oscura para el bloque de testimonios: invierte la paleta (texto
+   blanco sobre tinta). Va a ancho completo del body — los radius
+   generosos recortan papel en las cuatro esquinas, que es la firma del
+   bloque (no una card flotando con margen). Las review-card siguen
+   blancas y ganan presencia por contraste sin necesitar sombra (la
+   --shadow-soft rgba negra desaparece sobre tinta). */
+.seccion-tinta {
+    margin: 0 0 var(--gap-md);
+    padding: var(--gap-md) 0 var(--gap-lg);
+
+    background: var(--negro);
+    color: var(--blanco);
+    /* Literal fuera de la escala --radius-*: la franja es full-bleed,
+       necesita curva más generosa que cualquier card normal para leerse
+       "soft pill" en vez de "rectángulo achaflanado". */
+    border-radius: clamp(3rem, 5vw, 4.5rem);
+}
+
+/* Párrafos cuerpo casi blanco puro (blanco 88 / negro 12): apenas se
+   nota la atenuación pero abre un escalón mínimo de jerarquía para que
+   los <strong> en blanco puro destaquen sin gritar. */
+.seccion-tinta p {
+    color: color-mix(in srgb, var(--blanco) 88%, var(--negro));
+}
+
+.seccion-tinta strong {
+    color: var(--blanco);
+}
+
+/* El último <p> del bloque (estructuralmente: el "...incluyendo las de
+   mis padres...") arrastra el margin-bottom global de párrafo (--gap-3xl
+   = 5rem). Aquí lo anulamos: el corte visual al cerrar la franja oscura
+   ya separa lo bastante, no hace falta acumular respiración interna. */
+.seccion-tinta .cuerpo > p:last-child {
+    margin-bottom: 0;
+}
+
+/* Subrayado manuscrito en lime para los nombres dentro de la franja —
+   mismo SVG y misma posición que el .squiggle global, solo cambia el
+   color del trazo (lime sobre tinta, en vez de azul sobre papel).
+   Color hardcodeado: data URIs no soportan currentColor. */
+.seccion-tinta .squiggle {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23baff29' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+}
+
+/* Variante con la inclinación invertida: la línea sube de izquierda a
+   derecha (path mirror del .squiggle base por y=5). Útil para no
+   repetir el mismo gesto cuando hay varios subrayados manuscritos
+   seguidos — cada uno se lee como un trazo independiente. */
+.seccion-tinta .squiggle--alt {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 6 Q 50 4.8 99 4' stroke='%23baff29' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+}
+
+/* Cuando el breaker--tinta precede a la zona oscura, la pareja se lee
+   como un solo bloque (titular oscuro + sección oscura). Comprime el
+   margen entre los dos para reforzar esa unidad. */
+.titulo-breaker--tinta:has(+ .seccion-tinta) {
+    margin-bottom: var(--gap-xl);
 }
 
 /* Círculo a boli alrededor de una palabra. SVG absolute-positioned con
@@ -574,16 +604,45 @@ p:has(+ .diamond) {
     text-align: center;
 }
 
-/* Aire bajo la lista de logros: separa visualmente del .titulo-breaker
-   siguiente. El breaker ya trae margin-top, pero por sí solo el cierre
-   de los bullets queda pegado al titular — la lista pide su propio
-   "fin" antes del cambio de sección. */
-.logros ul {
-    margin-bottom: var(--gap-3xl);
+/* Alternancia de énfasis en bullets impares: crea ritmo visual al recorrer
+   la lista. El peso conceptual de los items es el mismo — esto es textura,
+   no jerarquía. Vive como clase utilitaria (no en <strong> ni atada a un
+   bloque concreto) para reutilizarla en listas de contenidos distintos. */
+.bold-odd li:nth-child(odd) {
+    font-weight: bold;
 }
 
-.logros li:nth-child(odd) {
-    font-weight: bold;
+/* Tarjeta blanca con esquinas redondeadas: mismo lenguaje visual que
+   .titulo-breaker--papel (background --blanco + radius --xl) para que el
+   bloque "trabajar juntos" lea como continuación del titular. width 95%
+   (vs 90% del ul global) compensa el padding interior — así el ancho útil
+   de texto cuadra con el ul sin tarjeta. Padding con clamp para que en
+   móvil el ancho útil no se coma. */
+.lista-azul {
+    width: 95%;
+    background: var(--blanco);
+    border-radius: var(--radius-xl);
+    padding: clamp(1rem, 2.5vw, 1.75rem) clamp(1rem, 3vw, 2rem);
+    margin-bottom: var(--gap-2xl);
+    box-sizing: border-box;
+}
+
+/* El último li no añade su margin-bottom global (var(--gap-xl)) dentro
+   de la tarjeta — duplicaba el aire del padding-bottom del bloque. */
+.lista-azul li:last-child {
+    margin-bottom: 0;
+}
+
+/* Tiñe los markers de la lista en --azul, sobreescribiendo el rojo global
+   de li::marker. */
+.lista-azul li::marker {
+    color: var(--azul);
+}
+
+/* Utility de color: tiñe el texto del elemento al que se aplique. Usable
+   en cualquier inline (span, strong, em…) para acentos puntuales. */
+.azul {
+    color: var(--azul);
 }
 
 /* Anotación al margen izquierdo del bullet "email marketing": doodle del
@@ -871,7 +930,7 @@ audio::-webkit-media-controls-panel {
     }
 
     .banner-subline {
-        font-size: 0.55em;
+        font-size: 1.05em;
         margin-top: 0.5em;
     }
 
@@ -896,10 +955,6 @@ audio::-webkit-media-controls-panel {
 
     .diamond {
         margin-top: 1rem;
-    }
-
-    .gladiator {
-        margin-bottom: var(--gap-2xl);
     }
 
     p {
