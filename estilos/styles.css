@@ -16,19 +16,37 @@
 :root {
     font-family: var(--sans);
 
-    /* PALETA — jerarquía de neutros: body = --papel (grisáceo); cards = --blanco
-       (puro elevado). El verde (--verde) y el papel/mute comparten hue ~216°
-       con el azul desaturado para que ningún neutro chirríe contra la marca. */
+    /* PALETA OLD MONEY — editorial sobria, baja saturación, calidez papel
+       envejecido. Sustituye a la vivacolor antigua (conservada comentada
+       al final del bloque). Los nombres conservan el rol mecánico, no el
+       color literal: --azul ya no es azul vivo sino azul marino; --verde
+       ya no es lime sino verde inglés; etc.
+
+       --rojo es la EXCEPCIÓN del sistema: rojo señalético vivo, alta
+       saturación, intencionadamente fuera del registro old money. Es como llevar
+      traje y unas Jordan */
+    --azul: #1f3a82;
+    --rojo: #f40600;
+    --verde: #233326;
+    --amarillo: #ffe066;
+    --papel: #ebe6dc;
+    --mute: #bba591;
+    --negro: #1a1612;
+    --blanco: #fefcf8;
+
+    /* ---------- PALETA ANTIGUA (no activa — referencia) ----------
+       Vivacolor de respuesta directa anterior al cambio a old money. */
+    /*
     --azul: #1e5fbf;
     --rosa: #ff4fdd;
     --amarillo: #ffe066;
-    --rojo: #f40600;
-    --verde: #baff29; /* lime neon, deliberado para highlighter chillón */
+    --verde: #baff29;
     --negro: #292f36;
     --gris: #3a4047;
     --blanco: #ffffff;
     --papel: #f7f9fc;
     --mute: #6f7c90;
+    */
 
     /* OPACIDADES vía color-mix sobre los colores base, en lugar de rgba()
        literal: si cambia el color de marca, las opacidades siguen. */
@@ -95,7 +113,7 @@ body {
 
 ::selection {
     background-color: var(--amarillo);
-    color: var(--gris);
+    color: var(--negro);
 }
 
 /* ---------- 2. Tipografía base, listas, utilities ---------- */
@@ -104,7 +122,7 @@ h1 {
     font-size: 2.8rem;
     margin: 0 auto 0.8em;
     line-height: 1.1;
-    color: white;
+    color: var(--blanco);
     font-weight: 500;
     text-align: center;
     hyphens: none;
@@ -128,7 +146,7 @@ h2 {
     font-weight: 700;
     font-size: clamp(2rem, 3.4vw, 2.9rem);
     letter-spacing: 0.02em;
-    color: var(--azul);
+    color: var(--rojo);
     margin-bottom: var(--gap-md);
 }
 
@@ -181,7 +199,7 @@ u {
    si el span wrappea. Color hardcodeado al --azul: data URIs no soportan
    currentColor. */
 .squiggle {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%231e5fbf' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%231f3a82' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
     background-repeat: no-repeat;
     background-position: 0 100%;
     background-size: 100% 0.35em;
@@ -193,10 +211,6 @@ u {
 .hand {
     font-family: var(--hand);
     font-weight: 400;
-}
-
-.text-rosa {
-    color: var(--rosa);
 }
 
 .text-verde {
@@ -505,6 +519,17 @@ p:has(+ .diamond) {
     border-radius: clamp(3rem, 5vw, 4.5rem);
 }
 
+/* Variante azul: el bloque pasa de "sala de tinta" a "sala azul marino" —
+   la metáfora old money de cada sección como una habitación distinta del
+   estudio. El breaker que la precede arrastra el cambio (regla de abajo
+   con :has) para que el par titular+franja siga leyendo unido. Texto
+   blanco/crema y squiggles arena siguen funcionando: el contraste sobre
+   azul marino es comparable al contraste sobre negro cálido. */
+.seccion-tinta--azul,
+.titulo-breaker--tinta:has(+ .seccion-tinta--azul) {
+    background: var(--azul);
+}
+
 /* Párrafos cuerpo casi blanco puro (blanco 88 / negro 12): apenas se
    nota la atenuación pero abre un escalón mínimo de jerarquía para que
    los <strong> en blanco puro destaquen sin gritar. */
@@ -529,7 +554,7 @@ p:has(+ .diamond) {
    color del trazo (lime sobre tinta, en vez de azul sobre papel).
    Color hardcodeado: data URIs no soportan currentColor. */
 .seccion-tinta .squiggle {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23baff29' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
 }
 
 /* Variante con la inclinación invertida: la línea sube de izquierda a
@@ -537,7 +562,7 @@ p:has(+ .diamond) {
    repetir el mismo gesto cuando hay varios subrayados manuscritos
    seguidos — cada uno se lee como un trazo independiente. */
 .seccion-tinta .squiggle--alt {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 6 Q 50 4.8 99 4' stroke='%23baff29' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 6 Q 50 4.8 99 4' stroke='%23f40600' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
 }
 
 /* Cuando el breaker--tinta precede a la zona oscura, la pareja se lee
@@ -563,7 +588,7 @@ p:has(+ .diamond) {
     width: 120%;
     height: 148%;
     pointer-events: none;
-    color: var(--verde);
+    color: var(--rojo);
     transform: rotate(-3deg);
     overflow: visible;
 }
@@ -591,7 +616,7 @@ p:has(+ .diamond) {
    en lime (--verde) en vez de azul de marca. El .squiggle global sigue
    azul donde se usa fuera de este recuadro. */
 .titulo-breaker--tinta .squiggle {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23baff29' stroke-width='4.5' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='4.5' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
     background-size: 100% 0.5em;
     padding-bottom: 0.22em;
 }
@@ -808,7 +833,7 @@ p:has(+ .diamond) {
     aspect-ratio: 1;
     margin: 0 auto var(--gap-3xl);
 
-    color: var(--azul);
+    color: var(--rojo);
     background-color: currentColor;
     -webkit-mask: url(/imgs/svg/arrow-wide-svgrepo-com.svg) center / contain
         no-repeat;
@@ -918,7 +943,7 @@ audio::-webkit-media-controls-panel {
     transform: translateY(-100%) rotate(30deg);
     transform-origin: left center;
 
-    background-color: var(--verde);
+    background-color: var(--rojo);
     -webkit-mask: url("/imgs/svg/chat-svgrepo-com.svg") center / contain
         no-repeat;
     mask: url("/imgs/svg/chat-svgrepo-com.svg") center / contain no-repeat;
