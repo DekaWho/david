@@ -6,7 +6,7 @@
    3. Menú / navegación
    4. Banner + hero
    5. Cuerpo, títulos-breaker, .flecha
-   6. Componentes (callout, player, classified)
+   6. Componentes (callout, player, review-card)
    7. Responsive (<=800px)
    8. Home (index.html) — hero-card, post-it, blocks
    ===================================================== */
@@ -30,7 +30,7 @@
     --verde: #233326;
     --amarillo: #ffe066;
     --papel: #ebe6dc;
-    --mute: #bba591;
+    --arena: #bba591;
     --negro: #1a1612;
     --blanco: #fefcf8;
 
@@ -52,11 +52,15 @@
        literal: si cambia el color de marca, las opacidades siguen. */
     --azul-10: color-mix(in srgb, var(--azul) 10%, transparent);
 
-    /* TIPOGRAFÍA — añadir una familia nueva es decisión consciente. */
-    --sans: "IBM Plex Sans", "Segoe UI Emoji", system-ui, sans-serif;
-    --serif: "Fraunces", Georgia, serif;
+    /* TIPOGRAFÍA — añadir una familia nueva es decisión consciente.
+       Una sola serif universal: --sans y --serif apuntan a EB Garamond,
+       el sitio lee como libro impreso, jerarquía por escala y cursiva,
+       no por familia. --hand (Kalam) reservada para anotaciones
+       manuscritas: post-it, banner-subline, .suficiente, aviso-mano,
+       titulo-mano, subtitle-hand. */
+    --sans: "EB Garamond", Georgia, serif;
+    --serif: "EB Garamond", Georgia, serif;
     --hand: "Kalam", "Caveat", cursive;
-    --stamp: "Black Ops One", system-ui; /* sello CONFIDENCIAL */
 
     /* Solo se tokenizan los font-sizes de cuerpo, que se reutilizan en todo
        el sitio. Los demás son clamps por componente. */
@@ -75,21 +79,26 @@
     --gap-3xl: 5rem;
     --gap-4xl: 8rem;
 
-    /* BORDER-RADIUS — escala numérica (md..2xl) para casos generales y
-       semántica (card, control, thread) para componentes con valor específico
-       que no encaja en la escala. */
-    --radius-md: 8px;
-    --radius-lg: 14px;
-    --radius-xl: 22px;
-    --radius-2xl: 26px;
+    /* BORDER-RADIUS — sistema editorial: rectángulos sin curva. El old
+       money no redondea cards. La única excepción es --radius-circle,
+       reservada para retratos y avatares (camafeo, moneda, sello). El
+       resto del sitio usa estas variables como punto único: si en algún
+       momento se quiere reintroducir curva, se cambia aquí y propaga. */
+    --radius-md: 0;
+    --radius-lg: 0;
+    --radius-xl: 0;
+    --radius-2xl: 0;
     --radius-circle: 50%;
-    --radius-card: 12px;
-    --radius-control: 10px;
-    --radius-thread: 2px;
+    --radius-card: 0;
+    --radius-control: 0;
+    --radius-thread: 0;
 
-    --shadow-soft:
-        0 6px 14px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
-    --shadow-press: 0 8px 0 var(--azul);
+    /* Sombras desactivadas a nivel de sistema. El contorno de los objetos
+       (cards, menú, postit) lo define el contraste de fondos blanco/papel,
+       no una sombra. Las variables se mantienen para no romper referencias
+       existentes (var(--shadow-soft), var(--shadow-press)) en componentes. */
+    --shadow-soft: none;
+    --shadow-press: none;
 }
 
 html {
@@ -143,7 +152,7 @@ h2 {
    Usa la sintaxis del cuaderno: marcador rotulado más que titular tipográfico. */
 .suficiente {
     font-family: var(--hand);
-    font-weight: 700;
+    font-weight: 400;
     font-size: clamp(2rem, 3.4vw, 2.9rem);
     letter-spacing: 0.02em;
     color: var(--rojo);
@@ -320,22 +329,21 @@ li::marker {
     }
 }
 
-/* SVG para garantizar mismo grosor de trazo en cualquier navegador (los
-   glifos unicode ←/↓ los sustituye Chrome desktop por fuentes distintas y
-   se ven con grosores diferentes; con SVG todo es currentColor + stroke). */
 .menu-link-arrow {
-    width: 14px;
-    height: 14px;
     flex-shrink: 0;
     color: var(--azul);
-    display: block;
+    font-family: "EB Garamond", Georgia, system-ui, serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    display: inline-block;
 }
 
 .menu-divider {
-    color: var(--mute);
+    color: var(--azul);
     font-weight: 400;
     user-select: none;
-    padding: 0 2px;
+    padding: 0 4px;
     line-height: 1;
 }
 
@@ -348,17 +356,16 @@ li::marker {
 
 /* ---------- 4. Banner + hero ---------- */
 
-/* Banner editorial: card elevada que separa del cuerpo sin border. */
+/* Banner editorial: banda blanca full-bleed que abre la página, sin
+   sombra ni borde. La transición del blanco del hero al papel del cuerpo
+   es vertical, no envolvente — no es card flotante, es masthead. */
 .banner {
     background-color: var(--blanco);
-    max-width: 60vw;
-    margin: 14px auto var(--gap-2xl);
+    margin: 0 0 var(--gap-md);
     padding: 1.5rem 0 3rem;
-    border-radius: var(--radius-2xl);
 
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-press);
 }
 
 .banner .hero-photo-wrap {
@@ -482,7 +489,7 @@ p:has(+ .diamond) {
    recupera protagonismo aquí porque queda separado del texto y no compite
    con la lectura. Encima admite anotaciones a boli (.ink-circle, .squiggle)
    sobre palabras concretas del titular. */
-.titulo-breaker--tinta {
+.titulo-breaker--bg-oscuro {
     display: block;
     max-width: 52vw;
     margin: var(--gap-2xl) auto;
@@ -495,7 +502,7 @@ p:has(+ .diamond) {
     font-family: var(--serif);
     font-weight: 600;
     font-style: italic;
-    font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+    font-size: clamp(2rem, 3.3vw, 2.6rem);
     line-height: 1.4;
     letter-spacing: -0.005em;
     color: var(--blanco);
@@ -504,19 +511,13 @@ p:has(+ .diamond) {
 }
 
 /* Zona oscura para el bloque de testimonios: invierte la paleta. Va a
-   ancho completo del body — los radius generosos recortan papel en las
-   cuatro esquinas, que es la firma del bloque (no una card flotando con
-   margen). */
+   ancho completo del body como cinta editorial rectangular. */
 .seccion-tinta {
     margin: 0 0 var(--gap-md);
     padding: var(--gap-md) 0 var(--gap-lg);
 
     background: var(--negro);
     color: var(--blanco);
-    /* Literal fuera de la escala --radius-*: la franja es full-bleed,
-       necesita curva más generosa que cualquier card normal para leerse
-       "soft pill" en vez de "rectángulo achaflanado". */
-    border-radius: clamp(3rem, 5vw, 4.5rem);
 }
 
 /* Variante azul: el bloque pasa de "sala de tinta" a "sala azul marino" —
@@ -526,7 +527,7 @@ p:has(+ .diamond) {
    blanco/crema y squiggles arena siguen funcionando: el contraste sobre
    azul marino es comparable al contraste sobre negro cálido. */
 .seccion-tinta--azul,
-.titulo-breaker--tinta:has(+ .seccion-tinta--azul) {
+.titulo-breaker--bg-oscuro:has(+ .seccion-tinta--azul) {
     background: var(--azul);
 }
 
@@ -568,7 +569,7 @@ p:has(+ .diamond) {
 /* Cuando el breaker--tinta precede a la zona oscura, la pareja se lee
    como un solo bloque (titular oscuro + sección oscura). Comprime el
    margen entre los dos para reforzar esa unidad. */
-.titulo-breaker--tinta:has(+ .seccion-tinta) {
+.titulo-breaker--bg-oscuro:has(+ .seccion-tinta) {
     margin-bottom: var(--gap-xl);
 }
 
@@ -615,7 +616,7 @@ p:has(+ .diamond) {
 /* Squiggle override dentro del breaker tinta: misma forma, pero pintado
    en lime (--verde) en vez de azul de marca. El .squiggle global sigue
    azul donde se usa fuera de este recuadro. */
-.titulo-breaker--tinta .squiggle {
+.titulo-breaker--bg-oscuro .squiggle {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='4.5' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
     background-size: 100% 0.5em;
     padding-bottom: 0.22em;
@@ -624,7 +625,7 @@ p:has(+ .diamond) {
 /* Breaker editorial papel — variante clara con fondo blanco + tinta oscura.
    Sin italic ni SVG: es un encabezado de sección, no una réplica
    conversacional como el breaker tinta. */
-.titulo-breaker--papel {
+.titulo-breaker--bg-claro {
     display: block;
     max-width: 52vw;
     margin: var(--gap-2xl) auto var(--gap-md);
@@ -651,18 +652,23 @@ p:has(+ .diamond) {
     font-weight: bold;
 }
 
-/* Tarjeta blanca con esquinas redondeadas. Solo padding vertical: el
+/* Banda blanca full-bleed con la lista dentro. Solo padding vertical: el
    horizontal viene del ul global (padding-left var(--gap-md) para los
-   markers, sin padding-right). Así los li se alinean exactamente igual
-   que en cualquier otra lista del sitio — la única diferencia es el
-   fondo blanco y el radius envolviéndolos. */
+   markers, sin padding-right). Los li se alinean exactamente igual que
+   en cualquier otra lista del sitio; la diferencia es que el fondo
+   blanco se extiende a los lados hasta el borde del viewport. */
 .lista-azul {
     padding-top: clamp(1rem, 2.5vw, 1.75rem);
     padding-bottom: clamp(1rem, 2.5vw, 1.75rem);
     margin-bottom: var(--gap-2xl);
 
     background: var(--blanco);
-    border-radius: var(--radius-xl);
+    /* Fondo full-bleed: box-shadow gigante extiende el blanco hasta el
+       viewport sin afectar el layout interior; clip-path recorta lo
+       vertical para que el blanco no asome por encima/debajo. Los <li>
+       siguen en la columna del .cuerpo, solo el fondo se desborda. */
+    box-shadow: 0 0 0 100vmax var(--blanco);
+    clip-path: inset(0 -100vmax);
 }
 
 /* Sin margin-bottom global del último li dentro de la tarjeta: duplicaría
@@ -764,8 +770,8 @@ p:has(+ .diamond) {
 /* Override del banner-mark dentro del breaker papel: highlighter más fino que
    el del hero. El del hero cubre 48-92% para gritar; aquí pasamos a 56-86% —
    solo un tercio del alto de letra, levemente despegado del baseline, sutil,
-   complementa el peso ya alto del título Fraunces sin competir con él. */
-.titulo-breaker--papel .banner-mark {
+   complementa el peso del título serif sin competir con él. */
+.titulo-breaker--bg-claro .banner-mark {
     background-image: linear-gradient(
         180deg,
         transparent 0,
@@ -846,9 +852,10 @@ p:has(+ .diamond) {
 
 .flecha--up {
     transform: rotate(-90deg);
+    color: var(--azul);
 }
 
-/* La flecha--down dentro de .cuerpo precede a un titulo-breaker--papel que
+/* La flecha--down dentro de .cuerpo precede a un titulo-breaker--bg-claro que
    ya aporta su propio margin-top (--gap-2xl). Sumar el margin-bottom base de
    .flecha encima sobreseparaba el par. Aire en manos del breaker. */
 .cuerpo > .flecha--down {
@@ -865,7 +872,6 @@ p:has(+ .diamond) {
 
 /* ---------- 6. Componentes ---------- */
 
-/* Sin border — la sombra delimita más sólido que un contorno. */
 .callout {
     position: relative;
     left: 50%;
@@ -877,7 +883,6 @@ p:has(+ .diamond) {
 
     background: var(--blanco);
     border-radius: var(--radius-2xl);
-    box-shadow: var(--shadow-press);
 }
 
 .callout p {
@@ -965,30 +970,6 @@ audio::-webkit-media-controls-panel {
     object-fit: cover;
 }
 
-.classified {
-    font-family: var(--stamp);
-    font-weight: 700;
-    font-size: clamp(1.4rem, 4vw, 1.95rem);
-    padding: 1rem;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 1.5rem;
-    margin-top: var(--gap-3xl);
-
-    text-transform: uppercase;
-    letter-spacing: 1px;
-
-    color: var(--rojo);
-    border: 4px solid var(--rojo);
-    border-radius: 6px 10px 5px 9px / 9px 5px 10px 6px;
-    transform: rotate(2deg);
-
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 2 -0.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 2 -0.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 #contacto {
     scroll-margin-top: var(--gap-sm);
 }
@@ -1001,8 +982,7 @@ audio::-webkit-media-controls-panel {
     }
 
     .banner {
-        max-width: none;
-        margin: 14px 6px var(--gap-xl);
+        margin: 0 0 var(--gap-xl);
         padding: 1rem 0 3rem;
     }
 
@@ -1057,16 +1037,16 @@ audio::-webkit-media-controls-panel {
         font-size: 16px;
     }
 
-    .titulo-breaker--tinta,
-    .titulo-breaker--papel {
-        max-width: none;
-        margin: var(--gap-xl) 14px;
+    .titulo-breaker--bg-oscuro,
+    .titulo-breaker--bg-claro {
+        max-width: 80%;
+        margin: var(--gap-xl) auto;
     }
 
     /* El breaker papel mantiene el ritmo asimétrico del desktop: el bottom
        corto pega el primer <p> al título como continuación, no como bloque
        suelto. */
-    .titulo-breaker--papel {
+    .titulo-breaker--bg-claro {
         margin-bottom: var(--gap-md);
     }
 
@@ -1254,11 +1234,9 @@ audio::-webkit-media-controls-panel {
 
 .hero-card {
     position: relative;
-    margin: 0 14px clamp(125px, 20.5vh, 180px);
+    margin: 0 0 clamp(125px, 20.5vh, 180px);
     background: var(--blanco);
-    border-radius: 26px;
     padding: clamp(14px, 2.5vh, 20px) 12px clamp(40px, 6.5vh, 56px);
-    box-shadow: var(--shadow-press);
 }
 
 .hero-photo-wrap {
@@ -1331,7 +1309,7 @@ audio::-webkit-media-controls-panel {
     padding: 12px 14px 14px;
     transform: rotate(-1.8deg);
     box-shadow:
-        0 6px 14px rgba(0, 0, 0, 0.14),
+        0 3px 8px rgba(0, 0, 0, 0.12),
         0 1px 2px rgba(0, 0, 0, 0.08);
     font-family: var(--hand);
     font-size: 14.5px;
@@ -1368,7 +1346,7 @@ audio::-webkit-media-controls-panel {
 }
 
 .section-heading .caret {
-    color: var(--mute);
+    color: var(--negro);
 }
 
 .blocks {
@@ -1396,10 +1374,11 @@ audio::-webkit-media-controls-panel {
     align-items: center;
     gap: 8px;
     padding: 12px;
-    border-radius: 14px;
     text-decoration: none;
     color: var(--negro);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.08);
     transition:
         transform 120ms ease,
         box-shadow 120ms ease;
@@ -1458,10 +1437,11 @@ audio::-webkit-media-controls-panel {
 }
 
 /* Stack sin "Segoe UI Emoji" para que ↗ (U+2197) y → (U+2192) se rendericen
-   como glifo de texto, no como emoji coloreado. IBM Plex Sans no incluye
-   estos caracteres, así que el navegador cae a system-ui directamente. */
+   como glifo de texto, no como emoji coloreado. EB Garamond y Georgia
+   incluyen estos glifos como texto serif; ningún miembro del stack cae
+   a fuente de emoji a color. */
 .block .arrow {
-    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    font-family: "EB Garamond", Georgia, system-ui, serif;
     font-size: 16px;
     color: var(--negro);
     opacity: 0.5;
@@ -1526,7 +1506,6 @@ audio::-webkit-media-controls-panel {
         var(--negro) 12px,
         var(--negro) 24px
     );
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
     pointer-events: none;
     z-index: 2;
 }
@@ -1542,7 +1521,6 @@ audio::-webkit-media-controls-panel {
     font-size: 10px;
     font-weight: 700;
     padding: 2px 6px;
-    border-radius: 4px;
     border: 1px solid var(--negro);
     transform: rotate(4deg);
 }
@@ -1570,7 +1548,6 @@ audio::-webkit-media-controls-panel {
     .hero-card {
         margin: 0 0 clamp(135px, 19vh, 200px);
         padding: clamp(14px, 2vh, 22px) 22px clamp(42px, 5.6vh, 60px);
-        border-radius: 28px;
     }
 
     .hero-photo {
