@@ -9,6 +9,7 @@
    6. Componentes (callout, player, review-card)
    7. Responsive (<=800px)
    8. Home (index.html) — hero-card, post-it, blocks
+   9. Clonate (clonate.html) — epígrafe, banner-lead, opt-in
    ===================================================== */
 
 /* ---------- 1. Variables + reset ---------- */
@@ -1686,4 +1687,133 @@ audio::-webkit-media-controls-panel {
         font-size: 11px;
         padding: 3px 7px;
     }
+}
+
+/* ---------- 9. Clonate (clonate.html) ---------- */
+
+/* :has() scopea estos overrides a clonate (única página con .banner-lead).
+   Sin esa restricción, afectarían también al banner de servicios. */
+.banner:has(.banner-lead) {
+    background: var(--papel);
+    padding: clamp(0.3rem, 1vh, 0.6rem) 0 clamp(0.4rem, 1.5vh, 0.8rem);
+}
+
+.title-card {
+    background: var(--blanco);
+    margin: 0 auto clamp(0.5rem, 1.5vh, 1rem);
+    padding: clamp(0.7rem, 2vh, 1.3rem) clamp(1rem, 2.5vw, 1.8rem)
+        clamp(1.8rem, 5vh, 2.8rem);
+    box-sizing: border-box;
+}
+
+.title-card h1 {
+    line-height: 1.08;
+    margin: 0;
+}
+
+@media (min-width: 801px) {
+    .banner:has(.banner-lead) .hero {
+        max-width: 880px;
+    }
+}
+
+@media (max-width: 800px) {
+    .title-card {
+        padding-left: 0.8rem;
+        padding-right: 0;
+        padding-bottom: clamp(1.2rem, 3vh, 1.8rem);
+    }
+
+    .title-card h1 {
+        font-size: 1.9rem;
+        text-align: left;
+    }
+}
+
+/* El SVG del .squiggle global lleva vector-effect: non-scaling-stroke,
+   así el grosor en px se mantiene aunque el span estire horizontalmente;
+   en h1 (font grande) queda fino y lejos del baseline, así que sube el
+   stroke en el data URI y comprime padding-bottom. */
+.banner h1 .squiggle {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%231f3a82' stroke-width='4.5' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    padding-bottom: 0.05em;
+}
+
+.banner-lead {
+    max-width: 56ch;
+    margin-top: 0;
+    margin-inline: auto;
+    margin-bottom: clamp(1.4rem, 4vh, 2.6rem);
+    padding: 0 1rem;
+    font-family: var(--serif);
+    font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+    line-height: 1.45;
+    color: var(--negro);
+}
+
+.optin {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(8px, 1.5vh, 14px);
+    width: 95%;
+    max-width: 480px;
+    margin: 0 auto clamp(0.8rem, 2vh, 1.4rem);
+}
+
+.optin input {
+    min-width: 0;
+    padding: clamp(11px, 1.9vh, 18px) 14px;
+    font-family: var(--serif);
+    font-size: clamp(16px, 1.3vw, 18px);
+    color: var(--negro);
+    background: var(--blanco);
+    border: 2px solid var(--negro);
+    border-radius: var(--radius-control);
+    outline: none;
+}
+
+.optin input:focus {
+    border-color: var(--azul);
+    box-shadow: 0 0 0 3px var(--azul-10);
+}
+
+.optin .block--primary {
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+}
+
+.privacy-note {
+    margin: 0;
+    font-size: clamp(0.7rem, 0.75vw, 0.8rem);
+    line-height: 1.4;
+    color: color-mix(in srgb, var(--negro) 55%, transparent);
+    text-align: center;
+}
+
+.privacy-note a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.firma {
+    max-width: 560px;
+    margin: clamp(2.2rem, 5vh, 3.4rem) auto 0;
+    font-size: clamp(0.75rem, 0.85vw, 0.9rem);
+    line-height: 1.4;
+}
+
+/* Patrón estándar de label visualmente oculto pero anunciable por screen
+   readers — un placeholder no es sustituto semántico de un label. */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
