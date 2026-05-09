@@ -1760,6 +1760,19 @@ audio::-webkit-media-controls-panel {
     color: var(--negro);
 }
 
+/* iframe del vídeo: .hero es flex-column con align-items stretch, pero
+   el iframe lleva ancho intrínseco por atributo HTML (width="560"), así
+   que stretch no puede expandirlo y queda alineado al start (izquierda).
+   Centramos explícito y separamos del .optin de debajo. width + aspect-ratio
+   sobrescriben los attrs HTML para reducir tamaño manteniendo el 16:9 de YT. */
+.banner:has(.banner-lead) iframe {
+    display: block;
+    width: clamp(260px, 55%, 440px);
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin: 0 auto clamp(1rem, 3vh, 2rem);
+}
+
 .optin {
     display: flex;
     flex-direction: column;
@@ -1791,6 +1804,13 @@ audio::-webkit-media-controls-panel {
     cursor: pointer;
     border: none;
     font-family: inherit;
+}
+
+/* Override del .banner .block--primary .title (sección 4): el CTA del
+   opt-in convive con el input al lado, y el tamaño del banner CTA estándar
+   eclipsa visualmente al cajetín. Bajamos un escalón. */
+.optin .block--primary .title {
+    font-size: clamp(18px, 1.8vw, 22px);
 }
 
 .privacy-note {
