@@ -2058,7 +2058,14 @@ audio::-webkit-media-controls-panel {
     align-items: center;
     gap: var(--gap-md);
     max-width: 36vw;
-    margin: var(--gap-2xl) auto var(--gap-3xl);
+    /* Margin-top fluido en desktop: ~7rem en portátiles estándar (800-900px
+       de alto) y crece con la altura del viewport hasta 2× gap-3xl en
+       monitores grandes. El último bloque del artículo necesita aire claro
+       para que la firma se lea como cierre, no como continuación. En móvil
+       volvemos al gap-3xl fijo (override en el @media de abajo) — la firma
+       stackeada ya respira sola con su flex-direction column. */
+    margin: clamp(calc(var(--gap-3xl) + var(--gap-lg)), 14vh, calc(var(--gap-3xl) * 2)) auto
+        var(--gap-3xl);
     padding: 0 1rem;
     box-sizing: border-box;
 }
@@ -2110,6 +2117,7 @@ audio::-webkit-media-controls-panel {
         align-items: center;
         text-align: center;
         gap: var(--gap-sm);
+        margin-top: var(--gap-3xl);
     }
     .post-firma img {
         width: 76px;
