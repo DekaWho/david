@@ -1929,12 +1929,30 @@ audio::-webkit-media-controls-panel {
    <li>) está calibrado para landings de venta donde cada bloque es un
    beat narrativo independiente. En prosa de blog ese mismo aire fragmenta
    la lectura — los párrafos parecen islas y los items de lista parecen
-   listas separadas. Comprimimos un escalón. */
-.post .cuerpo p {
+   listas separadas. Comprimimos un escalón. Selector `> p` para que solo
+   afecte a párrafos del cuerpo de lectura, no a párrafos anidados en
+   secciones con espaciado propio (.post-optin-lead, .privacy-note dentro
+   del form de captación, etc.). */
+.post .cuerpo > p {
     margin-bottom: var(--gap-xl);
 }
 
 .post .cuerpo li {
+    margin-bottom: var(--gap-md);
+}
+
+/* H2 del cuerpo del post: el h2 global está calibrado a clamp(2.5rem, 4vw,
+   3.5rem) centrado para landings comerciales, donde un h2 abre una sección
+   nueva y carga peso visual. Dentro de un post compite con el h1 del
+   masthead (mismo tamaño) y rompe la jerarquía editorial. Bajamos a un
+   ~60% del h1 del post y lo alineamos a la izquierda como subheading de
+   prosa. Margin-top generoso para marcar corte de sección; margin-bottom
+   recogido para que se lea como antesala del párrafo siguiente. */
+.post .cuerpo h2 {
+    font-size: clamp(1.6rem, 2.3vw, 2.2rem);
+    line-height: 1.25;
+    text-align: left;
+    margin-top: var(--gap-2xl);
     margin-bottom: var(--gap-md);
 }
 
@@ -2146,9 +2164,12 @@ audio::-webkit-media-controls-panel {
    horizontal del padre y la recentra al viewport; sin esa pirueta, un
    width mayor que el padre la dejaría desbordando a la derecha. Tope
    en 800px para que en pantallas muy grandes no se haga absurda.
-   En móvil la imagen vuelve al 100% del .cuerpo (regla global de abajo). */
+   En móvil la imagen vuelve al 100% del .cuerpo (regla global de abajo).
+   Selector `> img` para que solo afecte a imágenes de contenido (hijas
+   directas del <article>), no a iconos dentro de botones (.block .icon)
+   ni a la imagen del .post-optin que tiene su propio ancho de lectura. */
 @media (min-width: 801px) {
-    .post .cuerpo img {
+    .post .cuerpo > img {
         width: clamp(36vw, 60vw, 800px);
         max-width: none;
         position: relative;
@@ -2182,8 +2203,11 @@ audio::-webkit-media-controls-panel {
 
 /* Imagen del cuerpo de post: centrada, no se sale del ancho de lectura,
    con respiración top/bottom alineada al ritmo de los <p>. La carga es
-   lazy + async porque suelen ir bajo el fold del post. */
-.cuerpo img {
+   lazy + async porque suelen ir bajo el fold del post. Selector `> img`
+   para que solo afecte a imágenes de contenido (hijas directas del
+   <article>), no a iconos dentro de botones (.block .icon) ni a imágenes
+   anidadas en secciones como .post-optin que tienen estilo propio. */
+.cuerpo > img {
     display: block;
     max-width: 100%;
     height: auto;
@@ -2205,6 +2229,46 @@ audio::-webkit-media-controls-panel {
     font-size: var(--text-body);
 }
 
+/* Avatar de cita: foto circular del autor citado a la izquierda del
+   blockquote. Mismo idioma gráfico que la foto de la .post-firma
+   (círculo + object-fit cover) pero más recogida porque va inline en
+   el cuerpo, no cerrando el post. El blockquote pasa a flex cuando
+   contiene un .quote-avatar; align-items flex-start ancla la foto
+   arriba para que en citas largas no flote a mitad del párrafo. */
+.cuerpo blockquote:has(.quote-avatar) {
+    display: flex;
+    gap: var(--gap-md);
+    align-items: flex-start;
+}
+
+.cuerpo .quote-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.cuerpo blockquote:has(.quote-avatar) p {
+    flex: 1;
+}
+
+/* En móvil la columna del cuerpo cae a 99vw, el side-by-side comprime el
+   ancho útil del texto a un nivel que rompe la lectura. Cambiamos a stack
+   (avatar arriba, cita debajo) para que la cita aproveche todo el ancho. */
+@media (max-width: 800px) {
+    .cuerpo blockquote:has(.quote-avatar) {
+        flex-direction: column;
+        gap: var(--gap-sm);
+    }
+
+    .cuerpo .quote-avatar {
+        width: 56px;
+        height: 56px;
+    }
+}
+
 @media (max-width: 800px) {
     .post-meta {
         font-size: 0.8rem;
@@ -2218,16 +2282,19 @@ audio::-webkit-media-controls-panel {
        densas. En lectura larga de blog ese tamaño se queda corto y obliga a
        acercar el móvil a la cara. Volvemos a --text-body para que la prosa
        del post mantenga el mismo cuerpo de letra que el blockquote (que ya
-       usa --text-body explícito en su regla). */
-    .post .cuerpo p,
+       usa --text-body explícito en su regla). Selector `> p` para no pisar
+       a párrafos anidados con tipografía propia (.privacy-note del form,
+       que va deliberadamente más pequeña). */
+    .post .cuerpo > p,
     .post .cuerpo li {
         font-size: var(--text-body);
     }
 
     /* En desktop --gap-xl entre <p> respira bien con la columna de 36vw.
        En móvil esa misma respiración entre líneas más largas fragmenta
-       la lectura — bajamos un escalón a --gap-lg. */
-    .post .cuerpo p {
+       la lectura — bajamos un escalón a --gap-lg. Misma scope `> p` que
+       la regla de desktop: no pisar márgenes de párrafos anidados. */
+    .post .cuerpo > p {
         margin-bottom: var(--gap-lg);
     }
 
