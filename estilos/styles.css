@@ -1846,3 +1846,417 @@ audio::-webkit-media-controls-panel {
     white-space: nowrap;
     border: 0;
 }
+
+/* ---------- 10. Blog (/blog/*.html) ----------
+   Posts servidos como página independiente, marcados con <body class="post">.
+   Reutilizan .banner como masthead (título + meta + aviso autoral) y
+   .cuerpo como columna de lectura. Todos los overrides específicos del
+   blog van scopados a .post para que no se filtren al resto del sitio. */
+
+/* Título del post: un escalón mayor que el banner h1 genérico. El post
+   carece de subtítulo o subline, así que el h1 carga todo el peso visual
+   del masthead y agradece más cuerpo. */
+.post .banner h1 {
+    font-size: clamp(2.5rem, 3.8vw, 3.6rem);
+}
+
+/* Línea de metadatos bajo el título: fecha (rellena por JS al cargar) +
+   tiempo de lectura. Small caps gris atenuado — registra como bibliografía
+   editorial, no como cabecera de prensa moderna. */
+.post-meta {
+    margin: 0 auto 3rem;
+    font-family: var(--serif);
+    font-size: 0.92rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--negro) 55%, transparent);
+    text-align: center;
+}
+
+/* Aviso autoral "Escrito sin IA" dentro del masthead. El componente
+   .aviso-mano (sección 5) es rojo con tilt 2° pensado para anotación al
+   margen del cuerpo. Aquí vive dentro del banner blanco como anuncio
+   formal del autor: azul de marca, sin rotación, márgenes recogidos. */
+.post .banner .aviso-mano {
+    color: var(--azul);
+    transform: none;
+    margin: 0 auto;
+    max-width: 80%;
+}
+
+.post .banner .aviso-mano-icono {
+    transform: none;
+}
+
+/* Variante del postit (sección 8) para uso en el banner del blog. Misma
+   metáfora que en home: el postit cuelga absolute desde el borde inferior
+   del banner blanco y se mete hasta la mitad sobre el cuerpo de papel —
+   se lee como anotación "pegada a caballo" entre los dos bloques, no como
+   elemento de uno u otro. Para que esto funcione hay tres ajustes:
+   - .banner pasa a overflow:visible (el base hidden mata al postit).
+   - .banner recibe margin-bottom grande para dejarle hueco al postit.
+   - .postit-wrap pasa a absolute como en home (top:100% + translateY). */
+.post .banner {
+    overflow: visible;
+    padding-bottom: 0;
+    margin-bottom: clamp(85px, 12vh, 130px);
+}
+
+.post .banner .postit-wrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    display: flex;
+    justify-content: center;
+    transform: translateY(-20%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.post .banner .postit-wrap .postit {
+    pointer-events: auto;
+}
+
+.post .banner .postit {
+    width: clamp(200px, 24vw, 270px);
+    padding: clamp(14px, 1.8vh, 18px) clamp(14px, 1.8vw, 20px);
+    font-size: clamp(15px, 1.4vw, 17px);
+    line-height: 1.3;
+}
+
+/* Cuerpo de post: el ritmo del sitio principal (5rem entre <p>, 3rem entre
+   <li>) está calibrado para landings de venta donde cada bloque es un
+   beat narrativo independiente. En prosa de blog ese mismo aire fragmenta
+   la lectura — los párrafos parecen islas y los items de lista parecen
+   listas separadas. Comprimimos un escalón. */
+.post .cuerpo p {
+    margin-bottom: var(--gap-xl);
+}
+
+.post .cuerpo li {
+    margin-bottom: var(--gap-md);
+}
+
+/* Markers de bullets en azul (no el rojo señalético global): el blog usa
+   azul como acento dominante (también el aviso-mano del masthead). El
+   rojo queda reservado para el resto del sitio. */
+.post .cuerpo li::marker {
+    color: var(--azul);
+}
+
+/* Opt-in del blog: banda blanca full-bleed que aparece SIEMPRE al final del
+   post (antes de la firma) y opcionalmente en posiciones intermedias que
+   marca el autor con {{optin}} en el MD. La banda se monta con el truco
+   box-shadow + clip-path de .lista-azul (sección 5): el blanco se extiende
+   hasta el borde del viewport sin afectar el layout interior. */
+.post-optin {
+    margin: var(--gap-2xl) auto;
+    padding: clamp(2rem, 5vw, 3.5rem) 1rem;
+    background: var(--blanco);
+    box-shadow: 0 0 0 100vmax var(--blanco);
+    clip-path: inset(0 -100vmax);
+}
+
+/* Párrafos del opt-in: misma columna de lectura que los <p> del cuerpo del
+   post para que se lean como prosa continua del artículo, no como bloque
+   destacado. El fondo blanco full-bleed del .post-optin sigue marcando la
+   transición visual respecto al banner. */
+.post-optin-lead {
+    max-width: 36vw;
+    margin: 0 auto var(--gap-xl);
+    color: var(--negro);
+}
+
+@media (max-width: 800px) {
+    .post-optin-lead {
+        max-width: 99vw;
+    }
+
+    /* Mismo override que .post .cuerpo p en móvil: el <p> global cae a
+       --text-body-m (~1rem) para landings densas, pero la prosa del opt-in
+       lee tan corrido como la del cuerpo del post — necesita el mismo
+       --text-body. Sin esto los párrafos del optin se ven un escalón más
+       pequeños que los del artículo y rompen la continuidad. */
+    .post-optin-lead,
+    .post-optin-lead li {
+        font-size: var(--text-body);
+    }
+}
+
+/* Lista de preguntas-gancho del opt-in: items compactos. La escala global
+   (--gap-sm = 1rem) deja la lista demasiado aireada para un bloque que
+   funciona como enumeración rápida, no como prosa con respiración. */
+.post-optin-lead li {
+    margin-bottom: 0.25rem;
+}
+
+/* Imagen suelta dentro del bloque opt-in: misma columna de lectura que los
+   párrafos (36vw desktop / 100% móvil) y centrada. Sombra suave para
+   separarla del fondo blanco del .post-optin (si no, el blanco de la
+   imagen y el blanco de la banda se confunden). Selector `> img` para no
+   pegarle a los <img class="icon"> de los botones del form. */
+.post-optin > img {
+    display: block;
+    max-width: 36vw;
+    height: auto;
+    margin: var(--gap-md) auto;
+    box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.12),
+        0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 800px) {
+    .post-optin > img {
+        max-width: 100%;
+    }
+}
+
+/* El <form class="optin"> hereda su layout de la sección 9 (clonate): flex
+   column con max-width 480px y gap interno. Solo centramos su caja dentro
+   de la banda — el resto ya está calibrado. */
+.post-optin .optin {
+    margin: 0 auto;
+}
+
+/* El <input type="email"> tiene width intrínseco del navegador (basado en
+   el size attribute) que a veces no se sobrescribe con align-items: stretch
+   del flex padre. Lo forzamos explícito + box-sizing: border-box para que
+   el border de 2px no se sume al 100% y lo haga ver más estrecho que el
+   botón vecino (que no tiene border y queda al 100% limpio). */
+.post-optin .optin input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Firma del autor al final del post. Espejo del aviso-mano del banner:
+   foto circular tipo retrato + nombre serif + rol manuscrito azul,
+   cerrando la "cápsula autoral" que abre con el aviso. Vive FUERA del
+   <article class="cuerpo"> a propósito — la regla .post .cuerpo img de
+   abajo rompe el ancho del cuerpo para fotos editoriales y convertiría
+   este retrato circular de 72px en un panorama de 60vw. */
+.post-firma {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-md);
+    max-width: 36vw;
+    margin: var(--gap-2xl) auto var(--gap-3xl);
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.post-firma img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.post-firma .firma-nombre {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--negro);
+    line-height: 1.2;
+}
+
+.post-firma .firma-rol {
+    margin: 0.25rem 0 0;
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    color: var(--negro);
+    line-height: 1.35;
+}
+
+/* Paréntesis manuscrito dentro del rol: mismo idioma gráfico que la
+   .banner-subline del sitio (Kalam azul como anotación al margen de un
+   título serif). El rol queda como cargo formal + apostilla a mano.
+   font-size fijo (no hereda del .firma-rol) porque Kalam a igual rem
+   se ve más grande que EB Garamond — para equipararlos visualmente, el
+   serif sube de tamaño y el Kalam se queda anclado al rem base. */
+.post-firma .firma-paren {
+    display: block;
+    margin-top: 0.15rem;
+    font-family: var(--hand);
+    font-size: 1rem;
+    color: var(--azul);
+}
+
+@media (max-width: 800px) {
+    .post-firma {
+        max-width: 99vw;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--gap-sm);
+    }
+    .post-firma img {
+        width: 76px;
+        height: 76px;
+    }
+}
+
+/* CTA de captación que cierra el post justo después de la firma. Comparte el
+   ancho de lectura de la firma (36vw / 99vw) y el fondo natural del body —
+   sin la banda blanca full-bleed del .post-optin, porque aquí no separa
+   secciones: continúa la firma como remate del autor. */
+.firma-optin {
+    max-width: 36vw;
+    margin: 0 auto var(--gap-3xl);
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+/* Cuando la firma va seguida del .firma-optin, su margin-bottom original
+   (--gap-3xl, pensado para cerrar el post) sobrepara a los dos elementos.
+   Lo reducimos para que se lean como un solo bloque "autor + CTA". */
+.post-firma:has(+ .firma-optin) {
+    margin-bottom: var(--gap-md);
+}
+
+/* Mismos overrides que .post-optin .optin: el <form class="optin"> hereda
+   max-width 480px de la sección 9, y el <input type="email"> trae width
+   intrínseco del navegador. Sin esto el cajetín queda más estrecho que su
+   contenedor y el input desencajado del botón. */
+.firma-optin .optin {
+    margin: 0 auto;
+}
+
+.firma-optin .optin input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 800px) {
+    .firma-optin {
+        max-width: 99vw;
+    }
+    .firma-optin .optin {
+        max-width: none;
+        width: 100%;
+    }
+}
+
+/* Imagen del cuerpo en desktop: rompe el ancho del .cuerpo (36vw) para
+   que las horizontales no se vean miniaturizadas dentro de la columna
+   de lectura. position+left:50%+translateX-50% saca la imagen del flujo
+   horizontal del padre y la recentra al viewport; sin esa pirueta, un
+   width mayor que el padre la dejaría desbordando a la derecha. Tope
+   en 800px para que en pantallas muy grandes no se haga absurda.
+   En móvil la imagen vuelve al 100% del .cuerpo (regla global de abajo). */
+@media (min-width: 801px) {
+    .post .cuerpo img {
+        width: clamp(36vw, 60vw, 800px);
+        max-width: none;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Highlighter amarillo de cuerpo — mismo gesto que .mark-verde
+   (sección 5) en --amarillo. Reutilizable en cualquier inline del
+   cuerpo del post. La sintaxis del MD ==texto== mapea a este span.
+   Stops 60-92% (vs 48-92% del .banner-mark): el cuerpo del blog usa
+   este resalte sobre palabras en MINÚSCULA dentro de párrafos, no
+   sobre titulares en mayúsculas. La franja arranca más abajo para
+   no comerse toda la x-height — efecto "rotulador pasado por debajo
+   del trazo", no "letra hundida en amarillo". */
+.mark-amarillo {
+    text-decoration: none;
+    background-image: linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 60%,
+        var(--amarillo) 60%,
+        var(--amarillo) 92%,
+        transparent 92%
+    );
+    padding: 0 0.12em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+/* Imagen del cuerpo de post: centrada, no se sale del ancho de lectura,
+   con respiración top/bottom alineada al ritmo de los <p>. La carga es
+   lazy + async porque suelen ir bajo el fold del post. */
+.cuerpo img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: var(--gap-xl) auto;
+}
+
+/* Blockquote del cuerpo de post: borde izquierdo en azul + italic.
+   Scopeado a .cuerpo para no afectar futuros usos fuera del blog. */
+.cuerpo blockquote {
+    margin: var(--gap-xl) 0;
+    padding: 0 0 0 var(--gap-md);
+    border-left: 3px solid var(--azul);
+    font-style: italic;
+    color: color-mix(in srgb, var(--negro) 85%, transparent);
+}
+
+.cuerpo blockquote p {
+    margin-bottom: var(--gap-sm);
+    font-size: var(--text-body);
+}
+
+@media (max-width: 800px) {
+    .post-meta {
+        font-size: 0.8rem;
+    }
+
+    .cuerpo blockquote {
+        padding-left: var(--gap-sm);
+    }
+
+    /* El cuerpo del sitio cae a --text-body-m en móvil (~1rem) para landings
+       densas. En lectura larga de blog ese tamaño se queda corto y obliga a
+       acercar el móvil a la cara. Volvemos a --text-body para que la prosa
+       del post mantenga el mismo cuerpo de letra que el blockquote (que ya
+       usa --text-body explícito en su regla). */
+    .post .cuerpo p,
+    .post .cuerpo li {
+        font-size: var(--text-body);
+    }
+
+    /* En desktop --gap-xl entre <p> respira bien con la columna de 36vw.
+       En móvil esa misma respiración entre líneas más largas fragmenta
+       la lectura — bajamos un escalón a --gap-lg. */
+    .post .cuerpo p {
+        margin-bottom: var(--gap-lg);
+    }
+
+    /* En desktop el aviso ocupa 80% del .hero para que la línea Kalam no se
+       estire demasiado. En móvil ya estamos en pantalla estrecha, así que
+       el 80% sobra ancho útil — que aproveche todo el contenedor. */
+    .post .banner .aviso-mano {
+        max-width: none;
+    }
+
+    /* En desktop -20% deja el postit a caballo. En móvil esa misma fracción
+       lo asoma demasiado sobre el papel — el banner es más alto en proporción
+       al postit y se ve "caído". Subimos un escalón. */
+    .post .banner .postit-wrap {
+        transform: translateY(-28%);
+    }
+
+    /* En móvil el postit se ensancha respecto al tope desktop (270px) para
+       aprovechar la pantalla estrecha — un postit estrecho sobre viewport
+       de 400px se ve apretado y con demasiadas líneas. */
+    .post .banner .postit {
+        width: clamp(260px, 70vw, 320px);
+    }
+
+    /* En desktop el form del opt-in está acotado a 480px para que el input
+       no se estire absurdo en pantallas grandes. En móvil esa cota deja
+       margen lateral que no aporta — que el input use todo el ancho útil. */
+    .post-optin .optin {
+        max-width: none;
+        width: 100%;
+    }
+}
