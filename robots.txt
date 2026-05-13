@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /done
+Disallow: /not-done
+Disallow: /formulario-recibido
+
+Sitemap: https://davidvarea.com/sitemap.xml

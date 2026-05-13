@@ -7,6 +7,7 @@
             Cómo conseguir más clientes ideales con las redes sociales | David
             Varea
         </title>
+        <link rel="canonical" href="https://davidvarea.com/blog/viralidad" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -52,9 +53,24 @@
     </head>
 
     <body class="post">
+        <aside class="post-toc" aria-label="Índice de esta página">
+            <input
+                type="checkbox"
+                id="post-toc-checkbox"
+                aria-label="Abrir índice de esta página"
+            />
+            <label for="post-toc-checkbox" class="burger" aria-hidden="true">
+                <span></span><span></span><span></span>
+            </label>
+            <div class="post-toc-panel">
+                <p class="post-toc-title">Índice de esta página</p>
+                <ol class="post-toc-list"></ol>
+            </div>
+        </aside>
+
         <div class="banner">
             <section class="hero">
-                <h1>
+                <h1 id="post-top">
                     Cómo conseguir
                     <u class="mark-amarillo">más clientes ideales</u> con redes
                     sociales
@@ -261,7 +277,7 @@
             </p>
         </article>
 
-        <footer class="post-firma">
+        <footer class="post-firma" id="post-end">
             <img src="/imgs/yo.jpg" alt="David Varea" loading="lazy" />
             <div>
                 <p class="firma-nombre">David Varea</p>
