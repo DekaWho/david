@@ -1927,6 +1927,19 @@ audio::-webkit-media-controls-panel {
     line-height: 1.3;
 }
 
+/* Variante del banner sin banda blanca: el h1 se asienta sobre el papel del
+   cuerpo en lugar de funcionar como masthead full-bleed. Pensada para
+   páginas que reutilizan el banner para tipografía pero no tienen postit
+   colgando debajo, así que también anula la margin-bottom de .post .banner
+   (reservada al postit). */
+.banner--bg-papel {
+    background-color: transparent;
+}
+
+.post .banner--bg-papel {
+    margin-bottom: 0;
+}
+
 /* Cuerpo de post: el ritmo del sitio principal (5rem entre <p>, 3rem entre
    <li>) está calibrado para landings de venta donde cada bloque es un
    beat narrativo independiente. En prosa de blog ese mismo aire fragmenta
