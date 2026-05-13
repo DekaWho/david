@@ -1853,12 +1853,13 @@ audio::-webkit-media-controls-panel {
    .cuerpo como columna de lectura. Todos los overrides específicos del
    blog van scopados a .post para que no se filtren al resto del sitio. */
 
-/* Título del post: un escalón mayor que el banner h1 genérico. El post
-   carece de subtítulo o subline, así que el h1 carga todo el peso visual
-   del masthead y agradece más cuerpo. Margin-top extra para que el h1
-   no se pegue al borde superior del banner — respiración editorial. */
+/* Título del post: un escalón MENOR que el banner h1 genérico. Los títulos
+   de blog son frase completa, no claim corto de landing, así que se cuelan
+   títulos de 15-20 palabras. El upper cap del clamp se baja para que ese
+   caso largo no rompa el "hero visible sin scroll" del CLAUDE.md. Margin-top
+   extra para que el h1 no se pegue al borde superior del banner. */
 .post .banner h1 {
-    font-size: clamp(2.5rem, 3.8vw, 3.6rem);
+    font-size: clamp(1.9rem, 2.8vw, 2.6rem);
     margin-top: clamp(1rem, 3.5vh, 2.5rem);
 }
 
@@ -1957,25 +1958,22 @@ audio::-webkit-media-controls-panel {
 }
 
 /* H2 del cuerpo del post: el h2 global está calibrado a clamp(2.5rem, 4vw,
-   3.5rem) centrado para landings comerciales, donde un h2 abre una sección
-   nueva y carga peso visual. Dentro de un post compite con el h1 del
-   masthead (mismo tamaño) y rompe la jerarquía editorial. Bajamos a un
-   ~60% del h1 del post y lo alineamos a la izquierda como subheading de
-   prosa. Margin-top generoso para marcar corte de sección; margin-bottom
+   3.5rem) para landings comerciales, donde un h2 abre una sección y carga
+   peso visual. Dentro de un post compite con el h1 del masthead (mismo
+   tamaño) y rompe la jerarquía editorial. Bajamos a un ~60% del h1 del
+   post pero mantenemos el centrado del h2 global para que cada sección
+   se lea como un corte limpio del artículo, no como subheading de prosa.
+   Margin-top generoso para marcar corte de sección; margin-bottom
    recogido para que se lea como antesala del párrafo siguiente. */
 .post .cuerpo h2 {
     font-size: clamp(1.6rem, 2.3vw, 2.2rem);
     line-height: 1.25;
-    text-align: left;
     margin-top: var(--gap-2xl);
     margin-bottom: var(--gap-md);
 }
 
-/* Markers de bullets en azul (no el rojo señalético global): el blog usa
-   azul como acento dominante (también el aviso-mano del masthead). El
-   rojo queda reservado para el resto del sitio. */
 .post .cuerpo li::marker {
-    color: var(--azul);
+    color: var(--rojo);
 }
 
 /* Opt-in del blog: banda blanca full-bleed que aparece SIEMPRE al final del
@@ -2079,8 +2077,12 @@ audio::-webkit-media-controls-panel {
        para que la firma se lea como cierre, no como continuación. En móvil
        volvemos al gap-3xl fijo (override en el @media de abajo) — la firma
        stackeada ya respira sola con su flex-direction column. */
-    margin: clamp(calc(var(--gap-3xl) + var(--gap-lg)), 14vh, calc(var(--gap-3xl) * 2)) auto
-        var(--gap-3xl);
+    margin: clamp(
+            calc(var(--gap-3xl) + var(--gap-lg)),
+            14vh,
+            calc(var(--gap-3xl) * 2)
+        )
+        auto var(--gap-3xl);
     padding: 0 1rem;
     box-sizing: border-box;
 }
@@ -2111,18 +2113,17 @@ audio::-webkit-media-controls-panel {
     line-height: 1.35;
 }
 
-/* Paréntesis manuscrito dentro del rol: mismo idioma gráfico que la
-   .banner-subline del sitio (Kalam azul como anotación al margen de un
-   título serif). El rol queda como cargo formal + apostilla a mano.
-   font-size fijo (no hereda del .firma-rol) porque Kalam a igual rem
-   se ve más grande que EB Garamond — para equipararlos visualmente, el
-   serif sube de tamaño y el Kalam se queda anclado al rem base. */
+/* Paréntesis manuscrito dentro del rol: Kalam rojo como anotación al
+   margen de un título serif. El rol queda como cargo formal + apostilla
+   a mano. font-size fijo (no hereda del .firma-rol) porque Kalam a igual
+   rem se ve más grande que EB Garamond — para equipararlos visualmente,
+   el serif sube de tamaño y el Kalam se queda anclado al rem base. */
 .post-firma .firma-paren {
     display: block;
     margin-top: 0.15rem;
     font-family: var(--hand);
     font-size: 1rem;
-    color: var(--azul);
+    color: var(--rojo);
 }
 
 @media (max-width: 800px) {
@@ -2169,6 +2170,10 @@ audio::-webkit-media-controls-panel {
 .firma-optin .optin input {
     width: 100%;
     box-sizing: border-box;
+}
+
+.post .optin .block--primary {
+    background: var(--rojo);
 }
 
 @media (max-width: 800px) {
