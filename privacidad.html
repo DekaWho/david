@@ -39,19 +39,38 @@
 
         <!-- Meta Pixel Code -->
         <script>
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '965235622886247');
-            fbq('track', 'PageView');
+            !(function (f, b, e, v, n, t, s) {
+                if (f.fbq) return;
+                n = f.fbq = function () {
+                    n.callMethod
+                        ? n.callMethod.apply(n, arguments)
+                        : n.queue.push(arguments);
+                };
+                if (!f._fbq) f._fbq = n;
+                n.push = n;
+                n.loaded = !0;
+                n.version = "2.0";
+                n.queue = [];
+                t = b.createElement(e);
+                t.async = !0;
+                t.src = v;
+                s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s);
+            })(
+                window,
+                document,
+                "script",
+                "https://connect.facebook.net/en_US/fbevents.js",
+            );
+            fbq("init", "965235622886247");
+            fbq("track", "PageView");
         </script>
-        <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=965235622886247&ev=PageView&noscript=1"
+        <noscript
+            ><img
+                height="1"
+                width="1"
+                style="display: none"
+                src="https://www.facebook.com/tr?id=965235622886247&ev=PageView&noscript=1"
         /></noscript>
         <!-- End Meta Pixel Code -->
     </head>
@@ -75,6 +94,7 @@
                 con mi actividad. Puedes darte de baja en cualquier momento
                 desde el enlace al final de cada email.
             </p>
+            <p><em>Última actualización: 14 de mayo de 2026</em></p>
 
             <h2>1. Responsable del tratamiento</h2>
             <p>
@@ -147,7 +167,25 @@
                 adecuadas para proteger tus datos personales.
             </p>
 
-            <h2>9. Cambios en esta política</h2>
+            <h2>9. Píxeles de seguimiento</h2>
+            <p>
+                Esta web carga dos píxeles de seguimiento en el navegador del
+                usuario: el de MailerLite, que gestiona los formularios de
+                suscripción y registra la actividad de la propia plataforma; y
+                el Meta Pixel (Facebook / Instagram), para poder detectar los
+                registros que vienen desde esta plataforma y poder medir la
+                atribución.
+            </p>
+
+            <p>
+                El usuario puede bloquear estos píxeles desde la configuración
+                de privacidad de su navegador o con extensiones antitracking, si
+                no pretende hacer el optin bajo ningún caso. Bloquear los
+                pixeles podría llevar a que aunque metas tu dirección de email
+                en el cajetín de la web nunca acabes registrado.
+            </p>
+
+            <h2>10. Cambios en esta política</h2>
             <p>
                 Nos reservamos el derecho a modificar esta política para
                 adaptarla a novedades legislativas o prácticas del sector.
