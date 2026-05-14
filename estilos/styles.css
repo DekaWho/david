@@ -1596,6 +1596,14 @@ audio::-webkit-media-controls-panel {
     transform: rotate(4deg);
 }
 
+/* Dentro del bloque, el badge va como hijo flex antes de .arrow.
+   align-self lo sube respecto al centro del flex; el rotado 4deg
+   de .badge le da el aire de pegatina inclinada. */
+.block .badge {
+    align-self: flex-start;
+    margin-top: 2px;
+}
+
 @media (max-width: 380px) {
     .hero-headline {
         font-size: 26px;
