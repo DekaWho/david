@@ -2030,6 +2030,10 @@ audio::-webkit-media-controls-panel {
     margin-bottom: 0.25rem;
 }
 
+.post-optin-lead--center {
+    text-align: center;
+}
+
 /* Imagen suelta dentro del bloque opt-in: misma columna de lectura que los
    párrafos (36vw desktop / 100% móvil) y centrada. Sombra suave para
    separarla del fondo blanco del .post-optin (si no, el blanco de la
