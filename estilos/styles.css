@@ -2490,3 +2490,107 @@ audio::-webkit-media-controls-panel {
         pointer-events: auto;
     }
 }
+
+/* ---------- Banner de cookies ---------- */
+
+/* Inyectado por JS solo en páginas que cargan scripts.js (landings
+   comerciales + posts del blog); las transaccionales nunca lo ven.
+   Cualquiera de los dos botones (Aceptar / ×) lo cierra y guarda el
+   dismiss en localStorage, así no reaparece en visitas futuras.
+   Fondo --blanco (más claro que el --papel del body) + borde superior
+   tinta: el contraste de fondos hace de separador, sin sombra. */
+.cookie-banner {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--gap-sm);
+    /* padding-top: 0 → la X (absolute, top:1px) dicta el espacio superior
+       del banner; el texto se separa con su propio margin-top. Sin esto,
+       el padding del banner sumaba aire vacío encima de la X. */
+    padding: 0 clamp(1rem, 3vw, 3rem) var(--gap-md);
+    background-color: var(--blanco);
+    /* Gris derivado del --negro al 40% sobre transparente: el sistema no
+       tiene token de gris, así que se compone con color-mix para mantener
+       coherencia si la tinta de marca cambia. */
+    border-top: 2px dashed color-mix(in srgb, var(--negro) 40%, transparent);
+    /* Sombra editorial hacia arriba: tinta + blur bajo, sin spread. Sugiere
+       elevación sobre la página sin caer en la sombra blanda tipo Material. */
+    box-shadow: 0 -3px 8px color-mix(in srgb, var(--negro) 12%, transparent);
+    font-size: clamp(0.9rem, 1vw, 1.05rem);
+    line-height: 1.1;
+    animation: cookie-banner-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cookie-banner__text {
+    /* margin-top acomoda la altura visible de la X (símbolo pegado arriba
+       del botón gracias a flex-start + line-height 0.9, no los 3rem
+       completos del área de click). */
+    margin: 2rem 0 0;
+    color: var(--negro);
+    text-align: center;
+}
+.cookie-banner__accept {
+    flex-shrink: 0;
+    font-family: var(--sans);
+    font-size: inherit;
+    font-weight: 500;
+    color: var(--blanco);
+    background-color: var(--azul);
+    border: 1px solid var(--azul);
+    padding: 0.75em 2.5em;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+.cookie-banner__accept:hover {
+    background-color: var(--blanco);
+    color: var(--azul);
+}
+/* X grande: área de click 3rem para uso cómodo en táctil; el símbolo
+   queda a 2rem para que la silueta se lea desde lejos. Posicionada
+   absoluta arriba a la derecha del banner (el padre es position:fixed,
+   que ya hace de contexto de positioning). */
+.cookie-banner__close {
+    position: absolute;
+    top: 1px;
+    right: 0.25rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+    /* Símbolo pegado arriba del botón (flex-start) en lugar de centrado:
+       así el × visible queda al ras del borde superior del banner sin
+       perder los 3rem de área de click. line-height: 0.9 elimina el aire
+       tipográfico extra del glyph. */
+    line-height: 0.9;
+    /* Mismo gris que el borde dashed para que X y borde se lean como
+       una sola firma visual del banner. */
+    color: color-mix(in srgb, var(--negro) 40%, transparent);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    transition: color 0.2s;
+}
+.cookie-banner__close:hover {
+    color: var(--rojo);
+}
+@keyframes cookie-banner-in {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .cookie-banner { animation: none; }
+}
+@media (max-width: 600px) {
+    .cookie-banner {
+        padding-left: var(--gap-sm);
+        padding-right: var(--gap-sm);
+        padding-bottom: var(--gap-sm);
+    }
+}

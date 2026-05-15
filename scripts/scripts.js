@@ -121,6 +121,17 @@ document.querySelectorAll('form[data-ml-form-id]').forEach(form => {
         body.append('ml-submit', '1');
         body.append('anticsrf', 'true');
 
+        /* ultimo_optin: campo custom en MailerLite. Se deriva del pathname
+           para que el mismo form-id en cualquier página etiquete su origen
+           sin marcar cada HTML. /blog/viralidad → blog-viralidad,
+           /mapa → mapa. Sobreescribe en cada suscripción; el "primer optin"
+           se copia desde MailerLite a otro campo vía automation. */
+        const origen = location.pathname
+            .replace(/\.html$/, '')
+            .replace(/^\/+|\/+$/g, '')
+            .replace(/\//g, '-') || 'home';
+        body.append('fields[ultimo_optin]', origen);
+
         try {
             /* mode: 'no-cors' → el POST llega a MailerLite, pero no podemos
                leer la respuesta. Para este flujo basta: si el envío sale,
@@ -138,3 +149,27 @@ document.querySelectorAll('form[data-ml-form-id]').forEach(form => {
         window.location.href = successUrl;
     });
 });
+
+/* Banner de cookies — aviso informativo único, dismissed via localStorage.
+   Solo aparece en páginas que cargan scripts.js (landings comerciales +
+   posts del blog); transaccionales nunca lo ven. Aceptar y X hacen lo
+   mismo: persisten el dismiss y retiran el elemento. */
+(() => {
+    if (localStorage.getItem('cookie-banner-dismissed') === '1') return;
+    const banner = document.createElement('aside');
+    banner.className = 'cookie-banner';
+    banner.setAttribute('role', 'region');
+    banner.setAttribute('aria-label', 'Aviso de cookies');
+    banner.innerHTML = `
+        <button type="button" class="cookie-banner__close" aria-label="Cerrar aviso">&times;</button>
+        <p class="cookie-banner__text">Texto muermazo para avisarte de que la web usa <strong>cookies</strong> para funcionar.</p>
+        <button type="button" class="cookie-banner__accept">Aceptar</button>
+    `;
+    const dismiss = () => {
+        localStorage.setItem('cookie-banner-dismissed', '1');
+        banner.remove();
+    };
+    banner.querySelector('.cookie-banner__accept').addEventListener('click', dismiss);
+    banner.querySelector('.cookie-banner__close').addEventListener('click', dismiss);
+    document.body.appendChild(banner);
+})();
