@@ -2099,11 +2099,9 @@ audio::-webkit-media-controls-panel {
     box-sizing: border-box;
 }
 
-.post-firma img {
+.post-firma .hero-photo {
     width: 96px;
     height: 96px;
-    border-radius: 50%;
-    object-fit: cover;
     flex-shrink: 0;
     margin: 0;
 }
@@ -2147,7 +2145,7 @@ audio::-webkit-media-controls-panel {
         gap: var(--gap-sm);
         margin-top: var(--gap-3xl);
     }
-    .post-firma img {
+    .post-firma .hero-photo {
         width: 76px;
         height: 76px;
     }
