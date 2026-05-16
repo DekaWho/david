@@ -1275,13 +1275,9 @@ audio::-webkit-media-controls-panel {
 }
 
 /* ---------- 8. Home (index.html) ----------
-   Tarjeta de visita móvil-first: hero-card + post-it + lista de bloques.
-   Brief: filósofo griego / científico de gabinete con autoridad —
-   Penguin Classics + cuaderno de campo + Notion personal.
-   Jerarquía de neutros INVERTIDA respecto a /servicios: body blanco puro
-   (a través de `.stage`), hero-card elevada. Los bloques se "hunden" al
-   pulsar (translateY positivo) — lenguaje físico del cuaderno.
-*/
+   Hub: el visitante elige a qué página interna ir según su interés.
+   Jerarquía de neutros INVERTIDA respecto al resto del sitio: body
+   blanco puro (vía `.stage`), hero-card elevada. */
 .stage,
 .stage *,
 .stage *::before,
