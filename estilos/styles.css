@@ -2537,11 +2537,9 @@ audio::-webkit-media-controls-panel {
     border: 1px solid var(--azul);
     padding: 0.75em 2.5em;
     cursor: pointer;
-    transition: background-color 0.2s, color 0.2s;
 }
 .cookie-banner__accept:hover {
-    background-color: var(--blanco);
-    color: var(--azul);
+    font-style: italic;
 }
 /* X grande: área de click 3rem para uso cómodo en táctil; el símbolo
    queda a 2rem para que la silueta se lea desde lejos. Posicionada
