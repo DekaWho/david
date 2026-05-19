@@ -44,19 +44,38 @@
 
         <!-- Meta Pixel Code -->
         <script>
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '965235622886247');
-            fbq('track', 'PageView');
+            !(function (f, b, e, v, n, t, s) {
+                if (f.fbq) return;
+                n = f.fbq = function () {
+                    n.callMethod
+                        ? n.callMethod.apply(n, arguments)
+                        : n.queue.push(arguments);
+                };
+                if (!f._fbq) f._fbq = n;
+                n.push = n;
+                n.loaded = !0;
+                n.version = "2.0";
+                n.queue = [];
+                t = b.createElement(e);
+                t.async = !0;
+                t.src = v;
+                s = b.getElementsByTagName(e)[0];
+                s.parentNode.insertBefore(t, s);
+            })(
+                window,
+                document,
+                "script",
+                "https://connect.facebook.net/en_US/fbevents.js",
+            );
+            fbq("init", "965235622886247");
+            fbq("track", "PageView");
         </script>
-        <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=965235622886247&ev=PageView&noscript=1"
+        <noscript
+            ><img
+                height="1"
+                width="1"
+                style="display: none"
+                src="https://www.facebook.com/tr?id=965235622886247&ev=PageView&noscript=1"
         /></noscript>
         <!-- End Meta Pixel Code -->
     </head>
@@ -73,9 +92,9 @@
                 </div>
 
                 <h1 class="hero-headline">
-                    He aumentado los ingresos por cliente en ecommerce que facturan
+                    Mis clientes han facturado
                     <span class="hl-squiggle">
-                        <span class="squiggle-text">+1M al mes</span>
+                        <span class="squiggle-text">2.4 millones</span>
                         <svg
                             class="squiggle-svg"
                             viewBox="0 0 140 10"
@@ -90,6 +109,7 @@
                             />
                         </svg>
                     </span>
+                    de € con mi ayuda
                 </h1>
 
                 <div class="postit-wrap">
@@ -162,7 +182,11 @@
                     draggable="false"
                 >
                     <span class="handle" aria-hidden="true">⋮⋮</span>
-                    <img class="icon" src="/imgs/svg/soccer-ball.svg" alt="⚽" />
+                    <img
+                        class="icon"
+                        src="/imgs/svg/soccer-ball.svg"
+                        alt="⚽"
+                    />
                     <span class="body">
                         <span class="subtitle-hand">si ya tienes clientes</span>
                         <span class="title"
