@@ -2897,4 +2897,22 @@ body.copyskool {
         max-width: none;
         width: 100%;
     }
+
+    /* Titulares del cuerpo en móvil: las reglas globales son clamps con vw
+       como término medio y en pantallas estrechas caen al mínimo, dejando
+       h3 (1.3rem) a un suspiro del <p> (1rem) y h2 (2rem) sin peso de
+       breaker. Aquí los reescalamos al rango móvil. El h2 además recupera
+       aire vertical: la regla global de .titulo-breaker--bg-claro en móvil
+       (sección 7) aprieta el margin-bottom a --gap-md para enlazar con prosa;
+       en /copyskool los breakers son cortes editoriales y piden respiración. */
+    .copyskool .cuerpo h2.titulo-breaker--bg-claro {
+        font-size: clamp(2.2rem, 6.5vw, 2.8rem);
+        margin-top: var(--gap-3xl);
+        margin-bottom: var(--gap-2xl);
+    }
+
+    .copyskool .cuerpo h3 {
+        font-size: clamp(1.55rem, 4.5vw, 1.85rem);
+        margin-top: var(--gap-4xl);
+    }
 }
