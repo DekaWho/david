@@ -2830,6 +2830,53 @@ body.copyskool {
     width: 100%;
 }
 
+/* Cierre de la página: banda blanca full-bleed con los pasos para reclamar
+   el bonus, el CTA principal, el aviso de deadline y la foto de la
+   comunidad. Mismo recurso box-shadow + clip-path que .lista-azul y
+   .post-optin para que el blanco se extienda al ancho del viewport sin
+   sacar los elementos interiores de la columna del .cuerpo. padding-top
+   pequeño para forzar el contexto de bloque y evitar que el margin-top
+   del breaker interno colapse hacia fuera de la sección y deje un
+   palmo de papel arriba. */
+.copyskool .cuerpo .copyskool-cierre {
+    background: var(--blanco);
+    box-shadow: 0 0 0 100vmax var(--blanco);
+    clip-path: inset(0 -100vmax);
+    margin: var(--gap-2xl) 0 0;
+    padding: 1px 0 var(--gap-2xl);
+}
+
+/* Doodle decorativo de "los secretos" dentro del banner blanco, debajo del
+   h1. Es un cartoon pequeño, no foto editorial — necesita ancho contenido
+   y centrado. align-self: center neutraliza el align-items: stretch del
+   .hero (flex column) para que la imagen no se estire al ancho de la
+   columna de lectura. */
+.copyskool .hero > .copyskool-doodle {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    align-self: center;
+    margin: clamp(0.5rem, 1.5vh, 1rem) auto 0;
+}
+
+/* La foto de cierre (comunidad) deja de ser hija directa de .cuerpo al
+   anidarla dentro de .copyskool-cierre, así que pierde la regla global
+   .cuerpo > img (max-width: 100%) y el break-out de desktop de
+   .post .cuerpo > img. Le devolvemos un comportamiento responsivo
+   acotado: 100% del wrapper en móvil, tope razonable en desktop. */
+.copyskool .copyskool-cierre > img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: var(--gap-xl) auto 0;
+}
+
+@media (min-width: 801px) {
+    .copyskool .copyskool-cierre > img {
+        max-width: 600px;
+    }
+}
+
 @media (max-width: 800px) {
     body.copyskool {
         padding-top: 56px;
