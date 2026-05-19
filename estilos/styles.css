@@ -890,6 +890,16 @@ p:has(+ .diamond) {
     text-underline-offset: 0.18em;
 }
 
+/* Variante neutralizada del aviso: azul de marca y sin tilt, para notas
+   informativas (precio, condiciones, letra pequeña) que no quieren competir
+   con el aviso rojo manuscrito de cierre/alerta. Pareja con la decisión de
+   omitir el .aviso-mano-icono en el HTML — el modifier solo cubre color y
+   rotación; la presencia del icono se decide en el markup. */
+.aviso-mano--azul {
+    color: var(--azul);
+    transform: none;
+}
+
 .cuerpo > p:has(+ .aviso-mano) {
     margin-bottom: var(--gap-xl);
 }
@@ -2235,6 +2245,29 @@ audio::-webkit-media-controls-panel {
     box-decoration-break: clone;
 }
 
+/* Highlighter rojo — variante del .mark-amarillo en --rojo. Pensado para
+   landings donde el acento del sistema cambia de amarillo a rojo
+   (campañas de afiliación con deadline corto, página /copyskool). Cobertura
+   más alta (48-92%, como .banner-mark): el rojo funciona como acento de
+   urgencia, no como subrayado discreto — pide ocupar la mitad alta de la
+   letra para leerse como "marcado en rotulador" desde lejos. El color de
+   texto pasa a blanco para que la palabra resaltada se lea sobre el rojo. */
+.mark-rojo {
+    text-decoration: none;
+    background-image: linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 48%,
+        var(--rojo) 48%,
+        var(--rojo) 92%,
+        transparent 92%
+    );
+    padding: 0 0.12em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    color: var(--blanco);
+}
+
 /* Imagen del cuerpo de post: centrada, no se sale del ancho de lectura,
    con respiración top/bottom alineada al ritmo de los <p>. La carga es
    lazy + async porque suelen ir bajo el fold del post. Selector `> img`
@@ -2584,5 +2617,237 @@ audio::-webkit-media-controls-panel {
         padding-left: var(--gap-sm);
         padding-right: var(--gap-sm);
         padding-bottom: var(--gap-sm);
+    }
+}
+
+/* ---------- 11. Copyskool (copyskool.html) ----------
+   Landing de afiliación con deadline corto. Reusa todo el lenguaje del sitio
+   (.banner masthead, .cuerpo, .post-firma) y traslada los acentos amarillos a
+   --rojo: la señal de urgencia (deadline) es la firma visual de la página, no
+   un acento puntual como en el resto del sitio. */
+
+/* Barra sticky con el deadline: position:fixed full-bleed arriba, empuja
+   al body con padding-top para que no tape el banner. El gradient pinta
+   la franja del padding-top en blanco (no papel) para que el espacio
+   entre la barra roja y el banner blanco no se vea como una tira crema
+   suelta — la barra "se asienta sobre" el masthead blanco, no flota
+   sobre papel. Convive con el sistema porque /copyskool no carga el
+   .menu del sitio (igual que mapa y clonate), así no compite por la
+   esquina superior derecha. */
+body.copyskool {
+    padding-top: 44px;
+    background: linear-gradient(
+        to bottom,
+        var(--blanco) 0,
+        var(--blanco) 44px,
+        var(--papel) 44px
+    );
+}
+
+/* Banner masthead blanco sobre body papel: el .banner default ya pinta
+   blanco, pero en body.post hereda margin-bottom: clamp(85, 12vh, 130px) y
+   padding-bottom: 0 para reservar hueco al postit colgando — copyskool no
+   usa postit, así que devolvemos esos dos valores al default de .banner
+   (paddings/márgenes pequeños) y el banner descansa sobre la franja papel
+   del cuerpo con solo un palmo de aire. */
+.copyskool .banner {
+    margin-bottom: clamp(0.5rem, 2.2vh, 1.3rem);
+    padding-bottom: clamp(0.7rem, 2.6vh, 1.6rem);
+}
+
+.copyskool-deadline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: clamp(0.5rem, 1.4vh, 0.75rem) 1rem;
+
+    background: var(--rojo);
+    color: var(--blanco);
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+    letter-spacing: 0.02em;
+    text-align: center;
+    line-height: 1.25;
+}
+
+.copyskool-deadline strong {
+    font-weight: 700;
+}
+
+/* Pre-headline (eyebrow): la calificación del target que la BSL pone antes
+   del titular. Cursiva pequeña en serif, color tinta atenuada — registra
+   como subhead editorial ("Para emprendedores que...") sin competir con el
+   peso visual del H1 que viene debajo. Margin-bottom recogido + override
+   del margin-top del h1 más abajo: el par eyebrow→titular se lee como una
+   sola unidad de masthead, no como dos bloques con aire entre ellos. */
+.copyskool .banner .eyebrow {
+    max-width: 56ch;
+    margin: 0 auto clamp(0.2rem, 0.6vh, 0.5rem);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+    line-height: 1.4;
+    color: color-mix(in srgb, var(--negro) 70%, transparent);
+    text-align: center;
+}
+
+/* El .post .banner h1 reserva margin-top clamp(1rem, 3.5vh, 2.5rem) — pensado
+   para posts donde el h1 abre el banner solo. En /copyskool va precedido del
+   eyebrow y queremos el par pegado. */
+.copyskool .banner h1 {
+    margin-top: clamp(0.2rem, 0.8vh, 0.6rem);
+}
+
+/* Squiggle rojo: override del .squiggle global (azul) para el cuerpo de
+   copyskool. Mismo SVG y posición que el base, solo cambia stroke. Color
+   hardcodeado: data URIs no soportan currentColor. */
+.copyskool .cuerpo .squiggle {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+}
+
+/* Video sales del flujo: mismo tratamiento que .post .cuerpo > img en
+   desktop (rompe el ancho del .cuerpo y centra al viewport) para que los
+   tres clips de Migui se lean como bloques editoriales, no como insertos
+   diminutos en columna de lectura. Aspect-ratio 16:9 con max-width para
+   que en monitores grandes no se vuelvan absurdos. */
+.copyskool-video {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin: var(--gap-xl) auto;
+    background: var(--negro);
+}
+
+@media (min-width: 801px) {
+    .copyskool .cuerpo .copyskool-video {
+        width: clamp(36vw, 60vw, 800px);
+        max-width: none;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* H2 del cuerpo como breaker card (fondo blanco): la regla .post .cuerpo h2
+   (sección 10) baja el font-size del h2 a clamp(1.6, 2.3vw, 2.2rem) para que
+   no compita con el h1 del masthead — bien para h2 en prosa de blog, mal
+   para un breaker card donde el título quiere peso. Le devolvemos el tamaño
+   del breaker original (sección 5). El fondo blanco se extiende a viewport
+   completo con el truco box-shadow + clip-path (mismo recurso que .lista-azul
+   y .post-optin): el blanco respira al ancho del navegador mientras el texto
+   sigue centrado en la columna del .cuerpo. */
+.copyskool .cuerpo h2.titulo-breaker--bg-claro {
+    font-size: clamp(2rem, 3vw, 2.6rem);
+    box-shadow: 0 0 0 100vmax var(--blanco);
+    clip-path: inset(0 -100vmax);
+}
+
+/* H3 dentro del cuerpo: bonus enumerados ("1. Un clon de IA Hormozi", etc.)
+   Un escalón por debajo del h2 del .post pero por encima del cuerpo, en
+   azul para diferenciarlo del breaker y leerlo como apartado dentro de
+   "Pero espera". */
+.copyskool .cuerpo h3 {
+    margin-top: var(--gap-xl);
+    margin-bottom: var(--gap-md);
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(1.3rem, 1.9vw, 1.7rem);
+    line-height: 1.25;
+    color: var(--azul);
+}
+
+/* Lista numerada de pasos para reclamar el bonus: el padding-left global
+   de <ul> (var(--gap-md)) deja los números pegados al borde; aire extra
+   para que el contador de <ol> respire. Tinte azul al marker para que los
+   "1./2./3./4." se lean como índice editorial, no como bullets sueltos. */
+.copyskool .cuerpo ol {
+    padding-left: var(--gap-lg);
+}
+
+.copyskool .cuerpo ol li::marker {
+    color: var(--azul);
+    font-weight: 700;
+}
+
+/* Block primary rojo: variante de .block--primary (sección 8) en --rojo.
+   Pensado para el CTA principal de afiliación, que va como <a> fuera de un
+   .optin form (donde .post .optin .block--primary ya cae a rojo). Hereda
+   del .block--primary base (texto blanco, padding, etc.) y solo cambia el
+   fondo. */
+.block--rojo {
+    background: var(--rojo);
+}
+
+/* CTA principal de la página: bloque rojo centrado, ancho recogido para que
+   se lea como botón y no como banda. max-width igual que el .optin del
+   sitio (480px) para que la firma visual sea la misma. box-sizing: border-box
+   necesario porque el .block base aplica padding 14px 12px y en móvil
+   pasamos a width:100% — sin border-box el padding suma al 100% y el botón
+   desborda el .cuerpo. */
+.copyskool .cta-principal {
+    display: flex;
+    max-width: 480px;
+    margin: var(--gap-2xl) auto;
+    box-sizing: border-box;
+}
+
+.copyskool .cta-principal .title {
+    font-size: clamp(20px, 2vw, 26px);
+}
+
+.copyskool .cta-principal .arrow {
+    color: var(--blanco);
+    opacity: 1;
+    font-size: 22px;
+}
+
+/* Aviso final con deadline: el .aviso-mano del sistema (sección 5) ya
+   viene en rojo, pero en /copyskool reforzamos el peso porque es el
+   recordatorio de cierre, no una anotación al margen. Mantiene el tilt
+   manuscrito; subimos tamaño base un escalón. */
+.copyskool .aviso-mano {
+    max-width: 80%;
+    margin-bottom: var(--gap-xl);
+}
+
+.copyskool .aviso-mano p {
+    font-size: clamp(1rem, 1.15vw, 1.25rem);
+    line-height: 1.45;
+}
+
+/* La variante azul (nota neutra, sin tilt) sale del registro "anotación al
+   margen" del rojo y pasa a leerse como prosa manuscrita continuación del
+   cuerpo: ocupa el mismo ancho que los <p> del artículo para que no parezca
+   un inciso indentado, solo cambia la familia tipográfica respecto al
+   párrafo serif vecino. */
+.copyskool .aviso-mano--azul {
+    max-width: none;
+    width: 100%;
+}
+
+@media (max-width: 800px) {
+    body.copyskool {
+        padding-top: 56px;
+        background: linear-gradient(
+            to bottom,
+            var(--blanco) 0,
+            var(--blanco) 56px,
+            var(--papel) 56px
+        );
+    }
+
+    .copyskool-deadline {
+        font-size: 0.88rem;
+        padding: 0.55rem 0.75rem;
+    }
+
+    .copyskool .cta-principal {
+        max-width: none;
+        width: 100%;
     }
 }
