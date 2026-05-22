@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  titulo="⚠️ Aviso"
+  noindex={true}
+  scripts={false}
+>
+  <h1 class="titulo-breaker titulo-breaker--bg-claro" style="color: var(--rojo);">
+    <img class="emoji" src="/imgs/svg/alert.svg" alt="⚠️" />
+    Revisa tu email
+  </h1>
+
+  <div class="cuerpo">
+    <p>
+      Si no te ha llegado nada espera <strong>un minuto.</strong> La información
+      que vas a leer es sumamente <s>confidencial</s> y tu competencia está
+      tratando de evitarlo.
+    </p>
+  </div>
+</BaseLayout>

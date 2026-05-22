@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostOptin from '../components/PostOptin.astro';
+import Firma from '../components/Firma.astro';
+---
+<BaseLayout
+  titulo="El mapa | David Varea"
+  canonical="/mapa"
+  ogTitle="El mapa | David Varea"
+  ogDescription="Si llevas semanas dándole vueltas a cómo ganar más (dinero y libertad) y no sabes cuál táctica de moda aplicar en tu negocio..."
+  bodyClass="post"
+>
+  <div class="banner banner--bg-papel">
+    <section class="hero">
+      <h1 id="post-top">
+        Si llevas semanas dándole vueltas a cuál táctica de moda aplicar en tu
+        negocio
+        <u class="mark-amarillo">para dar el pelotazo y </u>por fin vivir
+        chill...
+      </h1>
+    </section>
+  </div>
+
+  <article class="cuerpo">
+    <PostOptin />
+  </article>
+
+  <Firma compactaTop={true} />
+</BaseLayout>

@@ -1,0 +1,56 @@
+---
+import Optin from './Optin.astro';
+
+const { botonTexto = "Envíame el mapa" } = Astro.props;
+---
+<section class="post-optin">
+  <ul class="post-optin-lead">
+    <li><strong>¿Hacer vídeos virales?</strong></li>
+    <li>¿Automatizar con IA?</li>
+    <li><strong>¿Ir a podcasts?</strong></li>
+    <li>¿Vender por stories?</li>
+    <li><strong>¿Hacer lanzamientos?</strong></li>
+    <li>¿Abrir una comunidad de pago?</li>
+  </ul>
+
+  <p class="post-optin-lead">
+    <img class="emoji" src="/imgs/svg/thinking.svg" alt="🤔" />
+    <img class="emoji" src="/imgs/svg/thinking.svg" alt="🤔" />
+  </p>
+
+  <p class="post-optin-lead">
+    Si llevas semanas dándole vueltas a cuál táctica de moda aplicar en tu
+    negocio
+    <strong>para dar el pelotazo y por fin vivir chill...</strong>
+    Estás haciendo la pregunta equivocada.
+  </p>
+
+  <p class="post-optin-lead">
+    Las tácticas son piezas sueltas, existe
+    <u class="mark-amarillo">un mapa que las pone en su sitio.</u>
+    Cuando lo tienes claro, eliges la que te dé la gana.
+  </p>
+  <img
+    src="/imgs/mapa.webp"
+    alt="Vista previa del mapa"
+    loading="lazy"
+    decoding="async"
+  />
+  <p class="post-optin-lead">
+    Es el mapa que han usado emprendedores para hacer 100.000€, 1M o más.
+    <strong>Yo no inventé nada, solo uní piezas sueltas.</strong>
+    Y hacerlo me llevó de estar sin empleo a dar servicios de marketing para
+    otros negocios.
+  </p>
+  <p class="post-optin-lead">
+    He ayudado a facturar unos <strong>2.4 millones de €</strong> en total.
+  </p>
+  <p class="post-optin-lead post-optin-lead--center">
+    <strong
+      >Te mando el
+      <u class="mark-amarillo">mapa al instante si te apuntas</u>
+      antes del 24 de mayo</strong
+    >
+  </p>
+  <Optin botonTexto={botonTexto} />
+</section>

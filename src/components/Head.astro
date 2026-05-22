@@ -1,0 +1,89 @@
+---
+const {
+  titulo,
+  canonical = null,
+  ogTitle = null,
+  ogDescription = null,
+  ogImage = "https://davidvarea.com/imgs/profile-pic.webp",
+  ogUrl = null,
+  ogType = "website",
+  noindex = false,
+  trackLead = false,
+  favicon = "default",
+  scripts = true,
+} = Astro.props;
+
+const finalOgTitle = ogTitle ?? titulo;
+const canonicalAbs = canonical ? `https://davidvarea.com${canonical}` : null;
+const finalOgUrl = ogUrl ?? canonicalAbs;
+const showOg = canonical !== null;
+const faviconHref = (size) =>
+  favicon === "money"
+    ? `/imgs/favicon-money-${size}.png`
+    : `/imgs/favicon${size}.png`;
+---
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+<title>{titulo}</title>
+{canonical && <link rel="canonical" href={`https://davidvarea.com${canonical}`} />}
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Kalam:wght@400;700&display=swap"
+  rel="stylesheet"
+/>
+
+<link rel="stylesheet" href="/estilos/styles.css" />
+
+<link rel="icon" type="image/png" sizes="32x32" href={faviconHref(32)} />
+<link rel="icon" type="image/png" sizes="48x48" href={faviconHref(48)} />
+
+{showOg && (
+  <>
+    <meta property="og:title" content={finalOgTitle} />
+    {ogDescription && <meta property="og:description" content={ogDescription} />}
+    <meta property="og:image" content={ogImage} />
+    {finalOgUrl && <meta property="og:url" content={finalOgUrl} />}
+    <meta property="og:type" content={ogType} />
+  </>
+)}
+
+{scripts && <script src="/scripts/scripts.js" defer></script>}
+
+<script is:inline>
+  !(function (f, b, e, v, n, t, s) {
+    if (f.fbq) return;
+    n = f.fbq = function () {
+      n.callMethod
+        ? n.callMethod.apply(n, arguments)
+        : n.queue.push(arguments);
+    };
+    if (!f._fbq) f._fbq = n;
+    n.push = n;
+    n.loaded = !0;
+    n.version = "2.0";
+    n.queue = [];
+    t = b.createElement(e);
+    t.async = !0;
+    t.src = v;
+    s = b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t, s);
+  })(
+    window,
+    document,
+    "script",
+    "https://connect.facebook.net/en_US/fbevents.js",
+  );
+  fbq("init", "965235622886247");
+  fbq("track", "PageView");
+</script>
+{trackLead && <script is:inline>fbq("track", "Lead");</script>}
+<noscript
+  ><img
+    height="1"
+    width="1"
+    style="display: none"
+    src="https://www.facebook.com/tr?id=965235622886247&ev=PageView&noscript=1"
+/></noscript>

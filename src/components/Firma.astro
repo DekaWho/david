@@ -1,0 +1,17 @@
+---
+const { compactaTop = false } = Astro.props;
+---
+<footer
+  class="post-firma"
+  id="post-end"
+  style={compactaTop ? "margin-top: 0" : undefined}
+>
+  <img class="hero-photo" src="/imgs/profile-pic.webp" alt="David Varea" loading="lazy" />
+  <div>
+    <p class="firma-nombre">David Varea</p>
+    <p class="firma-rol">
+      Director de marketing freelance
+      <span class="firma-paren">Encárgame un marrón y líbrate de él</span>
+    </p>
+  </div>
+</footer>

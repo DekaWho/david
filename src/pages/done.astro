@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  titulo="Correo confirmado"
+  noindex={true}
+  scripts={false}
+  trackLead={true}
+>
+  <h1
+    class="titulo-breaker titulo-breaker--bg-claro"
+    style="color: var(--azul)"
+  >
+    Correo confirmado ✔︎
+  </h1>
+
+  <div class="cuerpo">
+    <p>
+      Tu pedido está en camino... Pero no te preocupes porque es una entrega
+      instantánea.
+      <strong class="text-rojo"><u>Revisa tu bandeja de correo</u></strong> y
+      ahí la tienes.
+    </p>
+  </div>
+</BaseLayout>

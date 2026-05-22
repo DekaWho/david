@@ -1,0 +1,17 @@
+---
+import Head from '../components/Head.astro';
+
+const {
+  bodyClass = null,
+  ...headProps
+} = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head {...headProps} />
+  </head>
+  <body class={bodyClass}>
+    <slot />
+  </body>
+</html>

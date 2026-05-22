@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Optin from '../components/Optin.astro';
+---
+<BaseLayout
+  titulo="Cómo clonarte con IA agéntica | David Varea"
+  canonical="/clonate"
+  ogTitle="🤖 Cómo clonarte con IA agéntica"
+  ogDescription="7 mini-lecciones para crear clones de IA que trabajen como tú."
+>
+  <div class="banner">
+    <section class="hero">
+      <div class="title-card">
+        <h1>
+          Cómo clonarte con agentes de IA para
+          <span class="banner-mark">crecer sin contratar</span> si tu negocio
+          depende de ti
+        </h1>
+      </div>
+
+      <p class="banner-lead">
+        Mira este vídeo para crear
+        <span class="banner-mark">clones que trabajen como tú</span>
+        entendiendo tu empresa y tus sistemas
+        <span class="hand text-azul"
+          >aunque no seas una persona técnica, no entiendas qué es Claude Code o
+          la IA te abrume.</span
+        >
+        Y si quieres recibir todos los pasos por escrito, deja tu email debajo.
+      </p>
+
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/t5qxLYQz-E0?si=owI-S6eUpuHXnscx"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+
+      <Optin botonTexto="Mándame el doc al email " />
+    </section>
+  </div>
+</BaseLayout>

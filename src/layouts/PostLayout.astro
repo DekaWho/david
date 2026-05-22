@@ -1,0 +1,52 @@
+---
+import Head from '../components/Head.astro';
+
+const headProps = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <Head {...headProps} ogType={headProps.ogType ?? 'article'} />
+  </head>
+  <body class="post">
+    <aside class="post-toc" aria-label="Índice de esta página">
+      <input
+        type="checkbox"
+        id="post-toc-checkbox"
+        aria-label="Abrir índice de esta página"
+      />
+      <label for="post-toc-checkbox" class="burger" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </label>
+      <div class="post-toc-panel">
+        <p class="post-toc-title">Índice de esta página</p>
+        <ol class="post-toc-list"></ol>
+      </div>
+    </aside>
+
+    <slot />
+
+    <script is:inline>
+      const fechaEl = document.getElementById("post-fecha");
+      if (fechaEl) {
+        const meses = [
+          "enero",
+          "febrero",
+          "marzo",
+          "abril",
+          "mayo",
+          "junio",
+          "julio",
+          "agosto",
+          "septiembre",
+          "octubre",
+          "noviembre",
+          "diciembre",
+        ];
+        const ahora = new Date();
+        fechaEl.textContent =
+          meses[ahora.getMonth()] + " de " + ahora.getFullYear();
+      }
+    </script>
+  </body>
+</html>
