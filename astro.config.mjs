@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   site: 'https://davidvarea.com',
@@ -6,4 +7,5 @@ export default defineConfig({
   build: {
     format: 'file',
   },
+  integrations: [mdx()],
 });

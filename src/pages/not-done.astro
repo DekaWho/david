@@ -1,21 +1,59 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout
-  titulo="⚠️ Aviso"
-  noindex={true}
-  scripts={false}
->
-  <h1 class="titulo-breaker titulo-breaker--bg-claro" style="color: var(--rojo);">
-    <img class="emoji" src="/imgs/svg/alert.svg" alt="⚠️" />
-    Revisa tu email
-  </h1>
 
-  <div class="cuerpo">
-    <p>
-      Si no te ha llegado nada espera <strong>un minuto.</strong> La información
-      que vas a leer es sumamente <s>confidencial</s> y tu competencia está
-      tratando de evitarlo.
-    </p>
-  </div>
+<BaseLayout titulo="⚠️ Aviso" noindex={true} scripts={false}>
+    <div class="banner" style="padding-top: 3rem;">
+        <section class="hero">
+            <h1>
+                <img class="emoji" src="/imgs/svg/alert.svg" alt="⚠️" />
+                Falta 1 paso:<br /><span style="color: var(--rojo);"
+                    >Revisa tu email</span
+                >
+            </h1>
+        </section>
+    </div>
+
+    <div class="cuerpo">
+        <div class="blocks blocks--inbox" style="margin-bottom: 2rem;">
+            <a
+                class="block"
+                href="https://mail.google.com/mail/u/0/#inbox"
+                target="_blank"
+                rel="noopener"
+            >
+                <img class="icon" src="/imgs/svg/gmail.svg" alt="" />
+                <span class="body"><span class="title">Gmail</span></span>
+                <span class="arrow">↗</span>
+            </a>
+
+            <a
+                class="block"
+                href="https://www.icloud.com/mail"
+                target="_blank"
+                rel="noopener"
+            >
+                <img class="icon" src="/imgs/svg/apple-mail.svg" alt="" />
+                <span class="body"><span class="title">Apple Mail</span></span>
+                <span class="arrow">↗</span>
+            </a>
+
+            <a
+                class="block"
+                href="https://outlook.live.com/mail/"
+                target="_blank"
+                rel="noopener"
+            >
+                <img class="icon" src="/imgs/svg/outlook.svg" alt="" />
+                <span class="body"><span class="title">Outlook</span></span>
+                <span class="arrow">↗</span>
+            </a>
+        </div>
+
+        <p>
+            Tienes que <u class="mark-amarillo">confirmar tu dirección</u> de correo
+            desde el email que te ha llegado. Si no has recibido nada espera un minuto
+            o mira la carpeta de spam.
+        </p>
+    </div>
 </BaseLayout>

@@ -1,0 +1,14 @@
+---
+import OptinBase from "./OptinBase.astro";
+
+/* Wrapper del optin para el lead magnet 'Róbame 21k'. Fija el form-id de
+   MailerLite de esa oferta para que la automatización de bienvenida
+   correspondiente dispare por destino del submit. El componente acepta
+   cualquier prop del OptinBase (botonTexto, successUrl, botonIcono,
+   mostrarPrivacyNote) salvo `formId` — ese se fuerza aquí y un override
+   accidental desde la página se descarta porque el atributo del wrapper
+   se aplica después del spread. */
+const ROBAME_FORM_ID = "158544190416881022";
+---
+
+<OptinBase {...Astro.props} formId={ROBAME_FORM_ID} />

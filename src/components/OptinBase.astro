@@ -1,0 +1,59 @@
+---
+/* HTML/CSS y comportamiento base del optin del sitio. NO incrustar
+   directamente en una página: cada lead magnet vive en su propio wrapper
+   (OptinRobame, OptinCerebro, …) que fija el form-id de MailerLite para
+   que la automatización de bienvenida correcta dispare por destino del
+   submit, no por filtrado de UTMs posterior.
+
+   El handler de submit y la captura de atribución (utm_source/medium/
+   content + referrer + ultimo_optin) viven en public/scripts/scripts.js
+   — se enganchan por el selector form[data-ml-form-id], así que este
+   componente no necesita props ni código para participar. Ver
+   web-code/CLAUDE.md → "Integraciones externas → MailerLite → Atribución
+   de origen" antes de añadir campos o tocar el sistema. */
+
+const {
+    formId,
+    successUrl = "/not-done",
+    botonTexto = "Envíame 3 claves imprescindibles",
+    botonIcono = "/imgs/svg/email.svg",
+    mostrarPrivacyNote = true,
+} = Astro.props;
+
+if (!formId) {
+    throw new Error(
+        "OptinBase.astro: prop `formId` requerida. No incrustar este componente directamente — usar <OptinRobame /> u <OptinCerebro /> (o crear un nuevo wrapper si toca otro lead magnet)."
+    );
+}
+---
+
+<form class="optin" data-ml-form-id={formId} data-ml-success={successUrl}>
+    <label>
+        <span class="visually-hidden">Email</span>
+        <input
+            type="email"
+            name="email"
+            placeholder="tucorreo@email.com"
+            autocomplete="email"
+            required
+        />
+    </label>
+    {
+        mostrarPrivacyNote && (
+            <p class="privacy-note">
+                Al enviar el formulario aceptas recibir correos. Puedes leer las
+                burocráticas políticas de privacidad
+                <a href="/privacidad" target="_blank" rel="noopener">
+                    aquí
+                </a>
+                .
+            </p>
+        )
+    }
+    <button type="submit" class="block block--primary">
+        <img class="icon" src={botonIcono} alt="" />
+        <span class="body">
+            <span class="title">{botonTexto}</span>
+        </span>
+    </button>
+</form>

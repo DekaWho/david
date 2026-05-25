@@ -1,25 +1,22 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout
-  titulo="Error 404"
-  noindex={true}
-  scripts={false}
->
-  <script is:inline>
-    setTimeout(function () {
-      window.location.href = "/";
-    }, 4000);
-  </script>
 
-  <h1 class="titulo-breaker titulo-breaker--bg-claro">
-    Error 404 <span class="text-rojo">· Not found</span>
-  </h1>
+<BaseLayout titulo="Error 404" noindex={true} scripts={false}>
+    <script is:inline>
+        setTimeout(function () {
+            window.location.href = "/";
+        }, 2000);
+    </script>
 
-  <div class="cuerpo">
-    <p style="text-align: center">
-      La página que buscabas no existe.<br />
-      <a href="/">Volver al inicio</a>.
-    </p>
-  </div>
+    <h1 class="titulo-breaker titulo-breaker--bg-claro">
+        Error 404 <span class="text-rojo">· Not found</span>
+    </h1>
+
+    <div class="cuerpo">
+        <p style="text-align: center">
+            La página que buscabas no existe.<br />
+            <a href="/">Volver al inicio</a>.
+        </p>
+    </div>
 </BaseLayout>

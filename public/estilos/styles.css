@@ -1,5 +1,13 @@
 /* =====================================================
    davidvarea.com — estilos del sitio entero.
+
+   MOBILE-FIRST es el objetivo: regla base sin @media para móvil,
+   ajustes para pantallas mayores en @media (min-width: 801px). Las
+   secciones nuevas (home v2, blog, post-toc) ya siguen
+   este patrón. Las secciones heredadas siguen desktop-first con
+   overrides en @media (max-width: 800px). Al editar una sección
+   heredada, migra ese bloque a mobile-first en el mismo cambio.
+
    Secciones:
    1. Variables + reset
    2. Tipografía base, listas, utilities
@@ -9,7 +17,7 @@
    6. Componentes (callout, player, review-card)
    7. Responsive (<=800px)
    8. Home (index.html) — hero-card, post-it, blocks
-   9. Clonate (clonate.html) — epígrafe, banner-lead, opt-in
+   9. Formularios de captación (opt-in) — compartidos por todas las landings
    ===================================================== */
 
 /* ---------- 1. Variables + reset ---------- */
@@ -66,7 +74,7 @@
     /* Solo se tokenizan los font-sizes de cuerpo, que se reutilizan en todo
        el sitio. Los demás son clamps por componente. */
     --text-body: clamp(1.3rem, 1.3vw, 1.5rem);
-    --text-body-m: clamp(1rem, 1.1vw, 1.4rem);
+    --text-body-m: clamp(1.2rem, 1.1vw, 1.4rem);
 
     /* ESPACIOS — escala descriptiva, no 1.5x estricta: refleja decisiones
        reales del código. El 3xl (5rem) es la signature de respiración entre
@@ -132,7 +140,7 @@ h1 {
     font-size: 2.8rem;
     margin: 0 auto 0.8em;
     line-height: 1.1;
-    color: var(--blanco);
+    color: var(--negro);
     font-weight: 500;
     text-align: center;
     hyphens: none;
@@ -216,6 +224,14 @@ u {
     padding-bottom: 0.18em;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
+}
+
+/* Modificador rojo del squiggle base: mismo SVG y posición, solo cambia el
+   stroke a --rojo. Reutilizable en cualquier span sin depender de un
+   wrapper específico (ej: .seccion-tinta, que ya tiene su propio override
+   scopeado). Color hardcodeado: data URIs no soportan currentColor. */
+.squiggle--rojo {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
 }
 
 .hand {
@@ -383,6 +399,38 @@ li::marker {
     margin: 0 auto clamp(0.1em, 1.5vh, 0.45em);
 }
 
+/* Variante para titulares largos (frase completa, no claim corto): la
+   escala base del banner h1 los infla y empuja el CTA fuera del fold.
+   .titulo-compacto comparte el mismo tamaño/peso para que un h2 de
+   sección en .cuerpo pueda machear visualmente al h1 del banner cuando
+   éste va con .banner-h1--small (la escala global de h2 lo haría
+   más grande que el propio h1 de la página). */
+.banner h1.banner-h1--small,
+.titulo-compacto {
+    font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+    font-weight: 700;
+    line-height: 1.22;
+}
+
+/* Captura/screenshot embebida en el banner como prueba (ej: peso de la
+   carpeta de formaciones en /robame). Ancho acotado para no romper la
+   columna del hero ni desplazar el CTA fuera del fold en móvil. */
+.banner-proof {
+    display: block;
+    max-width: clamp(320px, 85%, 460px);
+    height: auto;
+    margin: clamp(2.4rem, 5.5vh, 3.6rem) auto clamp(1.1rem, 2.8vh, 1.8rem);
+}
+
+/* Aside inline en Kalam dentro del h1 del banner: solo cambia la familia
+   tipográfica para marcar registro conversacional dentro de un titular
+   serif. Sin tamaño, color ni rotación — fluye en la misma línea como
+   parte del texto. */
+.banner h1 .aside-hand {
+    font-family: var(--hand);
+    font-weight: 400;
+}
+
 /* Highlighter amarillo: gradient que pinta solo la mitad inferior de las
    letras, como un rotulador fluorescente. text-decoration:none anula el
    subrayado heredado del <u>. */
@@ -391,8 +439,8 @@ li::marker {
     background-image: linear-gradient(
         180deg,
         transparent 0,
-        transparent 48%,
-        var(--amarillo) 48%,
+        transparent 58%,
+        var(--amarillo) 58%,
         var(--amarillo) 92%,
         transparent 92%
     );
@@ -1311,9 +1359,9 @@ audio::-webkit-media-controls-panel {
    en 620px y el papel respira fuera de ella). */
 .hero-card {
     position: relative;
-    margin: 0 14px clamp(125px, 20.5vh, 180px);
+    margin: 0 14px clamp(100px, 16vh, 140px);
     background: var(--blanco);
-    padding: clamp(14px, 2.5vh, 20px) 12px clamp(40px, 6.5vh, 56px);
+    padding: 0 12px 2rem;
 }
 
 .hero-photo-wrap {
@@ -1324,6 +1372,7 @@ audio::-webkit-media-controls-panel {
 .hero-photo {
     width: clamp(96px, 14vh, 120px);
     height: clamp(96px, 14vh, 120px);
+    margin-top: 0;
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
@@ -1359,8 +1408,7 @@ audio::-webkit-media-controls-panel {
     height: 10px;
 }
 
-.hl-squiggle .squiggle-svg path,
-.arrow-doodle path {
+.hl-squiggle .squiggle-svg path {
     stroke: var(--rojo);
 }
 
@@ -1411,8 +1459,26 @@ audio::-webkit-media-controls-panel {
     font-weight: 700;
 }
 
+/* SVG es flecha lateral; rotate(90deg) la pone apuntando hacia abajo,
+   dirigiendo la vista al heading "Qué te trae por aquí" que viene debajo.
+   Aplicada con mask para poder teñirla en var(--rojo) — el SVG trae el
+   stroke hardcodeado a negro, así que con <img> el color no se override. */
+/* El SVG está pre-recortado a su bbox real (viewBox 240×150, aspect 1.6:1).
+   rotate(90deg) la pone apuntando hacia abajo. Mask + background-color
+   permite teñirla en rojo (el SVG trae stroke hardcodeado a negro). */
+.section-arrow {
+    display: block;
+    width: 56px;
+    height: 56px;
+    margin: 0 auto;
+    transform: rotate(90deg);
+    background-color: var(--rojo);
+    -webkit-mask: url("/imgs/svg/arrow-s-svgrepo-com.svg") no-repeat center / contain;
+    mask: url("/imgs/svg/arrow-s-svgrepo-com.svg") no-repeat center / contain;
+}
+
 .section-heading {
-    margin: clamp(10px, 2vh, 18px) 22px 0;
+    margin: 2px 22px 0;
     display: flex;
     align-items: center;
     gap: 6px;
@@ -1432,18 +1498,6 @@ audio::-webkit-media-controls-panel {
     display: flex;
     flex-direction: column;
     gap: 8px;
-}
-
-.arrow-doodle {
-    position: absolute;
-    top: -122px;
-    right: 60px;
-    width: 95px;
-    height: 95px;
-    pointer-events: none;
-    z-index: 2;
-    transform: rotate(20deg);
-    transform-origin: center;
 }
 
 .block {
@@ -1501,7 +1555,7 @@ audio::-webkit-media-controls-panel {
     display: block;
     font-family: var(--serif);
     font-weight: 700;
-    font-size: 17px;
+    font-size: 18px;
     color: var(--negro);
 }
 
@@ -1529,7 +1583,7 @@ audio::-webkit-media-controls-panel {
 .block--primary {
     background: var(--azul);
     color: var(--blanco);
-    padding: 14px 12px;
+    padding: clamp(15px, 2.1vh, 19px) 14px;
 }
 .block--primary .title {
     color: var(--blanco);
@@ -1588,18 +1642,39 @@ audio::-webkit-media-controls-panel {
 }
 
 .block--primary .title {
-    font-size: 25px;
+    font-size: 21px;
+    line-height: 1.1;
 }
 
 .badge {
+    position: relative;
     background: var(--amarillo);
     color: var(--negro);
     font-family: var(--hand);
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
-    padding: 2px 6px;
-    border: 1px solid var(--negro);
+    padding: 5px 10px 3px;
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.08);
     transform: rotate(4deg);
+}
+
+/* Mismo lenguaje que la cinta del postit, en miniatura. La rotación
+   negativa compensa el +4deg del badge para que la cinta caiga casi
+   horizontal en lugar de inclinarse el doble. */
+.badge::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-6deg);
+    width: 34px;
+    height: 11px;
+    background: rgba(255, 255, 255, 0.55);
+    border-left: 1px dashed rgba(0, 0, 0, 0.08);
+    border-right: 1px dashed rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 /* Dentro del bloque, el badge va como hijo flex antes de .arrow.
@@ -1631,8 +1706,8 @@ audio::-webkit-media-controls-panel {
     }
 
     .hero-card {
-        margin: 0 0 clamp(135px, 19vh, 200px);
-        padding: clamp(14px, 2vh, 22px) 22px clamp(42px, 5.6vh, 60px);
+        margin: 0 0 clamp(105px, 15vh, 160px);
+        padding: 0 22px 2rem;
     }
 
     .hero-photo {
@@ -1653,6 +1728,11 @@ audio::-webkit-media-controls-panel {
         line-height: 1.28;
     }
 
+    .section-arrow {
+        width: 72px;
+        height: 72px;
+    }
+
     .section-heading {
         margin: clamp(12px, 2vh, 22px) 102px 0;
         font-size: 16px;
@@ -1661,14 +1741,6 @@ audio::-webkit-media-controls-panel {
     .blocks {
         margin: clamp(6px, 1vh, 10px) 94px 0;
         gap: clamp(6px, 1vh, 10px);
-    }
-
-    .arrow-doodle {
-        top: clamp(-110px, -12vh, -80px);
-        right: 90px;
-        width: clamp(85px, 11vh, 110px);
-        height: clamp(85px, 11vh, 110px);
-        transform: rotate(22deg);
     }
 
     .block {
@@ -1681,69 +1753,18 @@ audio::-webkit-media-controls-panel {
         height: 24px;
     }
 
-    .block .title {
-        font-size: 18px;
-    }
-
     .block .subtitle-hand {
         font-size: 16px;
-    }
-
-    .block--primary {
-        padding: clamp(13px, 1.8vh, 17px) 14px;
     }
 
     .block--primary .title {
         font-size: 21px;
     }
-
-    .badge {
-        font-size: 11px;
-        padding: 3px 7px;
-    }
 }
 
-/* ---------- 9. Clonate (clonate.html) ---------- */
-
-/* :has() scopea estos overrides a clonate (única página con .banner-lead).
-   Sin esa restricción, afectarían también al banner de servicios. */
-.banner:has(.banner-lead) {
-    background: var(--papel);
-    padding: clamp(0.3rem, 1vh, 0.6rem) 0 clamp(0.4rem, 1.5vh, 0.8rem);
-}
-
-.title-card {
-    background: var(--blanco);
-    margin: 0 auto clamp(0.5rem, 1.5vh, 1rem);
-    padding: clamp(0.7rem, 2vh, 1.3rem) clamp(1rem, 2.5vw, 1.8rem)
-        clamp(1.8rem, 5vh, 2.8rem);
-    box-sizing: border-box;
-}
-
-.title-card h1 {
-    line-height: 1.08;
-    margin: 0;
-}
-
-@media (min-width: 801px) {
-    .banner:has(.banner-lead) .hero {
-        max-width: 880px;
-    }
-}
+/* ---------- 9. Formularios de captación (opt-in) ---------- */
 
 @media (max-width: 800px) {
-    .title-card {
-        padding-top: clamp(0.4rem, 1.2vh, 0.8rem);
-        padding-left: 0.8rem;
-        padding-right: 0;
-        padding-bottom: clamp(1.2rem, 3vh, 1.8rem);
-    }
-
-    .title-card h1 {
-        font-size: 1.75rem;
-        text-align: left;
-    }
-
     .optin {
         margin-bottom: 0;
     }
@@ -1758,33 +1779,8 @@ audio::-webkit-media-controls-panel {
    en h1 (font grande) queda fino y lejos del baseline, así que sube el
    stroke en el data URI y comprime padding-bottom. */
 .banner h1 .squiggle {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='4.5' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='3' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
     padding-bottom: 0.05em;
-}
-
-.banner-lead {
-    max-width: 56ch;
-    margin-top: 0;
-    margin-inline: auto;
-    margin-bottom: clamp(1.4rem, 4vh, 2.6rem);
-    padding: 0 1rem;
-    font-family: var(--serif);
-    font-size: clamp(1rem, 1.2vw, 1.2rem);
-    line-height: 1.45;
-    color: var(--negro);
-}
-
-/* iframe del vídeo: .hero es flex-column con align-items stretch, pero
-   el iframe lleva ancho intrínseco por atributo HTML (width="560"), así
-   que stretch no puede expandirlo y queda alineado al start (izquierda).
-   Centramos explícito y separamos del .optin de debajo. width + aspect-ratio
-   sobrescriben los attrs HTML para reducir tamaño manteniendo el 16:9 de YT. */
-.banner:has(.banner-lead) iframe {
-    display: block;
-    width: clamp(260px, 55%, 440px);
-    height: auto;
-    aspect-ratio: 16 / 9;
-    margin: 0 auto clamp(1rem, 3vh, 2rem);
 }
 
 .optin {
@@ -1797,7 +1793,32 @@ audio::-webkit-media-controls-panel {
     margin: 0 auto clamp(0.8rem, 2vh, 1.4rem);
 }
 
+/* Optin que cierra el .cuerpo: respiración inferior generosa para que en
+   móvil no quede pegado al borde de la pantalla (la barra del navegador
+   se come la cola del viewport al hacer scroll). Pisa por especificidad
+   el margin-bottom: 0 que el @media (max-width: 800px) aplica al .optin
+   base — pensado para optins intermedios o dentro del hero, no para los
+   que rematan la página. */
+.cuerpo > .optin:last-child {
+    margin-bottom: var(--gap-2xl);
+}
+
+/* Dentro de .banner, el .block--primary global tiene align-self: center
+   (pensado para el CTA standalone del hero), que descuadra el botón
+   respecto al input del optin. Forzamos stretch solo aquí. */
+.banner .optin .block--primary {
+    align-self: stretch;
+}
+
+/* width 100% + border-box explícitos: el <input type="email"> trae width
+   intrínseco del navegador (basado en el size attribute) que no respeta el
+   align-items: stretch del flex padre. Sin forzarlo aquí, cada contexto que
+   monte un .optin (.banner, .post-firma, .cuerpo…) tendría
+   que duplicar el override. border-box para que el border de 2px no se
+   sume al 100% y lo deje más estrecho que el botón vecino. */
 .optin input {
+    width: 100%;
+    box-sizing: border-box;
     min-width: 0;
     padding: clamp(11px, 1.9vh, 18px) 14px;
     font-family: var(--serif);
@@ -1874,7 +1895,7 @@ audio::-webkit-media-controls-panel {
    extra para que el h1 no se pegue al borde superior del banner. */
 .post .banner h1 {
     font-size: clamp(1.9rem, 2.8vw, 2.6rem);
-    margin-top: clamp(1rem, 3.5vh, 2.5rem);
+    margin-top: clamp(2rem, 6vh, 4rem);
 }
 
 /* Línea de metadatos bajo el título: fecha (rellena por JS al cargar) +
@@ -1926,7 +1947,7 @@ audio::-webkit-media-controls-panel {
     top: 100%;
     display: flex;
     justify-content: center;
-    transform: translateY(-20%);
+    transform: translateY(-10%);
     pointer-events: none;
     z-index: 2;
 }
@@ -1961,10 +1982,24 @@ audio::-webkit-media-controls-panel {
    la lectura — los párrafos parecen islas y los items de lista parecen
    listas separadas. Comprimimos un escalón. Selector `> p` para que solo
    afecte a párrafos del cuerpo de lectura, no a párrafos anidados en
-   secciones con espaciado propio (.post-optin-lead, .privacy-note dentro
-   del form de captación, etc.). */
+   secciones con espaciado propio (.post-firma, .privacy-note dentro del
+   form de captación, etc.). */
 .post .cuerpo > p {
     margin-bottom: var(--gap-xl);
+}
+
+/* Primer párrafo del cuerpo: arranca de la lectura, debe leerse claramente
+   separado del masthead (banner blanco + postit) — sin este margin queda
+   "atrapado" justo bajo el postit y no se percibe el cambio de zona.
+   `display: flow-root` en .post .cuerpo crea un BFC: sin esto, el margin-top
+   del primer hijo se colapsa con el margin-bottom del banner y como el del
+   banner es mayor, este margin se pierde. */
+.post .cuerpo {
+    display: flow-root;
+}
+
+.post .cuerpo > p:first-child {
+    margin-top: clamp(3rem, 7vh, 5rem);
 }
 
 .post .cuerpo li {
@@ -1990,124 +2025,38 @@ audio::-webkit-media-controls-panel {
     color: var(--rojo);
 }
 
-/* Opt-in del blog: banda blanca full-bleed que aparece SIEMPRE al final del
-   post (antes de la firma) y opcionalmente en posiciones intermedias que
-   marca el autor con {{optin}} en el MD. La banda se monta con el truco
-   box-shadow + clip-path de .lista-azul (sección 5): el blanco se extiende
-   hasta el borde del viewport sin afectar el layout interior. */
-.post-optin {
-    margin: var(--gap-2xl) auto;
-    padding: clamp(2rem, 5vw, 3.5rem) 1rem;
+/* Firma + CTA del blog. Aparece dos veces en el mismo post (mid-article y
+   al pie); ambas posiciones comparten el mismo bloque visual. Banda blanca
+   full-bleed (truco box-shadow + clip-path de .lista-azul) para diferenciar
+   el bloque del fondo crema del papel del cuerpo — el blanco se extiende
+   hasta el borde del viewport sin afectar el max-width del contenido
+   interior. Vive FUERA del <article class="cuerpo"> en el pie y en un
+   wrapper neutro mid-article — la regla .post .cuerpo > img de abajo
+   rompería el ancho del cuerpo para imágenes de prosa y convertiría tanto
+   el retrato circular como la screenshot 254 GB en panoramas. */
+/* Columna en todos los viewports (foto + nombre + manuscrito + screenshot
+   + form). max-width cap para que el bloque no se estire en monitores
+   grandes — el texto manuscrito centrado pierde si las líneas son
+   demasiado largas. */
+.post-firma {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--gap-sm);
+    max-width: 480px;
+    margin: var(--gap-xl) auto;
+    padding: var(--gap-md) 1rem;
+    box-sizing: border-box;
     background: var(--blanco);
     box-shadow: 0 0 0 100vmax var(--blanco);
     clip-path: inset(0 -100vmax);
 }
 
-/* Párrafos del opt-in: misma columna de lectura que los <p> del cuerpo del
-   post para que se lean como prosa continua del artículo, no como bloque
-   destacado. El fondo blanco full-bleed del .post-optin sigue marcando la
-   transición visual respecto al banner. */
-.post-optin-lead {
-    max-width: 36vw;
-    margin: 0 auto var(--gap-xl);
-    color: var(--negro);
-}
-
-@media (max-width: 800px) {
-    .post-optin-lead {
-        max-width: 99vw;
-    }
-
-    /* Mismo override que .post .cuerpo p en móvil: el <p> global cae a
-       --text-body-m (~1rem) para landings densas, pero la prosa del opt-in
-       lee tan corrido como la del cuerpo del post — necesita el mismo
-       --text-body. Sin esto los párrafos del optin se ven un escalón más
-       pequeños que los del artículo y rompen la continuidad. */
-    .post-optin-lead,
-    .post-optin-lead li {
-        font-size: var(--text-body);
-    }
-}
-
-/* Lista de preguntas-gancho del opt-in: items compactos. La escala global
-   (--gap-sm = 1rem) deja la lista demasiado aireada para un bloque que
-   funciona como enumeración rápida, no como prosa con respiración. */
-.post-optin-lead li {
-    margin-bottom: 0.25rem;
-}
-
-.post-optin-lead--center {
-    text-align: center;
-}
-
-/* Imagen suelta dentro del bloque opt-in: misma columna de lectura que los
-   párrafos (36vw desktop / 100% móvil) y centrada. Sombra suave para
-   separarla del fondo blanco del .post-optin (si no, el blanco de la
-   imagen y el blanco de la banda se confunden). Selector `> img` para no
-   pegarle a los <img class="icon"> de los botones del form. */
-.post-optin > img {
-    display: block;
-    max-width: 36vw;
-    height: auto;
-    margin: var(--gap-md) auto;
-    box-shadow:
-        0 4px 16px rgba(0, 0, 0, 0.12),
-        0 2px 6px rgba(0, 0, 0, 0.08);
-}
-
-@media (max-width: 800px) {
-    .post-optin > img {
-        max-width: 100%;
-    }
-}
-
-/* El <form class="optin"> hereda su layout de la sección 9 (clonate): flex
-   column con max-width 480px y gap interno. Solo centramos su caja dentro
-   de la banda — el resto ya está calibrado. */
-.post-optin .optin {
-    margin: 0 auto;
-}
-
-/* El <input type="email"> tiene width intrínseco del navegador (basado en
-   el size attribute) que a veces no se sobrescribe con align-items: stretch
-   del flex padre. Lo forzamos explícito + box-sizing: border-box para que
-   el border de 2px no se sume al 100% y lo haga ver más estrecho que el
-   botón vecino (que no tiene border y queda al 100% limpio). */
-.post-optin .optin input {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* Firma del autor al final del post. Espejo del aviso-mano del banner:
-   foto circular tipo retrato + nombre serif + rol manuscrito azul,
-   cerrando la "cápsula autoral" que abre con el aviso. Vive FUERA del
-   <article class="cuerpo"> a propósito — la regla .post .cuerpo img de
-   abajo rompe el ancho del cuerpo para fotos editoriales y convertiría
-   este retrato circular de 72px en un panorama de 60vw. */
-.post-firma {
-    display: flex;
-    align-items: center;
-    gap: var(--gap-md);
-    max-width: 36vw;
-    /* Margin-top fluido en desktop: ~7rem en portátiles estándar (800-900px
-       de alto) y crece con la altura del viewport hasta 2× gap-3xl en
-       monitores grandes. El último bloque del artículo necesita aire claro
-       para que la firma se lea como cierre, no como continuación. En móvil
-       volvemos al gap-3xl fijo (override en el @media de abajo) — la firma
-       stackeada ya respira sola con su flex-direction column. */
-    margin: clamp(
-            calc(var(--gap-3xl) + var(--gap-lg)),
-            14vh,
-            calc(var(--gap-3xl) * 2)
-        )
-        auto var(--gap-3xl);
-    padding: 0 1rem;
-    box-sizing: border-box;
-}
-
 .post-firma .hero-photo {
-    width: 96px;
-    height: 96px;
+    width: 30%;
+    aspect-ratio: 1;
+    height: auto;
     flex-shrink: 0;
     margin: 0;
 }
@@ -2121,85 +2070,18 @@ audio::-webkit-media-controls-panel {
     line-height: 1.2;
 }
 
-.post-firma .firma-rol {
-    margin: 0.25rem 0 0;
-    font-family: var(--serif);
-    font-size: 1.3rem;
-    color: var(--negro);
-    line-height: 1.35;
-}
-
-/* Paréntesis manuscrito dentro del rol: Kalam rojo como anotación al
-   margen de un título serif. El rol queda como cargo formal + apostilla
-   a mano. font-size fijo (no hereda del .firma-rol) porque Kalam a igual
-   rem se ve más grande que EB Garamond — para equipararlos visualmente,
-   el serif sube de tamaño y el Kalam se queda anclado al rem base. */
-.post-firma .firma-paren {
-    display: block;
-    margin-top: 0.15rem;
+.post-firma .firma-mano {
+    margin: 0.5rem 0 0;
     font-family: var(--hand);
     font-size: 1rem;
-    color: var(--rojo);
+    color: var(--negro);
+    line-height: 1.4;
 }
 
-@media (max-width: 800px) {
-    .post-firma {
-        max-width: 99vw;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: var(--gap-sm);
-        margin-top: var(--gap-3xl);
-    }
-    .post-firma .hero-photo {
-        width: 76px;
-        height: 76px;
-    }
-}
-
-/* CTA de captación que cierra el post justo después de la firma. Comparte el
-   ancho de lectura de la firma (36vw / 99vw) y el fondo natural del body —
-   sin la banda blanca full-bleed del .post-optin, porque aquí no separa
-   secciones: continúa la firma como remate del autor. */
-.firma-optin {
-    max-width: 36vw;
-    margin: 0 auto var(--gap-3xl);
-    padding: 0 1rem;
-    box-sizing: border-box;
-}
-
-/* Cuando la firma va seguida del .firma-optin, su margin-bottom original
-   (--gap-3xl, pensado para cerrar el post) sobrepara a los dos elementos.
-   Lo reducimos para que se lean como un solo bloque "autor + CTA". */
-.post-firma:has(+ .firma-optin) {
-    margin-bottom: var(--gap-md);
-}
-
-/* Mismos overrides que .post-optin .optin: el <form class="optin"> hereda
-   max-width 480px de la sección 9, y el <input type="email"> trae width
-   intrínseco del navegador. Sin esto el cajetín queda más estrecho que su
-   contenedor y el input desencajado del botón. */
-.firma-optin .optin {
-    margin: 0 auto;
-}
-
-.firma-optin .optin input {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.post .optin .block--primary {
-    background: var(--rojo);
-}
-
-@media (max-width: 800px) {
-    .firma-optin {
-        max-width: 99vw;
-    }
-    .firma-optin .optin {
-        max-width: none;
-        width: 100%;
-    }
+/* Texto en negro pero el subrayado del <u> en rojo: text-decoration-color
+   pinta solo la línea sin afectar al color del texto. */
+.post-firma .firma-mano u {
+    text-decoration-color: var(--rojo);
 }
 
 /* Imagen del cuerpo en desktop: rompe el ancho del .cuerpo (36vw) para
@@ -2211,7 +2093,7 @@ audio::-webkit-media-controls-panel {
    En móvil la imagen vuelve al 100% del .cuerpo (regla global de abajo).
    Selector `> img` para que solo afecte a imágenes de contenido (hijas
    directas del <article>), no a iconos dentro de botones (.block .icon)
-   ni a la imagen del .post-optin que tiene su propio ancho de lectura. */
+   ni a la imagen de la .post-firma que tiene su propio ancho de lectura. */
 @media (min-width: 801px) {
     .post .cuerpo > img {
         width: clamp(36vw, 60vw, 800px);
@@ -2245,27 +2127,19 @@ audio::-webkit-media-controls-panel {
     box-decoration-break: clone;
 }
 
-/* Highlighter rojo — variante del .mark-amarillo en --rojo. Pensado para
-   landings donde el acento del sistema cambia de amarillo a rojo
-   (campañas de afiliación con deadline corto, página /copyskool). Cobertura
-   más alta (48-92%, como .banner-mark): el rojo funciona como acento de
-   urgencia, no como subrayado discreto — pide ocupar la mitad alta de la
-   letra para leerse como "marcado en rotulador" desde lejos. El color de
-   texto pasa a blanco para que la palabra resaltada se lea sobre el rojo. */
-.mark-rojo {
-    text-decoration: none;
+/* Override para Kalam: la x-height pequeña y descenders pronunciados de la
+   manuscrita dejan la franja base (60-92%) por debajo del trazo. Subimos
+   los stops para que el rotulador caiga sobre la mitad inferior del
+   cuerpo real de la letra, no sobre los descenders. */
+.firma-mano .mark-amarillo {
     background-image: linear-gradient(
         180deg,
         transparent 0,
-        transparent 48%,
-        var(--rojo) 48%,
-        var(--rojo) 92%,
-        transparent 92%
+        transparent 50%,
+        var(--amarillo) 50%,
+        var(--amarillo) 72%,
+        transparent 72%
     );
-    padding: 0 0.12em;
-    -webkit-box-decoration-break: clone;
-    box-decoration-break: clone;
-    color: var(--blanco);
 }
 
 /* Imagen del cuerpo de post: centrada, no se sale del ancho de lectura,
@@ -2273,7 +2147,7 @@ audio::-webkit-media-controls-panel {
    lazy + async porque suelen ir bajo el fold del post. Selector `> img`
    para que solo afecte a imágenes de contenido (hijas directas del
    <article>), no a iconos dentro de botones (.block .icon) ni a imágenes
-   anidadas en secciones como .post-optin que tienen estilo propio. */
+   anidadas en secciones como .post-firma que tienen estilo propio. */
 .cuerpo > img {
     display: block;
     max-width: 100%;
@@ -2345,7 +2219,7 @@ audio::-webkit-media-controls-panel {
         padding-left: var(--gap-sm);
     }
 
-    /* El cuerpo del sitio cae a --text-body-m en móvil (~1rem) para landings
+    /* El cuerpo del sitio cae a --text-body-m en móvil (~1.2rem) para landings
        densas. En lectura larga de blog ese tamaño se queda corto y obliga a
        acercar el móvil a la cara. Volvemos a --text-body para que la prosa
        del post mantenga el mismo cuerpo de letra que el blockquote (que ya
@@ -2372,13 +2246,6 @@ audio::-webkit-media-controls-panel {
         max-width: none;
     }
 
-    /* En desktop -20% deja el postit a caballo. En móvil esa misma fracción
-       lo asoma demasiado sobre el papel — el banner es más alto en proporción
-       al postit y se ve "caído". Subimos un escalón. */
-    .post .banner .postit-wrap {
-        transform: translateY(-28%);
-    }
-
     /* En móvil el postit se ensancha respecto al tope desktop (270px) para
        aprovechar la pantalla estrecha — un postit estrecho sobre viewport
        de 400px se ve apretado y con demasiadas líneas. */
@@ -2389,7 +2256,7 @@ audio::-webkit-media-controls-panel {
     /* En desktop el form del opt-in está acotado a 480px para que el input
        no se estire absurdo en pantallas grandes. En móvil esa cota deja
        margen lateral que no aporta — que el input use todo el ancho útil. */
-    .post-optin .optin {
+    .post-firma .optin {
         max-width: none;
         width: 100%;
     }
@@ -2420,7 +2287,14 @@ audio::-webkit-media-controls-panel {
     letter-spacing: 0.06em;
 }
 
-.post-toc-list {
+/* Segundo título dentro del panel (debajo de "Otros artículos"): mismo
+   estilo + aire arriba para separar bloques apilados. */
+.post-toc-title--indice {
+    margin-top: var(--gap-lg);
+}
+
+.post-toc-list,
+.post-toc-otros {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -2430,12 +2304,14 @@ audio::-webkit-media-controls-panel {
 }
 
 /* Override del <li> global (margin-bottom var(--gap-xl) en la sección 2)
-   que dominaba sobre el `gap` y dejaba 3rem entre items del índice. */
-.post-toc-list li {
+   que dominaba sobre el `gap` y dejaba 3rem entre items. */
+.post-toc-list li,
+.post-toc-otros li {
     margin: 0;
 }
 
-.post-toc-list a {
+.post-toc-list a,
+.post-toc-otros a {
     display: block;
     font-family: var(--serif);
     font-size: 0.95rem;
@@ -2446,7 +2322,8 @@ audio::-webkit-media-controls-panel {
     border-left: 2px solid color-mix(in srgb, var(--negro) 15%, transparent);
 }
 
-.post-toc-list a:hover {
+.post-toc-list a:hover,
+.post-toc-otros a:hover {
     color: var(--azul);
     border-left-color: var(--azul);
 }
@@ -2516,6 +2393,302 @@ audio::-webkit-media-controls-panel {
         transform: translateY(0);
         pointer-events: auto;
     }
+}
+
+/* Blog hub (/blog) — index del blog: tabs por categoría + secciones
+   apiladas con cards de post. Vive en BaseLayout con body.blog-hub (no es
+   .post, no carga PostLayout). Filtro JS en sesión sin tocar la URL: no
+   queremos páginas duplicadas /blog?cat=ia para Google con el mismo
+   contenido recortado. Si en algún momento las categorías generan volumen
+   propio que justifique SEO separado, migrar a /blog/{slug}.astro como
+   páginas con identidad propia. */
+.blog-hub-main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 var(--gap-md) var(--gap-4xl);
+}
+
+/* Subline del banner: descriptiva del contenido del blog. No es .banner-subline
+   (esa es Kalam azul, anotación manuscrita) — aquí es prosa editorial serif,
+   para que se lea como bajada de cabecera de revista, no como nota al margen. */
+.blog-subline {
+    font-family: var(--serif);
+    font-size: clamp(1.05rem, 1.3vw, 1.25rem);
+    line-height: 1.4;
+    color: color-mix(in srgb, var(--negro) 75%, transparent);
+    text-align: center;
+    max-width: 640px;
+    margin: 0.6rem auto 0;
+}
+
+/* Buscador: caja blanca abierta por arriba y los lados, cerrada por una
+   regla de tinta abajo — masthead editorial, no widget de SaaS. La lupa
+   es line-art inline (mismo idioma que el resto de SVG del sitio),
+   posicionada absolute a la izquierda dentro de la caja. */
+.blog-search {
+    position: relative;
+    margin: var(--gap-xl) auto var(--gap-md);
+    max-width: 520px;
+    background: var(--blanco);
+    border-bottom: 1px solid var(--negro);
+    display: flex;
+    align-items: center;
+}
+
+.blog-search-icono {
+    position: absolute;
+    left: 0.8rem;
+    top: 50%;
+    width: 1.15em;
+    height: 1.15em;
+    color: color-mix(in srgb, var(--negro) 70%, transparent);
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.blog-search input {
+    width: 100%;
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 0.7rem 0.8rem 0.7rem 2.6rem;
+    font-family: var(--serif);
+    font-size: clamp(1rem, 1.2vw, 1.15rem);
+    color: var(--negro);
+    outline: none;
+}
+
+.blog-search input::placeholder {
+    color: color-mix(in srgb, var(--negro) 45%, transparent);
+    font-style: italic;
+}
+
+.blog-search:focus-within {
+    border-bottom-color: var(--azul);
+    border-bottom-width: 2px;
+    padding-bottom: 0;
+}
+
+.blog-search:focus-within .blog-search-icono {
+    color: var(--azul);
+}
+
+/* Búsqueda sin resultados: mismo registro manuscrito que .blog-cat-vacia
+   pero centrado y con margen vertical mayor — se lee como mensaje
+   editorial del archivo, no como inciso. */
+.blog-sin-resultados {
+    font-family: var(--hand);
+    color: var(--azul);
+    font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+    text-align: center;
+    margin: var(--gap-2xl) auto 0;
+}
+
+/* Label pequeño sobre la fila de tabs: marca que la fila siguiente son
+   filtros, no navegación principal — small caps tinta atenuada, mismo
+   registro que .post-meta del blog. */
+.blog-tabs-label {
+    font-family: var(--serif);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--negro) 55%, transparent);
+    text-align: center;
+    margin: var(--gap-xl) 0 var(--gap-sm);
+}
+
+/* Tabs: chips rectangulares con borde tinta, wrap natural a varias filas
+   cuando los nombres no caben en una línea. Patrón unificado desktop/móvil
+   — el scroll horizontal en una página vertical es affordance invisible.
+   Activa con fondo amarillo (mismo acento que el hover del menú principal)
+   para que la selección se lea de un vistazo sin texto extra. */
+.blog-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0 0 var(--gap-2xl);
+}
+
+.blog-tab {
+    appearance: none;
+    background: var(--blanco);
+    border: 1px solid var(--negro);
+    padding: 0.5rem 1rem;
+    font-family: var(--serif);
+    font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+    font-weight: 500;
+    color: var(--negro);
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+        background-color 120ms ease,
+        color 120ms ease;
+}
+
+@media (hover: hover) {
+    .blog-tab:hover:not(.is-active) {
+        background: color-mix(in srgb, var(--amarillo) 40%, var(--blanco));
+    }
+}
+
+.blog-tab.is-active {
+    background: var(--amarillo);
+    font-weight: 600;
+}
+
+/* Contador de artículos al lado del nombre de la categoría. Tamaño menor
+   y peso bajo: marca cuántos hay sin competir con el label. Color azul de
+   marca para que se lea como metadato, no como parte del título. */
+.blog-tab-count {
+    display: inline-block;
+    margin-left: 0.25em;
+    font-size: 0.82em;
+    font-weight: 400;
+    color: var(--azul);
+    letter-spacing: 0;
+}
+
+.blog-tab-count::before {
+    content: '(';
+}
+
+.blog-tab-count::after {
+    content: ')';
+}
+
+.blog-cat {
+    margin: 0 0 var(--gap-3xl);
+}
+
+.blog-cat[hidden] {
+    display: none;
+}
+
+/* Título de categoría con regla discontinua: marca el corte como
+   anotación de archivo, no como h2 de landing (que es centrado, peso
+   máximo, breaker editorial). */
+.blog-cat-titulo {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+    font-weight: 700;
+    color: var(--negro);
+    text-align: left;
+    margin: var(--gap-xl) 0 var(--gap-md);
+    padding-bottom: 0.4rem;
+    border-bottom: 1px dashed
+        color-mix(in srgb, var(--negro) 30%, transparent);
+}
+
+.blog-cat-vacia {
+    font-family: var(--hand);
+    color: var(--azul);
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
+    margin: var(--gap-md) 0;
+}
+
+/* Listado: una columna en móvil, dos en desktop. Cada card es una caja
+   independiente con borde tinta atenuada, separadas por gap del grid —
+   registro "ficha de archivo", no "fila de tabla". */
+.blog-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--gap-sm);
+}
+
+.blog-item {
+    margin: 0;
+}
+
+/* Hover sin reflow: la card cambia background, border y sombra offset
+   (efecto "press" editorial — tinta + offset, sin blur, no Material
+   moderno) + un translate de -2px que asimetriza la sombra y simula
+   elevación del papel. transform y box-shadow no provocan reflow, así
+   que el título no rewrappea. */
+.blog-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: var(--gap-md);
+    border: 1px solid
+        color-mix(in srgb, var(--negro) 15%, transparent);
+    background: transparent;
+    text-decoration: none;
+    color: var(--negro);
+    transition:
+        background-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 180ms cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 180ms cubic-bezier(0.16, 1, 0.3, 1),
+        transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (hover: hover) {
+    .blog-card:hover {
+        background: var(--blanco);
+        border-color: var(--negro);
+        box-shadow: 4px 4px 0 0
+            color-mix(in srgb, var(--negro) 14%, transparent);
+        transform: translate(-2px, -2px);
+        text-decoration: none;
+    }
+    .blog-card:hover .blog-card-flecha {
+        transform: translateX(4px);
+    }
+}
+
+.blog-card-cat {
+    font-family: var(--hand);
+    font-size: clamp(0.85rem, 1vw, 1rem);
+    color: var(--azul);
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+}
+
+.blog-card-titulo {
+    font-family: var(--serif);
+    font-size: clamp(1.3rem, 1.7vw, 1.7rem);
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--negro);
+    margin: 0;
+}
+
+.blog-card-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-top: 0.3rem;
+    font-family: var(--serif);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--negro) 55%, transparent);
+}
+
+.blog-card-flecha {
+    font-size: 1.1em;
+    color: var(--azul);
+    transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 801px) {
+    .blog-lista {
+        grid-template-columns: 1fr 1fr;
+        gap: 0 var(--gap-xl);
+    }
+}
+
+body.blog-hub .banner h1 {
+    font-size: clamp(2.4rem, 3.4vw, 3.4rem);
+    margin: clamp(2.5rem, 7vh, 5rem) auto 0;
+}
+
+body.blog-hub .banner-subline {
+    text-align: center;
+    margin-top: 0.4rem;
 }
 
 /* ---------- Banner de cookies ---------- */
@@ -2620,299 +2793,3 @@ audio::-webkit-media-controls-panel {
     }
 }
 
-/* ---------- 11. Copyskool (copyskool.html) ----------
-   Landing de afiliación con deadline corto. Reusa todo el lenguaje del sitio
-   (.banner masthead, .cuerpo, .post-firma) y traslada los acentos amarillos a
-   --rojo: la señal de urgencia (deadline) es la firma visual de la página, no
-   un acento puntual como en el resto del sitio. */
-
-/* Barra sticky con el deadline: position:fixed full-bleed arriba, empuja
-   al body con padding-top para que no tape el banner. El gradient pinta
-   la franja del padding-top en blanco (no papel) para que el espacio
-   entre la barra roja y el banner blanco no se vea como una tira crema
-   suelta — la barra "se asienta sobre" el masthead blanco, no flota
-   sobre papel. Convive con el sistema porque /copyskool no carga el
-   .menu del sitio (igual que mapa y clonate), así no compite por la
-   esquina superior derecha. */
-body.copyskool {
-    padding-top: 44px;
-    background: linear-gradient(
-        to bottom,
-        var(--blanco) 0,
-        var(--blanco) 44px,
-        var(--papel) 44px
-    );
-}
-
-/* Banner masthead blanco sobre body papel: el .banner default ya pinta
-   blanco, pero en body.post hereda margin-bottom: clamp(85, 12vh, 130px) y
-   padding-bottom: 0 para reservar hueco al postit colgando — copyskool no
-   usa postit, así que devolvemos esos dos valores al default de .banner
-   (paddings/márgenes pequeños) y el banner descansa sobre la franja papel
-   del cuerpo con solo un palmo de aire. */
-.copyskool .banner {
-    margin-bottom: clamp(0.5rem, 2.2vh, 1.3rem);
-    padding-bottom: clamp(0.7rem, 2.6vh, 1.6rem);
-}
-
-.copyskool-deadline {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    padding: clamp(0.5rem, 1.4vh, 0.75rem) 1rem;
-
-    background: var(--rojo);
-    color: var(--blanco);
-    font-family: var(--serif);
-    font-weight: 600;
-    font-size: clamp(0.92rem, 1.1vw, 1.05rem);
-    letter-spacing: 0.02em;
-    text-align: center;
-    line-height: 1.25;
-}
-
-.copyskool-deadline strong {
-    font-weight: 700;
-}
-
-/* Pre-headline (eyebrow): la calificación del target que la BSL pone antes
-   del titular. Cursiva pequeña en serif, color tinta atenuada — registra
-   como subhead editorial ("Para emprendedores que...") sin competir con el
-   peso visual del H1 que viene debajo. Margin-bottom recogido + override
-   del margin-top del h1 más abajo: el par eyebrow→titular se lee como una
-   sola unidad de masthead, no como dos bloques con aire entre ellos. */
-.copyskool .banner .eyebrow {
-    max-width: 56ch;
-    margin: 0 auto clamp(0.2rem, 0.6vh, 0.5rem);
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: clamp(0.95rem, 1.1vw, 1.15rem);
-    line-height: 1.4;
-    color: color-mix(in srgb, var(--negro) 70%, transparent);
-    text-align: center;
-}
-
-/* El .post .banner h1 reserva margin-top clamp(1rem, 3.5vh, 2.5rem) — pensado
-   para posts donde el h1 abre el banner solo. En /copyskool va precedido del
-   eyebrow y queremos el par pegado. */
-.copyskool .banner h1 {
-    margin-top: clamp(0.2rem, 0.8vh, 0.6rem);
-}
-
-/* Squiggle rojo: override del .squiggle global (azul) para el cuerpo de
-   copyskool. Mismo SVG y posición que el base, solo cambia stroke. Color
-   hardcodeado: data URIs no soportan currentColor. */
-.copyskool .cuerpo .squiggle {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
-}
-
-/* Video sales del flujo: mismo tratamiento que .post .cuerpo > img en
-   desktop (rompe el ancho del .cuerpo y centra al viewport) para que los
-   tres clips de Migui se lean como bloques editoriales, no como insertos
-   diminutos en columna de lectura. Aspect-ratio 16:9 con max-width para
-   que en monitores grandes no se vuelvan absurdos. */
-.copyskool-video {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    margin: var(--gap-xl) auto;
-    background: var(--negro);
-}
-
-@media (min-width: 801px) {
-    .copyskool .cuerpo .copyskool-video {
-        width: clamp(36vw, 60vw, 800px);
-        max-width: none;
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
-
-/* H2 del cuerpo como breaker card (fondo blanco): la regla .post .cuerpo h2
-   (sección 10) baja el font-size del h2 a clamp(1.6, 2.3vw, 2.2rem) para que
-   no compita con el h1 del masthead — bien para h2 en prosa de blog, mal
-   para un breaker card donde el título quiere peso. Le devolvemos el tamaño
-   del breaker original (sección 5). El fondo blanco se extiende a viewport
-   completo con el truco box-shadow + clip-path (mismo recurso que .lista-azul
-   y .post-optin): el blanco respira al ancho del navegador mientras el texto
-   sigue centrado en la columna del .cuerpo. */
-.copyskool .cuerpo h2.titulo-breaker--bg-claro {
-    font-size: clamp(2rem, 3vw, 2.6rem);
-    box-shadow: 0 0 0 100vmax var(--blanco);
-    clip-path: inset(0 -100vmax);
-}
-
-/* H3 dentro del cuerpo: bonus enumerados ("1. Un clon de IA Hormozi", etc.)
-   Un escalón por debajo del h2 del .post pero por encima del cuerpo, en
-   azul para diferenciarlo del breaker y leerlo como apartado dentro de
-   "Pero espera". */
-.copyskool .cuerpo h3 {
-    margin-top: var(--gap-xl);
-    margin-bottom: var(--gap-md);
-    font-family: var(--serif);
-    font-weight: 700;
-    font-size: clamp(1.3rem, 1.9vw, 1.7rem);
-    line-height: 1.25;
-    color: var(--azul);
-}
-
-/* Lista numerada de pasos para reclamar el bonus: el padding-left global
-   de <ul> (var(--gap-md)) deja los números pegados al borde; aire extra
-   para que el contador de <ol> respire. Tinte azul al marker para que los
-   "1./2./3./4." se lean como índice editorial, no como bullets sueltos. */
-.copyskool .cuerpo ol {
-    padding-left: var(--gap-lg);
-}
-
-.copyskool .cuerpo ol li::marker {
-    color: var(--azul);
-    font-weight: 700;
-}
-
-/* Block primary rojo: variante de .block--primary (sección 8) en --rojo.
-   Pensado para el CTA principal de afiliación, que va como <a> fuera de un
-   .optin form (donde .post .optin .block--primary ya cae a rojo). Hereda
-   del .block--primary base (texto blanco, padding, etc.) y solo cambia el
-   fondo. */
-.block--rojo {
-    background: var(--rojo);
-}
-
-/* CTA principal de la página: bloque rojo centrado, ancho recogido para que
-   se lea como botón y no como banda. max-width igual que el .optin del
-   sitio (480px) para que la firma visual sea la misma. box-sizing: border-box
-   necesario porque el .block base aplica padding 14px 12px y en móvil
-   pasamos a width:100% — sin border-box el padding suma al 100% y el botón
-   desborda el .cuerpo. */
-.copyskool .cta-principal {
-    display: flex;
-    max-width: 480px;
-    margin: var(--gap-2xl) auto;
-    box-sizing: border-box;
-}
-
-.copyskool .cta-principal .title {
-    font-size: clamp(20px, 2vw, 26px);
-}
-
-.copyskool .cta-principal .arrow {
-    color: var(--blanco);
-    opacity: 1;
-    font-size: 22px;
-}
-
-/* Aviso final con deadline: el .aviso-mano del sistema (sección 5) ya
-   viene en rojo, pero en /copyskool reforzamos el peso porque es el
-   recordatorio de cierre, no una anotación al margen. Mantiene el tilt
-   manuscrito; subimos tamaño base un escalón. */
-.copyskool .aviso-mano {
-    max-width: 80%;
-    margin-bottom: var(--gap-xl);
-}
-
-.copyskool .aviso-mano p {
-    font-size: clamp(1rem, 1.15vw, 1.25rem);
-    line-height: 1.45;
-}
-
-/* La variante azul (nota neutra, sin tilt) sale del registro "anotación al
-   margen" del rojo y pasa a leerse como prosa manuscrita continuación del
-   cuerpo: ocupa el mismo ancho que los <p> del artículo para que no parezca
-   un inciso indentado, solo cambia la familia tipográfica respecto al
-   párrafo serif vecino. */
-.copyskool .aviso-mano--azul {
-    max-width: none;
-    width: 100%;
-}
-
-/* Cierre de la página: banda blanca full-bleed con los pasos para reclamar
-   el bonus, el CTA principal, el aviso de deadline y la foto de la
-   comunidad. Mismo recurso box-shadow + clip-path que .lista-azul y
-   .post-optin para que el blanco se extienda al ancho del viewport sin
-   sacar los elementos interiores de la columna del .cuerpo. padding-top
-   pequeño para forzar el contexto de bloque y evitar que el margin-top
-   del breaker interno colapse hacia fuera de la sección y deje un
-   palmo de papel arriba. */
-.copyskool .cuerpo .copyskool-cierre {
-    background: var(--blanco);
-    box-shadow: 0 0 0 100vmax var(--blanco);
-    clip-path: inset(0 -100vmax);
-    margin: var(--gap-2xl) 0 0;
-    padding: 1px 0 var(--gap-2xl);
-}
-
-/* Doodle decorativo de "los secretos" dentro del banner blanco, debajo del
-   h1. Es un cartoon pequeño, no foto editorial — necesita ancho contenido
-   y centrado. align-self: center neutraliza el align-items: stretch del
-   .hero (flex column) para que la imagen no se estire al ancho de la
-   columna de lectura. */
-.copyskool .hero > .copyskool-doodle {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    align-self: center;
-    margin: clamp(0.5rem, 1.5vh, 1rem) auto 0;
-}
-
-/* La foto de cierre (comunidad) deja de ser hija directa de .cuerpo al
-   anidarla dentro de .copyskool-cierre, así que pierde la regla global
-   .cuerpo > img (max-width: 100%) y el break-out de desktop de
-   .post .cuerpo > img. Le devolvemos un comportamiento responsivo
-   acotado: 100% del wrapper en móvil, tope razonable en desktop. */
-.copyskool .copyskool-cierre > img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-    margin: var(--gap-xl) auto 0;
-}
-
-@media (min-width: 801px) {
-    .copyskool .copyskool-cierre > img {
-        max-width: 600px;
-    }
-}
-
-@media (max-width: 800px) {
-    body.copyskool {
-        padding-top: 56px;
-        background: linear-gradient(
-            to bottom,
-            var(--blanco) 0,
-            var(--blanco) 56px,
-            var(--papel) 56px
-        );
-    }
-
-    .copyskool-deadline {
-        font-size: 0.88rem;
-        padding: 0.55rem 0.75rem;
-    }
-
-    .copyskool .cta-principal {
-        max-width: none;
-        width: 100%;
-    }
-
-    /* Titulares del cuerpo en móvil: las reglas globales son clamps con vw
-       como término medio y en pantallas estrechas caen al mínimo, dejando
-       h3 (1.3rem) a un suspiro del <p> (1rem) y h2 (2rem) sin peso de
-       breaker. Aquí los reescalamos al rango móvil. El h2 además recupera
-       aire vertical: la regla global de .titulo-breaker--bg-claro en móvil
-       (sección 7) aprieta el margin-bottom a --gap-md para enlazar con prosa;
-       en /copyskool los breakers son cortes editoriales y piden respiración. */
-    .copyskool .cuerpo h2.titulo-breaker--bg-claro {
-        font-size: clamp(2.2rem, 6.5vw, 2.8rem);
-        margin-top: var(--gap-3xl);
-        margin-bottom: var(--gap-2xl);
-    }
-
-    .copyskool .cuerpo h3 {
-        font-size: clamp(1.55rem, 4.5vw, 1.85rem);
-        margin-top: var(--gap-4xl);
-    }
-}

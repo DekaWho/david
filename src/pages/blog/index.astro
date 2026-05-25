@@ -1,0 +1,332 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Menu from "../../components/Menu.astro";
+import { categorias } from "../../data/categorias.js";
+
+type PostModule = {
+    frontmatter: {
+        titulo: string;
+        ogDescription?: string;
+        readingTime?: number;
+        categoria?: string;
+        peso?: number;
+    };
+    url: string;
+};
+
+const modules = import.meta.glob<PostModule>("./*.mdx", { eager: true });
+
+// Raw del .mdx para indexar el cuerpo del post en el buscador. Vite
+// resuelve `?raw` en build embebiendo el contenido literal del archivo,
+// así no dependemos de leerlo con fs en runtime (donde import.meta.url
+// del .astro empaquetado apunta al chunk, no a la fuente).
+const rawByPath = import.meta.glob<string>("./*.mdx", {
+    query: "?raw",
+    import: "default",
+    eager: true,
+});
+
+function limpiarMdx(raw: string): string {
+    return raw
+        .replace(/^---[\s\S]*?---\s*/m, "")
+        .replace(/^\s*import\s+[\s\S]+?from\s+.+?;?\s*$/gm, "")
+        .replace(/<[^>]+>/g, " ")
+        .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+        .replace(/[#*_`~>|]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+// Orden por `peso` descendente. Un post sin campo se trata como peso 0
+// — los que tienen peso explícito suben sobre los neutros. Como el campo
+// es opcional, los posts antiguos sin peso quedan abajo en su orden de
+// inserción del glob hasta que les pongas un valor. Es manual a propósito,
+// permite mezclar criterios: opinión personal, métricas de un analytics,
+// estrategia editorial.
+const posts = Object.entries(modules)
+    .map(([path, m]) => ({
+        ...m.frontmatter,
+        url: m.url,
+        raw: limpiarMdx(rawByPath[path] ?? ""),
+    }))
+    .sort((a, b) => (b.peso ?? 0) - (a.peso ?? 0));
+
+const postsPorCategoria = categorias.map((cat) => ({
+    ...cat,
+    posts: posts.filter((p) => p.categoria === cat.slug),
+}));
+
+const totalPosts = posts.length;
+---
+
+<BaseLayout
+    titulo="¿Un... blog? | David Varea"
+    canonical="/blog"
+    ogTitle="¿Un... blog? | David Varea"
+    ogDescription="Me he gastado 19.970€ en formaciones de marketing directo, IA y emprendimiento (aparte del conocimiento ganado dando servicios) para que tú no tengas que hacerlo"
+    ogUrl="https://davidvarea.com/blog"
+    favicon="writing"
+    bodyClass="blog-hub"
+>
+    <Menu enlaces={[{ href: "/", label: "Ir a la home", flechaIzq: "←" }]} />
+
+    <div class="banner">
+        <section class="hero">
+            <h1>¿Aún existen los blogs?</h1>
+            <p class="blog-subline">
+                Me he gastado <u class="mark-amarillo"
+                    >19.970€ en formaciones de
+                </u>marketing directo, IA y emprendimiento (aparte del
+                conocimiento ganado dando servicios) para que tú no tengas que
+                hacerlo.
+            </p>
+        </section>
+    </div>
+
+    <main class="blog-hub-main">
+        <div class="blog-search">
+            <svg
+                class="blog-search-icono"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+            >
+                <circle
+                    cx="10.5"
+                    cy="10.5"
+                    r="6.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"></circle>
+                <line
+                    x1="15.3"
+                    y1="15.3"
+                    x2="20.5"
+                    y2="20.5"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"></line>
+            </svg>
+            <input
+                type="search"
+                id="blog-search-input"
+                placeholder="Busca artículos por palabras clave…"
+                aria-label="Buscar artículos"
+                autocomplete="off"
+            />
+        </div>
+
+        <p class="blog-tabs-label">Categorías</p>
+        <nav class="blog-tabs" aria-label="Categorías del blog">
+            <button class="blog-tab is-active" type="button" data-tab="todos">
+                Todos <span class="blog-tab-count">{totalPosts}</span>
+            </button>
+            {
+                postsPorCategoria.map((cat) => (
+                    <button class="blog-tab" type="button" data-tab={cat.slug}>
+                        {cat.nombre}{" "}
+                        <span class="blog-tab-count">{cat.posts.length}</span>
+                    </button>
+                ))
+            }
+        </nav>
+
+        <section class="blog-cat blog-cat--todos" data-cat="todos">
+            {
+                posts.length === 0 ? (
+                    <p class="blog-cat-vacia">
+                        Todavía no hay artículos. Pronto.
+                    </p>
+                ) : (
+                    <ul class="blog-lista">
+                        {posts.map((post) => {
+                            const cat = categorias.find(
+                                (c) => c.slug === post.categoria,
+                            );
+                            return (
+                                <li class="blog-item">
+                                    <a class="blog-card" href={post.url}>
+                                        <span class="blog-card-cat">
+                                            {cat ? cat.nombre : post.categoria}
+                                        </span>
+                                        <h3 class="blog-card-titulo">
+                                            {post.titulo.replace(
+                                                / \| David Varea$/,
+                                                "",
+                                            )}
+                                        </h3>
+                                        <span class="blog-card-meta">
+                                            {post.readingTime} min de lectura
+                                            <span
+                                                class="blog-card-flecha"
+                                                aria-hidden="true"
+                                            >
+                                                →
+                                            </span>
+                                        </span>
+                                    </a>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                )
+            }
+        </section>
+
+        {
+            postsPorCategoria.map((cat) => (
+                <section
+                    class="blog-cat"
+                    data-cat={cat.slug}
+                    aria-label={cat.nombre}
+                    hidden
+                >
+                    {cat.posts.length === 0 ? (
+                        <p class="blog-cat-vacia">
+                            Todavía no hay artículos en esta categoría. Pronto.
+                        </p>
+                    ) : (
+                        <ul class="blog-lista">
+                            {cat.posts.map((post) => (
+                                <li class="blog-item">
+                                    <a class="blog-card" href={post.url}>
+                                        <span class="blog-card-cat">
+                                            {cat.nombre}
+                                        </span>
+                                        <h3 class="blog-card-titulo">
+                                            {post.titulo.replace(
+                                                / \| David Varea$/,
+                                                "",
+                                            )}
+                                        </h3>
+                                        <span class="blog-card-meta">
+                                            {post.readingTime} min de lectura
+                                            <span
+                                                class="blog-card-flecha"
+                                                aria-hidden="true"
+                                            >
+                                                →
+                                            </span>
+                                        </span>
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </section>
+            ))
+        }
+
+        <p class="blog-sin-resultados" hidden>
+            Ningún artículo coincide con tu búsqueda.
+        </p>
+    </main>
+
+    <script
+        type="application/json"
+        id="blog-search-index"
+        set:html={JSON.stringify(
+            posts.map((p) => {
+                const cat = categorias.find((c) => c.slug === p.categoria);
+                return {
+                    url: p.url,
+                    texto: [
+                        p.titulo,
+                        cat ? cat.nombre : (p.categoria ?? ""),
+                        p.raw,
+                    ].join(" "),
+                };
+            }),
+        )}
+    />
+
+    <script is:inline>
+        const tabs = document.querySelectorAll(".blog-tab");
+        const secciones = document.querySelectorAll(".blog-cat");
+        const inputBusqueda = document.getElementById("blog-search-input");
+        const sinResultados = document.querySelector(".blog-sin-resultados");
+
+        let categoriaActiva = "todos";
+        let textoBusqueda = "";
+
+        const RANGO_DIACRITICOS = new RegExp("[\\u0300-\\u036f]", "g");
+        const norm = (s) =>
+            s.toLowerCase().normalize("NFD").replace(RANGO_DIACRITICOS, "");
+
+        // Índice de búsqueda embebido como JSON en build. Cada entrada
+        // lleva el cuerpo entero del artículo ya limpio (sin frontmatter,
+        // imports ni etiquetas), así el filtro hace match contra cualquier
+        // palabra del post, no solo lo visible en la card.
+        const indiceJSON = document.getElementById("blog-search-index");
+        const indiceArr = indiceJSON ? JSON.parse(indiceJSON.textContent) : [];
+        const indiceNormPorUrl = new Map(
+            indiceArr.map((e) => [e.url, norm(e.texto)]),
+        );
+
+        function urlDelItem(item) {
+            const a = item.querySelector("a");
+            return a ? a.getAttribute("href") : "";
+        }
+
+        function aplicarFiltro() {
+            const consulta = norm(textoBusqueda);
+            let totalVisibles = 0;
+
+            secciones.forEach((s) => {
+                if (s.dataset.cat !== categoriaActiva) {
+                    s.hidden = true;
+                    return;
+                }
+
+                const items = s.querySelectorAll(".blog-item");
+                if (items.length === 0) {
+                    s.hidden = consulta.length > 0;
+                    return;
+                }
+
+                let visibles = 0;
+                items.forEach((item) => {
+                    const txt = indiceNormPorUrl.get(urlDelItem(item)) || "";
+                    const match = !consulta || txt.includes(consulta);
+                    item.hidden = !match;
+                    if (match) visibles++;
+                });
+
+                s.hidden = visibles === 0;
+                totalVisibles += visibles;
+            });
+
+            sinResultados.hidden = !(
+                consulta.length > 0 && totalVisibles === 0
+            );
+        }
+
+        // Si entras a /blog#marketing (desde un post o link externo), arranca
+        // con esa categoría preseleccionada en lugar de "Todos".
+        const hashInicial = window.location.hash.slice(1);
+        if (hashInicial) {
+            const tabInicial = document.querySelector(
+                `.blog-tab[data-tab="${hashInicial}"]`,
+            );
+            if (tabInicial) {
+                categoriaActiva = hashInicial;
+                tabs.forEach((t) =>
+                    t.classList.toggle("is-active", t === tabInicial),
+                );
+                aplicarFiltro();
+            }
+        }
+
+        tabs.forEach((tab) => {
+            tab.addEventListener("click", () => {
+                categoriaActiva = tab.dataset.tab;
+                tabs.forEach((t) => t.classList.toggle("is-active", t === tab));
+                aplicarFiltro();
+            });
+        });
+
+        inputBusqueda.addEventListener("input", (e) => {
+            textoBusqueda = e.target.value.trim();
+            aplicarFiltro();
+        });
+    </script>
+</BaseLayout>

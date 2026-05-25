@@ -1,0 +1,12 @@
+---
+import OptinBase from "./OptinBase.astro";
+
+/* Wrapper del optin para el lead magnet de Cerebro (contenido sobre
+   Claude / IA). Fija el form-id de MailerLite de esta oferta para que
+   su automatización de bienvenida dispare por destino del submit, no
+   por filtrado de UTMs posterior — los UTMs pueden faltar o llegar
+   incorrectos; el form-id siempre llega correcto. */
+const CEREBRO_FORM_ID = "188427651849914364";
+---
+
+<OptinBase {...Astro.props} formId={CEREBRO_FORM_ID} />

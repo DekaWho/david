@@ -1,12 +1,20 @@
 ---
 import Head from '../components/Head.astro';
+import Firma from '../components/Firma.astro';
+import { categorias } from '../data/categorias.js';
 
-const headProps = Astro.props;
+// frontmatter del .mdx llega bajo Astro.props.frontmatter; en .astro
+// llega como props directas. Soportamos las dos formas.
+const {
+  titulo,
+  readingTime = 2,
+  ...headProps
+} = Astro.props;
 ---
 <!doctype html>
 <html lang="es">
   <head>
-    <Head {...headProps} ogType={headProps.ogType ?? 'article'} />
+    <Head titulo={titulo} {...headProps} ogType={headProps.ogType ?? 'article'} favicon={headProps.favicon ?? 'writing'} />
   </head>
   <body class="post">
     <aside class="post-toc" aria-label="Índice de esta página">
@@ -19,12 +27,40 @@ const headProps = Astro.props;
         <span></span><span></span><span></span>
       </label>
       <div class="post-toc-panel">
-        <p class="post-toc-title">Índice de esta página</p>
+        <p class="post-toc-title">Más artículos</p>
+        <ul class="post-toc-otros">
+          {categorias.map((cat) => (
+            <li><a href={`/blog#${cat.slug}`}>Sobre {cat.nombre}</a></li>
+          ))}
+        </ul>
+
+        <p class="post-toc-title post-toc-title--indice">Índice de esta página</p>
         <ol class="post-toc-list"></ol>
       </div>
     </aside>
 
-    <slot />
+    <div class="banner">
+      <section class="hero">
+        <slot name="hero-title"><h1 id="post-top">{titulo}</h1></slot>
+        <p class="post-meta">
+          <time id="post-fecha"></time> · {readingTime} min de lectura
+        </p>
+        <div class="postit-wrap">
+          <div class="postit">
+            <span class="tape" aria-hidden="true"></span>
+            <strong>Escrito sin IA.</strong> La IA es genial para muchas cosas
+            pero no quiero que pierdas el tiempo leyendo frases de relleno y
+            palabrería vacía.
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <article class="cuerpo">
+      <slot />
+    </article>
+
+    <Firma id="post-end" />
 
     <script is:inline>
       const fechaEl = document.getElementById("post-fecha");

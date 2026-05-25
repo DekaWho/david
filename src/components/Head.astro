@@ -3,7 +3,7 @@ const {
   titulo,
   canonical = null,
   ogTitle = null,
-  ogDescription = null,
+  ogDescription = "Pulsa el enlace para descubrir cómo",
   ogImage = "https://davidvarea.com/imgs/profile-pic.webp",
   ogUrl = null,
   ogType = "website",
@@ -17,10 +17,16 @@ const finalOgTitle = ogTitle ?? titulo;
 const canonicalAbs = canonical ? `https://davidvarea.com${canonical}` : null;
 const finalOgUrl = ogUrl ?? canonicalAbs;
 const showOg = canonical !== null;
-const faviconHref = (size) =>
-  favicon === "money"
-    ? `/imgs/favicon-money-${size}.png`
-    : `/imgs/favicon${size}.png`;
+/* Brain reaprovecha el SVG del bloque "Tengo 2 cerebros" del index para
+   no generar variantes PNG: el navegador escala el SVG a cualquier tamaño
+   del tab. El resto siguen en PNG (set histórico, dos tamaños). */
+const faviconBrainSvg = favicon === "brain" ? "/imgs/svg/brain.svg" : null;
+const faviconPrefix = {
+  money: "/imgs/favicon-money-",
+  writing: "/imgs/favicon-writing-",
+  default: "/imgs/favicon",
+}[favicon] ?? "/imgs/favicon";
+const faviconHref = (size) => `${faviconPrefix}${size}.png`;
 ---
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -37,8 +43,14 @@ const faviconHref = (size) =>
 
 <link rel="stylesheet" href="/estilos/styles.css" />
 
-<link rel="icon" type="image/png" sizes="32x32" href={faviconHref(32)} />
-<link rel="icon" type="image/png" sizes="48x48" href={faviconHref(48)} />
+{faviconBrainSvg ? (
+  <link rel="icon" type="image/svg+xml" href={faviconBrainSvg} />
+) : (
+  <>
+    <link rel="icon" type="image/png" sizes="32x32" href={faviconHref(32)} />
+    <link rel="icon" type="image/png" sizes="48x48" href={faviconHref(48)} />
+  </>
+)}
 
 {showOg && (
   <>

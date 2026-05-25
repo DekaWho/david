@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import OptinCerebro from "../components/OptinCerebro.astro";
+---
+
+<BaseLayout
+    titulo="Desbloquea tu segundo cerebro | David Varea"
+    canonical="/cerebro"
+    ogTitle="Desbloquea tu segundo cerebro"
+    ogUrl="https://davidvarea.com/cerebro"
+    favicon="brain"
+>
+    <div class="banner">
+        <section class="hero">
+            <div class="hero-photo-wrap">
+                <img
+                    class="hero-photo"
+                    src="/imgs/profile-pic.webp"
+                    alt="David Varea"
+                />
+            </div>
+
+            <h1 class="banner-h1--small">
+                Pasé de ver cursos a x2 de velocidad porque no me daba la vida <span
+                    class="aside-hand">(y quería ir al grano)</span
+                > a destilar <u class="banner-mark"
+                    >8 horas de contenido en menos de 14 minutos</u
+                >
+                gracias a Claude y el concepto de "segundo cerebro digital"
+            </h1>
+
+            <p>
+                Te comparto un Google Doc de 3 páginas y media donde te muestro
+                cómo puedes hacerlo tú.
+            </p>
+
+            <OptinCerebro botonTexto="Envíame el Google Doc" />
+        </section>
+    </div>
+</BaseLayout>

@@ -81,6 +81,36 @@ document.querySelectorAll('.menu .menu-link').forEach(link => {
 /* Account ID de MailerLite (público, sale en la URL del endpoint de subscribe). */
 const ML_ACCOUNT_ID = '1628594';
 
+/* Atribución de origen: captura UTMs y referrer al cargar y los persiste en
+   sessionStorage para que el handler del optin los adjunte al subscribe.
+   First-touch por sesión: si ya hay datos guardados no se pisan, así una
+   navegación interna posterior no borra el origen real del aterrizaje.
+   Los 4 campos se guardan crudos (sin derivar plataforma) — la lógica de
+   agrupar "instagram-orgánico", "chatgpt", "google-seo", etc. vive en
+   MailerLite vía segmentos sobre estos campos, no aquí. */
+(() => {
+    const ATTR_KEYS = ['utm_source', 'utm_medium', 'utm_content', 'referrer'];
+    if (ATTR_KEYS.some(k => sessionStorage.getItem(k) !== null)) return;
+
+    const params = new URLSearchParams(location.search);
+    sessionStorage.setItem('utm_source',  params.get('utm_source')  || '');
+    sessionStorage.setItem('utm_medium',  params.get('utm_medium')  || '');
+    sessionStorage.setItem('utm_content', params.get('utm_content') || '');
+
+    /* Referrer hostname, con `www.` normalizado y navegación interna
+       descartada. Conservamos subdominios (l.instagram.com, lnkd.in, t.co)
+       crudos para que en MailerLite se vea que vino por un shortener
+       propio de la plataforma. */
+    let referrer = '';
+    if (document.referrer) {
+        try {
+            const host = new URL(document.referrer).hostname.replace(/^www\./, '');
+            if (host !== 'davidvarea.com') referrer = host;
+        } catch (_) { /* referrer malformado: lo dejamos vacío */ }
+    }
+    sessionStorage.setItem('referrer', referrer);
+})();
+
 /* Universal de MailerLite: tracking de pageviews + motor de popups.
    Cargado solo en páginas que importan scripts.js → landings comerciales,
    no en páginas de servicio (privacidad, 404, gracias, etc.). */
@@ -124,13 +154,21 @@ document.querySelectorAll('form[data-ml-form-id]').forEach(form => {
         /* ultimo_optin: campo custom en MailerLite. Se deriva del pathname
            para que el mismo form-id en cualquier página etiquete su origen
            sin marcar cada HTML. /blog/viralidad → blog-viralidad,
-           /mapa → mapa. Sobreescribe en cada suscripción; el "primer optin"
+           /robame → robame. Sobreescribe en cada suscripción; el "primer optin"
            se copia desde MailerLite a otro campo vía automation. */
         const origen = location.pathname
             .replace(/\.html$/, '')
             .replace(/^\/+|\/+$/g, '')
             .replace(/\//g, '-') || 'home';
         body.append('fields[ultimo_optin]', origen);
+
+        /* Atribución de origen capturada al cargar la página (bloque arriba).
+           Vacíos se envían como "" — MailerLite los acepta y mantiene la
+           columna consistente para segmentar después. */
+        body.append('fields[utm_source]',  sessionStorage.getItem('utm_source')  || '');
+        body.append('fields[utm_medium]',  sessionStorage.getItem('utm_medium')  || '');
+        body.append('fields[utm_content]', sessionStorage.getItem('utm_content') || '');
+        body.append('fields[referrer]',    sessionStorage.getItem('referrer')    || '');
 
         try {
             /* mode: 'no-cors' → el POST llega a MailerLite, pero no podemos

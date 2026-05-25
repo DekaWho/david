@@ -1,126 +1,128 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
+
 <BaseLayout
-  titulo="David Varea | Marketing centrado en rentabilidad"
-  canonical="/"
-  ogTitle="🤝 David Varea"
-  ogDescription="El director de marketing en las sombras"
-  ogUrl="https://davidvarea.com"
+    titulo="David Varea | Marketing centrado en rentabilidad"
+    canonical="/"
+    ogTitle="🤝 David Varea"
+    ogDescription="El director de marketing en las sombras"
+    ogUrl="https://davidvarea.com"
 >
-  <main class="stage">
-    <section class="hero-card">
-      <div class="hero-photo-wrap">
-        <img
-          class="hero-photo"
-          src="/imgs/profile-pic.webp"
-          alt="David Varea"
-        />
-      </div>
+    <main class="stage">
+        <section class="hero-card">
+            <div class="hero-photo-wrap">
+                <img
+                    class="hero-photo"
+                    src="/imgs/profile-pic.webp"
+                    alt="David Varea"
+                />
+            </div>
 
-      <h1 class="hero-headline">
-        Mis clientes han facturado
-        <span class="hl-squiggle">
-          <span class="squiggle-text">2.4 millones</span>
-          <svg
-            class="squiggle-svg"
-            viewBox="0 0 140 10"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M2 5 Q 35 1 70 5 T 138 5"
-              stroke-width="2.4"
-              fill="none"
-              stroke-linecap="round"
-            />
-          </svg>
-        </span>
-        de € con mi ayuda
-      </h1>
+            <h1 class="hero-headline">
+                Mis clientes han facturado
+                <span class="hl-squiggle">
+                    <span class="squiggle-text">2.4 millones</span>
+                    <svg
+                        class="squiggle-svg"
+                        viewBox="0 0 140 10"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M2 5 Q 35 1 70 5 T 138 5"
+                            stroke-width="2.4"
+                            fill="none"
+                            stroke-linecap="round"></path>
+                    </svg>
+                </span>
+                de € con mi ayuda
+            </h1>
 
-      <div class="postit-wrap">
-        <div class="postit">
-          <span class="tape" aria-hidden="true"></span>
-          Este título es para mí mismo, para
-          <span class="bold">fascinar al David Varea de hace 3 años.</span>
-          No sabía ni qué significaba funnel y quiso ser autodidacta..
+            <div class="postit-wrap">
+                <div class="postit">
+                    <span class="tape" aria-hidden="true"></span>
+                    Este título es para mí mismo, para
+                    <span class="bold"
+                        >fascinar al David Varea de hace 3 años.</span
+                    >
+                    No sabía ni qué significaba funnel y quiso ser autodidacta..
+                </div>
+            </div>
+        </section>
+
+        <span class="section-arrow" aria-hidden="true"></span>
+
+        <div class="section-heading">
+            <span class="caret">▾</span>
+            Qué te trae por aquí
         </div>
-      </div>
-    </section>
 
-    <div class="section-heading">
-      <span class="caret">▾</span>
-      Qué te trae por aquí
-    </div>
+        <nav class="blocks" aria-label="Secciones">
+            <a
+                class="block block--primary"
+                href="/robame"
+                target="_blank"
+                rel="noopener"
+                draggable="false"
+            >
+                <span class="handle" aria-hidden="true">⋮⋮</span>
+                <img class="icon" src="/imgs/svg/money-bag.svg" alt="💰" />
+                <span class="body">
+                    <span class="subtitle-hand">debo estar loco...</span>
+                    <span class="title"
+                        >Róbame 19.970€ sin&nbsp;mover un&nbsp;dedo</span
+                    >
+                </span>
+                <span class="arrow" aria-hidden="true">→</span>
+            </a>
 
-    <nav class="blocks" aria-label="Secciones">
-      <svg
-        class="arrow-doodle"
-        viewBox="0 0 100 100"
-        aria-hidden="true"
-      >
-        <path
-          d="M 92 6 Q 28 48 35 92"
-          stroke-width="2.8"
-          fill="none"
-          stroke-linecap="round"
-        />
-        <path
-          d="M 35 92 L 23 80"
-          stroke-width="2.8"
-          fill="none"
-          stroke-linecap="round"
-        />
-        <path
-          d="M 35 92 L 49 82"
-          stroke-width="2.8"
-          fill="none"
-          stroke-linecap="round"
-        />
-      </svg>
+            <a
+                class="block block--secondary"
+                href="/cerebro"
+                target="_blank"
+                rel="noopener"
+                draggable="false"
+            >
+                <span class="handle" aria-hidden="true">⋮⋮</span>
+                <img class="icon" src="/imgs/svg/brain.svg" alt="🧠" />
+                <span class="body">
+                    <span class="title">Tengo 2 cerebros</span>
+                    <span class="subtitle-hand">y muy mala memoria</span>
+                </span>
+                <span class="badge">GRATIS</span>
+                <span class="arrow" aria-hidden="true">→</span>
+            </a>
 
-      <a
-        class="block block--primary"
-        href="/director"
-        target="_blank"
-        rel="noopener"
-        draggable="false"
-      >
-        <span class="handle" aria-hidden="true">⋮⋮</span>
-        <img class="icon" src="/imgs/svg/handshake.svg" alt="🤝" />
-        <span class="body">
-          <span class="title">Mis servicios B2B</span>
-          <span class="subtitle-hand">CMO en las sombras + Copywriter</span>
-        </span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
+            <a
+                class="block block--secondary"
+                href="/servicios"
+                target="_blank"
+                rel="noopener"
+                draggable="false"
+            >
+                <span class="handle" aria-hidden="true">⋮⋮</span>
+                <img class="icon" src="/imgs/svg/handshake.svg" alt="🤝" />
+                <span class="body">
+                    <span class="title">Mis servicios B2B</span>
+                    <span class="subtitle-hand"
+                        >CMO en las sombras + Copywriter</span
+                    >
+                </span>
+                <span class="arrow" aria-hidden="true">→</span>
+            </a>
+        </nav>
+    </main>
 
-      <a
-        class="block block--secondary"
-        href="mapa"
-        target="_blank"
-        rel="noopener"
-        draggable="false"
-      >
-        <span class="handle" aria-hidden="true">⋮⋮</span>
-        <img class="icon" src="/imgs/svg/soccer-ball.svg" alt="⚽" />
-        <span class="body">
-          <span class="subtitle-hand">si ya tienes clientes</span>
-          <span class="title">Cómo dar el pelotazo y vivir chill</span>
-        </span>
-        <span class="badge">gratis</span>
-        <span class="arrow" aria-hidden="true">→</span>
-      </a>
-    </nav>
-  </main>
-
-  <script is:inline src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
-  <script is:inline>
-    Sortable.create(document.querySelector(".blocks"), {
-      handle: ".handle",
-      animation: 150,
-      ghostClass: "block--ghost",
-    });
-  </script>
+    <script
+        is:inline
+        src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"
+    ></script>
+    <script is:inline>
+        Sortable.create(document.querySelector(".blocks"), {
+            handle: ".handle",
+            animation: 150,
+            ghostClass: "block--ghost",
+        });
+    </script>
 </BaseLayout>
