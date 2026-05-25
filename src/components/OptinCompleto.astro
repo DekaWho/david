@@ -1,0 +1,43 @@
+---
+import OptinRobame from './OptinRobame.astro';
+
+// Variante completa del bloque opt-in autoral. Foto + nombre + párrafo
+// serif "Me he gastado 19.970€…" + captura de las carpetas de conocimiento
+// + cierre Kalam "Róbame hasta…" + form. Pensada para mitad de artículo,
+// donde el lector aún no tiene el contexto del CTA y necesita el porqué.
+// Para sitios donde el lector ya leyó (cierre de post, segunda aparición,
+// landings con contexto previo) usar OptinReducido.astro.
+//
+// `id` opcional: PostLayout pasa "post-end" cuando una variante reducida
+// cierra el post; los .mdx insertan esta versión completa sin id para no
+// duplicar anchors.
+const { id } = Astro.props;
+---
+
+<section class="optin-bloque" id={id}>
+    <img
+        class="hero-photo"
+        src="/imgs/profile-pic.webp"
+        alt="David Varea"
+        loading="lazy"
+    />
+    <div>
+        <p class="optin-bloque-nombre">David Varea</p>
+        <p class="optin-bloque-pitch">
+            Me he gastado <span class="mark-amarillo">19.970€ en cursos y mentorías</span> de marketing directo, IA y emprendimiento para que <u>tú no tengas que hacerlo</u>
+        </p>
+    </div>
+
+    <img
+        class="banner-proof"
+        src="/imgs/conocimiento.webp"
+        alt="todo el conocimiento ordenado en carpetas"
+        loading="lazy"
+        decoding="async"
+    />
+    <p class="hand">
+        Róbame hasta 19.970€ desde el sofá de tu casa mirando el móvil
+    </p>
+
+    <OptinRobame />
+</section>

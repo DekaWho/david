@@ -412,6 +412,10 @@ li::marker {
     line-height: 1.22;
 }
 
+.titulo-compacto {
+    margin-top: 2.5em;
+}
+
 /* Captura/screenshot embebida en el banner como prueba (ej: peso de la
    carpeta de formaciones en /robame). Ancho acotado para no romper la
    columna del hero ni desplazar el CTA fuera del fold en móvil. */
@@ -419,7 +423,35 @@ li::marker {
     display: block;
     max-width: clamp(320px, 85%, 460px);
     height: auto;
-    margin: clamp(2.4rem, 5.5vh, 3.6rem) auto clamp(1.1rem, 2.8vh, 1.8rem);
+    margin: 1rem auto;
+}
+
+/* Scope al banner de /robame por la presencia de .banner-proof. Otros
+   banners (cerebro, servicios, home, blog) no tienen esa imagen y
+   conservan el padding-top global del .banner. */
+.banner:has(.banner-proof) {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.banner:has(.banner-proof) .optin {
+    margin-bottom: 0;
+}
+
+/* Pie manuscrito en rojo: tipografía pequeña, Kalam, centrada. Dos
+   contextos cubiertos por el mismo selector compuesto:
+   - .banner-proof + .hand → caption bajo la captura (banner de /robame
+     y OptinCompleto, donde el párrafo Kalam sigue a la imagen).
+   - .optin-bloque .hand → OptinReducido (sin imagen previa, el mismo
+     párrafo Kalam vive encima del form). */
+.banner-proof + .hand,
+.optin-bloque .hand {
+    max-width: 80%;
+    margin: 0.5rem auto;
+    text-align: center;
+    line-height: 1.15;
+    font-size: calc(var(--text-body) * 0.75);
+    color: var(--rojo);
 }
 
 /* Aside inline en Kalam dentro del h1 del banner: solo cambia la familia
@@ -1768,18 +1800,14 @@ audio::-webkit-media-controls-panel {
     .optin {
         margin-bottom: 0;
     }
-
-    .firma {
-        margin-top: clamp(0.6rem, 1.5vh, 1rem);
-    }
 }
 
 /* El SVG del .squiggle global lleva vector-effect: non-scaling-stroke,
    así el grosor en px se mantiene aunque el span estire horizontalmente;
-   en h1 (font grande) queda fino y lejos del baseline, así que sube el
-   stroke en el data URI y comprime padding-bottom. */
+   en h1 (font grande) el padding-bottom se comprime para acercar la raya
+   al baseline. */
 .banner h1 .squiggle {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='3' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='2.3' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
     padding-bottom: 0.05em;
 }
 
@@ -1813,7 +1841,7 @@ audio::-webkit-media-controls-panel {
 /* width 100% + border-box explícitos: el <input type="email"> trae width
    intrínseco del navegador (basado en el size attribute) que no respeta el
    align-items: stretch del flex padre. Sin forzarlo aquí, cada contexto que
-   monte un .optin (.banner, .post-firma, .cuerpo…) tendría
+   monte un .optin (.banner, .optin-bloque, .cuerpo…) tendría
    que duplicar el override. border-box para que el border de 2px no se
    sume al 100% y lo deje más estrecho que el botón vecino. */
 .optin input {
@@ -1843,9 +1871,13 @@ audio::-webkit-media-controls-panel {
 
 /* Override del .banner .block--primary .title (sección 4): el CTA del
    opt-in convive con el input al lado, y el tamaño del banner CTA estándar
-   eclipsa visualmente al cajetín. Bajamos un escalón. */
+   eclipsa visualmente al cajetín. Bajamos un escalón. El font-weight 500
+   replica el override que .banner .block--primary .title aplica a /robame
+   — universaliza el peso para que cualquier optin (bloques OptinCompleto/
+   OptinReducido, futuras landings) lea igual de ligero. */
 .optin .block--primary .title {
     font-size: clamp(18px, 1.8vw, 22px);
+    font-weight: 500;
 }
 
 .privacy-note {
@@ -1859,13 +1891,6 @@ audio::-webkit-media-controls-panel {
 .privacy-note a {
     color: inherit;
     text-decoration: underline;
-}
-
-.firma {
-    max-width: 560px;
-    margin: clamp(2.2rem, 5vh, 3.4rem) auto 0;
-    font-size: clamp(0.75rem, 0.85vw, 0.9rem);
-    line-height: 1.4;
 }
 
 /* Patrón estándar de label visualmente oculto pero anunciable por screen
@@ -1982,7 +2007,7 @@ audio::-webkit-media-controls-panel {
    la lectura — los párrafos parecen islas y los items de lista parecen
    listas separadas. Comprimimos un escalón. Selector `> p` para que solo
    afecte a párrafos del cuerpo de lectura, no a párrafos anidados en
-   secciones con espaciado propio (.post-firma, .privacy-note dentro del
+   secciones con espaciado propio (.optin-bloque, .privacy-note dentro del
    form de captación, etc.). */
 .post .cuerpo > p {
     margin-bottom: var(--gap-xl);
@@ -2025,20 +2050,18 @@ audio::-webkit-media-controls-panel {
     color: var(--rojo);
 }
 
-/* Firma + CTA del blog. Aparece dos veces en el mismo post (mid-article y
-   al pie); ambas posiciones comparten el mismo bloque visual. Banda blanca
-   full-bleed (truco box-shadow + clip-path de .lista-azul) para diferenciar
-   el bloque del fondo crema del papel del cuerpo — el blanco se extiende
-   hasta el borde del viewport sin afectar el max-width del contenido
-   interior. Vive FUERA del <article class="cuerpo"> en el pie y en un
-   wrapper neutro mid-article — la regla .post .cuerpo > img de abajo
-   rompería el ancho del cuerpo para imágenes de prosa y convertiría tanto
-   el retrato circular como la screenshot 254 GB en panoramas. */
-/* Columna en todos los viewports (foto + nombre + manuscrito + screenshot
-   + form). max-width cap para que el bloque no se estire en monitores
-   grandes — el texto manuscrito centrado pierde si las líneas son
-   demasiado largas. */
-.post-firma {
+/* Bloque opt-in autoral. Clase base compartida por OptinCompleto y
+   OptinReducido — layout (flex column centrado), foto, nombre, párrafo
+   Kalam y form se rigen por las mismas reglas; la diferencia entre
+   variantes es solo qué elementos se montan en el markup, no estilo.
+   Banda blanca full-bleed (truco box-shadow + clip-path de .lista-azul)
+   para diferenciar el bloque del fondo crema del papel del cuerpo. Vive
+   FUERA del <article class="cuerpo"> — la regla .post .cuerpo > img de
+   abajo rompería el ancho del cuerpo y convertiría tanto el retrato
+   circular como la captura de las carpetas en panoramas.
+   max-width cap para que el bloque no se estire en monitores grandes:
+   el texto Kalam centrado pierde si las líneas son demasiado largas. */
+.optin-bloque {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2053,7 +2076,7 @@ audio::-webkit-media-controls-panel {
     clip-path: inset(0 -100vmax);
 }
 
-.post-firma .hero-photo {
+.optin-bloque .hero-photo {
     width: 30%;
     aspect-ratio: 1;
     height: auto;
@@ -2061,7 +2084,7 @@ audio::-webkit-media-controls-panel {
     margin: 0;
 }
 
-.post-firma .firma-nombre {
+.optin-bloque .optin-bloque-nombre {
     margin: 0;
     font-family: var(--serif);
     font-size: 1.5rem;
@@ -2070,18 +2093,21 @@ audio::-webkit-media-controls-panel {
     line-height: 1.2;
 }
 
-.post-firma .firma-mano {
+.optin-bloque .optin-bloque-pitch {
     margin: 0.5rem 0 0;
-    font-family: var(--hand);
-    font-size: 1rem;
+    font-family: var(--serif);
+    font-size: var(--text-body);
     color: var(--negro);
     line-height: 1.4;
 }
 
 /* Texto en negro pero el subrayado del <u> en rojo: text-decoration-color
-   pinta solo la línea sin afectar al color del texto. */
-.post-firma .firma-mano u {
+   pinta solo la línea sin afectar al color del texto. Thickness recortado
+   respecto al global del <u> para que la línea fina case con el peso del
+   párrafo serif sin pisarlo. */
+.optin-bloque .optin-bloque-pitch u {
     text-decoration-color: var(--rojo);
+    text-decoration-thickness: 0.09em;
 }
 
 /* Imagen del cuerpo en desktop: rompe el ancho del .cuerpo (36vw) para
@@ -2093,7 +2119,7 @@ audio::-webkit-media-controls-panel {
    En móvil la imagen vuelve al 100% del .cuerpo (regla global de abajo).
    Selector `> img` para que solo afecte a imágenes de contenido (hijas
    directas del <article>), no a iconos dentro de botones (.block .icon)
-   ni a la imagen de la .post-firma que tiene su propio ancho de lectura. */
+   ni a la imagen de la .optin-bloque que tiene su propio ancho de lectura. */
 @media (min-width: 801px) {
     .post .cuerpo > img {
         width: clamp(36vw, 60vw, 800px);
@@ -2127,27 +2153,12 @@ audio::-webkit-media-controls-panel {
     box-decoration-break: clone;
 }
 
-/* Override para Kalam: la x-height pequeña y descenders pronunciados de la
-   manuscrita dejan la franja base (60-92%) por debajo del trazo. Subimos
-   los stops para que el rotulador caiga sobre la mitad inferior del
-   cuerpo real de la letra, no sobre los descenders. */
-.firma-mano .mark-amarillo {
-    background-image: linear-gradient(
-        180deg,
-        transparent 0,
-        transparent 50%,
-        var(--amarillo) 50%,
-        var(--amarillo) 72%,
-        transparent 72%
-    );
-}
-
 /* Imagen del cuerpo de post: centrada, no se sale del ancho de lectura,
    con respiración top/bottom alineada al ritmo de los <p>. La carga es
    lazy + async porque suelen ir bajo el fold del post. Selector `> img`
    para que solo afecte a imágenes de contenido (hijas directas del
    <article>), no a iconos dentro de botones (.block .icon) ni a imágenes
-   anidadas en secciones como .post-firma que tienen estilo propio. */
+   anidadas en secciones como .optin-bloque que tienen estilo propio. */
 .cuerpo > img {
     display: block;
     max-width: 100%;
@@ -2171,7 +2182,7 @@ audio::-webkit-media-controls-panel {
 }
 
 /* Avatar de cita: foto circular del autor citado a la izquierda del
-   blockquote. Mismo idioma gráfico que la foto de la .post-firma
+   blockquote. Mismo idioma gráfico que la foto de la .optin-bloque
    (círculo + object-fit cover) pero más recogida porque va inline en
    el cuerpo, no cerrando el post. El blockquote pasa a flex cuando
    contiene un .quote-avatar; align-items flex-start ancla la foto
@@ -2256,7 +2267,7 @@ audio::-webkit-media-controls-panel {
     /* En desktop el form del opt-in está acotado a 480px para que el input
        no se estire absurdo en pantallas grandes. En móvil esa cota deja
        margen lateral que no aporta — que el input use todo el ancho útil. */
-    .post-firma .optin {
+    .optin-bloque .optin {
         max-width: none;
         width: 100%;
     }

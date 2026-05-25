@@ -1,6 +1,6 @@
 ---
 import Head from '../components/Head.astro';
-import Firma from '../components/Firma.astro';
+import OptinReducido from '../components/OptinReducido.astro';
 import { categorias } from '../data/categorias.js';
 
 // frontmatter del .mdx llega bajo Astro.props.frontmatter; en .astro
@@ -60,7 +60,7 @@ const {
       <slot />
     </article>
 
-    <Firma id="post-end" />
+    <OptinReducido id="post-end" />
 
     <script is:inline>
       const fechaEl = document.getElementById("post-fecha");

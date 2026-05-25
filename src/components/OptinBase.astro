@@ -15,7 +15,7 @@
 const {
     formId,
     successUrl = "/not-done",
-    botonTexto = "Envíame 3 claves imprescindibles",
+    botonTexto = "Recibir los mejores emails de Varea",
     botonIcono = "/imgs/svg/email.svg",
     mostrarPrivacyNote = true,
 } = Astro.props;
@@ -41,12 +41,10 @@ if (!formId) {
     {
         mostrarPrivacyNote && (
             <p class="privacy-note">
-                Al enviar el formulario aceptas recibir correos. Puedes leer las
-                burocráticas políticas de privacidad
+                Puedes leer las burocráticas políticas de privacidad
                 <a href="/privacidad" target="_blank" rel="noopener">
                     aquí
                 </a>
-                .
             </p>
         )
     }
