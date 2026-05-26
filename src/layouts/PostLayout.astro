@@ -1,6 +1,7 @@
 ---
 import Head from '../components/Head.astro';
 import OptinReducido from '../components/OptinReducido.astro';
+import Footer from '../components/Footer.astro';
 import { categorias } from '../data/categorias.js';
 
 // frontmatter del .mdx llega bajo Astro.props.frontmatter; en .astro
@@ -43,7 +44,7 @@ const {
       <section class="hero">
         <slot name="hero-title"><h1 id="post-top">{titulo}</h1></slot>
         <p class="post-meta">
-          <time id="post-fecha"></time> · {readingTime} min de lectura
+          <time id="post-fecha"></time> · {readingTime} min de lectura · Por <a href="/sobre-mi" rel="author">David Varea</a>
         </p>
         <div class="postit-wrap">
           <div class="postit">
@@ -61,6 +62,8 @@ const {
     </article>
 
     <OptinReducido id="post-end" />
+
+    <Footer />
 
     <script is:inline>
       const fechaEl = document.getElementById("post-fecha");

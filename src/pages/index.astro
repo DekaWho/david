@@ -1,12 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import { BIO_CANONICA } from "../data/bio.js";
 ---
 
 <BaseLayout
-    titulo="David Varea | Marketing centrado en rentabilidad"
+    titulo="David Varea | Director de marketing en las sombras"
     canonical="/"
     ogTitle="🤝 David Varea"
-    ogDescription="El director de marketing en las sombras"
+    ogDescription={BIO_CANONICA}
     ogUrl="https://davidvarea.com"
 >
     <main class="stage">
@@ -71,13 +73,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 <span class="body">
                     <span class="subtitle-hand">debo estar loco...</span>
                     <span class="title"
-                        >Róbame hasta 19.970€ desde&nbsp;el sofá</span
+                        >Róbame hasta 19.970€ desde&nbsp;tu sofá</span
                     >
                 </span>
                 <span class="arrow" aria-hidden="true">→</span>
             </a>
 
-            <a
+            <!-- <a
                 class="block block--secondary"
                 href="/cerebro"
                 target="_blank"
@@ -92,7 +94,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 </span>
                 <span class="badge">CLAUDE</span>
                 <span class="arrow" aria-hidden="true">→</span>
-            </a>
+            </a> -->
 
             <a
                 class="block block--secondary"
@@ -113,6 +115,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             </a>
         </nav>
     </main>
+
+    <Footer />
 
     <script
         is:inline

@@ -1,0 +1,182 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Menu from "../components/Menu.astro";
+import Footer from "../components/Footer.astro";
+import OptinCompleto from "../components/OptinCompleto.astro";
+import { BIO_CANONICA } from "../data/bio.js";
+
+/* ProfilePage cuya mainEntity es el Person global declarado en Head.astro
+   (#person). Refuerza la consolidación de la entidad David Varea en el
+   grafo de schema del dominio: este URL es la página de perfil canónica. */
+const profileSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": "https://davidvarea.com/sobre-mi#profile",
+    url: "https://davidvarea.com/sobre-mi",
+    mainEntity: { "@id": "https://davidvarea.com/#person" },
+    about: { "@id": "https://davidvarea.com/#person" },
+};
+---
+
+<BaseLayout
+    titulo="Sobre David Varea | Director de marketing freelance y copywriter"
+    canonical="/sobre-mi"
+    ogTitle="Sobre David Varea"
+    ogDescription={BIO_CANONICA}
+    ogUrl="https://davidvarea.com/sobre-mi"
+>
+    <Menu />
+
+    <div class="banner">
+        <section class="hero">
+            <div class="hero-photo-wrap">
+                <img
+                    class="hero-photo"
+                    src="/imgs/profile-pic.webp"
+                    alt="David Varea"
+                />
+            </div>
+
+            <h2>
+                <span class="banner-subline">David Varea</span>
+            </h2>
+
+            <h1>
+                <u class="banner-mark">Director de marketing</u> freelance y copywriter
+                de respuesta directa
+            </h1>
+
+            <p class="post-meta">Ecommerce · Infoproducto · SaaS</p>
+        </section>
+    </div>
+
+    <div class="cuerpo">
+        <h2>Qué hago</h2>
+
+        <p>
+            Me dedico al marketing que busca la <strong
+                >rentabilidad y la escalabilidad del negocio</strong
+            >.
+        </p>
+
+        <p>
+            <strong>Copywriting de respuesta directa</strong> en todas sus vertientes
+            (páginas de venta, VSL, guiones para anuncios, webinnars, email/whatsapp
+            marketing, fichas de producto, contenido en instagram calibrando el ratio
+            entre viralidad y llegar a tus clientes ideales). Nada de branding y anuncios
+            creativos centrados en ganar premios.
+        </p>
+
+        <p>
+            Mi <em>north star metric</em> es <strong>LTGP:CAC</strong>. A partir
+            de ahí detecto el cuello de botella del negocio y decido qué métrica
+            optimizar: CAC, LTV, payback, recompra por cohorte o ROAS por canal.
+        </p>
+
+        <p>
+            Trabajo en remoto desde Valencia (España) con <strong
+                >ecommerce, infoproductores, coaches y SaaS.</strong
+            >
+        </p>
+
+        <h2><span class="squiggle squiggle--rojo">Cómo llegué</span> aquí</h2>
+
+        <p>
+            Empecé como freelance en <strong>marzo de 2017</strong> editando vídeos.
+        </p>
+
+        <p>
+            Entre octubre de 2019 y diciembre de 2024 trabajé la estrategia de
+            contenido de varios canales de <strong
+                >YouTube de entretenimiento</strong
+            > y videojuegos. El canal de <em>Chuso Montero</em> lo empezamos de 0
+            y lo llevamos a
+            <strong>109K suscriptores en 2 años</strong> (durante la época más saturada
+            de oferta: 2020-2022).
+        </p>
+
+        <p>
+            Sumando todos los canales los vídeos generaron más de <strong
+                >100 millones de reproducciones orgánicas</strong
+            > en vídeos horizontales.
+        </p>
+
+        <p>
+            En diciembre de 2024 me especialicé en <strong
+                >copywriting de respuesta directa y estrategía de embudos de
+                venta</strong
+            >. A partir de ahí seguí hasta tener el mapa completo del marketing
+            rentable y el negocio escalable. La perspectiva de director de
+            marketing.
+        </p>
+
+        <h2>Resultados representativos</h2>
+
+        <div class="aviso-mano">
+            <span class="aviso-mano-icono" aria-hidden="true"></span>
+            <p>
+                Tanto si fui <u>estratega</u> como <u>copywriter</u> estos resultados
+                son fruto del trabajo en equipo
+            </p>
+        </div>
+
+        <ul class="bold-odd">
+            <li>
+                560 pedidos en 14 minutos. Ese fue el resultado de un email
+                único enviado al segmento de no compradores de un ecommerce. Sin
+                hype previo ni secuencia de calentamiento.
+            </li>
+
+            <li>
+                Aunque publicitarse en TV es cosa del pasado, escribí el copy
+                para un anuncio que se emitió en A3Media. Durante diversos
+                programas como Pasapalabra o El intermedio.
+            </li>
+
+            <li class="logro--email">
+                Tasa de apertura 35-60% (de clientes) en campañas de email
+                marketing y flows automatizados en Klaviyo para una lista de un
+                ecommerce con más de 340.000 emails.
+            </li>
+
+            <li>
+                Escribí una landing para tráfico frío sin poder usar prueba
+                social u otro tipo de autoridad de marca. Un MVP para testear si
+                una nueva marca tenía tracción en ese mercado. Tuvo un 33.9% de
+                añadido al carrito.
+            </li>
+
+            <li>
+                El primer mes que entré en una fintech (para implementar la
+                estrategia de email diario) batió su propio récord de
+                facturación mensual.
+            </li>
+
+            <li>
+                Facturación de 6 cifras con un par de emails que se enviaron
+                durante 48h vendiendo un producto low ticket.
+            </li>
+
+            <li>
+                Hice los emails de una campaña que redujo el CAC un 39.8%
+                respecto a los meses anteriores, despertando leads zombie
+                (estaban en la lista meses sin haber comprado nada)
+            </li>
+
+            <li class="logro--flag">
+                Varios millones de euros. Esa es la suma de toda la facturación
+                generada con piezas que llevan mi copy.
+            </li>
+        </ul>
+    </div>
+
+    <OptinCompleto />
+
+    <Footer />
+
+    <script
+        type="application/ld+json"
+        is:inline
+        set:html={JSON.stringify(profileSchema)}
+    />
+</BaseLayout>

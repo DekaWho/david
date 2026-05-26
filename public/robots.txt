@@ -4,4 +4,16 @@ Disallow: /done
 Disallow: /not-done
 Disallow: /formulario-recibido
 
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 Sitemap: https://davidvarea.com/sitemap.xml

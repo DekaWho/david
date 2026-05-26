@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Menu from "../components/Menu.astro";
+import Footer from "../components/Footer.astro";
+
+/* JSON-LD ContactPage: tipo canónico que Google y los LLMs reconocen
+   como "página de contacto del titular". Refuerza el grafo de la
+   entidad (mainEntity apunta al Person global de Head.astro). */
+const contactSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "@id": "https://davidvarea.com/contacto#contactpage",
+    url: "https://davidvarea.com/contacto",
+    mainEntity: { "@id": "https://davidvarea.com/#person" },
+};
+---
+
+<BaseLayout
+    titulo="Contacto | David Varea"
+    canonical="/contacto"
+    ogTitle="Contacto"
+    ogDescription="Las dos formas en que te puedo ayudar y cómo escribirme."
+    ogUrl="https://davidvarea.com/contacto"
+    bodyClass="contacto-page"
+>
+    <Menu enlaces={[{ href: "/", label: "Portada", iconoCasa: true }]} />
+
+    <main class="stage">
+        <section class="hero-card">
+            <div class="hero-photo-wrap">
+                <img
+                    class="hero-photo"
+                    src="/imgs/profile-pic.webp"
+                    alt="David Varea"
+                />
+            </div>
+
+            <h1 class="hero-headline">Puedo hacer 2 cosas por ti</h1>
+
+            <div class="postit-wrap">
+                <div class="postit">
+                    <span class="tape" aria-hidden="true"></span>
+                    <span class="postit-icono" aria-hidden="true"></span>
+                </div>
+            </div>
+        </section>
+
+        <div class="contacto-mensajes">
+            <ol>
+                <li>
+                    Darte un servicio. Aquí tienes
+                    <a href="/servicios">el formulario</a> para ello.
+                </li>
+                <li>
+                    Venderte formación, aunque puedes empezar por mi newsleter
+                    gratuita: <a href="/robame"
+                        >Róbame hasta 19.970€ desde el sofá de tu casa mirando
+                        el móvil</a
+                    >
+                </li>
+            </ol>
+
+            <p>
+                Puedes escribirme a
+                <a class="js-email" data-enc="Y29udGFjdG9AZGF2aWR2YXJlYS5jb20="
+                    >[si no ves la dirección activa JavaScript]</a
+                >, si tienes algo jugoso que ofrecerme.
+            </p>
+
+            <p class="hand">D. Varea.</p>
+        </div>
+    </main>
+
+    <Footer />
+
+    <script
+        type="application/ld+json"
+        is:inline
+        set:html={JSON.stringify(contactSchema)}
+    />
+
+    <script is:inline>
+        document.querySelectorAll(".js-email").forEach((el) => {
+            try {
+                const addr = atob(el.dataset.enc);
+                if (el.tagName === "A") {
+                    el.href = "mailto:" + addr;
+                    el.textContent = addr;
+                    el.rel = "nofollow";
+                } else {
+                    el.textContent = addr;
+                }
+            } catch (e) {
+                /* silencioso */
+            }
+        });
+    </script>
+</BaseLayout>

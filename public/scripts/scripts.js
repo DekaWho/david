@@ -200,7 +200,7 @@ document.querySelectorAll('form[data-ml-form-id]').forEach(form => {
     banner.setAttribute('aria-label', 'Aviso de cookies');
     banner.innerHTML = `
         <button type="button" class="cookie-banner__close" aria-label="Cerrar aviso">&times;</button>
-        <p class="cookie-banner__text">Texto muermazo para avisarte de que la web usa <strong>cookies</strong> para funcionar.</p>
+        <p class="cookie-banner__text">Texto muermazo para avisarte de que la web usa <strong>cookies</strong> para funcionar. <a class="cookie-banner__link" href="/privacidad" target="_blank" rel="noopener">Más info.</a></p>
         <button type="button" class="cookie-banner__accept">Aceptar</button>
     `;
     const dismiss = () => {

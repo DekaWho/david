@@ -136,8 +136,12 @@ body {
 
 /* ---------- 2. Tipografía base, listas, utilities ---------- */
 
+/* Tamaño base sensato para H1 sin override. Las páginas que pintan el
+   H1 dentro de un contenedor con su propia regla (`.banner h1`,
+   `.hero-headline`, `.banner-h1--small`, `.titulo-breaker`) ganan al
+   global; este clamp solo aplica cuando se monta un H1 plano. */
 h1 {
-    font-size: 2.8rem;
+    font-size: clamp(1.7rem, 3.5vw, 2.2rem);
     margin: 0 auto 0.8em;
     line-height: 1.1;
     color: var(--negro);
@@ -341,7 +345,8 @@ li::marker {
         color: var(--negro);
         text-decoration: none;
     }
-    .menu-link:hover .menu-link-arrow {
+    .menu-link:hover .menu-link-arrow,
+    .menu-link:hover .menu-link-icon {
         color: var(--negro);
     }
 }
@@ -354,6 +359,13 @@ li::marker {
     font-weight: 600;
     line-height: 1;
     display: inline-block;
+}
+
+.menu-link-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: var(--azul);
 }
 
 .menu-divider {
@@ -493,6 +505,16 @@ li::marker {
     letter-spacing: 0;
     transform: rotate(-1.2deg);
     transform-origin: left center;
+}
+
+/* Cuando el subline es el ÚNICO hijo del h2 (caso /sobre-mi: el h2 solo
+   lleva el nombre del autor en manuscrita, sin texto serif arriba ni
+   icono), sube el tamaño para que el nombre cargue como elemento
+   identitario, no como apostilla. En el patrón estándar (h2 con texto
+   serif + subline de subtítulo, ej. /servicios) el subline mantiene
+   su 0.75em de apostilla. */
+.banner h2:has(> .banner-subline:only-child) .banner-subline {
+    font-size: 1em;
 }
 
 .banner h2 {
@@ -940,7 +962,7 @@ p:has(+ .diamond) {
     max-width: 65%;
     margin: 0 auto var(--gap-2xl);
     color: var(--rojo);
-    transform: rotate(2deg);
+    transform: rotate(-2deg);
 }
 
 .aviso-mano-icono {
@@ -950,7 +972,7 @@ p:has(+ .diamond) {
     background-color: currentColor;
     -webkit-mask: url(/imgs/svg/warning.svg) center / contain no-repeat;
     mask: url(/imgs/svg/warning.svg) center / contain no-repeat;
-    transform: rotate(2deg);
+    transform: rotate(-2deg);
 }
 
 .aviso-mano p {
@@ -1936,8 +1958,18 @@ audio::-webkit-media-controls-panel {
     text-align: center;
 }
 
+/* Byline dentro del .post-meta: hereda el gris atenuado del entorno y
+   se marca como link solo con subrayado fino. Evita el azul de link por
+   defecto, que dominaría la línea editorial de metadatos. */
+.post-meta a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
+
 /* Aviso autoral "Escrito sin IA" dentro del masthead. El componente
-   .aviso-mano (sección 5) es rojo con tilt 2° pensado para anotación al
+   .aviso-mano (sección 5) es rojo con tilt -2° pensado para anotación al
    margen del cuerpo. Aquí vive dentro del banner blanco como anuncio
    formal del autor: azul de marca, sin rotación, márgenes recogidos. */
 .post .banner .aviso-mano {
@@ -2744,6 +2776,15 @@ body.blog-hub .banner-subline {
     color: var(--negro);
     text-align: center;
 }
+/* Enlace a /privacidad dentro del texto del banner. Gris atenuado y un
+   grado más pequeño que el copy para no competir con el botón Aceptar. */
+.cookie-banner__link {
+    font-size: 0.7em;
+    color: color-mix(in srgb, var(--negro) 55%, transparent);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
 .cookie-banner__accept {
     flex-shrink: 0;
     font-family: var(--sans);
@@ -2802,5 +2843,104 @@ body.blog-hub .banner-subline {
         padding-right: var(--gap-sm);
         padding-bottom: var(--gap-sm);
     }
+}
+
+/* ---------- Página /contacto ----------
+   Reutiliza el patrón .stage + .hero-card + .postit de la home, pero
+   sustituye el bloque inferior de .blocks clicables por párrafos
+   planos en .contacto-mensajes. Ancho ampliado a 620px (la stage de
+   la home se queda en 430px, demasiado estrecho para párrafos
+   largos); override scopeado con body.contacto-page para no afectar
+   a la home. */
+.contacto-page .stage {
+    max-width: 620px;
+}
+.contacto-mensajes {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 0 22px;
+    font-family: var(--serif);
+    line-height: 1.5;
+}
+.contacto-mensajes ol {
+    margin: 0 0 1.4rem;
+    padding-left: 1.4rem;
+}
+.contacto-mensajes li + li {
+    margin-top: 0.9rem;
+}
+.contacto-mensajes p {
+    margin: 0 0 1rem;
+}
+/* Enlaces del cuerpo en rojo: la página es un nodo de salida (los dos
+   links de la lista mandan a /servicios y /robame, el email es el CTA
+   final). El rojo señalético del sistema los marca como acción, no
+   como navegación azul corriente. Scopeado a .contacto-mensajes para
+   no tocar menú ni footer. */
+.contacto-mensajes a {
+    color: var(--rojo);
+}
+/* Los números del <ol> en azul para que la enumeración mantenga la voz
+   editorial del sistema, separada del rojo de los enlaces y del cierre
+   firmado. ::marker es el pseudo que pinta el número sin tener que
+   maquetar la lista con counters. */
+.contacto-mensajes ol li::marker {
+    color: var(--azul);
+}
+.contacto-mensajes .hand {
+    color: var(--azul);
+}
+.contacto-page .hero-card .hero-photo {
+    margin-top: 1rem;
+}
+/* SVG-icono dentro del postit. El archivo SVG actúa como máscara CSS
+   y se rellena con --rojo, así el icono queda intacto y se pinta del
+   color que decida la página. */
+.postit-icono {
+    display: block;
+    width: clamp(48px, 9vh, 72px);
+    height: clamp(48px, 9vh, 72px);
+    margin: 0.3rem auto;
+    background-color: var(--rojo);
+    mask-image: url("/imgs/svg/chat-svgrepo-com.svg");
+    -webkit-mask-image: url("/imgs/svg/chat-svgrepo-com.svg");
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+}
+
+/* Footer del sitio. Aparece solo en home, hub /blog, posts del blog,
+   /sobre-mi y /contacto (montado a mano en esas páginas, no en
+   BaseLayout — landings comerciales y transaccionales no lo llevan).
+   Registro editorial: serif gris, separadores · entre enlaces. Las
+   redes sociales no se exponen aquí; viven en el sameAs del JSON-LD
+   del Person para que las consuman los crawlers, no como icono visible. */
+.site-footer {
+    margin: 4rem auto 2rem;
+    padding: 1.5rem 1rem;
+    font-family: var(--serif);
+    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--negro) 55%, transparent);
+    text-align: center;
+    max-width: 60rem;
+}
+.site-footer a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 0.5px;
+    text-underline-offset: 0.2em;
+}
+.site-footer-sep {
+    display: inline-block;
+    margin: 0 0.4rem;
+    opacity: 0.5;
+}
+/* Cada fila del footer en su propia línea; gap pequeño entre las dos
+   para separarlas visualmente sin abrir el bloque. */
+.site-footer-row + .site-footer-row {
+    margin-top: 0.9rem;
 }
 

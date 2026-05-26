@@ -1,25 +1,39 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
-<BaseLayout
-  titulo="Correo confirmado"
-  noindex={true}
-  scripts={false}
-  trackLead={true}
->
-  <h1
-    class="titulo-breaker titulo-breaker--bg-claro"
-    style="color: var(--azul)"
-  >
-    Correo confirmado ✔︎
-  </h1>
 
-  <div class="cuerpo">
-    <p>
-      Tu pedido está en camino... Pero no te preocupes porque es una entrega
-      instantánea.
-      <strong class="text-rojo"><u>Revisa tu bandeja de correo</u></strong> y
-      ahí la tienes.
-    </p>
-  </div>
+<BaseLayout
+    titulo="Correo confirmado"
+    noindex={true}
+    scripts={false}
+    trackLead={true}
+>
+    <h1
+        style="margin-top: var(--gap-2xl); font-size: clamp(2.5rem, 5vw, 3.5rem);"
+    >
+        Correo confirmado ✔︎
+    </h1>
+
+    <div class="cuerpo">
+        <div class="callout" style="margin-bottom: var(--gap-md);">
+            <h2
+                style="font-family: var(--hand); font-weight: 700; font-size: clamp(1.1rem, 1.7vw, 1.4rem); margin-bottom: var(--gap-md); text-align: left; color: var(--rojo);"
+            >
+                Qué puedes esperar a partir de ahora:
+            </h2>
+            <ol style="padding-left: var(--gap-md); margin: 0;">
+                <li>
+                    Está a punto de llegarte el documento que te había
+                    prometido.
+                </li>
+                <li style="margin-bottom: 0;">
+                    Durante esta semana recibirás un email al día con más
+                    píldoras de conocimiento aplicable. Después de esos 7 te
+                    mandaré varios a la semana (<strong
+                        >pero no te prometo la alegría</strong
+                    > de un email diario).
+                </li>
+            </ol>
+        </div>
+    </div>
 </BaseLayout>

@@ -1,7 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Menu from "../../components/Menu.astro";
+import Footer from "../../components/Footer.astro";
 import { categorias } from "../../data/categorias.js";
+import { BIO_CANONICA } from "../../data/bio.js";
 
 type PostModule = {
     frontmatter: {
@@ -63,22 +65,24 @@ const totalPosts = posts.length;
     titulo="¿Un... blog? | David Varea"
     canonical="/blog"
     ogTitle="¿Un... blog? | David Varea"
-    ogDescription="Me he gastado 19.970€ en formaciones de marketing directo, IA y emprendimiento (aparte del conocimiento ganado dando servicios) para que tú no tengas que hacerlo"
+    ogDescription={BIO_CANONICA}
     ogUrl="https://davidvarea.com/blog"
     favicon="writing"
     bodyClass="blog-hub"
 >
-    <Menu enlaces={[{ href: "/", label: "Ir a la home", flechaIzq: "←" }]} />
+    <Menu enlaces={[{ href: "/", label: "Portada", iconoCasa: true }]} />
 
     <div class="banner">
         <section class="hero">
             <h1>¿Aún existen los blogs?</h1>
             <p class="blog-subline">
                 Me he gastado <u class="mark-amarillo"
-                    >19.970€ en formaciones de
-                </u>marketing directo, IA y emprendimiento (aparte del
-                conocimiento ganado dando servicios) para que tú no tengas que
-                hacerlo.
+                    >19.970€ en cursos y mentorías</u
+                > de marketing, viralidad, IA y emprendimiento (aparte de mi
+                experiencia dando servicios) para que <span
+                    class="squiggle squiggle--rojo"
+                    >tú no tengas que hacerlo</span
+                >.
             </p>
         </section>
     </div>
@@ -220,6 +224,8 @@ const totalPosts = posts.length;
             Ningún artículo coincide con tu búsqueda.
         </p>
     </main>
+
+    <Footer />
 
     <script
         type="application/json"

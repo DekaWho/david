@@ -1,4 +1,6 @@
 ---
+import { BIO_CANONICA } from '../data/bio.js';
+
 const {
   titulo,
   canonical = null,
@@ -17,6 +19,40 @@ const finalOgTitle = ogTitle ?? titulo;
 const canonicalAbs = canonical ? `https://davidvarea.com${canonical}` : null;
 const finalOgUrl = ogUrl ?? canonicalAbs;
 const showOg = canonical !== null;
+
+/* JSON-LD raíz de identidad del sitio. Person + WebSite con @id fijos
+   para que cualquier schema futuro (Article, BreadcrumbList) referencie
+   al mismo autor/sitio vía { "@id": "..." } sin redeclarar la entidad.
+   Va en todas las páginas, incluidas transaccionales: el coste es nulo
+   y la consolidación de entidad por crawlers de IA mejora cuando la
+   misma Person aparece en todo el grafo del dominio. */
+const siteSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://davidvarea.com/#person",
+      "name": "David Varea",
+      "url": "https://davidvarea.com/sobre-mi",
+      "image": "https://davidvarea.com/imgs/profile-pic.webp",
+      "jobTitle": "Director de marketing freelance y copywriter de respuesta directa",
+      "description": BIO_CANONICA,
+      "sameAs": [
+        "https://www.linkedin.com/in/varea/",
+        "https://www.instagram.com/david_varea/",
+        "https://www.youtube.com/@david_varea",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://davidvarea.com/#website",
+      "url": "https://davidvarea.com/",
+      "name": "David Varea",
+      "inLanguage": "es-ES",
+      "publisher": { "@id": "https://davidvarea.com/#person" },
+    },
+  ],
+};
 /* Brain reaprovecha el SVG del bloque "Tengo 2 cerebros" del index para
    no generar variantes PNG: el navegador escala el SVG a cualquier tamaño
    del tab. El resto siguen en PNG (set histórico, dos tamaños). */
@@ -61,6 +97,8 @@ const faviconHref = (size) => `${faviconPrefix}${size}.png`;
     <meta property="og:type" content={ogType} />
   </>
 )}
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(siteSchema)}></script>
 
 {scripts && <script src="/scripts/scripts.js" defer></script>}
 
