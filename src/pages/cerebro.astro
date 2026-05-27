@@ -1,17 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import OptinCerebro from "../components/OptinCerebro.astro";
+import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 ---
 
 <BaseLayout
-    titulo="Desbloquea tu segundo cerebro | David Varea"
+    titulo="Desbloquea otro cerebro | David Varea"
     canonical="/cerebro"
-    ogTitle="Desbloquea tu segundo cerebro"
+    ogTitle="Desbloquea otro cerebro"
     ogUrl="https://davidvarea.com/cerebro"
     favicon="brain"
 >
     <div class="banner">
-        <section class="hero">
+        <section class="hero hero--cerebro">
             <div class="hero-photo-wrap">
                 <img
                     class="hero-photo"
@@ -21,20 +22,117 @@ import OptinCerebro from "../components/OptinCerebro.astro";
             </div>
 
             <h1 class="banner-h1--small">
-                Pasé de ver cursos a x2 de velocidad porque no me daba la vida <span
-                    class="aside-hand">(y quería ir al grano)</span
-                > a destilar <u class="banner-mark"
-                    >8 horas de contenido en menos de 14 minutos</u
+                He pasado de ver cursos <u class="mark-amarillo"
+                    >a x2 de velocidad</u
+                > a no volver a tragarme <span class="hl-squiggle"
+                    ><span class="squiggle-text">ni un vídeo más</span><svg
+                        class="squiggle-svg"
+                        viewBox="0 0 140 10"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                        ><path
+                            d="M2 5 Q 35 1 70 5 T 138 5"
+                            stroke-width="2.4"
+                            fill="none"
+                            stroke-linecap="round"></path></svg
+                    ></span
+                > gracias a Claude <span class="aside-hand"
+                    >(él mira el contenido, me resume las claves y tiene en
+                    cuenta lo que yo ya sé)</span
                 >
-                gracias a Claude y el concepto de "segundo cerebro digital"
             </h1>
 
+            <OptinCerebro botonTexto="Mándame la skill gratis" />
+
+            <p>Mira un ejemplo en este vídeo de 14 segundos:</p>
+
+            <video
+                class="hero-demo"
+                src="/videos/demo.webm"
+                controls
+                preload="metadata"
+                playsinline></video>
+
             <p>
-                Te comparto un vídeo de menos de 5min donde te explico cómo lo
-                puedes hacer tú.
+                En el vídeo puedes ver cómo le mando a Claude un podcast de
+                youtube y tras 13 min (mientras yo podía seguir usando la IA en
+                otra conversación) me escribe <u class="mark-amarillo"
+                    >qué información es valiosa para mí</u
+                >
+                porque no tengo otras notas similares.
             </p>
 
-            <OptinCerebro botonTexto="Mándame el vídeo" />
+            <p>
+                <strong>
+                    Igual lo ves un poco raro porque en los nombres de archivos
+                    no usa espacios sino guiones. No tiene importancia, el
+                    contenido de las notas está escrito en texto normal.
+                </strong>
+            </p>
+
+            <p>
+                También puede destilar formaciones de pago (si las has comprado,
+                obvio) para <span class="squiggle squiggle--rojo"
+                    >crear tu segundo cerebro</span
+                >.
+            </p>
         </section>
     </div>
+
+    <div class="cuerpo cuerpo--cerebro">
+        <h2 class="titulo-compacto hand text-rojo">
+            ¿QUÉ ES UN SEGUNDO CEREBRO?
+        </h2>
+
+        <p>Es una forma de organizar tu conocimiento.</p>
+
+        <p>
+            <strong>
+                Imagina un cuaderno donde apuntas <u class="mark-amarillo"
+                    >cada idea valiosa</u
+                > que aprendes (por experiencia propia, gracias a un curso, un libro,
+                un vídeo....)
+            </strong>
+        </p>
+
+        <p>
+            Cada idea es una página distinta. Eso te permite enlazar notas,
+            tener un índice donde pones <em
+                >"en la pág. 3, 15 y 42 tengo apuntes sobre viralizarme en
+                redes"</em
+            >.
+        </p>
+
+        <p>
+            <strong>
+                Vale, <span class="squiggle squiggle--rojo"
+                    >es un follón hacer esto en papel</span
+                >. Yo lo hacía en Notion porque es mucho más sencillo: con un
+                click surfeas entre notas. Pero con la IA ya no hace falta ni
+                clicarlas.
+            </strong>
+        </p>
+
+        <p>Claude (o tu IA favorita) puede:</p>
+
+        <ul>
+            <li>Navegar entre tus notas para encontrarte información.</li>
+            <li>Escribir nuevas notas por ti.</li>
+            <li>Sacar conclusiones hilando todos los apuntes.</li>
+            <li>O incluso resumir formación por ti.</li>
+        </ul>
+
+        <p>
+            <strong>
+                Darle tus notas a la IA es como darle un mega prompt con todo lo
+                que sabes <u class="mark-amarillo">y convertirla en tu clon.</u>
+            </strong>
+        </p>
+
+        <h2>¿Quieres otro cerebro?</h2>
+
+        <OptinCerebro botonTexto="Mándame la skill gratis" />
+    </div>
+
+    <FooterDisclaimer />
 </BaseLayout>
