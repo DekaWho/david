@@ -433,9 +433,9 @@ li::marker {
    columna del hero ni desplazar el CTA fuera del fold en móvil. */
 .banner-proof {
     display: block;
-    max-width: clamp(320px, 85%, 460px);
+    max-width: clamp(270px, 78%, 390px);
     height: auto;
-    margin: 1rem auto;
+    margin: 0.5rem auto 0;
 }
 
 /* Scope al banner de /robame por la presencia de .banner-proof. Otros
@@ -448,6 +448,21 @@ li::marker {
 
 .banner:has(.banner-proof) .optin {
     margin-bottom: 0;
+}
+
+/* Foto del autor reducida solo en /robame: el hero apila foto + H1 largo +
+   captura prueba + Kalam + form, y la foto al tamaño global empujaba el
+   form fuera del fold en viewports ajustados. */
+.banner:has(.banner-proof) .hero-photo {
+    width: clamp(80px, 12vh, 100px);
+    height: clamp(80px, 12vh, 100px);
+}
+
+@media (min-width: 700px) {
+    .banner:has(.banner-proof) .hero-photo {
+        width: clamp(92px, 12vh, 130px);
+        height: clamp(92px, 12vh, 130px);
+    }
 }
 
 /* Pie manuscrito en rojo: tipografía pequeña, Kalam, centrada. Dos
@@ -1902,8 +1917,12 @@ audio::-webkit-media-controls-panel {
     font-weight: 500;
 }
 
+/* Margen vertical negativo: el .optin es flex column con gap clamp(8-14px)
+   y la nota de privacidad no necesita el mismo aire que el input y el botón
+   — encogemos el hueco a cada lado para que la línea quede más cerca del
+   cajetín de email y del CTA, sin perder legibilidad. */
 .privacy-note {
-    margin: 0;
+    margin: -0.3rem 0;
     font-size: clamp(0.7rem, 0.75vw, 0.8rem);
     line-height: 1.4;
     color: color-mix(in srgb, var(--negro) 55%, transparent);

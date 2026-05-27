@@ -25,7 +25,12 @@ const profileSchema = {
     ogDescription={BIO_CANONICA}
     ogUrl="https://davidvarea.com/sobre-mi"
 >
-    <Menu />
+    <Menu
+        enlaces={[
+            { href: "/", label: "Portada", iconoCasa: true },
+            { href: "/contacto", label: "Contacto" },
+        ]}
+    />
 
     <div class="banner">
         <section class="hero">
