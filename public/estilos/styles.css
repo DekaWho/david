@@ -629,22 +629,16 @@ li::marker {
     box-sizing: border-box;
 }
 
-/* /cerebro: el párrafo es contexto del vídeo demo, no headline secundario.
-   Tamaño explícito más pequeño que --text-body para que el peso visual del
-   hero quede en H1 → vídeo → CTA, no en este párrafo. Margins también
+/* /cerebro: el párrafo cierra el hero tras el CTA, contextualizando la
+   promesa. Tamaño explícito más pequeño que --text-body para que el peso
+   visual del hero quede en H1 → CTA, no en este párrafo. Margins también
    compactados — el default global (margin-bottom: --gap-3xl = 5rem) está
    calculado para body a 1.3-1.5rem, no para este párrafo más pequeño. */
 .hero--cerebro > p {
     font-size: clamp(0.95rem, 1.05vw, 1.1rem);
     line-height: 1.45;
-    margin: var(--gap-sm) 2px var(--gap-md);
-}
-
-.hero--cerebro .hero-demo {
-    width: 100%;
-    max-width: 560px;
-    margin: var(--gap-sm) auto;
-    border-radius: 6px;
+    margin: 3rem 2px var(--gap-md);
+    text-align: center;
 }
 
 /* /cerebro: el H2 base del .cuerpo va a .titulo-compacto (escala que
@@ -2026,14 +2020,14 @@ audio::-webkit-media-controls-panel {
     text-align: center;
 }
 
-/* Byline dentro del .post-meta: hereda el gris atenuado del entorno y
-   se marca como link solo con subrayado fino. Evita el azul de link por
-   defecto, que dominaría la línea editorial de metadatos. */
+/* Byline dentro del .post-meta: el link debe leerse como continuación
+   de la línea editorial de metadatos, no como CTA. Hereda el gris
+   atenuado del entorno y se renderiza sin subrayado para integrarse
+   con el resto del texto. Sigue siendo navegable y cuenta para E-E-A-T,
+   pero estéticamente desaparece como link. */
 .post-meta a {
     color: inherit;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 0.2em;
+    text-decoration: none;
 }
 
 /* Aviso autoral "Escrito sin IA" dentro del masthead. El componente

@@ -2,22 +2,37 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout titulo="⚠️ Aviso" noindex={true} scripts={false}>
+<BaseLayout titulo="⚠️ Error" noindex={true} scripts={false}>
     <div class="banner" style="padding-top: 3rem;">
         <section class="hero">
             <h1>
                 <img class="emoji" src="/imgs/svg/alert.svg" alt="⚠️" />
-                Falta 1 paso:<br /><span style="color: var(--rojo);"
-                    >Revisa tu email</span
+                <span style="color: var(--rojo);">Error:</span><br /><span
+                    style="color: var(--negro);">Te falta un paso</span
                 >
             </h1>
         </section>
     </div>
 
     <div class="cuerpo">
-        <div class="blocks blocks--inbox" style="margin-bottom: 2rem;">
+        <p style="margin-bottom: var(--gap-lg);">
+            <strong>
+                Para poder aceptarte tienes que <u class="mark-amarillo"
+                    >confirmar tu dirección (</u
+                >pulsando el botón dentro del email que acaba de llegarte).
+                Tienes que hacerlo <span class="squiggle squiggle--rojo"
+                    >antes de 5 minutos o caduca.</span
+                >
+            </strong>
+        </p>
+
+        <div
+            class="blocks blocks--inbox"
+            style="margin-top: 3rem; margin-bottom: 3rem;"
+        >
             <a
                 class="block"
+                style="background: var(--blanco);"
                 href="https://mail.google.com/mail/u/0/#inbox"
                 target="_blank"
                 rel="noopener"
@@ -29,6 +44,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
             <a
                 class="block"
+                style="background: var(--blanco);"
                 href="https://www.icloud.com/mail"
                 target="_blank"
                 rel="noopener"
@@ -40,6 +56,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
             <a
                 class="block"
+                style="background: var(--blanco);"
                 href="https://outlook.live.com/mail/"
                 target="_blank"
                 rel="noopener"
@@ -50,10 +67,25 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             </a>
         </div>
 
-        <p>
-            Tienes que <u class="mark-amarillo">confirmar tu dirección</u> desde el
-            correo que te ha llegado para poder enviarte lo que te he prometido. Si
-            no has recibido nada espera un minuto o mira la carpeta de spam.
-        </p>
+        <h2
+            style="font-size: clamp(1.8rem, 3vw, 2.5rem); text-align: left; margin-top: calc(var(--gap-lg) + 0.5rem); margin-bottom: var(--gap-lg);"
+        >
+            Si no has recibido nada...
+        </h2>
+
+        <ol style="margin-bottom: var(--gap-lg);">
+            <li style="margin-bottom: 0.5rem;">
+                Mira la carpeta de spam, promociones o similares. Si está ahí el
+                correo muévelo a donde puedas localizar los próximos envíos.
+            </li>
+            <li style="margin-bottom: 0.5rem;">
+                Si no está en ninguna carpeta espera unos minutos.
+            </li>
+            <li style="margin-bottom: 0.5rem;">
+                Es muy habitual que el corrector del móvil modifique la
+                dirección al escribirla. Si sigue sin llegarte nada inscríbete
+                de nuevo prestando especial atención a que está bien escrita.
+            </li>
+        </ol>
     </div>
 </BaseLayout>
