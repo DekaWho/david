@@ -307,7 +307,7 @@ const totalPosts = posts.length;
 
         // Si entras a /blog#marketing (desde un post o link externo), arranca
         // con esa categoría preseleccionada en lugar de "Todos".
-        const hashInicial = window.location.hash.slice(1);
+        const hashInicial = window.location.hash.slice(1).toLowerCase();
         if (hashInicial) {
             const tabInicial = document.querySelector(
                 `.blog-tab[data-tab="${hashInicial}"]`,

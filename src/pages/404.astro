@@ -4,9 +4,23 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <BaseLayout titulo="Error 404" noindex={true} scripts={false}>
     <script is:inline>
-        setTimeout(function () {
-            window.location.href = "/";
-        }, 2000);
+        // GitHub Pages sirve archivos sobre Linux (case-sensitive): /Robame
+        // y /robame son rutas distintas, y una mayúscula de más en un enlace
+        // cae aquí. Antes de rendirse, reintenta la misma ruta en minúsculas
+        // conservando query y hash. Si el path ya estaba en minúsculas es un
+        // 404 genuino —> vuelve al inicio. El path en minúsculas nunca vuelve
+        // a entrar en la rama de redirect, así que no hay bucle.
+        const path = window.location.pathname;
+        const lower = path.toLowerCase();
+        if (lower !== path) {
+            window.location.replace(
+                lower + window.location.search + window.location.hash,
+            );
+        } else {
+            setTimeout(function () {
+                window.location.href = "/";
+            }, 2000);
+        }
     </script>
 
     <h1 class="titulo-breaker titulo-breaker--bg-claro">
