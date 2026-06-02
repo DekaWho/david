@@ -593,7 +593,7 @@ li::marker {
 
 .banner-badge-qualifier {
     font-family: var(--hand);
-    font-size: clamp(0.9rem, 1vw, 1.1rem);
+    font-size: clamp(1rem, 1.1vw, 1.2rem);
     color: var(--azul);
     margin-top: 0.15em;
 }
@@ -813,6 +813,13 @@ p:has(+ .diamond) {
     color: var(--rojo);
     transform: rotate(-3deg);
     overflow: visible;
+}
+
+/* Variante azul del círculo a boli: mismo trazo manuscrito, tinta de marca
+   en lugar del rojo de énfasis. Para rodear un término que pertenece al
+   lenguaje azul de la página (ratios, métricas) sin sacarlo de paleta. */
+.ink-circle--azul .ink-circle-svg {
+    color: var(--azul);
 }
 
 /* Highlighter lime — mismo recurso que .banner-mark (gradient que pinta solo
@@ -2904,6 +2911,26 @@ body.blog-hub .banner-subline {
         padding-left: var(--gap-sm);
         padding-right: var(--gap-sm);
         padding-bottom: var(--gap-sm);
+    }
+
+    /* Solo móvil: las dos badges del hero (/servicios) se separan a los
+       bordes en vez de centrarse con gap. En tablet/PC (≥601px) conservan
+       el centrado del estado base — el breakpoint del sistema es 800px,
+       pero ahí ya hay ancho de sobra y separarlas dejaría un hueco vacío.
+       nowrap impide que salten a vertical cuando el qualifier Kalam es
+       largo; el texto envuelve dentro de la badge vía min-width:0. El
+       max-width frena la separación en móviles anchos para que no quede un
+       hueco central desproporcionado. */
+    .banner-badges {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 460px;
+        gap: 0.75rem;
+    }
+
+    .banner-badge {
+        min-width: 0;
     }
 }
 
