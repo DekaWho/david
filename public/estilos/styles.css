@@ -269,7 +269,8 @@ a:hover {
     transition: all 0.1s ease;
 }
 
-ul {
+ul,
+ol {
     padding: 0 0 0 var(--gap-md);
     width: 90%;
     margin: 0 auto;
