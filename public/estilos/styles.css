@@ -987,15 +987,6 @@ p:has(+ .diamond) {
     }
 }
 
-/* En desktop el `<p>` genérico tiene margin-bottom 5rem (separa bloques
-   largos del cuerpo); aquí el párrafo introduce el formulario y 5rem deja
-   un agujero. Móvil ya tiene su propio override (3rem). */
-@media (min-width: 801px) {
-    p#contacto {
-        margin-bottom: var(--gap-md);
-    }
-}
-
 /* Override del banner-mark dentro del breaker papel: highlighter más fino que
    el del hero. El del hero cubre 48-92% para gritar; aquí pasamos a 56-86% —
    solo un tercio del alto de letra, levemente despegado del baseline, sutil,
@@ -1213,8 +1204,12 @@ audio::-webkit-media-controls-panel {
     object-fit: cover;
 }
 
+/* Offset de aterrizaje del ancla #contacto (botón "trabajar juntos" + link del
+   menú): el .menu es position:fixed arriba (top 14px + alto del pill ≈ 50px),
+   así que sin margen el salto deja el primer párrafo bajo el menú y lo tapa.
+   4rem lo baja lo justo para librar el pill con aire. */
 #contacto {
-    scroll-margin-top: var(--gap-sm);
+    scroll-margin-top: var(--gap-2xl);
 }
 
 /* ---------- 7. Responsive (<=800px) ---------- */
