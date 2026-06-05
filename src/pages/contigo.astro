@@ -1,18 +1,22 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Menu from "../components/Menu.astro";
-import Footer from "../components/Footer.astro";
+
+/*
+  ANDAMIAJE — landing del acompañamiento high-ticket (hecho-contigo). Brief en
+  ToDo/carta-ventas-acompanamiento.md. El copy de venta marcado PLACEHOLDER es
+  decisión de David (paso 1 del brief: promesa, transformación, objeción de los
+  1.000€). La prueba (logros + reviews) y el bloque del "segundo marrón" van
+  reciclados de /servicios. Pendiente al activar: copy real, añadir a sitemap.xml,
+  decidir si recibe tráfico de pago Meta (entonces montar FooterDisclaimer).
+*/
 ---
 
 <BaseLayout
-    titulo="CMO en las sombras | David Varea"
-    canonical="/servicios"
-    ogTitle="🤝 David Varea"
-    ogDescription="Director de marketing en las sombras (+LTV sin descuentos, -CAC sin gastar más en ads)"
-    ogUrl="https://davidvarea.com/servicios"
+    titulo="Acompañamiento de marketing | David Varea"
+    canonical="/contigo"
+    ogTitle="🤝 David Varea — acompañamiento de marketing"
+    ogUrl="https://davidvarea.com/contigo"
 >
-    <Menu />
-
     <div class="banner">
         <section class="hero">
             <div class="hero-photo-wrap">
@@ -31,9 +35,11 @@ import Footer from "../components/Footer.astro";
                 >
             </h2>
 
+            {/* PLACEHOLDER hero — promesa hecho-contigo. NO delegación: el cliente
+                ejecuta su marketing con tu criterio al lado. Reescribir. */}
             <h1>
-                ENCÁRGAME UN MARRÓN Y
-                <u class="banner-mark">LÍBRATE DE ÉL</u>
+                「PROMESA HERO PLACEHOLDER」
+                <u class="banner-mark">HAZLO TÚ, CON MI CRITERIO AL LADO</u>
             </h1>
 
             <ul class="banner-badges" aria-label="Lo que entrego">
@@ -113,12 +119,16 @@ import Footer from "../components/Footer.astro";
                 <span class="handle" aria-hidden="true">⋮⋮</span>
                 <img class="icon" src="/imgs/svg/email.svg" alt="" />
                 <span class="body">
-                    <span class="title">Cómo trabajar juntos</span>
+                    <span class="title">Quiero el acompañamiento</span>
                 </span>
             </a>
         </section>
     </div>
 
+    {/* Bloque "segundo marrón" — reciclado de /servicios. El brief lo marca como
+        copy-puente que encaja MEJOR con acompañamiento que con delegación. Las dos
+        últimas frases (nómina / "en las sombras") son framing de delegación:
+        PLACEHOLDER para reescribir hacia hecho-contigo. */}
     <div class="cuerpo">
         <p>Hay dos tipos de marrones en todo negocio...</p>
 
@@ -157,9 +167,9 @@ import Footer from "../components/Footer.astro";
         </p>
 
         <p>
-            Y no lo digo por decir. Yo he trabajado con ecommerce, infoproductos
-            y en el sector financiero. Estos son algunos de mis logros en los
-            últimos años:
+            Y no lo digo por decir. Yo he trabajado con ecommerce,
+            infoproductos y en el sector financiero. Estos son algunos de mis
+            logros en los últimos años:
         </p>
 
         <div class="aviso-mano">
@@ -193,8 +203,8 @@ import Footer from "../components/Footer.astro";
             <li>
                 Escribí una landing para tráfico frío sin poder usar prueba
                 social u otro tipo de autoridad de marca. Un MVP para testear si
-                un nuevo ecommerce tenía tracción en ese mercado. Tuvo un 33.9%
-                de añadido al carrito.
+                un nuevo ecommerce tenía tracción en ese mercado. Tuvo un 33.9% de
+                añadido al carrito.
             </li>
 
             <li>
@@ -328,39 +338,55 @@ import Footer from "../components/Footer.astro";
         <div class="flecha flecha--down flecha--alt" aria-hidden="true"></div>
     </div>
 
+    {/* Sección OFERTA — los datos son los del brief (decididos). El framing de
+        venta alrededor es PLACEHOLDER. */}
     <h1 class="titulo-breaker titulo-breaker--bg-claro">
-        Cómo <span class="banner-mark">trabajar&nbsp;juntos</span>
+        En qué consiste el <span class="banner-mark">acompañamiento</span>
     </h1>
 
     <div class="cuerpo">
-        <p id="contacto">
-            Ya sea como copywriter o como director de marketing (en las sombras)
-            apunto a un solo objetivo <span class="azul">→</span> Mejorar el ratio
-            <span class="ink-circle ink-circle--azul"
-                >LTGP:CAC<svg
-                    class="ink-circle-svg"
-                    viewBox="0 0 100 60"
-                    preserveAspectRatio="none"
-                    aria-hidden="true"
-                >
-                    <path
-                        d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                        stroke-linecap="round"></path></svg
-                ></span
-            >. ¿Quién quiere facturar millones si el margen es minúsculo?
+        {/* PLACEHOLDER intro oferta: qué transformación compra el cliente en 1 mes. */}
+        <p>
+            「INTRO OFERTA PLACEHOLDER: presenta la oferta como una relación de
+            un mes con tu criterio al lado, no una auditoría suelta ni
+            delegación.」
         </p>
 
+        <ul class="bold-odd">
+            <li>1 mes de acompañamiento.</li>
+            <li>1 llamada de 2h por semana (4 al mes).</li>
+            <li>Dudas breves por WhatsApp de lunes a viernes.</li>
+            <li>1.000€ + IVA al mes.</li>
+        </ul>
+
+        {/* PLACEHOLDER objeción central (brief): "¿merece pagar 1.000€/mes por
+            acceso a su criterio, cuando podría buscármelo gratis o montármelo
+            solo?". Es el núcleo persuasivo de esta carta. Reescribir. */}
         <p>
-            Primero convénceme de que tu proyecto vale la pena. Y después
-            cuéntame tu marrón para ver si puedo ayudarte con él.
+            <strong>
+                「OBJECIÓN PLACEHOLDER: por qué pagar 1.000€/mes por criterio al
+                lado en vez de montártelo solo o buscarlo gratis.」
+            </strong>
         </p>
 
         <div class="diamond" aria-hidden="true"></div>
+    </div>
 
-        <p class="titulo-mano">¿Tienes algo importante entre manos?</p>
+    <h1 class="titulo-breaker titulo-breaker--bg-claro">
+        Cómo <span class="banner-mark">empezamos</span>
+    </h1>
+
+    <div class="cuerpo">
+        {/* CTA = form de Tally (filtro previo a la reunión). David contacta para
+            agendar. Reusa el embed de /servicios; si quieres separar estos leads
+            de los de servicios-b2b, crea un form de Tally propio y cambia el
+            data-tally-src. */}
+        <p id="contacto">
+            「CIERRE PLACEHOLDER: invita a rellenar el formulario para valorar el
+            encaje antes de la llamada.」
+        </p>
+
+        <p class="titulo-mano">¿Quieres trabajar tu marketing conmigo al lado?</p>
 
         <div class="callout">
             <iframe
@@ -399,6 +425,4 @@ import Footer from "../components/Footer.astro";
 
         <div class="flecha flecha--up" aria-hidden="true"></div>
     </div>
-
-    <Footer />
 </BaseLayout>

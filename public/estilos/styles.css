@@ -742,6 +742,15 @@ p:has(+ .diamond) {
     color: var(--blanco);
 }
 
+/* Cuando el bloque que sigue a la franja vive fuera de ella (un .cuerpo
+   pegado al corte oscuro, no el último <p> interno), el margin-bottom
+   base deja el contenido demasiado cerca del borde de la franja. Más
+   aire bajo la sección para que se lea como cambio de zona, no como
+   continuación. */
+.seccion-tinta--separada {
+    margin-bottom: var(--gap-2xl);
+}
+
 /* Variante azul: el bloque pasa de "sala de tinta" a "sala azul marino" —
    la metáfora old money de cada sección como una habitación distinta del
    estudio. El breaker que la precede arrastra el cambio (regla de abajo
@@ -1137,12 +1146,19 @@ audio::-webkit-media-controls-panel {
 
 .review-card {
     max-width: 520px;
-    margin: var(--gap-lg) auto var(--gap-xl);
+    margin: var(--gap-4xl) auto var(--gap-xl);
     padding: 0.5rem 1.1rem 0.5rem 0.5rem;
     gap: 0;
 
     background: var(--blanco);
     border-radius: var(--radius-lg);
+}
+
+/* La primera review arranca justo bajo el h1 de la franja; el margin-top
+   completo la descolgaría con un hueco muerto. La mitad la separa del
+   titular sin abrir aire de más. */
+.seccion-tinta .review-card:first-of-type {
+    margin-top: var(--gap-2xl);
 }
 
 .review-card .avatar {
@@ -1168,7 +1184,6 @@ audio::-webkit-media-controls-panel {
    así que sobra hueco lateral en la franja full-bleed. */
 .review-card--chat {
     position: relative;
-    margin-top: var(--gap-2xl);
 }
 
 .review-card--chat::after {
