@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Menu from "../components/Menu.astro";
 import Footer from "../components/Footer.astro";
+import Logros from "../components/Logros.astro";
+import Reviews from "../components/Reviews.astro";
 ---
 
 <BaseLayout
@@ -162,171 +164,10 @@ import Footer from "../components/Footer.astro";
             últimos años:
         </p>
 
-        <div class="aviso-mano">
-            <span class="aviso-mano-icono" aria-hidden="true"></span>
-            <p>
-                Tanto si fui <u>estratega</u> como <u>copywriter</u> estos resultados
-                son fruto del trabajo en equipo
-            </p>
-        </div>
-
-        <ul class="bold-odd" style="margin-bottom: var(--gap-3xl)">
-            <li>
-                560 pedidos en 14 minutos. Ese fue el resultado de un email
-                único enviado al segmento de no compradores de un ecommerce. Sin
-                hype previo ni secuencia de calentamiento.
-            </li>
-
-            <li>
-                Aunque publicitarse en TV es cosa del pasado, escribí el copy
-                para un anuncio que se emitió en A3Media. Durante diversos
-                programas como Pasapalabra o El intermedio.
-            </li>
-
-            <li class="logro--email">
-                Tasa de apertura entorno al 35% (si miramos solo segmento de
-                clientes tasa de apertura hasta el 60%) en campañas de email
-                marketing (Klaviyo) para una lista de un ecommerce con más de
-                340.000 emails.
-            </li>
-
-            <li>
-                Escribí una landing para tráfico frío sin poder usar prueba
-                social u otro tipo de autoridad de marca. Un MVP para testear si
-                un nuevo ecommerce tenía tracción en ese mercado. Tuvo un 33.9%
-                de añadido al carrito.
-            </li>
-
-            <li>
-                El primer mes que entré en una fintech (para implementar la
-                estrategia de email diario) batió su propio récord de
-                facturación mensual.
-            </li>
-
-            <li>
-                Junto a Chuso Montero levantamos su canal de YouTube desde 0
-                hasta 109K seguidores. En el nicho videojuegos, durante la época
-                más saturada del sector (2020 - 2022). Generando no solo visitas
-                sino una audiencia fiel y recurrente.
-            </li>
-
-            <li>
-                Facturación de 6 cifras con un par de emails que se enviaron
-                durante 48h vendiendo un producto low ticket.
-            </li>
-
-            <li>
-                Más de 100 Millones de reproducciones en total (en vídeos
-                horizontales orgánicos) trabajando con varios youtubers de
-                entretenimiento.
-            </li>
-
-            <li>
-                Hice los emails de una campaña que redujo el CAC un 39.8%
-                respecto a los meses anteriores, despertando leads zombie
-                (estaban en la lista meses sin haber comprado nada)
-            </li>
-
-            <li class="logro--flag">
-                He ayudado a mis clientes a facturar más de 2.4 millones de €
-            </li>
-        </ul>
+        <Logros />
     </div>
 
-    <h1 class="titulo-breaker titulo-breaker--bg-oscuro" id="reviews">
-        Pero
-        <span class="ink-circle"
-            >no<svg
-                class="ink-circle-svg"
-                viewBox="0 0 100 60"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-            >
-                <path
-                    d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
-                    stroke="currentColor"
-                    stroke-width="3"
-                    fill="none"
-                    stroke-linecap="round"></path></svg
-            ></span
-        >
-        te fíes de <span class="squiggle">mis&nbsp;palabras</span>
-    </h1>
-
-    <section class="seccion-tinta seccion-tinta--separada">
-        <div class="cuerpo">
-            <div class="player-container review-card">
-                <img class="avatar" src="/reviews/pascu.webp" />
-
-                <audio controls controlslist="nodownload noplaybackrate">
-                    <source src="/reviews/pascu.mp3" type="audio/mpeg" />
-                    Tu navegador no soporta audio HTML5.
-                </audio>
-            </div>
-
-            <p>
-                Esto es lo que dice
-                <span class="squiggle squiggle--alt"
-                    >Pascual Cabedo, fundador de EAP.
-                </span>Uno de los ecommerce de alimentación más grandes de
-                España.
-            </p>
-
-            <p>
-                <strong>
-                    +220.000 clientes con alta recurrencia, +8 millones de kilos
-                    de alimento enviados y millones de visitas en redes sociales
-                    (venden online producto de agricultores españoles, sin
-                    químicos post-cosecha)
-                </strong>
-            </p>
-
-            <div class="player-container review-card">
-                <img class="avatar" src="/reviews/gon.webp" />
-
-                <audio controls controlslist="nodownload noplaybackrate">
-                    <source src="/reviews/gon.mp3" type="audio/mpeg" />
-                    Tu navegador no soporta audio HTML5.
-                </audio>
-            </div>
-
-            <p>
-                <span class="squiggle squiggle--alt"
-                    >Gonzalo Zahonero es asesor financiero.
-                </span>Hemos trabajado juntos en campañas sobre finanzas y
-                trading. Te contaría más al respecto pero tenemos acuerdos de
-                confidencialidad que nos impiden ████████ █████ █████ ██
-                ████████
-            </p>
-
-            <div class="player-container review-card review-card--chat">
-                <img class="avatar" src="/reviews/rioboo.webp" />
-
-                <audio controls controlslist="nodownload noplaybackrate">
-                    <source src="/reviews/rioboo.mp3" type="audio/mpeg" />
-                    Tu navegador no soporta audio HTML5.
-                </audio>
-            </div>
-
-            <p>
-                Él es <span class="squiggle"
-                    >Rioboo, cofundador de Cori Coffee.
-                </span>Aunque no sigas el mundo influencer igual te suena por
-                haberlo visto trabajar junto a Ibai (o porque IlloJuan y Borja
-                Iglesias han bebido este café y lo han enseñado en sus redes)
-            </p>
-        </div>
-    </section>
-
-    <div class="cuerpo">
-        <p>
-            Ahora podría abrumarte con más reseñas positivas incluyendo las de
-            mis padres pero...
-        </p>
-        <h2 class="suficiente">SUFICIENTE</h2>
-
-        <div class="flecha flecha--down flecha--alt" aria-hidden="true"></div>
-    </div>
+    <Reviews />
 
     <h1 class="titulo-breaker titulo-breaker--bg-claro">
         Cómo <span class="banner-mark">trabajar&nbsp;juntos</span>

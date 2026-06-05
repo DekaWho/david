@@ -1,0 +1,102 @@
+---
+/* Bloque de prueba social: breaker "Pero no te fíes de mis palabras" + franja
+   de tinta con las tres reviews en audio (Pascual Cabedo / Gonzalo Zahonero /
+   Rioboo) + remate "SUFICIENTE" y flecha a la oferta. Montado idéntico en
+   /servicios y /contigo. Sin props: el contenido es markup fijo (no varía
+   entre páginas), así que editar un testimonio aquí lo cambia en ambas.
+   El torcido de las cards lo aplica .seccion-tinta .review-card en styles.css;
+   la tercera lleva .review-card--chat para el doodle de chat al margen. */
+---
+
+<h1 class="titulo-breaker titulo-breaker--bg-oscuro" id="reviews">
+    Pero
+    <span class="ink-circle"
+        >no<svg
+            class="ink-circle-svg"
+            viewBox="0 0 100 60"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+        >
+            <path
+                d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
+                stroke="currentColor"
+                stroke-width="3"
+                fill="none"
+                stroke-linecap="round"></path></svg
+        ></span
+    >
+    te fíes de <span class="squiggle">mis&nbsp;palabras</span>
+</h1>
+
+<section class="seccion-tinta seccion-tinta--separada">
+    <div class="cuerpo">
+        <div class="player-container review-card">
+            <img class="avatar" src="/reviews/pascu.webp" />
+
+            <audio controls controlslist="nodownload noplaybackrate">
+                <source src="/reviews/pascu.mp3" type="audio/mpeg" />
+                Tu navegador no soporta audio HTML5.
+            </audio>
+        </div>
+
+        <p>
+            Esto es lo que dice
+            <span class="squiggle squiggle--alt"
+                >Pascual Cabedo, fundador de EAP.
+            </span>Uno de los ecommerce de alimentación más grandes de España.
+        </p>
+
+        <p>
+            <strong>
+                +220.000 clientes con alta recurrencia, +8 millones de kilos de
+                alimento enviados y millones de visitas en redes sociales (venden
+                online producto de agricultores españoles, sin químicos
+                post-cosecha)
+            </strong>
+        </p>
+
+        <div class="player-container review-card">
+            <img class="avatar" src="/reviews/gon.webp" />
+
+            <audio controls controlslist="nodownload noplaybackrate">
+                <source src="/reviews/gon.mp3" type="audio/mpeg" />
+                Tu navegador no soporta audio HTML5.
+            </audio>
+        </div>
+
+        <p>
+            <span class="squiggle squiggle--alt"
+                >Gonzalo Zahonero es asesor financiero.
+            </span>Hemos trabajado juntos en campañas sobre finanzas y trading. Te
+            contaría más al respecto pero tenemos acuerdos de confidencialidad que
+            nos impiden ████ █████ █████ ██ ████████ ████ ██ ██████████
+        </p>
+
+        <div class="player-container review-card review-card--chat">
+            <img class="avatar" src="/reviews/rioboo.webp" />
+
+            <audio controls controlslist="nodownload noplaybackrate">
+                <source src="/reviews/rioboo.mp3" type="audio/mpeg" />
+                Tu navegador no soporta audio HTML5.
+            </audio>
+        </div>
+
+        <p>
+            Él es <span class="squiggle"
+                >Rioboo, cofundador de Cori Coffee.
+            </span>Aunque no sigas el mundo influencer igual te suena por haberlo
+            visto trabajar junto a Ibai (o porque IlloJuan y Borja Iglesias han
+            bebido este café y lo han enseñado en sus redes)
+        </p>
+    </div>
+</section>
+
+<div class="cuerpo">
+    <p>
+        Ahora podría abrumarte con más reseñas positivas incluyendo las de mis
+        padres pero...
+    </p>
+    <h2 class="suficiente">SUFICIENTE</h2>
+
+    <div class="flecha flecha--down flecha--alt" aria-hidden="true"></div>
+</div>

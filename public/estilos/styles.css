@@ -466,6 +466,81 @@ li::marker {
     }
 }
 
+/* Doodle del sofá como remate inline del pie Kalam "…desde tu sofá…": va
+   dentro del <p class="hand"> como un glifo más al final de la frase, alineado
+   a la línea de texto. Dimensiones en em para que escale con la tipografía del
+   Kalam en cualquier viewport. Recoloreado con máscara (como .gladiador)
+   porque el .svg trae el trazo hardcodeado a negro; la máscara deja pasar el
+   --rojo del fondo. */
+.banner-couch {
+    --couch-size: 3.1em;
+    display: inline-block;
+    width: var(--couch-size);
+    height: var(--couch-size);
+    vertical-align: middle;
+    /* Margen vertical negativo: un inline-block más alto que el texto expande
+       el line-box y abre el interlineado del Kalam y el aire hasta el form. El
+       negativo reabsorbe ese alto extra (la línea del Kalam mide ~1.2em) para
+       que el sofá sobresalga de la línea sin empujar el flujo vertical;
+       derivado de --couch-size para seguir compensando si el tamaño cambia. */
+    margin-block: calc((var(--couch-size) - 1.2em) / -2);
+    margin-inline: 0.2em 0;
+    background-color: var(--rojo);
+    -webkit-mask: url("/imgs/svg/couch-sitting-svgrepo-com.svg") center / contain
+        no-repeat;
+    mask: url("/imgs/svg/couch-sitting-svgrepo-com.svg") center / contain
+        no-repeat;
+}
+
+/* En pantallas grandes el sofá crece y pasa a bloque centrado bajo el Kalam.
+   El SVG dibuja el sofá en la franja superior de su viewBox (las patas acaban
+   a ~0.8 de los 400 de alto; el resto es transparente), así que con `contain`
+   quedaría un colchón muerto entre las patas y el cajetín del form. Anclamos la
+   máscara arriba a tamaño completo y recortamos la altura de la caja a esa
+   fracción de tinta: el borde inferior coincide con las patas y el sofá se
+   apoya en el form sin márgenes negativos. */
+@media (min-width: 1000px) {
+    .banner-couch {
+        --couch-size: 4.5em;
+        /* Fracción vertical del viewBox (0-400) donde acaban las patas; recorta
+           el transparente inferior del SVG. */
+        --couch-ink: 0.8;
+        display: block;
+        width: var(--couch-size);
+        height: calc(var(--couch-size) * var(--couch-ink));
+        margin: 0 auto;
+        -webkit-mask-size: var(--couch-size) var(--couch-size);
+        mask-size: var(--couch-size) var(--couch-size);
+        -webkit-mask-position: center top;
+        mask-position: center top;
+    }
+
+    /* El sofá en bloque cuelga al final del párrafo; sin el margin-bottom del
+       Kalam queda pegado al cajetín del form. En móvil el .hand conserva su
+       margin-bottom (0.5rem) para dejar el mismo aire que el hero de /robame,
+       donde el sofá va inline. Dos selectores: .banner-proof + .hand cubre el
+       hero de /robame y OptinCompleto (Kalam tras la captura); .optin-bloque
+       .hand cubre OptinReducido, que no lleva captura delante. */
+    .banner-proof + .hand:has(.banner-couch),
+    .optin-bloque .hand:has(.banner-couch) {
+        margin-bottom: 0;
+    }
+}
+
+/* Bloque opt-in autoral con sofá (OptinCompleto): el cajetín sigue al sofá sin
+   el aire del row-gap del flex, como en el hero de /robame (que espacia con
+   márgenes, no gap). Anulamos el row-gap y reponemos la separación como
+   margin-top en cada hijo, omitiéndola en el form para que quede pegado. Vale
+   en móvil (sofá inline) y desktop (sofá en bloque); en desktop el .hand pierde
+   además su margin-bottom (regla de arriba) para el apoyo total en el cajetín. */
+.optin-bloque:has(.banner-couch) {
+    row-gap: 0;
+}
+
+.optin-bloque:has(.banner-couch) > *:not(:first-child):not(.optin) {
+    margin-top: var(--gap-sm);
+}
+
 /* Pie manuscrito en rojo: tipografía pequeña, Kalam, centrada. Dos
    contextos cubiertos por el mismo selector compuesto:
    - .banner-proof + .hand → caption bajo la captura (banner de /robame
@@ -480,13 +555,101 @@ li::marker {
     line-height: 1.15;
     font-size: calc(var(--text-body) * 0.75);
     color: var(--rojo);
+    /* Anula el hyphens:auto global (html): un guion de corte parte palabras
+       y rompe el registro manuscrito del Kalam. Se nota al ensanchar el .hand
+       en el bloque, donde alguna línea queda justa. */
+    hyphens: none;
 }
 
-/* Aside inline en Kalam dentro del h1 del banner: solo cambia la familia
-   tipográfica para marcar registro conversacional dentro de un titular
-   serif. Sin tamaño, color ni rotación — fluye en la misma línea como
-   parte del texto. */
-.banner h1 .aside-hand {
+/* Dentro del .optin-bloque (flex align-items: center) el .hand encoge a su
+   línea más larga, sin holgura para que el sofá inline quepa al final y lo
+   empuja a una línea propia. align-self: stretch le devuelve el ancho fijo
+   del 80% (el mismo que tiene en el .hero de /robame, flex stretch), así el
+   sofá vuelve junto al texto. Acotado al .hand con sofá para no tocar el
+   Kalam del OptinReducido, que no lo lleva. */
+.optin-bloque .hand:has(.banner-couch) {
+    align-self: stretch;
+}
+
+/* Capturas de email (prueba social) en el cuerpo de /robame: recortes reales
+   de la bandeja de quien ya recibe los emails. El blanco de la propia captura
+   contrasta contra el papel del cuerpo y las recorta sin necesidad de borde
+   (sistema editorial, sin radius). La rotación mínima alterna entre las dos
+   para el registro "clipping de cuaderno de campo", acotada para no penalizar
+   la lectura del texto del email.
+   Cada una va envuelta en un .captura-link a la imagen original: en móvil el
+   email entero no entra legible en el ancho del viewport, así que pulsar lo
+   abre a tamaño completo para hacer pinch-zoom. El enlace es el bloque centrado
+   y acotado; la imagen lo rellena. */
+.captura-link {
+    display: block;
+    width: 100%;
+    max-width: 640px;
+    margin: var(--gap-md) auto;
+    cursor: zoom-in;
+}
+
+.captura-email {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* H2 del cuerpo de /robame (scope por .captura-email, exclusiva de la página):
+   un punto menor que la escala global de landing y con aire arriba para
+   despegar cada sección del bloque que la precede. */
+.cuerpo:has(.captura-email) h2 {
+    font-size: clamp(2rem, 3.2vw, 2.8rem);
+    margin-top: var(--gap-4xl);
+}
+
+/* Gladiador en rojo entre los dos párrafos de la sección de pruebas: guiño
+   combativo a los testimonios. Recoloreado con la técnica de máscara (como
+   .review-card--chat) porque el .svg trae el trazo hardcodeado a negro; la
+   máscara deja pasar el --rojo del fondo. */
+.gladiador {
+    display: block;
+    width: 8rem;
+    aspect-ratio: 1;
+    margin: 0 auto;
+    background-color: var(--rojo);
+    -webkit-mask: url("/imgs/svg/gladiator-svgrepo-com.svg") center / contain
+        no-repeat;
+    mask: url("/imgs/svg/gladiator-svgrepo-com.svg") center / contain no-repeat;
+}
+
+/* El párrafo que precede al gladiador recorta su margin-bottom para acercar
+   el icono al texto: el aire estándar entre <p> es excesivo cuando el
+   siguiente bloque es la figura, no otro párrafo. */
+.cuerpo p:has(+ .gladiador) {
+    margin-bottom: 2rem;
+}
+
+.capturas-email .captura-link:nth-child(1) {
+    transform: rotate(-0.6deg);
+}
+
+.capturas-email .captura-link:nth-child(2) {
+    transform: rotate(0.6deg);
+}
+
+/* Pista de que la captura es ampliable: Kalam rojo, pequeña, centrada — mismo
+   registro manuscrito que el resto de anotaciones del sitio. */
+.captura-hint {
+    margin: var(--gap-sm) auto 0;
+    text-align: center;
+    font-family: var(--hand);
+    font-size: calc(var(--text-body) * 0.8);
+    color: var(--rojo);
+}
+
+/* Aside inline en Kalam: solo cambia la familia tipográfica para marcar
+   registro conversacional dentro de un texto serif. Sin tamaño, color ni
+   rotación — fluye en la misma línea como parte del texto. Dos contextos
+   gemelos: el h1 del banner (/robame, /cerebro) y el pitch del bloque
+   opt-in autoral, que replica ese hero mid-article. */
+.banner h1 .aside-hand,
+.optin-bloque-pitch .aside-hand {
     font-family: var(--hand);
     font-weight: 400;
 }
@@ -1152,6 +1315,20 @@ audio::-webkit-media-controls-panel {
 
     background: var(--blanco);
     border-radius: var(--radius-lg);
+}
+
+/* Las reviews se tuercen alternando el ángulo: registro "clipping de cuaderno
+   de campo", mismo gesto que las .capturas-email de /robame. Son objetos
+   visuales (avatar + reproductor), no texto de lectura, así que el ángulo no
+   penaliza nada. nth-of-type sobre el <div>: en la .cuerpo de la franja de
+   tinta los únicos elementos div son estas cards, así que odd las pega a un
+   lado y even al contrario, leyéndose como recortes sueltos. */
+.seccion-tinta .review-card:nth-of-type(odd) {
+    transform: rotate(-0.8deg);
+}
+
+.seccion-tinta .review-card:nth-of-type(even) {
+    transform: rotate(0.8deg);
 }
 
 /* La primera review arranca justo bajo el h1 de la franja; el margin-top
@@ -2188,12 +2365,29 @@ audio::-webkit-media-controls-panel {
     clip-path: inset(0 -100vmax);
 }
 
+/* Cuando el bloque vive dentro de una columna de lectura (.cuerpo, 36vw —
+   posts mid-article y /privacidad) el cap de 480px lo dejaba más estrecho que
+   los párrafos en monitores donde 36vw > 480. Lo soltamos para que llene la
+   columna y el contenido alinee con la prosa. El cap base sigue protegiendo
+   los montajes fuera del cuerpo (OptinCompleto en /sobre-mi, OptinReducido al
+   cierre del post), donde no hay columna que lo acote. */
+.cuerpo .optin-bloque {
+    max-width: none;
+}
+
 .optin-bloque .hero-photo {
     width: 30%;
     aspect-ratio: 1;
     height: auto;
     flex-shrink: 0;
     margin: 0;
+}
+
+/* La captura de las carpetas pesa más en el bloque que en el hero de /robame:
+   aquí es la única prueba visual del pitch, así que sube el tope respecto al
+   clamp base (390px) para que se lea sin forzar la vista. */
+.optin-bloque .banner-proof {
+    max-width: clamp(300px, 85%, 470px);
 }
 
 .optin-bloque .optin-bloque-nombre {
@@ -2382,6 +2576,36 @@ audio::-webkit-media-controls-panel {
     .optin-bloque .optin {
         max-width: none;
         width: 100%;
+    }
+
+    /* En móvil la captura de las carpetas suelta el tope del clamp y ocupa
+       todo el ancho del bloque: en pantalla estrecha es la prueba visual del
+       pitch y el aire lateral solo la empequeñece. El padding del .optin-bloque
+       le deja el margen respiratorio. */
+    .optin-bloque .banner-proof {
+        max-width: 100%;
+    }
+
+    /* En móvil el bloque rompe la columna de lectura y ocupa el viewport
+       entero: dentro del .cuerpo (padding 1rem) más su propio padding, el
+       contenido sufría doble margen lateral que estrujaba el Kalam a líneas
+       de más. Mismo patrón full-bleed que las imágenes del cuerpo (100vw
+       recentrado con left + translateX, sin margen negativo); el padding del
+       propio bloque queda como único aire lateral. */
+    .cuerpo .optin-bloque {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* En móvil el Kalam del sofá suelta el cap del 80% y ocupa todo el ancho
+       del bloque: en pantalla estrecha el 80% lo encogía y partía el texto en
+       líneas de más. Combinado con el align-self: stretch (regla base) llena
+       el content-box; el padding 1rem del .optin-bloque queda como único aire
+       lateral. */
+    .optin-bloque .hand:has(.banner-couch) {
+        max-width: none;
     }
 }
 

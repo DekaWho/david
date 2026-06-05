@@ -1,0 +1,18 @@
+---
+/* Aviso "trabajo en equipo" + listado de logros. Reutilizado idéntico, sin
+   props, en /servicios, /contigo y /sobre-mi. Los logros viven como datos en
+   src/data/logros.js (fuente única); este componente solo los pinta. */
+import { LOGROS } from "../data/logros.js";
+---
+
+<div class="aviso-mano">
+    <span class="aviso-mano-icono" aria-hidden="true"></span>
+    <p>
+        Tanto si fui <u>estratega</u> como <u>copywriter</u> estos resultados son
+        fruto del trabajo en equipo
+    </p>
+</div>
+
+<ul class="bold-odd">
+    {LOGROS.map((l) => <li class={l.clase}>{l.texto}</li>)}
+</ul>

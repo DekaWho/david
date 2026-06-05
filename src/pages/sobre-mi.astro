@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Menu from "../components/Menu.astro";
 import Footer from "../components/Footer.astro";
 import OptinCompleto from "../components/OptinCompleto.astro";
+import Logros from "../components/Logros.astro";
 import { BIO_CANONICA } from "../data/bio.js";
 
 /* ProfilePage cuya mainEntity es el Person global declarado en Head.astro
@@ -19,9 +20,9 @@ const profileSchema = {
 ---
 
 <BaseLayout
-    titulo="Sobre David Varea | Director de marketing freelance y copywriter"
+    titulo="¿Quién es David Varea?"
     canonical="/sobre-mi"
-    ogTitle="Sobre David Varea"
+    ogTitle="¿Quién es David Varea?"
     ogDescription={BIO_CANONICA}
     ogUrl="https://davidvarea.com/sobre-mi"
 >
@@ -117,62 +118,7 @@ const profileSchema = {
 
         <h2>Resultados representativos</h2>
 
-        <div class="aviso-mano">
-            <span class="aviso-mano-icono" aria-hidden="true"></span>
-            <p>
-                Tanto si fui <u>estratega</u> como <u>copywriter</u> estos resultados
-                son fruto del trabajo en equipo
-            </p>
-        </div>
-
-        <ul class="bold-odd">
-            <li>
-                560 pedidos en 14 minutos. Ese fue el resultado de un email
-                único enviado al segmento de no compradores de un ecommerce. Sin
-                hype previo ni secuencia de calentamiento.
-            </li>
-
-            <li>
-                Aunque publicitarse en TV es cosa del pasado, escribí el copy
-                para un anuncio que se emitió en A3Media. Durante diversos
-                programas como Pasapalabra o El intermedio.
-            </li>
-
-            <li class="logro--email">
-                Tasa de apertura 35-60% (de clientes) en campañas de email
-                marketing y flows automatizados en Klaviyo para una lista de un
-                ecommerce con más de 340.000 emails.
-            </li>
-
-            <li>
-                Escribí una landing para tráfico frío sin poder usar prueba
-                social u otro tipo de autoridad de marca. Un MVP para testear si
-                una nueva marca tenía tracción en ese mercado. Tuvo un 33.9% de
-                añadido al carrito.
-            </li>
-
-            <li>
-                El primer mes que entré en una fintech (para implementar la
-                estrategia de email diario) batió su propio récord de
-                facturación mensual.
-            </li>
-
-            <li>
-                Facturación de 6 cifras con un par de emails que se enviaron
-                durante 48h vendiendo un producto low ticket.
-            </li>
-
-            <li>
-                Hice los emails de una campaña que redujo el CAC un 39.8%
-                respecto a los meses anteriores, despertando leads zombie
-                (estaban en la lista meses sin haber comprado nada)
-            </li>
-
-            <li class="logro--flag">
-                Varios millones de euros. Esa es la suma de toda la facturación
-                generada con piezas que llevan mi copy.
-            </li>
-        </ul>
+        <Logros />
     </div>
 
     <OptinCompleto />

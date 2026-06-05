@@ -39,7 +39,9 @@ import FooterDisclaimer from "../components/FooterDisclaimer.astro";
                 decoding="async"
             />
             <p class="hand">
-                Róbame hasta 19.970€ desde el sofá de tu casa mirando el móvil
+                Róbame hasta 19.970€ desde tu sofá mientras miras el móvil<span
+                    class="banner-couch"
+                    aria-hidden="true"></span>
             </p>
 
             <OptinRobame />
@@ -47,84 +49,96 @@ import FooterDisclaimer from "../components/FooterDisclaimer.astro";
     </div>
 
     <div class="cuerpo">
-        <h2 class="titulo-compacto">LO PRIMERO QUE VAS A RECIBIR</h2>
-
-        <img
-            src="/imgs/hormozi.jpg"
-            alt="Hormozi recibiendo el récord Guinness al libro de no ficción más vendido"
-            loading="lazy"
-            decoding="async"
-        />
-
-        <p>
-            Supongo que conoces a <span class="squiggle squiggle--rojo"
-                >Alex Hormozi</span
-            >, es un barbudo que no necesita presentación. <u
-                class="mark-amarillo"
-                >Referente mundial del marketing y de escalar empresas a
-                millones en beneficio
-            </u> (junto a Leila Hormozi). <span class="hand"
-                >Si quieres saber más sobre él pregúntale a tu IA de confianza
-                por qué es útil la filosofía de Hormozi en tu negocio.</span
-            >
-        </p>
-
-        <p>
-            <strong>
-                Para compartir mi biblioteca solo tiene sentido empezar por
-                Hormozi, es el núcleo del marketing moderno.
-            </strong>
-        </p>
-
-        <p>
-            Te mando 4 claves que <u class="mark-amarillo"
-                >no están ni en sus libros, ni en sus cientos de vídeos, ni en
-                sus miles de horas de podcast...</u
-            >
-        </p>
-
-        <p>
-            <strong>
-                Las saqué de uno de sus
-                <span class="squiggle squiggle--rojo">high-ticket </span>y
-                cuentan esto:
-            </strong>
-        </p>
+        <p>Mando varios emails a la semana donde lees cosas como...</p>
 
         <ul>
             <li>
-                Por qué los "es muy caro" y los "tengo que pensarlo" no son
-                objeciones reales (y qué está queriendo decir el cliente en
-                realidad) - Página 1
+                Por qué personalizar tus emails con el nombre suele ser de
+                principiantes (incluso con listas de miles) y qué hago en su
+                lugar.
             </li>
             <li>
-                Cómo esquivar esas "objeciones" sin presionar a la otra persona
-                (y no es diciendo unas palabras concretas) - Página 2
+                La ecuación de valor: los 4 botones que tocas para que tu oferta
+                parezca un regalo aunque subas el precio.
             </li>
             <li>
-                Hay un caso específico donde lo mejor es que te rechacen
-                directamente. ¿Qué situación debes evitar a toda costa? - Página
-                2
+                Por qué una fintech batió su récord histórico de facturación el
+                primer mes que entré. Pista: un email al día.
             </li>
             <li>
-                Una checklist (de tan solo 4 puntos) para asegurar si un lead
-                está cualificado (es el ideal para comprarte) - En la última
-                página
+                Cómo escribir un email sin un solo enlace que venda más que uno
+                lleno de botones.
+            </li>
+            <li>
+                Cómo hacer que un cliente valga el doble sin venderle un solo
+                producto nuevo.
+            </li>
+            <li>
+                Cómo resucité "leads zombie" y bajé el coste de adquisición un
+                39,8% con una sola campaña.
+            </li>
+            <li>Por qué esconder información vende más que enseñarla toda.</li>
+            <li>
+                Nada de esto es teoría de butaca: lo aplico en ecommerce,
+                infoproductos y fintech. Y casi todo salió de los 19.970€ que me
+                gasté en cursos como el de Hormozi.
             </li>
         </ul>
 
+        <OptinRobame />
+
+        <h2 class="text-rojo">Un par de opiniones</h2>
+
         <p>
-            <strong>
-                Todo esto <span class="squiggle squiggle--rojo"
-                    >lo recibes ahora</span
-                > en tu bandeja de entrada en un google doc (se lee en 4min apróx)
-            </strong>
+            Además de pasarme todo el día estudiando como un filósofo griego, yo
+            vivo dando servicios (así descubro qué funciona y que es paja)
         </p>
 
-        <h2>¿Lo quieres?</h2>
+        <span class="gladiador" aria-hidden="true"></span>
+
+        <p>
+            Y por eso hay opiniones de lo que hago. Pero no te fíes de lo que
+            dicen este hombre y esta mujer sobre mis correos. Podrían estar
+            completamente <u class="mark-amarillo"
+                >chalados de la cabeza. O peor aún,
+            </u>les obligué a decir semejante sinvergonzonerías.
+        </p>
+
+        <div class="capturas-email">
+            <a
+                class="captura-link"
+                href="/reviews/ejemplo-de-comunicar.webp"
+                target="_blank"
+                rel="noopener"
+            >
+                <img
+                    class="captura-email"
+                    src="/reviews/ejemplo-de-comunicar.webp"
+                    alt="Email de una lectora que guarda mis emails para usarlos de ejemplo en una formación sobre cómo comunicar"
+                    loading="lazy"
+                    decoding="async"
+                />
+            </a>
+            <a
+                class="captura-link"
+                href="/reviews/mejor-vendedor.webp"
+                target="_blank"
+                rel="noopener"
+            >
+                <img
+                    class="captura-email"
+                    src="/reviews/mejor-vendedor.webp"
+                    alt="Email de un lector, premio al mejor vendedor de Europa, que compró por la honestidad con la que comunico"
+                    loading="lazy"
+                    decoding="async"
+                />
+            </a>
+        </div>
+
+        <h2>¿Tienes mala suerte en la vida?</h2>
+
+        <h2>¿Y tú, quieres unirte?</h2>
 
         <OptinRobame />
     </div>
-
-    <FooterDisclaimer />
 </BaseLayout>
