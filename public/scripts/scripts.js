@@ -127,7 +127,7 @@ ml('account', ML_ACCOUNT_ID);
        <input type="email" name="email" required>
        <button type="submit">…</button>
      </form> */
-document.querySelectorAll('form[data-ml-form-id]').forEach(form => {
+document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin) => {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const formId = form.dataset.mlFormId;
@@ -161,6 +161,13 @@ document.querySelectorAll('form[data-ml-form-id]').forEach(form => {
             .replace(/^\/+|\/+$/g, '')
             .replace(/\//g, '-') || 'home';
         body.append('fields[ultimo_optin]', origen);
+
+        /* posicion_optin: índice del form dentro de la página (0 = primero,
+           que en las landings es el del banner). Sale del orden de documento
+           del querySelectorAll, no de sessionStorage: es propio de cada form,
+           no del aterrizaje, así que no es first-touch. Combinado con
+           ultimo_optin dice en qué optin de la landing convirtió. */
+        body.append('fields[posicion_optin]', posicionOptin);
 
         /* Atribución de origen capturada al cargar la página (bloque arriba).
            Vacíos se envían como "" — MailerLite los acepta y mantiene la

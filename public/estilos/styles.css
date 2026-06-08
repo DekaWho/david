@@ -150,7 +150,8 @@ h1 {
     hyphens: none;
 }
 
-h2 {
+h2,
+h3.titulo-seccion {
     font-size: clamp(2.5rem, 4vw, 3.5rem);
     line-height: 1.2;
     font-weight: bolder;
@@ -159,6 +160,15 @@ h2 {
     padding: 0;
     text-align: center;
     hyphens: none;
+}
+
+/* Subtítulo de sección con el mismo lenguaje que el h2 (peso, color,
+   centrado) un escalón más pequeño. Clase, no `h3` a secas, para no tocar
+   los h3 de encabezado legal en /privacidad. */
+h3.titulo-seccion {
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    margin-top: 1.6em;
+    color: var(--azul);
 }
 
 /* "SUFICIENTE" — declaración manuscrita en Kalam, mayúsculas, sin punto.
@@ -211,6 +221,13 @@ u {
     text-decoration-skip-ink: none;
 }
 
+/* Subrayado rojo sobre texto negro: text-decoration-color tiñe solo la
+   línea sin tocar el color del texto. Marca un término como "dolor/alerta"
+   sin el peso de un highlighter de fondo. */
+u.subrayado-rojo {
+    text-decoration-color: var(--rojo);
+}
+
 /* Subrayado manuscrito: línea casi recta con tilt sutil (sube ~1° de
    izquierda a derecha) y un microarco en el medio, para evitar el aspecto
    perfecto del text-decoration nativo. Una sola copia por línea de texto
@@ -243,6 +260,14 @@ u {
     font-weight: 400;
 }
 
+/* Inciso manuscrito dentro del cuerpo de lectura: Kalam un punto más
+   pequeño que el body serif — un aparte en voz baja sin romper el flujo. */
+.inciso-hand {
+    font-family: var(--hand);
+    font-weight: 400;
+    font-size: 0.9em;
+}
+
 .text-verde {
     color: var(--verde);
 }
@@ -257,6 +282,12 @@ u {
 
 .mb-0 {
     margin-bottom: 0;
+}
+
+/* Anula el hyphens:auto global (html) en un fragmento: el texto sigue
+   fluyendo a varias líneas, pero ninguna palabra se parte con guion. */
+.no-hyphen {
+    hyphens: none;
 }
 
 a {
@@ -623,6 +654,10 @@ li::marker {
    siguiente bloque es la figura, no otro párrafo. */
 .cuerpo p:has(+ .gladiador) {
     margin-bottom: 2rem;
+}
+
+.capturas-email {
+    margin-bottom: 7rem;
 }
 
 .capturas-email .captura-link:nth-child(1) {
