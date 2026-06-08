@@ -4,5 +4,4 @@ Thumbs.db
 node_modules/
 dist/
 .astro/
-.dev.log
-.dev-*.log
+*.log
