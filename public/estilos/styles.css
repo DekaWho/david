@@ -902,6 +902,76 @@ li::marker {
     margin: var(--gap-lg) auto;
 }
 
+/* Doodle ilustrativo entre párrafos: dibujo a tinta tipo cuaderno de campo,
+   centrado y acotado. Misma técnica de máscara que .gladiador / .logro--*: el
+   color sale del background-color (no del SVG), así un mismo asset se integra a
+   la paleta. Decorativo: en el HTML va con aria-hidden.
+
+   El render (color + máscara) vive en ::before, no en .doodle, para poder
+   aplicar un filter (drop-shadow) en .doodle que opere sobre la silueta YA
+   enmascarada. El orden CSS aplica filter antes que mask: si se enmascara y se
+   filtra en el mismo elemento, la máscara recorta también la sombra y
+   desaparece. Separar máscara (::before) y filtro (padre) es lo que deja que la
+   sombra siga el contorno del doodle. Cada doodle concreto pone su mask-image en
+   .doodle--*::before; el color, en el mismo ::before. */
+.doodle {
+    display: block;
+    width: clamp(6rem, 11vw, 8.5rem);
+    aspect-ratio: 1;
+    margin: var(--gap-sm) auto;
+}
+
+.doodle::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--rojo);
+    -webkit-mask: center / contain no-repeat;
+    mask: center / contain no-repeat;
+}
+
+/* El bloque anterior (párrafo o lista) arrastra el margin-bottom grande del
+   ritmo de cuerpo. Frente a un doodle lo recortamos para que la ilustración
+   respire poco y se lea pegada al contenido que acompaña, no como sección
+   aparte. */
+.cuerpo > :is(p, ol, ul):has(+ .doodle) {
+    margin-bottom: var(--gap-sm);
+}
+
+/* Un título de sección tras un doodle pierde su margin-top de respiración
+   (1.6em): el doodle ya hace de antesala, así que el título va pegado a él. */
+.doodle + .titulo-seccion {
+    margin-top: 0;
+}
+
+.doodle--sisifo::before {
+    -webkit-mask-image: url(/imgs/svg/sisyphus-svgrepo-com.svg);
+    mask-image: url(/imgs/svg/sisyphus-svgrepo-com.svg);
+}
+
+.doodle--diamante::before {
+    -webkit-mask-image: url(/imgs/svg/diamond-svgrepo-com.svg);
+    mask-image: url(/imgs/svg/diamond-svgrepo-com.svg);
+}
+
+.doodle--bombilla::before {
+    -webkit-mask-image: url(/imgs/svg/lightbulb-svgrepo-com.svg);
+    mask-image: url(/imgs/svg/lightbulb-svgrepo-com.svg);
+    /* Dorado puntual de esta bombilla, no de la paleta: un amarillo que se lee
+       sobre el papel sin ensuciarse (--amarillo brilla demasiado para fondo
+       claro y oscurecerlo lo vuelve ocre turbio). Hex inline a propósito — no
+       promover a variable, solo lo usa este doodle. */
+    background-color: #f5b700;
+}
+
+/* Color de doodle alternativo al rojo por defecto, para acompañar bloques donde
+   el rojo señalético competiría. */
+.doodle--azul::before {
+    background-color: var(--azul);
+}
+
 .diamond {
     width: clamp(5rem, 8vw, 7rem);
     aspect-ratio: 1;
