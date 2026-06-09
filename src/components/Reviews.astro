@@ -1,32 +1,58 @@
 ---
-/* Bloque de prueba social: breaker "Pero no te fíes de mis palabras" + franja
-   de tinta con las tres reviews en audio (Pascual Cabedo / Gonzalo Zahonero /
-   Rioboo) + remate "SUFICIENTE" y flecha a la oferta. Montado idéntico en
-   /servicios y /contigo. Sin props: el contenido es markup fijo (no varía
-   entre páginas), así que editar un testimonio aquí lo cambia en ambas.
+/* Bloque de prueba social: titular breaker + franja de tinta con las tres
+   reviews en audio (Pascual Cabedo / Gonzalo Zahonero / Rioboo) + remate
+   "SUFICIENTE" y flecha a la oferta. Montado en /servicios, /contigo y
+   /opinan-sobre-mi. Las reviews, textos y "SUFICIENTE" son markup fijo (no varían
+   entre páginas), así que editar un testimonio aquí lo cambia en las tres.
    El torcido de las cards lo aplica .seccion-tinta .review-card en styles.css;
-   la tercera lleva .review-card--chat para el doodle de chat al margen. */
+   la tercera lleva .review-card--chat para el doodle de chat al margen.
+
+   Props:
+   - El titular es un slot "titulo": va aparte de lo sincronizado porque cada
+     contexto lo enuncia distinto. Sin slot, cae al fallback "Pero no te fíes de
+     mis palabras" (el de /servicios y /contigo). /opinan-sobre-mi pasa el suyo.
+   - flechaFinal (boolean, default true): la flecha tras "SUFICIENTE" apunta a la
+     oferta de abajo. En páginas sin oferta debajo (solo testimonios) se pasa
+     false para no señalar al vacío.
+   - slot "tras-audios": punto de inserción opcional entre la franja de audios y
+     el cierre "SUFICIENTE". Vacío por defecto (no renderiza nada), así que solo
+     aparece donde se rellena. /opinan-sobre-mi mete ahí un testimonio extra
+     (captura de email); /servicios y /contigo lo dejan vacío.
+
+   El titular por defecto se decide con Astro.slots.has, no con contenido
+   fallback dentro del <slot>: rellenar un slot que lleva fallback markup hace
+   que Astro descarte el markup hermano del componente (las reviews enteras).
+   Con el ternario el titular es un hermano más y la sección siempre renderiza. */
+const { flechaFinal = true } = Astro.props;
 ---
 
-<h1 class="titulo-breaker titulo-breaker--bg-oscuro" id="reviews">
-    Pero
-    <span class="ink-circle"
-        >no<svg
-            class="ink-circle-svg"
-            viewBox="0 0 100 60"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-        >
-            <path
-                d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
-                stroke="currentColor"
-                stroke-width="3"
-                fill="none"
-                stroke-linecap="round"></path></svg
-        ></span
-    >
-    te fíes de <span class="squiggle">mis&nbsp;palabras</span>
-</h1>
+{
+    Astro.slots.has("titulo") ? (
+        <slot name="titulo" />
+    ) : (
+        <h1 class="titulo-breaker titulo-breaker--bg-oscuro" id="reviews">
+            Pero
+            <span class="ink-circle">
+                no
+                <svg
+                    class="ink-circle-svg"
+                    viewBox="0 0 100 60"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
+                        stroke="currentColor"
+                        stroke-width="3"
+                        fill="none"
+                        stroke-linecap="round"
+                    />
+                </svg>
+            </span>
+            te fíes de <span class="squiggle">mis&nbsp;palabras</span>
+        </h1>
+    )
+}
 
 <section class="seccion-tinta seccion-tinta--separada">
     <div class="cuerpo">
@@ -91,6 +117,8 @@
     </div>
 </section>
 
+<slot name="tras-audios" />
+
 <div class="cuerpo">
     <p>
         Ahora podría abrumarte con más reseñas positivas incluyendo las de mis
@@ -98,5 +126,9 @@
     </p>
     <h2 class="suficiente">SUFICIENTE</h2>
 
-    <div class="flecha flecha--down flecha--alt" aria-hidden="true"></div>
+    {
+        flechaFinal && (
+            <div class="flecha flecha--down flecha--alt" aria-hidden="true" />
+        )
+    }
 </div>

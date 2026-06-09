@@ -626,6 +626,22 @@ li::marker {
     height: auto;
 }
 
+/* Captura de formato estrecho (notificación móvil, no email a pantalla
+   completa): se acota para que no se estire al ancho de columna y se lea como
+   lo que es. El min() mantiene el tope en 360px en desktop pero baja al 70% del
+   .cuerpo en móvil, donde la columna es casi todo el viewport y 360px seguiría
+   ocupándolo entero. */
+.captura-link--estrecha {
+    max-width: min(360px, 70%);
+}
+
+/* Variante intermedia: acota la captura al 80% de la columna sin el tope duro de
+   --estrecha. Para recortes apaisados que sobran de ancho pero no son tan
+   estrechos como una notificación. */
+.captura-link--reducida {
+    max-width: 80%;
+}
+
 /* H2 del cuerpo de /robame (scope por .captura-email, exclusiva de la página):
    un punto menor que la escala global de landing y con aire arriba para
    despegar cada sección del bloque que la precede. */
@@ -1000,6 +1016,36 @@ p:has(+ .diamond) {
    margen entre los dos para reforzar esa unidad. */
 .titulo-breaker--bg-oscuro:has(+ .seccion-tinta) {
     margin-bottom: var(--gap-xl);
+}
+
+/* En /opinan-sobre-mi (body.opiniones) el bloque de prueba social ES la página
+   entera, no un corte dentro de una landing: se lee sobre papel. La cinta
+   oscura de .seccion-tinta marca "sección distinta" donde hay más página
+   alrededor (/servicios, /contigo); aquí no hay alrededor, así que se revierte
+   la inversión de paleta solo en este body. Las review-card ya son blancas y
+   los squiggles rojos, así que sobre papel funcionan sin tocarlos: basta
+   devolver fondo y texto al registro claro. El componente Reviews y su markup
+   quedan idénticos en las tres páginas. */
+.opiniones .seccion-tinta {
+    background: transparent;
+    color: var(--negro);
+}
+
+.opiniones .seccion-tinta p,
+.opiniones .seccion-tinta strong {
+    color: inherit;
+}
+
+/* Las capturas de testimonio reusan el ligero rotado "dossier" de /robame
+   alternando el ángulo captura a captura, pero sin el contenedor .capturas-email
+   (que arrastra un margin-bottom pensado para separar bloques de dos). Aquí van
+   varias seguidas dentro de .cuerpo, así que el rotado se aplica por nth-of-type. */
+.opiniones .captura-link:nth-of-type(odd) {
+    transform: rotate(-0.6deg);
+}
+
+.opiniones .captura-link:nth-of-type(even) {
+    transform: rotate(0.6deg);
 }
 
 /* Círculo a boli alrededor de una palabra. SVG absolute-positioned con

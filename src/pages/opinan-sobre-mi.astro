@@ -1,0 +1,98 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import Reviews from "../components/Reviews.astro";
+---
+
+<BaseLayout
+    titulo="Esto opina sobre mí gente que ha trabajado conmigo"
+    canonical={null}
+    noindex={true}
+    bodyClass="opiniones"
+>
+    <Reviews flechaFinal={false}>
+        <div class="cuerpo" slot="titulo">
+            <h2>Opiniones sobre mí de gente que ha trabajado conmigo</h2>
+        </div>
+
+        <div class="cuerpo" slot="tras-audios">
+            <h2 class="text-rojo">Opiniones sobre mí de quien lee mi copy</h2>
+            <a
+                class="captura-link"
+                href="/reviews/ejemplo-de-comunicar.webp"
+                target="_blank"
+                rel="noopener"
+            >
+                <img
+                    class="captura-email"
+                    src="/reviews/ejemplo-de-comunicar.webp"
+                    alt="Email de una lectora que guarda mis emails para usarlos de ejemplo en una formación sobre cómo comunicar"
+                    loading="lazy"
+                    decoding="async"
+                />
+            </a>
+
+            <a
+                class="captura-link captura-link--estrecha"
+                href="/reviews/rio.webp"
+                target="_blank"
+                rel="noopener"
+            >
+                <img
+                    class="captura-email"
+                    src="/reviews/rio.webp"
+                    alt="«Guapísimo el mail eh, me encantó el asunto»"
+                    loading="lazy"
+                    decoding="async"
+                />
+            </a>
+
+            <a
+                class="captura-link captura-link--reducida"
+                href="/reviews/mila.webp"
+                target="_blank"
+                rel="noopener"
+            >
+                <img
+                    class="captura-email"
+                    src="/reviews/mila.webp"
+                    alt="Mensaje de Mila Coco: «Me encanta esa landing»"
+                    loading="lazy"
+                    decoding="async"
+                />
+            </a>
+
+            <a
+                class="captura-link"
+                href="/reviews/migui.webp"
+                target="_blank"
+                rel="noopener"
+            >
+                <img
+                    class="captura-email"
+                    src="/reviews/migui.webp"
+                    alt="Opinión del copywriter Miguel Vázquez sobre un lanzamiento de emails: «menuda currada, lo has pillado a la perfección, es difícilmente mejorable»"
+                    loading="lazy"
+                    decoding="async"
+                />
+            </a>
+
+            <a
+                class="captura-link"
+                href="/reviews/trimarketers.webp"
+                target="_blank"
+                rel="noopener"
+            >
+                <img
+                    class="captura-email"
+                    src="/reviews/trimarketers.webp"
+                    alt="Comentario de Elsa y Maite López: «David es un cerebrito, en unos pocos meses aprendiendo copy ya nos da mil vueltas a todos, es un crack»"
+                    loading="lazy"
+                    decoding="async"
+                />
+            </a>
+        </div>
+    </Reviews>
+
+    <Footer />
+</BaseLayout>
