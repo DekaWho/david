@@ -3,7 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Menu from "../../components/Menu.astro";
 import Footer from "../../components/Footer.astro";
 import { categorias } from "../../data/categorias.js";
-import { BIO_CANONICA } from "../../data/bio.js";
+import { DESCRIPCION_19K } from "../../data/bio.js";
 
 type PostModule = {
     frontmatter: {
@@ -65,7 +65,7 @@ const totalPosts = posts.length;
     titulo="¿Un... blog? | David Varea"
     canonical="/blog"
     ogTitle="¿Un... blog? | David Varea"
-    ogDescription={BIO_CANONICA}
+    ogDescription={DESCRIPCION_19K}
     ogUrl="https://davidvarea.com/blog"
     favicon="writing"
     bodyClass="blog-hub"

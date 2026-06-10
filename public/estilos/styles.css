@@ -460,6 +460,13 @@ li::marker {
     margin-top: 2.5em;
 }
 
+/* /robame-hormozi: el cuerpo abre directamente con este H2, pegado al
+   CTA del banner — la separación de sección del margin-top global está
+   pensada para títulos a mitad de página y aquí descuelga el bloque. */
+.robame-hormozi .cuerpo > .titulo-compacto:first-child {
+    margin-top: 0;
+}
+
 /* Captura/screenshot embebida en el banner como prueba (ej: peso de la
    carpeta de formaciones en /robame). Ancho acotado para no romper la
    columna del hero ni desplazar el CTA fuera del fold en móvil. */

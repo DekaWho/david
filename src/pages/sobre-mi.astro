@@ -4,7 +4,7 @@ import Menu from "../components/Menu.astro";
 import Footer from "../components/Footer.astro";
 import OptinCompleto from "../components/OptinCompleto.astro";
 import Logros from "../components/Logros.astro";
-import { BIO_CANONICA } from "../data/bio.js";
+import { DESCRIPCION_19K } from "../data/bio.js";
 
 /* ProfilePage cuya mainEntity es el Person global declarado en Head.astro
    (#person). Refuerza la consolidación de la entidad David Varea en el
@@ -23,7 +23,6 @@ const profileSchema = {
     titulo="¿Quién es David Varea?"
     canonical="/sobre-mi"
     ogTitle="¿Quién es David Varea?"
-    ogDescription={BIO_CANONICA}
     ogUrl="https://davidvarea.com/sobre-mi"
 >
     <Menu
