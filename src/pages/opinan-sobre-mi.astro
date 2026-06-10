@@ -10,7 +10,7 @@ import Reviews from "../components/Reviews.astro";
     canonical="/opinan-sobre-mi"
     bodyClass="opiniones"
 >
-    <Reviews flechaFinal={false}>
+    <Reviews>
         <div class="cuerpo" slot="titulo">
             <h2>Opiniones sobre mí de gente que ha trabajado conmigo</h2>
         </div>
@@ -93,6 +93,27 @@ import Reviews from "../components/Reviews.astro";
             </a>
         </div>
     </Reviews>
+
+    <div class="cuerpo">
+        <h2>Si quieres que trabajemos juntos puedo hacer 2 cosas por ti</h2>
+    </div>
+
+    <div class="contacto-mensajes">
+        <ol>
+            <li>
+                Darte servicios como director de marketing freelance. Aquí
+                tienes
+                <a href="/servicios">el formulario</a> para ello.
+            </li>
+            <li>
+                Venderte acompañamiento 1a1 para tu negocio, aunque puedes
+                empezar por mi newsleter gratuita: <a href="/robame"
+                    >Róbame hasta 19.970€ desde el sofá de tu casa mirando
+                    el móvil</a
+                >
+            </li>
+        </ol>
+    </div>
 
     <Footer />
 </BaseLayout>
