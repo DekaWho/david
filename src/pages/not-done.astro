@@ -2,12 +2,12 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout titulo="⚠️ Error" noindex={true} scripts={false}>
+<BaseLayout titulo="⚠️ Cuidado" noindex={true} scripts={false}>
     <div class="banner" style="padding-top: 3rem;">
         <section class="hero">
             <h1>
                 <img class="emoji" src="/imgs/svg/alert.svg" alt="⚠️" />
-                <span style="color: var(--rojo);">Error:</span><br /><span
+                <span style="color: var(--rojo);">Cuidado:</span><br /><span
                     style="color: var(--negro);">Te falta un paso</span
                 >
             </h1>
@@ -17,11 +17,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="cuerpo">
         <p style="margin-bottom: var(--gap-lg);">
             <strong>
-                Para poder aceptarte tienes que <u class="mark-amarillo"
-                    >confirmar tu dirección (</u
-                >pulsando el botón dentro del email que acaba de llegarte).
-                Tienes que hacerlo <span class="squiggle squiggle--rojo"
-                    >antes de 5 minutos o caduca.</span
+                Tienes que <span class="squiggle squiggle--rojo"
+                    >confirmar tu dirección</span
+                >
+                desde el email que acaba de llegarte. Tienes 5 minutos <u
+                    class="mark-amarillo">o caduca.</u
                 >
             </strong>
         </p>
@@ -76,7 +76,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <ol style="margin-bottom: var(--gap-lg);">
             <li style="margin-bottom: 0.5rem;">
                 Mira la carpeta de SPAM (promociones o similares). Si está ahí
-                el correo muévelo a donde puedas localizar los próximos envíos.
+                mueve el correo a donde puedas localizar los próximos envíos.
             </li>
             <li style="margin-bottom: 0.5rem;">
                 Si no está en ninguna carpeta espera unos minutos. Puede ser que
