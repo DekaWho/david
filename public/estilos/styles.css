@@ -545,6 +545,9 @@ li::marker {
 .banner-proof + .hand:has(.banner-svg),
 .optin-bloque .hand:has(.banner-svg) {
     margin-bottom: 0;
+    /* Ligero torcido manuscrito (mismo gesto que las review-card): el pie
+       Kalam lee como anotación a mano, no como línea maquetada. */
+    transform: rotate(-0.65deg);
 }
 
 /* Bloque opt-in autoral con trofeo (OptinCompletoRobame): el cajetín sigue al
