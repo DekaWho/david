@@ -1,23 +1,23 @@
 ---
 /* Bloque de prueba social: titular breaker + franja de tinta con las tres
    reviews en audio (Pascual Cabedo / Gonzalo Zahonero / Rioboo) + remate
-   "SUFICIENTE" y flecha a la oferta. Montado en /servicios, /contigo y
+   "SUFICIENTE" y flecha a la oferta. Montado en /servicios y
    /opinan-sobre-mi. Las reviews, textos y "SUFICIENTE" son markup fijo (no varían
-   entre páginas), así que editar un testimonio aquí lo cambia en las tres.
+   entre páginas), así que editar un testimonio aquí lo cambia en ambas.
    El torcido de las cards lo aplica .seccion-tinta .review-card en styles.css;
    la tercera lleva .review-card--chat para el doodle de chat al margen.
 
    Props:
    - El titular es un slot "titulo": va aparte de lo sincronizado porque cada
      contexto lo enuncia distinto. Sin slot, cae al fallback "Pero no te fíes de
-     mis palabras" (el de /servicios y /contigo). /opinan-sobre-mi pasa el suyo.
+     mis palabras" (el de /servicios). /opinan-sobre-mi pasa el suyo.
    - flechaFinal (boolean, default true): la flecha tras "SUFICIENTE" apunta a la
      oferta de abajo. En páginas sin oferta debajo (solo testimonios) se pasa
      false para no señalar al vacío.
    - slot "tras-audios": punto de inserción opcional entre la franja de audios y
      el cierre "SUFICIENTE". Vacío por defecto (no renderiza nada), así que solo
      aparece donde se rellena. /opinan-sobre-mi mete ahí un testimonio extra
-     (captura de email); /servicios y /contigo lo dejan vacío.
+     (captura de email); /servicios lo deja vacío.
 
    El titular por defecto se decide con Astro.slots.has, no con contenido
    fallback dentro del <slot>: rellenar un slot que lleva fallback markup hace

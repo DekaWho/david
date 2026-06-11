@@ -1090,11 +1090,11 @@ p:has(+ .diamond) {
 /* En /opinan-sobre-mi (body.opiniones) el bloque de prueba social ES la página
    entera, no un corte dentro de una landing: se lee sobre papel. La cinta
    oscura de .seccion-tinta marca "sección distinta" donde hay más página
-   alrededor (/servicios, /contigo); aquí no hay alrededor, así que se revierte
+   alrededor (/servicios); aquí no hay alrededor, así que se revierte
    la inversión de paleta solo en este body. Las review-card ya son blancas y
    los squiggles rojos, así que sobre papel funcionan sin tocarlos: basta
    devolver fondo y texto al registro claro. El componente Reviews y su markup
-   quedan idénticos en las tres páginas. */
+   quedan idénticos en las páginas que lo montan. */
 .opiniones .seccion-tinta {
     background: transparent;
     color: var(--negro);

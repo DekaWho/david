@@ -1,6 +1,6 @@
 /* Fuente única de los logros/resultados representativos. Los consume el
-   componente Logros.astro, montado idéntico en /servicios, /contigo y
-   /sobre-mi. Editar un logro aquí lo cambia en las tres páginas. El orden del
+   componente Logros.astro, montado idéntico en /servicios y /sobre-mi.
+   Editar un logro aquí lo cambia en ambas páginas. El orden del
    array es el orden de render; `clase` aplica el doodle de margen del logro
    (icono email / banderín) cuando lo lleva. */
 export const LOGROS = [
