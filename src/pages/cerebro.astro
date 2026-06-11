@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import OptinCerebro from "../components/OptinCerebro.astro";
+import PitchCerebro from "../components/PitchCerebro.astro";
+import FraseCerebro from "../components/FraseCerebro.astro";
 import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 ---
 
@@ -21,33 +23,11 @@ import FooterDisclaimer from "../components/FooterDisclaimer.astro";
                 />
             </div>
 
-            <h1 class="banner-h1--small">
-                He pasado de ver cursos <u class="mark-amarillo"
-                    >a x2 de velocidad</u
-                > a no volver a tragarme <span class="hl-squiggle"
-                    ><span class="squiggle-text">ni un vídeo más</span><svg
-                        class="squiggle-svg"
-                        viewBox="0 0 140 10"
-                        preserveAspectRatio="none"
-                        aria-hidden="true"
-                        ><path
-                            d="M2 5 Q 35 1 70 5 T 138 5"
-                            stroke-width="2.4"
-                            fill="none"
-                            stroke-linecap="round"></path></svg
-                    ></span
-                > gracias a Claude <span class="aside-hand"
-                    >(él mira el contenido, resume lo importante y tiene en
-                    cuenta lo que ya sé para descartarlo)</span
-                >
-            </h1>
+            <PitchCerebro Tag="h1" class="banner-h1--small" />
 
             <OptinCerebro botonTexto="Apúntame a la lista de espera" />
 
-            <p>
-                Con Claude es como he metido toda mi biblioteca de conocimiento
-                personal en un segundo cerebro.
-            </p>
+            <FraseCerebro />
         </section>
     </div>
 

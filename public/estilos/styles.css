@@ -467,12 +467,12 @@ li::marker {
     margin-top: 0;
 }
 
-/* Captura/screenshot embebida en el banner como prueba (ej: peso de la
-   carpeta de formaciones en /robame). Ancho acotado para no romper la
-   columna del hero ni desplazar el CTA fuera del fold en móvil. */
+/* Imagen embebida en el banner como prueba (ej: las caras de los referentes
+   en /robame). Ancho acotado para no romper la columna del hero ni
+   desplazar el CTA fuera del fold en móvil. */
 .banner-proof {
     display: block;
-    max-width: clamp(270px, 78%, 390px);
+    max-width: clamp(240px, 68%, 340px);
     height: auto;
     margin: 0.5rem auto 0;
 }
@@ -504,95 +504,76 @@ li::marker {
     }
 }
 
-/* Doodle del sofá como remate inline del pie Kalam "…desde tu sofá…": va
-   dentro del <p class="hand"> como un glifo más al final de la frase, alineado
-   a la línea de texto. Dimensiones en em para que escale con la tipografía del
-   Kalam en cualquier viewport. Recoloreado con máscara (como .gladiador)
-   porque el .svg trae el trazo hardcodeado a negro; la máscara deja pasar el
-   --rojo del fondo. */
-.banner-couch {
-    --couch-size: 3.1em;
-    display: inline-block;
-    width: var(--couch-size);
-    height: var(--couch-size);
-    vertical-align: middle;
-    /* Margen vertical negativo: un inline-block más alto que el texto expande
-       el line-box y abre el interlineado del Kalam y el aire hasta el form. El
-       negativo reabsorbe ese alto extra (la línea del Kalam mide ~1.2em) para
-       que el sofá sobresalga de la línea sin empujar el flujo vertical;
-       derivado de --couch-size para seguir compensando si el tamaño cambia. */
-    margin-block: calc((var(--couch-size) - 1.2em) / -2);
-    margin-inline: 0.2em 0;
+/* Doodle del trofeo como cierre del pie Kalam: bloque centrado bajo el texto,
+   apoyado justo encima del cajetín del form, igual en todos los viewports.
+   Dimensiones en em para que escale con la tipografía del Kalam. Recoloreado
+   con máscara (como .gladiador) porque el .svg trae el trazo hardcodeado a
+   negro; la máscara deja pasar el --rojo del fondo.
+   El SVG deja transparente la franja inferior de su viewBox (la base del
+   trofeo acaba a ~0.78 de los 400 de alto), así que con `contain` quedaría un
+   colchón muerto entre la base y el cajetín del form. Anclamos la máscara
+   arriba a tamaño completo y recortamos la altura de la caja a esa fracción
+   de tinta: el borde inferior coincide con la base y el trofeo se apoya en el
+   form sin márgenes negativos. */
+.banner-svg {
+    --svg-size: 3.8em;
+    /* Fracción vertical del viewBox (0-400) donde acaba la base del trofeo;
+       recorta el transparente inferior del SVG. */
+    --svg-ink: 0.78;
+    display: block;
+    width: var(--svg-size);
+    height: calc(var(--svg-size) * var(--svg-ink));
+    margin: 0 auto;
     background-color: var(--rojo);
-    -webkit-mask: url("/imgs/svg/couch-sitting-svgrepo-com.svg") center / contain
-        no-repeat;
-    mask: url("/imgs/svg/couch-sitting-svgrepo-com.svg") center / contain
-        no-repeat;
+    -webkit-mask: url("/imgs/svg/trophy-svgrepo-com.svg") center top /
+        var(--svg-size) var(--svg-size) no-repeat;
+    mask: url("/imgs/svg/trophy-svgrepo-com.svg") center top /
+        var(--svg-size) var(--svg-size) no-repeat;
 }
 
-/* En pantallas grandes el sofá crece y pasa a bloque centrado bajo el Kalam.
-   El SVG dibuja el sofá en la franja superior de su viewBox (las patas acaban
-   a ~0.8 de los 400 de alto; el resto es transparente), así que con `contain`
-   quedaría un colchón muerto entre las patas y el cajetín del form. Anclamos la
-   máscara arriba a tamaño completo y recortamos la altura de la caja a esa
-   fracción de tinta: el borde inferior coincide con las patas y el sofá se
-   apoya en el form sin márgenes negativos. */
+/* En pantallas grandes el trofeo solo crece; el layout en bloque es el mismo. */
 @media (min-width: 1000px) {
-    .banner-couch {
-        --couch-size: 4.5em;
-        /* Fracción vertical del viewBox (0-400) donde acaban las patas; recorta
-           el transparente inferior del SVG. */
-        --couch-ink: 0.8;
-        display: block;
-        width: var(--couch-size);
-        height: calc(var(--couch-size) * var(--couch-ink));
-        margin: 0 auto;
-        -webkit-mask-size: var(--couch-size) var(--couch-size);
-        mask-size: var(--couch-size) var(--couch-size);
-        -webkit-mask-position: center top;
-        mask-position: center top;
-    }
-
-    /* El sofá en bloque cuelga al final del párrafo; sin el margin-bottom del
-       Kalam queda pegado al cajetín del form. En móvil el .hand conserva su
-       margin-bottom (0.5rem) para dejar el mismo aire que el hero de /robame,
-       donde el sofá va inline. Dos selectores: .banner-proof + .hand cubre el
-       hero de /robame y OptinCompleto (Kalam tras la captura); .optin-bloque
-       .hand cubre OptinReducido, que no lleva captura delante. */
-    .banner-proof + .hand:has(.banner-couch),
-    .optin-bloque .hand:has(.banner-couch) {
-        margin-bottom: 0;
+    .banner-svg {
+        --svg-size: 4.5em;
     }
 }
 
-/* Bloque opt-in autoral con sofá (OptinCompleto): el cajetín sigue al sofá sin
-   el aire del row-gap del flex, como en el hero de /robame (que espacia con
-   márgenes, no gap). Anulamos el row-gap y reponemos la separación como
-   margin-top en cada hijo, omitiéndola en el form para que quede pegado. Vale
-   en móvil (sofá inline) y desktop (sofá en bloque); en desktop el .hand pierde
-   además su margin-bottom (regla de arriba) para el apoyo total en el cajetín. */
-.optin-bloque:has(.banner-couch) {
+/* El pie Kalam que lleva el trofeo pierde su margin-bottom para que el trofeo
+   se apoye en el cajetín del form. Dos selectores: .banner-proof + .hand cubre
+   el hero de /robame y OptinCompletoRobame (Kalam tras la captura);
+   .optin-bloque .hand cubre OptinReducidoRobame, sin captura delante. */
+.banner-proof + .hand:has(.banner-svg),
+.optin-bloque .hand:has(.banner-svg) {
+    margin-bottom: 0;
+}
+
+/* Bloque opt-in autoral con trofeo (OptinCompletoRobame): el cajetín sigue al
+   trofeo sin el aire del row-gap del flex, como en el hero de /robame (que
+   espacia con márgenes, no gap). Anulamos el row-gap y reponemos la separación
+   como margin-top en cada hijo, omitiéndola en el form para que quede pegado;
+   el .hand pierde además su margin-bottom (regla de arriba) para el apoyo
+   total en el cajetín. */
+.optin-bloque:has(.banner-svg) {
     row-gap: 0;
 }
 
-.optin-bloque:has(.banner-couch) > *:not(:first-child):not(.optin) {
+.optin-bloque:has(.banner-svg) > *:not(:first-child):not(.optin) {
     margin-top: var(--gap-sm);
 }
 
-/* Pie manuscrito en rojo: tipografía pequeña, Kalam, centrada. Dos
-   contextos cubiertos por el mismo selector compuesto:
+/* Pie manuscrito: tipografía pequeña, Kalam, centrada, a todo el ancho del
+   contenedor. Dos contextos cubiertos por el mismo selector compuesto:
    - .banner-proof + .hand → caption bajo la captura (banner de /robame
-     y OptinCompleto, donde el párrafo Kalam sigue a la imagen).
-   - .optin-bloque .hand → OptinReducido (sin imagen previa, el mismo
+     y OptinCompletoRobame, donde el párrafo Kalam sigue a la imagen).
+   - .optin-bloque .hand → OptinReducidoRobame (sin imagen previa, el mismo
      párrafo Kalam vive encima del form). */
 .banner-proof + .hand,
 .optin-bloque .hand {
-    max-width: 80%;
     margin: 0.5rem auto;
     text-align: center;
     line-height: 1.15;
     font-size: calc(var(--text-body) * 0.75);
-    color: var(--rojo);
+    color: var(--negro);
     /* Anula el hyphens:auto global (html): un guion de corte parte palabras
        y rompe el registro manuscrito del Kalam. Se nota al ensanchar el .hand
        en el bloque, donde alguna línea queda justa. */
@@ -600,13 +581,21 @@ li::marker {
 }
 
 /* Dentro del .optin-bloque (flex align-items: center) el .hand encoge a su
-   línea más larga, sin holgura para que el sofá inline quepa al final y lo
-   empuja a una línea propia. align-self: stretch le devuelve el ancho fijo
-   del 80% (el mismo que tiene en el .hero de /robame, flex stretch), así el
-   sofá vuelve junto al texto. Acotado al .hand con sofá para no tocar el
-   Kalam del OptinReducido, que no lo lleva. */
-.optin-bloque .hand:has(.banner-couch) {
+   línea más larga. align-self: stretch le da el ancho completo del bloque,
+   el mismo que tiene en el .hero de /robame (flex stretch). */
+.optin-bloque .hand:has(.banner-svg) {
     align-self: stretch;
+}
+
+/* En pantallas grandes el pie del trofeo se acota al ancho del cajetín del
+   form (480px — mismo max-width que .optin, sección 9) en vez de estirarse
+   al ancho completo del hero/bloque: las líneas cortas leen como caption
+   del form. El margin auto del selector base lo mantiene centrado. */
+@media (min-width: 801px) {
+    .banner-proof + .hand:has(.banner-svg),
+    .optin-bloque .hand:has(.banner-svg) {
+        max-width: 480px;
+    }
 }
 
 /* Capturas de email (prueba social) en el cuerpo de /robame: recortes reales
@@ -2541,11 +2530,11 @@ audio::-webkit-media-controls-panel {
     margin: 0;
 }
 
-/* La captura de las carpetas pesa más en el bloque que en el hero de /robame:
+/* La imagen de prueba pesa más en el bloque que en el hero de /robame:
    aquí es la única prueba visual del pitch, así que sube el tope respecto al
-   clamp base (390px) para que se lea sin forzar la vista. */
+   clamp base (340px) para que se lea sin forzar la vista. */
 .optin-bloque .banner-proof {
-    max-width: clamp(300px, 85%, 470px);
+    max-width: clamp(270px, 76%, 420px);
 }
 
 .optin-bloque .optin-bloque-nombre {
@@ -2736,12 +2725,12 @@ audio::-webkit-media-controls-panel {
         width: 100%;
     }
 
-    /* En móvil la captura de las carpetas suelta el tope del clamp y ocupa
+    /* En móvil la imagen de prueba suelta el tope del clamp y ocupa casi
        todo el ancho del bloque: en pantalla estrecha es la prueba visual del
        pitch y el aire lateral solo la empequeñece. El padding del .optin-bloque
        le deja el margen respiratorio. */
     .optin-bloque .banner-proof {
-        max-width: 100%;
+        max-width: 90%;
     }
 
     /* En móvil el bloque rompe la columna de lectura y ocupa el viewport
@@ -2757,14 +2746,6 @@ audio::-webkit-media-controls-panel {
         transform: translateX(-50%);
     }
 
-    /* En móvil el Kalam del sofá suelta el cap del 80% y ocupa todo el ancho
-       del bloque: en pantalla estrecha el 80% lo encogía y partía el texto en
-       líneas de más. Combinado con el align-self: stretch (regla base) llena
-       el content-box; el padding 1rem del .optin-bloque queda como único aire
-       lateral. */
-    .optin-bloque .hand:has(.banner-couch) {
-        max-width: none;
-    }
 }
 
 /* Índice de la página (TOC). Lateral fijo en desktop (sigue scroll por

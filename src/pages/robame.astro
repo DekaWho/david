@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import OptinRobame from "../components/OptinRobame.astro";
+import PitchRobame from "../components/PitchRobame.astro";
+import ProofRobame from "../components/ProofRobame.astro";
+import CierreRobame from "../components/CierreRobame.astro";
 import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 ---
 
@@ -21,28 +24,10 @@ import FooterDisclaimer from "../components/FooterDisclaimer.astro";
                 />
             </div>
 
-            <h1 class="banner-h1--small">
-                Me he gastado <u class="banner-mark"
-                    >19.970€ en cursos y mentorías</u
-                > de marketing, viralidad, IA y emprendimiento
-                <span class="aside-hand"
-                    >(aparte de mi experiencia dando servicios)</span
-                >
-                para que <span class="squiggle">tú no tengas que hacerlo</span>
-            </h1>
+            <PitchRobame Tag="h1" class="banner-h1--small" />
 
-            <img
-                class="banner-proof"
-                src="/imgs/conocimiento.webp"
-                alt="todo el conocimiento ordenado en carpetas"
-                loading="eager"
-                decoding="async"
-            />
-            <p class="hand">
-                Róbame hasta 19.970€ desde tu sofá mientras miras el móvil<span
-                    class="banner-couch"
-                    aria-hidden="true"></span>
-            </p>
+            <ProofRobame loading="eager" />
+            <CierreRobame />
 
             <OptinRobame />
         </section>
@@ -50,11 +35,12 @@ import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 
     <div class="cuerpo">
         <p>
-            Si tienes tu propio negocio donde consigues clientes online <span
-                class="inciso-hand">(o te dedicas al marketing digital)</span
-            > este contenido sirve para hacerte más rentable y escalable (dicho en
-            cristiano:
-            <u class="mark-amarillo">ingresar más aunque trabajes menos)</u>
+            Estos correos son útiles si ya tienes un negocio montado donde
+            <u class="mark-amarillo">consigues clientes online (</u>o te dedicas
+            al marketing digital) <span class="inciso-hand"
+                >No si quieres emprender y todavía no has conseguido ni el
+                primer cliente.</span
+            >
         </p>
 
         <span class="doodle doodle--bombilla" aria-hidden="true"></span>
@@ -124,7 +110,8 @@ import FooterDisclaimer from "../components/FooterDisclaimer.astro";
             </li>
         </ol>
 
-        <span class="doodle doodle--diamante doodle--azul" aria-hidden="true"></span>
+        <span class="doodle doodle--diamante doodle--azul" aria-hidden="true"
+        ></span>
 
         <h3 class="titulo-seccion">¿Quieres unirte?</h3>
         <OptinRobame />

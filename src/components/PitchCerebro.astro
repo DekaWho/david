@@ -1,0 +1,27 @@
+---
+// Copy del pitch de Cerebro — fuente única. Lo montan el hero de /cerebro
+// y OptinCompletoCerebro: editar el texto aquí cambia todos los sitios a
+// la vez. `Tag` ajusta la semántica al contexto (h1 en la landing, p en
+// los bloques); la clase del contenedor la pasa quien monta.
+const { Tag = "p", class: clase } = Astro.props;
+---
+
+<Tag class={clase}>
+    He pasado de ver cursos <u class="mark-amarillo">a x2 de velocidad</u> a no
+    volver a tragarme <span class="hl-squiggle"
+        ><span class="squiggle-text">ni un vídeo más</span><svg
+            class="squiggle-svg"
+            viewBox="0 0 140 10"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            ><path
+                d="M2 5 Q 35 1 70 5 T 138 5"
+                stroke-width="2.4"
+                fill="none"
+                stroke-linecap="round"></path></svg
+        ></span
+    > gracias a Claude <span class="aside-hand"
+        >(él mira el contenido, resume lo importante y tiene en cuenta lo que ya
+        sé para descartarlo)</span
+    >
+</Tag>

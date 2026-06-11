@@ -1,0 +1,39 @@
+---
+import OptinRobame from './OptinRobame.astro';
+import PitchRobame from './PitchRobame.astro';
+import ProofRobame from './ProofRobame.astro';
+import CierreRobame from './CierreRobame.astro';
+
+// Variante completa del bloque opt-in de Róbame. Foto + nombre + pitch
+// serif + imagen de prueba + cierre Kalam + form. Pensada para mitad de
+// artículo, donde el lector aún no tiene el contexto del CTA y necesita
+// el porqué. Para sitios donde el lector ya leyó (cierre de post, segunda
+// aparición, landings con contexto previo) usar OptinReducidoRobame.astro.
+//
+// El copy (pitch, imagen, cierre) vive en los componentes Pitch/Proof/
+// CierreRobame, compartidos con el hero de /robame: editar la pieza
+// cambia landing y bloques a la vez.
+//
+// `id` opcional: PostLayout pasa "post-end" cuando una variante cierra el
+// post; los .mdx insertan esta versión completa sin id para no duplicar
+// anchors.
+const { id } = Astro.props;
+---
+
+<section class="optin-bloque" id={id}>
+    <img
+        class="hero-photo"
+        src="/imgs/profile-pic.webp"
+        alt="David Varea"
+        loading="lazy"
+    />
+    <div>
+        <p class="optin-bloque-nombre">David Varea</p>
+        <PitchRobame class="optin-bloque-pitch" />
+    </div>
+
+    <ProofRobame />
+    <CierreRobame />
+
+    <OptinRobame />
+</section>

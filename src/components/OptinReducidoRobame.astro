@@ -1,0 +1,34 @@
+---
+import OptinRobame from './OptinRobame.astro';
+import CierreRobame from './CierreRobame.astro';
+
+// Variante reducida del bloque opt-in de Róbame. Foto + nombre + cierre
+// Kalam + form. Sin el pitch serif ni la imagen de prueba. Pensada para
+// el cierre de los posts del blog (el lector ya leyó el artículo entero)
+// y cualquier otro contexto donde el porqué del CTA ya esté establecido y
+// solo haga falta el cierre. Para mid-article u otros sitios sin contexto
+// previo, usar OptinCompletoRobame.astro.
+//
+// El cierre Kalam vive en CierreRobame, compartido con el hero de /robame
+// y el bloque completo: editar la pieza cambia todos los sitios a la vez.
+//
+// Comparte la clase `.optin-bloque` con la variante completa: layout,
+// foto, nombre y párrafo Kalam se rigen por las mismas reglas CSS.
+const { id } = Astro.props;
+---
+
+<section class="optin-bloque" id={id}>
+    <img
+        class="hero-photo"
+        src="/imgs/profile-pic.webp"
+        alt="David Varea"
+        loading="lazy"
+    />
+    <div>
+        <p class="optin-bloque-nombre">David Varea</p>
+    </div>
+
+    <CierreRobame />
+
+    <OptinRobame />
+</section>

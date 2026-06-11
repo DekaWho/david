@@ -1,6 +1,7 @@
 ---
 import Head from '../components/Head.astro';
-import OptinReducido from '../components/OptinReducido.astro';
+import OptinReducidoRobame from '../components/OptinReducidoRobame.astro';
+import OptinCompletoCerebro from '../components/OptinCompletoCerebro.astro';
 import Footer from '../components/Footer.astro';
 import { categorias } from '../data/categorias.js';
 
@@ -9,6 +10,7 @@ import { categorias } from '../data/categorias.js';
 const {
   titulo,
   readingTime = 2,
+  categoria,
   ...headProps
 } = Astro.props;
 ---
@@ -61,7 +63,12 @@ const {
       <slot />
     </article>
 
-    <OptinReducido id="post-end" />
+    {/* El cierre monta el optin del lead magnet afín a la categoría del
+        post: "ia" → bloque Cerebro (completo, porque el lector no tiene
+        contexto previo de esa oferta); resto → reducido de Róbame. */}
+    {categoria === 'ia'
+      ? <OptinCompletoCerebro id="post-end" />
+      : <OptinReducidoRobame id="post-end" />}
 
     <Footer />
 

@@ -1,0 +1,37 @@
+---
+import OptinCerebro from './OptinCerebro.astro';
+import PitchCerebro from './PitchCerebro.astro';
+import FraseCerebro from './FraseCerebro.astro';
+
+// Bloque opt-in del lead magnet "Cerebro" (Claude / IA). Foto + nombre +
+// pitch + frase Kalam + form. Cierra los posts del blog de categoría "ia"
+// (lo monta PostLayout) y puede insertarse mid-article en cualquier .mdx.
+//
+// El copy (pitch y frase) vive en PitchCerebro / FraseCerebro,
+// compartidos con el hero de /cerebro: editar la pieza cambia landing y
+// bloque a la vez.
+//
+// Comparte la clase `.optin-bloque` con los bloques de Róbame: layout,
+// foto, nombre y tipografías se rigen por las mismas reglas CSS.
+//
+// `id` opcional: PostLayout pasa "post-end" cuando cierra el post; una
+// inserción mid-article en un .mdx va sin id para no duplicar anchors.
+const { id } = Astro.props;
+---
+
+<section class="optin-bloque" id={id}>
+    <img
+        class="hero-photo"
+        src="/imgs/profile-pic.webp"
+        alt="David Varea"
+        loading="lazy"
+    />
+    <div>
+        <p class="optin-bloque-nombre">David Varea</p>
+        <PitchCerebro class="optin-bloque-pitch" />
+    </div>
+
+    <FraseCerebro class="hand" />
+
+    <OptinCerebro botonTexto="Apúntame a la lista de espera" />
+</section>

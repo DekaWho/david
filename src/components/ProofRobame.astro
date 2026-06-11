@@ -1,0 +1,15 @@
+---
+// Imagen de prueba del pitch de Róbame — fuente única. La montan el hero
+// de /robame (loading="eager": está en el fold) y OptinCompletoRobame
+// (default lazy: aparece mid-article). Cambiar la imagen o el alt aquí
+// cambia todos los sitios a la vez.
+const { loading = "lazy" } = Astro.props;
+---
+
+<img
+    class="banner-proof"
+    src="/imgs/heads.webp"
+    alt="las caras de los referentes estudiados"
+    loading={loading}
+    decoding="async"
+/>
