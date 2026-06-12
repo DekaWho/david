@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Menu from "../components/Menu.astro";
 import Footer from "../components/Footer.astro";
 import Reviews from "../components/Reviews.astro";
 ---
@@ -10,6 +11,8 @@ import Reviews from "../components/Reviews.astro";
     canonical="/opinan-sobre-mi"
     bodyClass="opiniones"
 >
+    <Menu enlaces={[{ href: "/", label: "Portada", iconoCasa: true }]} />
+
     <Reviews>
         <div class="cuerpo" slot="titulo">
             <h2>Opiniones sobre mí de gente que ha trabajado conmigo</h2>
