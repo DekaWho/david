@@ -30,7 +30,7 @@ export const LOGROS = [
         texto: "Más de 100 Millones de reproducciones en total (en vídeos horizontales orgánicos) trabajando con varios youtubers de entretenimiento.",
     },
     {
-        texto: "Hice los emails de una campaña que redujo el CAC un 39.8% respecto a los meses anteriores, despertando leads zombie (estaban en la lista meses sin haber comprado nada)",
+        texto: "Hice una campaña que redujo el coste de adquisición de clientes un 39.8% respecto a los meses anteriores. Mejoré la conversión de leads en clientes (incluso despertando leads que llevaban semanas dormidos sin haber comprado nunca)",
     },
     {
         clase: "logro--flag",
