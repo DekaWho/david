@@ -855,6 +855,24 @@ li::marker {
     text-align: center;
 }
 
+/* /cerebro: demo en vídeo entre el H1 y el CTA. Los atributos
+   width/height del elemento fijan el aspect-ratio y evitan layout shift.
+   El ancho se acota vía min() con el alto objetivo (38vh convertido a
+   ancho 16:9): limitar el alto directamente (max-height) letterboxearía
+   el vídeo con bandas laterales; limitando el ancho, la proporción se
+   conserva y en viewports bajos el bloque encoge para que el form del
+   hero siga asomando bajo el fold (regla "hero visible sin scroll").
+   Borde tinta 1px: lenguaje dossier, no player flotante. El fondo negro
+   cubre el instante entre play y primer frame decodificado. */
+.hero-video {
+    display: block;
+    width: min(100%, calc(38vh * 16 / 9));
+    height: auto;
+    margin: 0 auto clamp(0.6rem, 2vh, 1.2rem);
+    border: 1px solid var(--negro);
+    background: var(--negro);
+}
+
 /* /cerebro: el H2 base del .cuerpo va a .titulo-compacto (escala que
    machea con .banner-h1--small del banner). Aquí el banner ocupa varias
    líneas y la proporción se queda corta — el H2 del cuerpo se ve más
