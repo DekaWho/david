@@ -7,6 +7,11 @@ import OptinBase from "./OptinBase.astro";
    por filtrado de UTMs posterior — los UTMs pueden faltar o llegar
    incorrectos; el form-id siempre llega correcto. */
 const CEREBRO_FORM_ID = "188427651849914364";
+
+/* Texto por defecto del botón para este lead magnet. La página puede
+   overridearlo pasando `botonTexto`; el form-id se fija siempre después
+   del spread para que la página no pueda cambiarlo. */
+const { botonTexto = "Mándame gratis esa skill", ...rest } = Astro.props;
 ---
 
-<OptinBase {...Astro.props} formId={CEREBRO_FORM_ID} />
+<OptinBase {...rest} botonTexto={botonTexto} formId={CEREBRO_FORM_ID} />
