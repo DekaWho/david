@@ -4,6 +4,5 @@
 // (2) hash de URL para activar la tab en el hub (`/blog#marketing`).
 export const categorias = [
     { slug: "ia", nombre: "IA" },
-    { slug: "negocios", nombre: "Emprendimiento y Negocios" },
     { slug: "marketing", nombre: "Marketing y Ventas" },
 ];

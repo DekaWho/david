@@ -13,6 +13,7 @@
    de origen" antes de añadir campos o tocar el sistema. */
 
 const {
+    id,
     formId,
     successUrl = "/not-done",
     botonTexto = "Recibir gratis los valiosos emails",
@@ -27,7 +28,7 @@ if (!formId) {
 }
 ---
 
-<form class="optin" data-ml-form-id={formId} data-ml-success={successUrl}>
+<form class="optin" id={id} data-ml-form-id={formId} data-ml-success={successUrl}>
     <label>
         <span class="visually-hidden">Email</span>
         <input

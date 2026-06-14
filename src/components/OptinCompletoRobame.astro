@@ -4,11 +4,12 @@ import PitchRobame from './PitchRobame.astro';
 import ProofRobame from './ProofRobame.astro';
 import CierreRobame from './CierreRobame.astro';
 
-// Variante completa del bloque opt-in de Róbame. Foto + nombre + pitch
-// serif + imagen de prueba + cierre Kalam + form. Pensada para mitad de
-// artículo, donde el lector aún no tiene el contexto del CTA y necesita
-// el porqué. Para sitios donde el lector ya leyó (cierre de post, segunda
-// aparición, landings con contexto previo) usar OptinReducidoRobame.astro.
+// Bloque opt-in completo de Róbame. Foto + nombre + pitch serif + imagen
+// de prueba + cierre Kalam + form. Es el optin con todo el contexto: lo
+// monta el hero de /robame y el cierre de los posts del blog, y se inserta
+// mid-article donde el lector aún no conoce la oferta. Cuando solo hace
+// falta repetir el CTA (contexto ya dado), usar el cajetín suelto: el
+// wrapper OptinRobame (input + botón), que es como se intercala en la landing.
 //
 // El copy (pitch, imagen, cierre) vive en los componentes Pitch/Proof/
 // CierreRobame, compartidos con el hero de /robame: editar la pieza

@@ -3,7 +3,7 @@ import OptinCerebro from './OptinCerebro.astro';
 import PitchCerebro from './PitchCerebro.astro';
 
 // Bloque opt-in del lead magnet "Cerebro" (Claude / IA). Foto + nombre +
-// pitch + form. Cierra los posts del blog de categoría "ia"
+// pitch + vídeo demo + form. Cierra los posts del blog de categoría "ia"
 // (lo monta PostLayout) y puede insertarse mid-article en cualquier .mdx.
 //
 // El copy (pitch) vive en PitchCerebro, compartido con el hero de
@@ -29,5 +29,19 @@ const { id } = Astro.props;
         <PitchCerebro class="optin-bloque-pitch" />
     </div>
 
-    <OptinCerebro botonTexto="Apúntame a la lista de espera" />
+    <video
+        class="hero-video"
+        controls
+        preload="none"
+        playsinline
+        poster="/videos/claude-skill-poster.webp"
+        width="1920"
+        height="1080"
+    >
+        <source src="/videos/claude-skill.webm" type="video/webm" />
+        <source src="/videos/claude-skill.mp4" type="video/mp4" />
+        Tu navegador no puede reproducir este vídeo.
+    </video>
+
+    <OptinCerebro />
 </section>

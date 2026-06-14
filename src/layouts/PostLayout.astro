@@ -1,6 +1,8 @@
 ---
 import Head from '../components/Head.astro';
-import OptinReducidoRobame from '../components/OptinReducidoRobame.astro';
+import OptinRobame from '../components/OptinRobame.astro';
+import OptinCompletoRobame from '../components/OptinCompletoRobame.astro';
+import OptinCerebro from '../components/OptinCerebro.astro';
 import OptinCompletoCerebro from '../components/OptinCompletoCerebro.astro';
 import Footer from '../components/Footer.astro';
 import { categorias } from '../data/categorias.js';
@@ -11,6 +13,7 @@ const {
   titulo,
   readingTime = 2,
   categoria,
+  cierreReducido = false,
   ...headProps
 } = Astro.props;
 ---
@@ -64,11 +67,20 @@ const {
     </article>
 
     {/* El cierre monta el optin del lead magnet afín a la categoría del
-        post: "ia" → bloque Cerebro (completo, porque el lector no tiene
-        contexto previo de esa oferta); resto → reducido de Róbame. */}
+        post. Por defecto el bloque completo (autor + pitch + prueba +
+        cierre): en casi todos los posts es el único optin de la página y
+        debe cargar el contexto entero del lead magnet. `cierreReducido`
+        lo cambia al cajetín suelto (input + botón) para los posts que ya
+        montan un bloque completo a mitad —típicos de los promocionados con
+        anuncios—: contexto arriba, recordatorio mínimo al cierre. El id
+        `post-end` ancla el link "Conclusión" del índice lateral. */}
     {categoria === 'ia'
-      ? <OptinCompletoCerebro id="post-end" />
-      : <OptinReducidoRobame id="post-end" />}
+      ? (cierreReducido
+          ? <OptinCerebro id="post-end" />
+          : <OptinCompletoCerebro id="post-end" />)
+      : (cierreReducido
+          ? <OptinRobame id="post-end" />
+          : <OptinCompletoRobame id="post-end" />)}
 
     <Footer />
 

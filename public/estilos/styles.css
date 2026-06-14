@@ -539,11 +539,10 @@ li::marker {
 }
 
 /* El pie Kalam que lleva el trofeo pierde su margin-bottom para que el trofeo
-   se apoye en el cajetín del form. Dos selectores: .banner-proof + .hand cubre
-   el hero de /robame y OptinCompletoRobame (Kalam tras la captura);
-   .optin-bloque .hand cubre OptinReducidoRobame, sin captura delante. */
-.banner-proof + .hand:has(.banner-svg),
-.optin-bloque .hand:has(.banner-svg) {
+   se apoye en el cajetín del form. El Kalam siempre va tras la captura de
+   prueba (hero de /robame y OptinCompletoRobame), así que basta con
+   .banner-proof + .hand. */
+.banner-proof + .hand:has(.banner-svg) {
     margin-bottom: 0;
     /* Ligero torcido manuscrito (mismo gesto que las review-card): el pie
        Kalam lee como anotación a mano, no como línea maquetada. */
@@ -565,13 +564,9 @@ li::marker {
 }
 
 /* Pie manuscrito: tipografía pequeña, Kalam, centrada, a todo el ancho del
-   contenedor. Dos contextos cubiertos por el mismo selector compuesto:
-   - .banner-proof + .hand → caption bajo la captura (banner de /robame
-     y OptinCompletoRobame, donde el párrafo Kalam sigue a la imagen).
-   - .optin-bloque .hand → OptinReducidoRobame (sin imagen previa, el mismo
-     párrafo Kalam vive encima del form). */
-.banner-proof + .hand,
-.optin-bloque .hand {
+   contenedor. El párrafo Kalam siempre sigue a la captura de prueba (banner
+   de /robame y OptinCompletoRobame), así que va por .banner-proof + .hand. */
+.banner-proof + .hand {
     margin: 0.5rem auto;
     text-align: center;
     line-height: 1.15;
@@ -595,8 +590,7 @@ li::marker {
    al ancho completo del hero/bloque: las líneas cortas leen como caption
    del form. El margin auto del selector base lo mantiene centrado. */
 @media (min-width: 801px) {
-    .banner-proof + .hand:has(.banner-svg),
-    .optin-bloque .hand:has(.banner-svg) {
+    .banner-proof + .hand:has(.banner-svg) {
         max-width: 480px;
     }
 }
@@ -2031,6 +2025,10 @@ audio::-webkit-media-controls-panel {
     font-family: var(--serif);
     font-weight: 700;
     font-size: 18px;
+    /* Interlineado apretado para que el título, al partir en 2 líneas en móvil,
+       no abra un renglón editorial suelto. "normal" (~1.28) deja las dos líneas
+       demasiado separadas para un titular corto de bloque. */
+    line-height: 1.15;
     color: var(--negro);
 }
 
@@ -2040,6 +2038,17 @@ audio::-webkit-media-controls-panel {
     font-size: 15px;
     color: var(--rojo);
     margin-top: -1px;
+}
+
+/* Kalam con line-height "normal" (~1.67) reserva mucho leading bajo el glifo.
+   Cuando el subtitle va ENCIMA del título ese hueco inferior cae entre ambos y
+   abre el espacio; ajustamos su interlineado solo en ese orden (`:has(+ .title)`)
+   para que la caja abrace el glifo sin dejar el renglón suelto. El `margin-top`
+   negativo de la regla base solo tiene sentido cuando el subtitle va debajo
+   (acerca su renglón al título de arriba); aquí va encima, así que lo anulamos. */
+.block .subtitle-hand:has(+ .title) {
+    line-height: 1.4;
+    margin-top: 0;
 }
 
 /* Stack sin "Segoe UI Emoji" para que ↗ (U+2197) y → (U+2192) se rendericen
@@ -2078,6 +2087,30 @@ audio::-webkit-media-controls-panel {
 
 .block--secondary {
     background: var(--blanco);
+}
+
+/* En evaluación — en la home (.blocks) el primary se diferencia SOLO por
+   color: igualamos título, flecha y padding al resto de bloques. Scopeado a
+   .blocks (la home) para no tocar el botón optin de OptinBase ni el CTA de
+   /servicios, que comparten .block--primary y están bien con su tamaño
+   propio. (.blocks también lo usa /not-done, pero ahí no hay primary.)
+   Borrar este bloque restaura el primary destacado. */
+.blocks .block--primary {
+    padding: 12px;
+}
+.blocks .block--primary .title {
+    font-size: 18px;
+    line-height: normal;
+}
+.blocks .block--primary .arrow {
+    font-size: 16px;
+    opacity: 0.5;
+    margin-left: 4px;
+}
+@media (min-width: 700px) {
+    .blocks .block--primary {
+        padding: clamp(10px, 1.4vh, 14px);
+    }
 }
 
 /* WIP — bloque "en construcción": parece un botón normal cubierto por
@@ -2316,8 +2349,8 @@ audio::-webkit-media-controls-panel {
    opt-in convive con el input al lado, y el tamaño del banner CTA estándar
    eclipsa visualmente al cajetín. Bajamos un escalón. El font-weight 500
    replica el override que .banner .block--primary .title aplica a /robame
-   — universaliza el peso para que cualquier optin (bloques OptinCompleto/
-   OptinReducido, futuras landings) lea igual de ligero. */
+   — universaliza el peso para que cualquier optin (cajetín suelto, bloques
+   OptinCompleto, futuras landings) lea igual de ligero. */
 .optin .block--primary .title {
     font-size: clamp(18px, 1.8vw, 22px);
     font-weight: 500;
@@ -2507,10 +2540,39 @@ audio::-webkit-media-controls-panel {
     color: var(--rojo);
 }
 
-/* Bloque opt-in autoral. Clase base compartida por OptinCompleto y
-   OptinReducido — layout (flex column centrado), foto, nombre, párrafo
-   Kalam y form se rigen por las mismas reglas; la diferencia entre
-   variantes es solo qué elementos se montan en el markup, no estilo.
+/* Bloques de comando de las guías paso a paso. El sitio no traía estilo de
+   código; un comando de terminal pide monoespaciada y un bloque que se lea
+   como zona aparte de la prosa. Fondo tinta sobre el papel crema = la consola
+   donde vive Claude Code, coherente con el tema del post. Monoespaciada del
+   sistema (sin webfont nuevo). pre-wrap para que en móvil el comando largo
+   baje de línea en vez de desbordar. (Shiki está apagado en astro.config.mjs,
+   así que el bloque llega como <pre> plano y manda este estilo.) */
+.post .cuerpo pre {
+    margin: var(--gap-md) 0 var(--gap-xl);
+    padding: 1rem 1.2rem;
+    background: var(--negro);
+    color: var(--papel);
+    font-family: ui-monospace, "SFMono-Regular", Consolas, Menlo, monospace;
+    font-size: 1rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* code inline en prosa (claude --version, Ctrl + J): monoespaciada con un
+   fondo tenue azul, sin convertirse en bloque. El `:not(pre)` evita pisar el
+   <code> que envuelve el contenido dentro de un <pre>. */
+.post .cuerpo :not(pre) > code {
+    font-family: ui-monospace, "SFMono-Regular", Consolas, Menlo, monospace;
+    font-size: 0.9em;
+    background: var(--azul-10);
+    padding: 0.1em 0.35em;
+}
+
+/* Bloque opt-in autoral. Clase base de los bloques completos
+   (OptinCompletoRobame, OptinCompletoCerebro) — layout (flex column
+   centrado), foto, nombre, párrafo Kalam y form se rigen por estas reglas;
+   cada bloque difiere solo en qué elementos monta, no en estilo.
    Banda blanca full-bleed (truco box-shadow + clip-path de .lista-azul)
    para diferenciar el bloque del fondo crema del papel del cuerpo. Vive
    FUERA del <article class="cuerpo"> — la regla .post .cuerpo > img de
@@ -2537,8 +2599,8 @@ audio::-webkit-media-controls-panel {
    posts mid-article y /privacidad) el cap de 480px lo dejaba más estrecho que
    los párrafos en monitores donde 36vw > 480. Lo soltamos para que llene la
    columna y el contenido alinee con la prosa. El cap base sigue protegiendo
-   los montajes fuera del cuerpo (OptinCompleto en /sobre-mi, OptinReducido al
-   cierre del post), donde no hay columna que lo acote. */
+   los montajes fuera del cuerpo (OptinCompleto en /sobre-mi y al cierre del
+   post), donde no hay columna que lo acote. */
 .cuerpo .optin-bloque {
     max-width: none;
 }
@@ -2548,6 +2610,14 @@ audio::-webkit-media-controls-panel {
     aspect-ratio: 1;
     height: auto;
     flex-shrink: 0;
+    margin: 0;
+}
+
+/* El vídeo demo reutiliza el look dossier de .hero-video (borde tinta, fondo
+   negro) y su width min(100%, …) cae al ancho del bloque. El espaciado lo da
+   el gap del flex, no el margin-bottom propio del vídeo del hero — si no, el
+   vídeo queda con más aire bajo él que el resto de elementos del bloque. */
+.optin-bloque .hero-video {
     margin: 0;
 }
 

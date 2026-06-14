@@ -1,0 +1,103 @@
+---
+titulo: "Cómo instalar Claude Code paso a paso"
+canonical: "/blog/instalar-claude-code"
+ogTitle: "Cómo instalar Claude Code paso a paso"
+ogUrl: "https://davidvarea.com/blog/instalar-claude-code"
+readingTime: 3
+categoria: "ia"
+peso: 100
+---
+import PostLayout from '../../layouts/PostLayout.astro';
+
+<PostLayout {...frontmatter}>
+
+<h1 id="post-top" slot="hero-title">Cómo <u class="mark-amarillo">instalar Claude Code</u> paso a paso</h1>
+
+Esto es una guía paso a paso pensada para personas que no son técnicas. Al terminar vas a tener:
+
+1. Un editor (Zed) donde se ven tus archivos del ordenador y la conversación con Claude Code.
+2. Claude Code instalado dentro.
+
+Puedes tardar unos 10 minutos en dejar todo configurado.
+
+> ⚠️ **Para usar Claude Code necesitas al menos tener la versión de 20$ al mes**
+
+Y según el uso intensivo que quieras darle igual necesitas incluso la de 90$. Yo empecé probando con la de 20$ y a los pocos días me pasé a la de 90$ porque la de 20$ me llegaba al límite en seguida y me hacía esperar unas horas para seguir.
+
+Otra cosa que puedes hacer es pagar un mes el plan de 90$ para crear tu segundo cerebro y procesar todos los vídeos, cursos o podcast que necesitas. Y cuando ya lo tengas todo creado que es lo que más tokens consume volver al pago de 20$.
+
+## Primer paso: instala Zed (el editor)
+
+Zed es el programa donde vas a ver los archivos. Tiene un panel a la izquierda con todos los archivos y carpetas, y una "consola" integrada en la parte de abajo. <u class="mark-amarillo">Claude Code vive en esa consola.</u>
+
+Si eres alguien más técnico y y ya usas otro editor como VS Code también vale. Yo uso Zed porque es ligero y sencilla.
+
+1. Entra en [https://zed.dev](https://zed.dev)
+2. Pulsa el botón Download Now
+3. Elige si eres Windows o Mac
+4. Instálalo como cualquier otro programa.
+
+## Segundo paso: instala Claude Code
+
+Esto es mucho más sencillo. En vez de ir a una web, puedes usar un "comando" para instalarlo directamente.
+
+1. Abre el programa Zed
+2. Debería salirte la consola en la parte inferior. Si no te sale puedes pulsar *Ctrl + j* para que salga (o darle al menú arriba a la izquierda ☰ → View → Terminal Panel)
+
+Según tu sistema operativo tendrás que usar un comando u otro
+
+**Mac y Linux**
+
+Copia y pega esto y pulsa Enter:
+
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+Tarda un par de minutos en instalarse. No hace falta que toques nada mientras.
+
+**Windows**
+
+Copia y pega esto:
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+
+## Comprueba que ha ido bien
+
+Cierra Zed, vuelve a abrirlo y en la consola escribe
+
+```bash
+claude --version
+```
+
+Si te devuelve un número (algo como claude-code 2.x.x) está instalado. Si te da algún error puedes hacer una captura y mandársela al Claude del navegador para que te guíe.
+
+Ahora ya puedes empezar a usar Claude desde Zed, te explico cómo en la siguiente lección.
+
+## Empezar a usar Claude Code
+
+Cada vez que quieras abrir una conversación con Claude, en la consola tienes que escribir
+
+```
+claude
+```
+
+Y darle a enter.
+
+La primera vez te pide iniciar sesión. Te abre el navegador, autorizas con tu cuenta de Anthropic y vuelves a Zed.
+
+Si cierras Zed o la consola cierras la conversación con claude. Pero puedes volverla a abrir.
+
+1. Abres Zed de nuevo
+2. Escribes `claude` en la consola para iniciar claude code
+3. Escribes `/continue` y sigues la última conversación
+
+## Otros comandos útiles dentro de Claude
+
+- `/usage` para ver cuánto has consumido de tu plan de pago.
+- `/model` elige qué modelo de Claude usar.
+- `/new` si quieres empezar una nueva conversación para borrar el contexto de la anterior sin necesidad de cerrar todo y volverlo a abrir.
+
+</PostLayout>
