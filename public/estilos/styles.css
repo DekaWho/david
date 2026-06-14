@@ -2540,13 +2540,10 @@ audio::-webkit-media-controls-panel {
     color: var(--rojo);
 }
 
-/* Bloques de comando de las guías paso a paso. El sitio no traía estilo de
-   código; un comando de terminal pide monoespaciada y un bloque que se lea
-   como zona aparte de la prosa. Fondo tinta sobre el papel crema = la consola
-   donde vive Claude Code, coherente con el tema del post. Monoespaciada del
-   sistema (sin webfont nuevo). pre-wrap para que en móvil el comando largo
-   baje de línea en vez de desbordar. (Shiki está apagado en astro.config.mjs,
-   así que el bloque llega como <pre> plano y manda este estilo.) */
+/* Bloques de comando de las guías. Fondo tinta = zona "consola" separada de la
+   prosa. Monoespaciada del sistema, sin webfont nuevo. pre-wrap para que el
+   comando largo baje de línea en móvil en vez de desbordar. Shiki está apagado
+   en astro.config.mjs, así que el <pre> llega plano y manda este estilo. */
 .post .cuerpo pre {
     margin: var(--gap-md) 0 var(--gap-xl);
     padding: 1rem 1.2rem;
@@ -2559,9 +2556,8 @@ audio::-webkit-media-controls-panel {
     overflow-wrap: anywhere;
 }
 
-/* code inline en prosa (claude --version, Ctrl + J): monoespaciada con un
-   fondo tenue azul, sin convertirse en bloque. El `:not(pre)` evita pisar el
-   <code> que envuelve el contenido dentro de un <pre>. */
+/* `code` inline en prosa. El `:not(pre)` evita pisar el <code> que el bloque
+   de comandos envuelve dentro de un <pre>. */
 .post .cuerpo :not(pre) > code {
     font-family: ui-monospace, "SFMono-Regular", Consolas, Menlo, monospace;
     font-size: 0.9em;
@@ -3480,6 +3476,10 @@ body.blog-hub .banner-subline {
     color: color-mix(in srgb, var(--negro) 55%, transparent);
     text-align: center;
     max-width: 60rem;
+    /* Anula el `hyphens: auto` global de <html>: los nombres de navegación del
+       footer no deben partirse con guion. */
+    -webkit-hyphens: none;
+    hyphens: none;
 }
 .site-footer a {
     color: inherit;
