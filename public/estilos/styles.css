@@ -2302,6 +2302,66 @@ audio::-webkit-media-controls-panel {
     margin: 0 auto clamp(0.8rem, 2vh, 1.4rem);
 }
 
+/* Plazas cerradas: el cajetín sigue visible pero inerte (input y botón
+   disabled, sin data-ml-form-id) bajo la cinta de obras y un cartel. Misma
+   metáfora que .block--wip: se ve qué había, pero el acceso está cortado. */
+.optin--cerrado {
+    position: relative;
+    overflow: hidden;
+}
+
+/* El cajetín de debajo se atenúa: la interacción ya está cortada por los
+   disabled del HTML; grayscale + opacity lo refuerzan como "apagado". */
+.optin--cerrado label,
+.optin--cerrado .block--primary {
+    opacity: 0.4;
+    filter: grayscale(1);
+    pointer-events: none;
+}
+
+/* Cinta diagonal amarillo+negro de valla de obras — mismo gradiente que
+   .block--wip, atravesando el cajetín de lado a lado. Decorativa. */
+.optin--cerrado::before {
+    content: "";
+    position: absolute;
+    left: -8%;
+    right: -8%;
+    top: 50%;
+    height: 30px;
+    transform: translateY(-50%) rotate(-4deg);
+    background: repeating-linear-gradient(
+        135deg,
+        var(--amarillo) 0,
+        var(--amarillo) 12px,
+        var(--negro) 12px,
+        var(--negro) 24px
+    );
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Sello "Acceso cerrado" centrado sobre la cinta: rojo de stop + Kalam, con
+   sombra plana de tinta (efecto press editorial; los tokens de sombra del
+   sitio están a none). Ligero torcido manuscrito. */
+.optin-cerrado-cartel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-3deg);
+    z-index: 3;
+    background: var(--rojo);
+    color: var(--blanco);
+    font-family: var(--hand);
+    font-weight: 700;
+    font-size: clamp(1.15rem, 3.4vw, 1.7rem);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 0.2em 0.75em;
+    box-shadow: 3px 3px 0 var(--negro);
+    pointer-events: none;
+}
+
 /* Optin que cierra el .cuerpo: respiración inferior generosa para que en
    móvil no quede pegado al borde de la pantalla (la barra del navegador
    se come la cola del viewport al hacer scroll). Pisa por especificidad
