@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Menu from "../components/Menu.astro";
 import Footer from "../components/Footer.astro";
+import TextoContacto from "../components/TextoContacto.astro";
 
 /* JSON-LD ContactPage: tipo canónico que Google y los LLMs reconocen
    como "página de contacto del titular". Refuerza el grafo de la
@@ -45,26 +46,13 @@ const contactSchema = {
         </section>
 
         <div class="contacto-mensajes">
-            <ol>
-                <li>
-                    Darte servicios como director de marketing freelance. Aquí
-                    tienes
-                    <a href="/servicios">el formulario</a> para ello.
-                </li>
-                <li>
-                    Venderte acompañamiento 1a1 para tu negocio, aunque puedes
-                    empezar por mi newsleter gratuita: <a href="/robame"
-                        >Róbame hasta 19.970€ desde el sofá de tu casa mirando
-                        el móvil</a
-                    >
-                </li>
-            </ol>
+            <TextoContacto />
 
             <p>
                 O puedes escribirme a
                 <a class="js-email" data-enc="Y29udGFjdG9AZGF2aWR2YXJlYS5jb20="
                     >[si no ves la dirección activa JavaScript]</a
-                > si tienes algo jugoso que ofrecerme.
+                > si tienes algo distinto pero jugoso que ofrecerme.
             </p>
 
             <p class="hand">David Varea.</p>
