@@ -235,10 +235,11 @@ u.subrayado-rojo {
    de tiles. vector-effect='non-scaling-stroke' mantiene el grosor del
    trazo aunque el SVG se estire horizontalmente al ancho del span.
    box-decoration-break: clone hace que cada renglón reciba su propia raya
-   si el span wrappea. Color hardcodeado al --azul: data URIs no soportan
-   currentColor. */
+   si el span wrappea. Rojo de énfasis por defecto — el registro de toda la
+   web; el azul de marca es la excepción (.squiggle--azul). Color hardcodeado:
+   data URIs no soportan currentColor. */
 .squiggle {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%231f3a82' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
     background-repeat: no-repeat;
     background-position: 0 100%;
     background-size: 100% 0.35em;
@@ -247,12 +248,13 @@ u.subrayado-rojo {
     box-decoration-break: clone;
 }
 
-/* Modificador rojo del squiggle base: mismo SVG y posición, solo cambia el
-   stroke a --rojo. Reutilizable en cualquier span sin depender de un
-   wrapper específico (ej: .seccion-tinta, que ya tiene su propio override
-   scopeado). Color hardcodeado: data URIs no soportan currentColor. */
-.squiggle--rojo {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+/* Modificador azul del squiggle base: mismo SVG y posición, solo cambia el
+   stroke al --azul de marca. El squiggle por defecto es rojo (énfasis, el
+   caso de toda la web); el azul es la excepción para términos del lenguaje
+   de marca (ratios, métricas) — hoy solo en /servicios. Color hardcodeado:
+   data URIs no soportan currentColor. */
+.squiggle--azul {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%231f3a82' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
 }
 
 .hand {
@@ -687,15 +689,18 @@ li::marker {
     color: var(--rojo);
 }
 
-/* Aside inline en Kalam: solo cambia la familia tipográfica para marcar
-   registro conversacional dentro de un texto serif. Sin tamaño, color ni
-   rotación — fluye en la misma línea como parte del texto. Dos contextos
-   gemelos: el h1 del banner (/robame, /cerebro) y el pitch del bloque
-   opt-in autoral, que replica ese hero mid-article. */
+/* Aside inline en Kalam: cambia la familia tipográfica para marcar registro
+   conversacional dentro de un texto serif. El 0.9em corrige el cuerpo óptico
+   del Kalam, que a igual tamaño se ve más grande que el EB Garamond y rompería
+   la línea (mismo ajuste que .inciso-hand). Sin color ni rotación: fluye en la
+   misma línea como parte del texto. Dos contextos gemelos: el h1 del banner
+   (/robame, /cerebro) y el pitch del bloque opt-in autoral, que replica ese
+   hero mid-article. */
 .banner h1 .aside-hand,
 .optin-bloque-pitch .aside-hand {
     font-family: var(--hand);
     font-weight: 400;
+    font-size: 0.9em;
 }
 
 /* Highlighter amarillo: gradient que pinta solo la mitad inferior de las
@@ -1076,10 +1081,10 @@ p:has(+ .diamond) {
     margin-bottom: 0;
 }
 
-/* Subrayado manuscrito en lime para los nombres dentro de la franja —
-   mismo SVG y misma posición que el .squiggle global, solo cambia el
-   color del trazo (lime sobre tinta, en vez de azul sobre papel).
-   Color hardcodeado: data URIs no soportan currentColor. */
+/* Subrayado de los nombres dentro de la franja tinta: mismo trazo rojo que
+   el default, fijado aquí explícitamente para garantizar el contraste sobre
+   el fondo oscuro aunque el color por defecto cambie en el futuro. Color
+   hardcodeado: data URIs no soportan currentColor. */
 .seccion-tinta .squiggle {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
 }
@@ -1176,9 +1181,9 @@ p:has(+ .diamond) {
     box-decoration-break: clone;
 }
 
-/* Squiggle override dentro del breaker tinta: misma forma, pero pintado
-   en lime (--verde) en vez de azul de marca. El .squiggle global sigue
-   azul donde se usa fuera de este recuadro. */
+/* Squiggle override dentro del breaker tinta: mismo rojo que el default,
+   pero con el trazo más grueso (4.5) y más alto para que la raya aguante
+   bajo el titular grande del breaker sin verse fina. */
 .titulo-breaker--bg-oscuro .squiggle {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='4.5' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
     background-size: 100% 0.5em;
@@ -2601,6 +2606,21 @@ audio::-webkit-media-controls-panel {
     max-width: none;
 }
 
+/* El optin que cierra el artículo se monta fuera de .cuerpo (hijo directo de
+   body.post), así que hereda el cap base de 480px y el pitch envuelve en
+   demasiadas líneas. Se ensancha al ancho del hero de /cerebro (720px) para
+   que el pitch y el nombre respiren igual; el cajetín (.optin, cap propio de
+   480px) y el vídeo conservan su ancho dentro del bloque más amplio. */
+.post > .optin-bloque {
+    max-width: 720px;
+}
+
+/* A 720px el retrato al 30% se iría a ~216px; se acota para que la foto del
+   autor no domine sobre el bloque ancho. */
+.post > .optin-bloque .hero-photo {
+    max-width: 150px;
+}
+
 .optin-bloque .hero-photo {
     width: 30%;
     aspect-ratio: 1;
@@ -2668,6 +2688,16 @@ audio::-webkit-media-controls-panel {
         left: 50%;
         transform: translateX(-50%);
     }
+
+    /* Una captura vertical (más alta que ancha) no quiere ese breakout:
+       su ancho nativo ronda los 360px y estirarla a 800px la amplía
+       borrosa. Se queda a tamaño natural, centrada en la columna. */
+    .post .cuerpo > img.img-vertical {
+        width: auto;
+        max-width: min(100%, 360px);
+        left: auto;
+        transform: none;
+    }
 }
 
 /* Highlighter amarillo de cuerpo — mismo gesto que .mark-verde
@@ -2704,6 +2734,14 @@ audio::-webkit-media-controls-panel {
     max-width: 100%;
     height: auto;
     margin: var(--gap-xl) auto;
+}
+
+/* Capturas verticales: en móvil el .cuerpo ocupa casi todo el viewport,
+   así que un cap de 360px las dejaría a pantalla casi completa. Se acotan
+   a ~65vw (tope 240px) para que respiren con aire a los lados; en desktop
+   suben a 360px y renuncian al breakout horizontal (ver @media de arriba). */
+.cuerpo > img.img-vertical {
+    max-width: min(65vw, 240px);
 }
 
 /* Blockquote del cuerpo de post: borde izquierdo en azul + italic.
