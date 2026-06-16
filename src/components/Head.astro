@@ -53,13 +53,17 @@ const siteSchema = {
     },
   ],
 };
-/* Brain reaprovecha el SVG del bloque "Tengo 2 cerebros" del index para
-   no generar variantes PNG: el navegador escala el SVG a cualquier tamaño
-   del tab. El resto siguen en PNG (set histórico, dos tamaños). */
-const faviconBrainSvg = favicon === "brain" ? "/imgs/svg/brain.svg" : null;
+/* Favicons servidos como SVG directo desde el set de iconos: el navegador
+   escala el SVG a cualquier tamaño del tab, sin generar variantes PNG. El
+   resto (money, writing, default) siguen en PNG (set histórico, dos tamaños). */
+const faviconSvg = {
+  brain: "/imgs/svg/brain.svg",
+  robot: "/imgs/svg/robot.svg",
+}[favicon] ?? null;
 const faviconPrefix = {
   money: "/imgs/favicon-money-",
   writing: "/imgs/favicon-writing-",
+  forja: "/imgs/favicon-forja-",
   default: "/imgs/favicon",
 }[favicon] ?? "/imgs/favicon";
 const faviconHref = (size) => `${faviconPrefix}${size}.png`;
@@ -79,8 +83,8 @@ const faviconHref = (size) => `${faviconPrefix}${size}.png`;
 
 <link rel="stylesheet" href="/estilos/styles.css" />
 
-{faviconBrainSvg ? (
-  <link rel="icon" type="image/svg+xml" href={faviconBrainSvg} />
+{faviconSvg ? (
+  <link rel="icon" type="image/svg+xml" href={faviconSvg} />
 ) : (
   <>
     <link rel="icon" type="image/png" sizes="32x32" href={faviconHref(32)} />

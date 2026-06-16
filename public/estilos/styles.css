@@ -854,6 +854,23 @@ li::marker {
     text-align: center;
 }
 
+/* /la-forja: el yunque (martillo + chispas) corona el wordmark del hero.
+   Imagen decorativa — el <h1> ya nombra "LA FORJA", así que el alt va vacío
+   para no repetir el nombre al lector de pantalla. Alto en vh para que la
+   ilustración se contraiga con el viewport y leadin + deck sigan cabiendo
+   sin scroll (regla "hero visible sin fold"). */
+.hero--la-forja h1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0.15rem, 1vh, 0.5rem);
+}
+
+.hero--la-forja h1 img {
+    width: auto;
+    height: clamp(96px, 20vh, 190px);
+}
+
 /* /cerebro: demo en vídeo entre el H1 y el CTA. Los atributos
    width/height del elemento fijan el aspect-ratio y evitan layout shift.
    El ancho se acota vía min() con el alto objetivo (38vh convertido a
