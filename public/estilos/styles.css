@@ -1137,7 +1137,7 @@ li::marker {
 }
 
 /* Antesala manuscrita del CTA en /la-forja ("¿Quieres construir tu propio
-   ejercito de clones?"): sobre el .titulo-mano del sistema, quita la
+   ejército de clones?"): sobre el .titulo-mano del sistema, quita la
    inclinación, sube el tamaño y la deja en trazo fino (sin el bold base). */
 .cuerpo--la-forja .titulo-mano {
     font-size: clamp(1.4rem, 2.4vw, 2rem);
@@ -1888,6 +1888,16 @@ p:has(+ .diamond) {
 .aviso-mano--recto,
 .aviso-mano--recto .aviso-mano-icono {
     transform: none;
+}
+
+/* Apila icono sobre texto a ancho completo en todos los viewports (el aviso
+   base va en flex-row sólo desde tablet). Centrada bajo el CTA, el flex-row
+   dejaba el triángulo a un lado comiéndole ancho al texto; el stack la lee
+   como nota rematada bajo el botón. Replica el layout que el media query de
+   móvil ya da al aviso base. */
+.aviso-mano--recto {
+    flex-direction: column;
+    max-width: none;
 }
 
 .cuerpo > p:has(+ .aviso-mano) {
