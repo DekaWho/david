@@ -854,21 +854,426 @@ li::marker {
     text-align: center;
 }
 
-/* /la-forja: el yunque (martillo + chispas) corona el wordmark del hero.
-   Imagen decorativa — el <h1> ya nombra "LA FORJA", así que el alt va vacío
-   para no repetir el nombre al lector de pantalla. Alto en vh para que la
-   ilustración se contraiga con el viewport y leadin + deck sigan cabiendo
-   sin scroll (regla "hero visible sin fold"). */
-.hero--la-forja h1 {
+/* /la-forja: wordmark "LA FORJA" coronado por el yunque — el bloque de marca
+   que abre el hero y se repite a mitad de página, sobre la oferta. Clase
+   compartida (en vez de `.hero--la-forja h1`) para que los dos sitios queden
+   idénticos editando un solo lugar; autónoma en tipografía/tamaño para no
+   depender del `.banner h1`, que solo existe en el hero. El yunque es
+   decorativo (el texto ya nombra "LA FORJA", de ahí el alt vacío); alto en vh
+   para contraerse con el viewport. Va sobre el <h1> del hero (único de la
+   página) y sobre un <h2> en el bloque central. */
+.forja-wordmark {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: clamp(0.15rem, 1vh, 0.5rem);
+    margin: 0 auto clamp(0.1em, 1.5vh, 0.45em);
+
+    font-family: var(--serif);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.18;
+    text-align: center;
+    /* Tamaño y color de "LA FORJA" salen en la regla de abajo: necesita un
+       selector que también le gane a `.banner h1` cuando el wordmark es el
+       <h1> del hero. */
 }
 
-.hero--la-forja h1 img {
+/* "LA FORJA": grande y en rojo señalético. El segundo selector sube la
+   especificidad para ganarle a `.banner h1` (que en el hero fija tamaño/color
+   del <h1>); el primero cubre el <h2> del bloque central, que no tiene ese
+   override. Editar aquí cambia los dos wordmarks a la vez. */
+.forja-wordmark,
+.banner .forja-wordmark {
+    font-size: clamp(2.6rem, 4vw, 3.7rem);
+    color: var(--rojo);
+}
+
+.forja-wordmark img {
     width: auto;
     height: clamp(96px, 20vh, 190px);
+}
+
+/* Navegador de secciones de /la-forja — burger fijo arriba-derecha. En
+   escritorio visible siempre; en móvil se oculta mientras el hero está en
+   viewport (taparía el copy) y reaparece al scrollear. Lo gestiona scripts.js
+   con el mismo IntersectionObserver que el índice del blog, vía la clase
+   .forja-nav--hidden (scopeada al @media móvil; si el JS no corre, el nav
+   queda visible — degrada igual que el post-toc). Patrón checkbox-hack para
+   abrir/cerrar el panel; el JS solo cierra al elegir sección y oculta en móvil.
+   Pill de papel blanco sin borde: el fondo basta para que las líneas azules se
+   lean sobre cualquier contenido por debajo. */
+.forja-nav {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 1000;
+}
+
+/* Móvil: el burger tapa el leadin/H1 del hero, así que mientras el hero está
+   en viewport scripts.js le pone .forja-nav--hidden y lo retira al scrollear
+   más abajo. En escritorio no aplica: el botón cabe en la esquina sin pisar
+   los titulares centrados, así que el nav queda visible aunque tenga la clase. */
+@media (max-width: 800px) {
+    .forja-nav {
+        transition:
+            opacity 200ms ease,
+            transform 200ms ease;
+    }
+    .forja-nav--hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-8px);
+    }
+}
+
+/* Checkbox oculto pero accesible: dispara el estado abierto/cerrado vía
+   :checked sobre el label hermano. */
+.forja-nav-toggle {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.forja-burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 44px;
+    height: 44px;
+    padding: 12px 10px;
+    box-sizing: border-box;
+
+    background: var(--blanco);
+    border-radius: var(--radius-control);
+    cursor: pointer;
+}
+
+.forja-burger span {
+    display: block;
+    height: 2px;
+    background: var(--azul);
+    transition:
+        transform 160ms ease,
+        opacity 160ms ease;
+    transform-origin: center;
+}
+
+/* Las 3 líneas colapsan en X al abrir (mismo gesto que el burger móvil del
+   sitio). El foco por teclado en el checkbox oculto se refleja en el borde
+   del botón para no perder la pista de foco. */
+.forja-nav-toggle:focus-visible + .forja-burger {
+    outline: 2px solid var(--azul);
+    outline-offset: 2px;
+}
+.forja-nav-toggle:checked + .forja-burger span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+.forja-nav-toggle:checked + .forja-burger span:nth-child(2) {
+    opacity: 0;
+}
+.forja-nav-toggle:checked + .forja-burger span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Panel desplegable: lista de secciones bajo el botón. width:max-content +
+   reset de padding/margin/list-style anulan las reglas globales de ul/li
+   (que centran al 90% y meten margin-bottom de cuerpo). */
+.forja-nav-panel {
+    position: absolute;
+    top: 52px;
+    right: 0;
+    width: max-content;
+    min-width: 220px;
+    margin: 0;
+    padding: 6px;
+    list-style: none;
+
+    background: var(--blanco);
+
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition:
+        opacity 160ms ease,
+        transform 160ms ease;
+}
+
+.forja-nav-toggle:checked ~ .forja-nav-panel {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.forja-nav-panel li {
+    margin: 0;
+}
+
+.forja-nav-panel a {
+    display: block;
+    padding: 9px 12px;
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--negro);
+    text-decoration: none;
+    transition:
+        background-color 120ms ease,
+        color 120ms ease;
+}
+
+@media (hover: hover) {
+    .forja-nav-panel a:hover {
+        background: var(--amarillo);
+        color: var(--negro);
+        text-decoration: none;
+    }
+}
+
+/* Aire al saltar a una sección: el target no queda pegado al borde superior
+   del viewport. */
+.hero--la-forja[id],
+.cuerpo--la-forja [id] {
+    scroll-margin-top: clamp(0.75rem, 2vh, 1.25rem);
+}
+
+/* Kicker "Te presento…" sobre el wordmark: cursiva atenuada pequeña para
+   que el peso dominante siga siendo "LA FORJA", no la antesala. */
+.forja-wordmark .forja-kicker {
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-weight: 500;
+    font-style: italic;
+    letter-spacing: 0.01em;
+    color: color-mix(in srgb, var(--negro) 65%, transparent);
+}
+
+/* Leadin (a quién va dirigido), solo en el hero: atenuado y pequeño como
+   "esto es para ti si…". Margin propio porque el <p> global trae el ritmo de
+   cuerpo (margin-bottom --gap-3xl) que dentro del hero descuelga. */
+.hero--la-forja .bsl-leadin {
+    max-width: 38rem;
+    margin: 0 auto var(--gap-md);
+    font-size: clamp(1rem, 1.25vw, 1.2rem);
+    line-height: 1.45;
+    color: color-mix(in srgb, var(--negro) 70%, transparent);
+    text-align: center;
+}
+
+/* Deck (qué es el programa): la promesa bajo el wordmark, un escalón mayor que
+   el leadin. Sin scope a .hero--la-forja porque se reutiliza igual en el bloque
+   central de la oferta, junto al wordmark repetido. */
+.bsl-deck {
+    max-width: 40rem;
+    margin: var(--gap-sm) auto var(--gap-md);
+    font-size: clamp(1.25rem, 1.9vw, 1.7rem);
+    line-height: 1.35;
+    font-weight: 500;
+    color: var(--negro);
+    text-align: center;
+}
+
+/* Grito / interjección emocional del cuerpo ("Acabé abrumado.", latigazos que
+   cortan la lectura): mismo lenguaje que el h2 (centrado, bolder) un punto más
+   pequeño y en rojo señalético. */
+.cuerpo--la-forja .forja-grito {
+    margin-bottom: var(--gap-xl);
+    font-size: clamp(2rem, 3.2vw, 2.8rem);
+    line-height: 1.2;
+    font-weight: bolder;
+    color: var(--rojo);
+    text-align: center;
+    hyphens: none;
+}
+
+/* h3 de sección en /la-forja: los clones narrativos ("1. Consumir formación…")
+   van grandes y a la izquierda — el doble del titulo-seccion global (1.5-2rem →
+   3-4rem). Scopeado al cuerpo para no tocar el centrado/tamaño que usan las
+   otras landings con titulo-seccion. Los Niveles se distinguen en la regla de
+   abajo con :has. */
+.cuerpo--la-forja h3.titulo-seccion {
+    font-size: clamp(3rem, 4.8vw, 4rem);
+    text-align: left;
+}
+
+/* Cabeceras de los Niveles del programa — distinguidas por ir seguidas de su
+   <ul> de contenidos (los clones van seguidos de un <p>), así no hace falta una
+   clase aparte. Estilo "etiqueta de módulo" para romper la monotonía con los
+   clones: centradas, manuscritas (Kalam) y azules, con una regla azul a todo el
+   ancho por debajo que cierra cada módulo. */
+.cuerpo--la-forja h3.titulo-seccion:has(+ ul) {
+    font-family: var(--hand);
+    font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+    text-align: center;
+    color: var(--azul);
+}
+.cuerpo--la-forja h3.titulo-seccion:has(+ ul)::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin: 0.5em auto 0;
+    background: var(--azul);
+}
+
+/* Botón de compra "Acceder a La Forja" — variante del .block del sistema para
+   la acción final: amarillo (acento de marca), sin icono ni flecha, texto
+   centrado y grande con más aire vertical. Texto en --negro porque el amarillo
+   es claro. El press del .block:hover (sin sombra + translateY) sigue dando el
+   feedback de pulsado. */
+.block.forja-comprar {
+    justify-content: center;
+    padding: clamp(1rem, 2.4vh, 1.5rem) 1.2rem;
+    margin-bottom: var(--gap-md);
+    background: var(--amarillo);
+}
+
+.block.forja-comprar .title {
+    font-size: clamp(1.3rem, 2.4vw, 1.8rem);
+    color: var(--negro);
+    text-align: center;
+}
+
+/* Antesala manuscrita del CTA en /la-forja ("¿Quieres construir tu propio
+   ejercito de clones?"): sobre el .titulo-mano del sistema, quita la
+   inclinación, sube el tamaño y la deja en trazo fino (sin el bold base). */
+.cuerpo--la-forja .titulo-mano {
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    font-weight: 400;
+    transform: none;
+    margin-top: var(--gap-lg);
+}
+
+/* Breaker de /la-forja en beige: reusa la tarjeta cuadrada de
+   titulo-breaker--bg-claro pero con fondo --arena en vez de blanco — el body
+   ya es --papel, así que un blanco/papel apenas contrastaría; el arena lee
+   como tarjeta. Scopeado al cuerpo de la página para no teñir el breaker
+   blanco de /servicios. */
+.cuerpo--la-forja .titulo-breaker--bg-claro {
+    background: var(--arena);
+}
+
+/* Dentro de la franja oscura el breaker claro va en --papel: sobre --negro
+   contrasta de sobra (el arena es para cuando va sobre el papel del body, donde
+   el papel no destacaría) y lee como la card que cierra la sección. */
+.cuerpo--la-forja .seccion-tinta .titulo-breaker--bg-claro {
+    background: var(--papel);
+}
+
+/* Nota de apertura: el autor explica por qué NO hay vídeo de ventas. Caja de
+   papel con borde tinta 1px (registro dossier) sobre el banner blanco; texto
+   en cursiva para leerse como aparte del autor, no como claim del hero. */
+.hero--la-forja .forja-intro-nota {
+    max-width: 40rem;
+    margin: var(--gap-sm) auto var(--gap-lg);
+    padding: clamp(1rem, 2vw, 1.5rem) clamp(1.1rem, 2.2vw, 1.8rem);
+    background: var(--papel);
+    border: 1px solid var(--negro);
+}
+
+.hero--la-forja .forja-intro-nota p {
+    margin: 0;
+    font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+    font-style: italic;
+    line-height: 1.5;
+}
+
+/* Sello de pago bajo el CTA: dos filas centradas — Stripe arriba, métodos
+   debajo. Hereda el aire amplio debajo (var(--gap-2xl)) que tenía la nota de
+   texto para cerrar el bloque sin descuadrar el ritmo con lo siguiente. */
+.formas-pago {
+    margin: 0 auto var(--gap-2xl);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0.5rem, 1.2vw, 0.85rem);
+}
+
+/* Stripe destacado: es el procesador que respalda el pago, así que va más
+   grande y solo en su línea, por encima de los métodos. */
+.formas-pago-stripe {
+    display: block;
+    height: clamp(2.4rem, 4.5vw, 3rem);
+    width: auto;
+}
+
+.formas-pago-metodos {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(0.4rem, 1vw, 0.7rem);
+}
+
+/* Altura uniforme para los métodos; el width se ajusta por su ratio nativo
+   (~1.58:1, todos formato tarjeta) para no deformarlos. */
+.formas-pago-metodos img {
+    display: block;
+    height: clamp(1.6rem, 3.2vw, 2rem);
+    width: auto;
+}
+
+/* Vídeo incrustado en el cuerpo: ocupa el ancho de la columna de lectura,
+   borde tinta 1px (registro dossier, no player flotante) y fondo negro que
+   cubre el instante entre play y el primer frame. width/height en el elemento
+   fijan el aspect-ratio y evitan layout shift al cargar. */
+.cuerpo--la-forja .forja-video {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: var(--gap-xl) auto;
+    border: 1px solid var(--negro);
+    background: var(--negro);
+}
+
+/* Medios del cuerpo (gif ambiental): centra una o varias piezas en fila, con
+   salto de línea cuando no caben en el ancho de la columna. */
+.cuerpo--la-forja .forja-media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--gap-md);
+    margin: var(--gap-xl) auto;
+}
+
+/* GIF vertical (clip grabado en móvil): autoplay/loop mudo sin controles, hace
+   de gif ambiental. Acotado por altura para no dominar la columna de lectura.
+   Sin borde a propósito (no es un player como .forja-video, es ambiental); el
+   fondo negro solo cubre el instante entre carga y primer frame. width/height
+   fijan el aspect-ratio y evitan layout shift. */
+.cuerpo--la-forja .forja-gif {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: clamp(160px, 28vh, 260px);
+    background: var(--negro);
+}
+
+/* FAQ — lista de definición: pregunta en negrita, respuesta en cuerpo.
+   Alineada a la izquierda (prosa de lectura), no centrada como los
+   titulo-seccion. Los <dl>/<dt>/<dd> escapan al reset de ul,ol. */
+.cuerpo--la-forja .forja-faq {
+    width: 90%;
+    margin: var(--gap-lg) auto 0;
+}
+
+.cuerpo--la-forja .forja-faq dt {
+    margin-top: var(--gap-xl);
+    font-size: var(--text-body);
+    font-weight: 600;
+    color: var(--negro);
+}
+
+.cuerpo--la-forja .forja-faq dd {
+    margin: var(--gap-sm) 0 0;
+    font-size: var(--text-body);
+    line-height: 1.5;
 }
 
 /* /cerebro: demo en vídeo entre el H1 y el CTA. Los atributos
@@ -1139,6 +1544,29 @@ p:has(+ .diamond) {
     color: inherit;
 }
 
+/* En /la-forja la franja oscura vive dentro de la columna estrecha
+   .cuerpo--la-forja (no a nivel body como en /servicios), así que su fondo no
+   llegaría a los lados: el box-shadow gigante lo extiende hasta el viewport y
+   el clip-path lo recorta en vertical. Misma técnica full-bleed que
+   .seccion-blanca y .lista-azul. */
+.cuerpo--la-forja .seccion-tinta {
+    box-shadow: 0 0 0 100vmax var(--negro);
+    clip-path: inset(0 -100vmax);
+}
+
+/* La banda blanca entrega directamente a la franja oscura: sin margin entre
+   las dos no asoma el papel del body y la transición blanco→negro es limpia. */
+.seccion-blanca:has(+ .seccion-tinta) {
+    margin-bottom: 0;
+}
+
+/* El sub-titular rojo dentro de la franja conserva su rojo señalético: la
+   regla general .seccion-tinta strong lo pintaría blanco como el resto de
+   strongs, pero este es un grito de marca, no énfasis de cuerpo. */
+.cuerpo--la-forja .seccion-tinta .text-rojo strong {
+    color: var(--rojo);
+}
+
 /* Las capturas de testimonio reusan el ligero rotado "dossier" de /robame
    alternando el ángulo captura a captura, pero sin el contenedor .capturas-email
    (que arrastra un margin-bottom pensado para separar bloques de dos). Aquí van
@@ -1232,8 +1660,10 @@ p:has(+ .diamond) {
 /* Alternancia de énfasis en bullets impares: crea ritmo visual al recorrer
    la lista. El peso conceptual de los items es el mismo — esto es textura,
    no jerarquía. Vive como clase utilitaria (no en <strong> ni atada a un
-   bloque concreto) para reutilizarla en listas de contenidos distintos. */
-.bold-odd li:nth-child(odd) {
+   bloque concreto) para reutilizarla en listas de contenidos distintos.
+   `> li` para que una sublista anidada no herede la alternancia ni descuadre
+   el conteo nth-child de la lista padre. */
+.bold-odd > li:nth-child(odd) {
     font-weight: bold;
 }
 
@@ -1267,6 +1697,42 @@ p:has(+ .diamond) {
    en --azul. */
 .lista-azul li::marker {
     color: var(--azul);
+}
+
+/* Banda blanca full-bleed que aísla un tramo narrativo del cuerpo sobre el
+   --papel del body. Misma técnica que .lista-azul: el box-shadow gigante
+   extiende el blanco hasta el viewport y el clip-path lo recorta en vertical,
+   así el contenido sigue en la columna del .cuerpo y solo el fondo se desborda
+   a los lados. El padding vertical es el aire entre el blanco y el primer/último
+   bloque; el margin la separa del contenido de papel de alrededor. */
+.seccion-blanca {
+    padding-top: clamp(2rem, 4vw, 3.5rem);
+    padding-bottom: clamp(2rem, 4vw, 3.5rem);
+    margin-top: var(--gap-2xl);
+    margin-bottom: var(--gap-2xl);
+
+    background: var(--blanco);
+    box-shadow: 0 0 0 100vmax var(--blanco);
+    clip-path: inset(0 -100vmax);
+}
+
+/* El primer y último bloque de la banda no arrastran su margin vertical global
+   de párrafo: el padding de la banda ya da la respiración y sumar el margin
+   descuadraría el aire dentro del blanco. */
+.seccion-blanca > :first-child {
+    margin-top: 0;
+}
+.seccion-blanca > :last-child {
+    margin-bottom: 0;
+}
+
+/* Variante para la última banda de la página: el blanco llega hasta el fondo
+   del viewport. El clip-path abre también el lado inferior (no solo los
+   laterales), así el box-shadow se desborda hacia abajo en vez de recortarse
+   en el border-box y no asoma el papel del body bajo el último bloque. */
+.seccion-blanca--hasta-final {
+    margin-bottom: 0;
+    clip-path: inset(0 -100vmax -100vmax -100vmax);
 }
 
 /* Utility de color: tiñe el texto del elemento al que se aplique. Usable

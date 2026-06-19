@@ -70,6 +70,33 @@
     }
 })();
 
+/* /la-forja: el burger de secciones (fijo arriba-derecha) tapa el copy del
+   hero en móvil. Mismo patrón que el post-toc de arriba: lo ocultamos
+   (.forja-nav--hidden, scopeada en CSS al @media móvil) mientras el hero está
+   en viewport y lo mostramos al scrollear por debajo. JS cierra además el
+   panel al pulsar un enlace (el checkbox-hack no se desmarca solo en anclas de
+   la misma página). Estado inicial hidden para evitar flash antes de que
+   dispare el observer. No-op fuera de /la-forja. */
+(() => {
+    const nav = document.querySelector('.forja-nav');
+    if (!nav) return;
+    const checkbox = document.getElementById('forja-nav-toggle');
+    nav.querySelectorAll('.forja-nav-panel a').forEach((a) => {
+        a.addEventListener('click', () => {
+            if (checkbox) checkbox.checked = false;
+        });
+    });
+    const hero = document.getElementById('inicio');
+    if (hero && 'IntersectionObserver' in window) {
+        nav.classList.add('forja-nav--hidden');
+        const io = new IntersectionObserver(([entry]) => {
+            nav.classList.toggle('forja-nav--hidden', entry.isIntersecting);
+            if (entry.isIntersecting && checkbox) checkbox.checked = false;
+        });
+        io.observe(hero);
+    }
+})();
+
 /* Cerrar el menú burger al pulsar cualquiera de sus enlaces */
 document.querySelectorAll('.menu .menu-link').forEach(link => {
     link.addEventListener('click', () => {

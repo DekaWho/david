@@ -1,0 +1,29 @@
+---
+/* Sello de pago bajo los CTA de compra: el procesador (Stripe) destacado arriba
+   y, debajo, las redes y wallets que acepta su checkout. Logos oficiales a color
+   (SVG en /imgs/svg/). Tamaños y disposición en .formas-pago. */
+const metodos = [
+    { src: "/imgs/svg/visa.svg", alt: "Visa" },
+    { src: "/imgs/svg/mastercard.svg", alt: "Mastercard" },
+    { src: "/imgs/svg/apple-pay.svg", alt: "Apple Pay" },
+    { src: "/imgs/svg/google-pay.svg", alt: "Google Pay" },
+];
+---
+
+<div class="formas-pago">
+    <img
+        class="formas-pago-stripe"
+        src="/imgs/svg/stripe.svg"
+        alt="Pago seguro con Stripe"
+        loading="lazy"
+    />
+    <ul class="formas-pago-metodos" aria-label="Métodos de pago aceptados">
+        {
+            metodos.map((m) => (
+                <li>
+                    <img src={m.src} alt={m.alt} loading="lazy" />
+                </li>
+            ))
+        }
+    </ul>
+</div>
