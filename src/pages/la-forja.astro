@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import FormasPago from "../components/FormasPago.astro";
 ---
 
 <BaseLayout
@@ -28,7 +27,7 @@ import FormasPago from "../components/FormasPago.astro";
             <li><a href="#crear-clones">Cómo crear clones IA</a></li>
             <li><a href="#que-incluye">Qué incluye el programa</a></li>
             <li><a href="#no-es-para-ti">Esto NO es para ti si...</a></li>
-            <li><a href="#preguntas">Preguntas típicas</a></li>
+            <li><a href="#preguntas">Preguntas importantes</a></li>
         </ul>
     </nav>
 
@@ -80,7 +79,6 @@ import FormasPago from "../components/FormasPago.astro";
         <h2
             class="titulo-seccion hand"
             style="color: var(--negro); text-align: left"
-            id="quien-soy"
         >
             soy David Varea
         </h2>
@@ -188,12 +186,12 @@ import FormasPago from "../components/FormasPago.astro";
                     resume lo que importa, sin la paja.
                 </li>
                 <li>
-                    Tener mi página web funcionando sin saber programar ni pagar
-                    un hosting. Yo le mando y él programa.
+                    Crear y modificar mi web sin saber programar (y sin pagar un
+                    hosting) Yo le grito y él programa.
                 </li>
                 <li>
                     Tener un secretario que me organice las tareas pendientes,
-                    la agenda y la bandeja de entrada.
+                    la agenda y la bandeja de entrada del email.
                 </li>
                 <li>
                     Aprender cualquier cosa nueva con un profesor particular que
@@ -203,11 +201,15 @@ import FormasPago from "../components/FormasPago.astro";
                     Espiar a la competencia y traerme lo que están haciendo para
                     inspirarme (<em>robar como un artista,</em> dijo Picasso)
                 </li>
+                <li>
+                    Cualquier otro clon que me ayude con la nueva necesidad que
+                    haya surgido esa semana.
+                </li>
             </ol>
 
             <p>
-                En resumen un ejercito de clones que trabajan para mí siempre
-                que quiera.
+                Todo un ejercito de clones que trabajan para mí a todas horas.
+                Claude es el empleado más barato que puedo conseguir.
             </p>
 
             <h2
@@ -332,9 +334,8 @@ import FormasPago from "../components/FormasPago.astro";
         </p>
 
         <p>
-            Yo por ejemplo no soy programador pero en un fin de semana entendí
-            las bases para tener mi propia página web funcionando sin pagar un
-            hosting.
+            Yo por ejemplo no soy programador pero en un fin de semana cree mi
+            propia página web (y sin pagar un hosting)
         </p>
 
         <p>
@@ -572,13 +573,19 @@ import FormasPago from "../components/FormasPago.astro";
 
         <ol>
             <li>
-                Una sección tipo foro donde puedes escribir tus publicaciones y
-                recibirás soporte de mi parte durante 3 meses.
+                Una sección tipo foro donde puedes escribir tus dudas o
+                planteamientos para recibir soporte de mi parte durante 3 meses.
             </li>
             <li>
-                Poder tener la app del móvil para ver la formación y escribir
-                desde ahí.
+                La posibilidad de que añada nuevas lecciones o actualice el
+                contenido si fuese necesario.
             </li>
+            <li>
+                Una comunidad de personas completamente aleatorias pero
+                enfocadas. Lo que mis padres me dijeron hace años que no hiciese
+                nunca, hablar con desconocidos por internet.
+            </li>
+            <li>Poder tenerlo todo en una app del móvil.</li>
         </ol>
 
         <p>
@@ -599,7 +606,7 @@ import FormasPago from "../components/FormasPago.astro";
 
         <p style="font-size: 1.3em; text-align: center">
             <strong
-                >Todo lo anterior + estos bonus por...<br /> 250€ (IVA ya incluido)</strong
+                >Todo lo anterior + estos bonus por...<br /> 250€ + IVA</strong
             >
         </p>
         <br />
@@ -628,23 +635,33 @@ import FormasPago from "../components/FormasPago.astro";
             <li>
                 Un precio especial para agradecerte ser un pionero. En vez de
                 los 300€ + IVA originales, tienes acceso a todo lo mencionado en
-                esta página por... 199€ (IVA incluido)
+                esta página por...
             </li>
         </ul>
 
         <p style="font-size: 1.5em; text-align: center">
-            <strong>199€ (IVA incluido)</strong>
-        </p>
-
-        <p class="titulo-mano">
-            ¿Quieres construir tu propio ejercito de clones?
+            <strong>199€ + IVA incluido</strong>
         </p>
 
         <a class="block forja-comprar" href="https://stripe.com">
             <span class="title">Acceder a La Forja</span>
         </a>
 
-        <FormasPago />
+        <p>skool logo</p>
+
+        <div class="aviso-mano aviso-mano--recto">
+            <span class="aviso-mano-icono" aria-hidden="true"></span>
+            <p>
+                <strong>CUIDADO CON TU BANCO.</strong> Lee con atención:<br
+                /><br />
+                <strong>1)</strong> Skool cobra en dólares porque son americanos y
+                están locos, pero 228$ son 199€<br /><br />
+                <strong>2)</strong> Si usas un banco tradicional y te intentan cobrar
+                más (igual unos 50€ extra) es que te quieren sablar una comisión oculta
+                a razón de "cambio de divisa". Habla con ellos y que te lo arreglen
+                o usa algún banco online más moderno. Yo no puedo hacer nada por ti.
+            </p>
+        </div>
 
         <section class="seccion-blanca seccion-blanca--hasta-final">
             <h2 id="no-es-para-ti">Este programa NO es para ti si...</h2>
@@ -675,7 +692,7 @@ import FormasPago from "../components/FormasPago.astro";
                     <strong
                         >Esperas que la IA lo haga todo sola mientras tú no
                         tocas nada. El clon que te hace rico desde la playa con
-                        un mojito todavía no lo he creado. Cuando lo tenga, te
+                        un mojito todavía no lo he creado. Cuando lo tenga te
                         aviso.</strong
                     >
                 </li>
@@ -705,29 +722,11 @@ import FormasPago from "../components/FormasPago.astro";
 
                 <dt>¿El acceso al programa es inmediato?</dt>
                 <dd>
-                    Sí y no. Lee con atención: Comprando La Forja recibes al
-                    instante una guía descargable con consejos avanzados sobre
-                    Claude Code. La compra de esta guía también te da acceso al
-                    skool con todo lo mencionado en esta página para pasar de 0
-                    a 100 en Claude Code. Pero para poder acceder a dicho skool
-                    te llegará una invitación por email. Puede tardar un poco,
-                    no te preocupes. Una vez llegue el email te registras y
-                    tendrás acceso al skool.
-                </dd>
-
-                <dt>¿Por qué no pagar directamente desde Skool?</dt>
-                <dd>
-                    Por algún motivo Skool solo permite pagar en dólares (cosas
-                    de estos americanos...) Esto es un problema si usas bancos
-                    tradicionales porque te meten una comisión oculta (que
-                    pueden ser perfectamente 50€ por hacerte el "cambio de
-                    divisa" a euros). No quiero decirte que el precio son 199€
-                    que pongas la tarjeta y desde tu banco te cobren 250€ sin
-                    siquiera avisarte de que te han metido esa comisión. Y
-                    entonces vengas enfadado a mí para pedirme tu dinero de
-                    vuelta. Por eso vendo desde Stripe directamente en euros y
-                    te invito al skool por email. Pero si quieres pagar por
-                    skool, adelante.
+                    Sí y no. Tienes acceso al instante a skool pero si compras
+                    durante el lanzamiento (antes del 4 de julio) tendrás acceso
+                    a las lecciones del nivel 1 y al foro. El 4 de julio se
+                    desbloqueará el Nivel 2. Y lo demás durante los siguientes
+                    días. Si no te convence esto, no compres.
                 </dd>
 
                 <dt>
@@ -736,40 +735,30 @@ import FormasPago from "../components/FormasPago.astro";
                 <dd>
                     El enfoque de este programa es darte el conocimiento y las
                     herramientas para hacerte independiente de las últimas
-                    novedades. Tu sistema de clones ahora mismo funciona con
+                    novedades. Mi sistema de clones ahora mismo funciona con
                     Claude Code pero si en el futuro hay una mejor podrás
                     desconectar Claude, conectar otra IA y seguir usándolo todo
                     igual. Además que si necesitas aprender algo nuevo podrás
                     usar la propia IA para que te enseñe o lo haga por ti.
                 </dd>
 
-                <dt>¿Están todas las clases desde el minuto 1?</dt>
-                <dd>
-                    No. Si compras durante el lanzamiento antes del 4 de julio
-                    tendrás acceso al nivel 1. El 4 de julio se desbloqueará el
-                    Nivel 2. Y todo lo demás durante los siguientes días. Si no
-                    te convence esto, no compres.
-                </dd>
-
                 <dt>¿Es un pago único?</dt>
-                <dd>Sí.</dd>
+                <dd>
+                    Sí. No descarto convertirlo en un pago recurrente en el
+                    futuro pero tú siempre podrás quedarte dentro sin necesidad
+                    de pagar de nuevo.
+                </dd>
 
                 <dt>Es muy barato</dt>
                 <dd>
-                    Sí, debería tener más precio pero dicen que soy un tipo
+                    Lo sé, debería tener más precio pero dicen que soy un tipo
                     generoso.
                 </dd>
 
-                <dt>Haces factura</dt>
+                <dt>¿Haces factura?</dt>
                 <dd>
-                    Sí, escríbeme un email con tus datos y la hago. No emito
-                    facturas de trimestres anteriores.
-                </dd>
-
-                <dt>¿Necesito cuenta en skool?</dt>
-                <dd>
-                    Sí pero si no tienes una te llegará la invitación por email
-                    para creártela.
+                    La genera skool automáticamente, desde tu perfil podrás
+                    acceder a ella.
                 </dd>
 
                 <dt>
@@ -809,14 +798,11 @@ import FormasPago from "../components/FormasPago.astro";
                 ¿Quieres construir tu propio ejercito de clones?
             </p>
 
-            {
-                /* TODO: sustituir https://stripe.com por la URL real del checkout de Stripe */
-            }
             <a class="block forja-comprar" href="https://stripe.com">
                 <span class="title">Acceder a La Forja</span>
             </a>
 
-            <FormasPago />
+            <p>skool logo</p>
         </section>
     </div>
 </BaseLayout>
