@@ -43,20 +43,6 @@
     --negro: #1a1612;
     --blanco: #fefcf8;
 
-    /* ---------- PALETA ANTIGUA (no activa — referencia) ----------
-       Vivacolor de respuesta directa anterior al cambio a old money. */
-    /*
-    --azul: #1e5fbf;
-    --rosa: #ff4fdd;
-    --amarillo: #ffe066;
-    --verde: #baff29;
-    --negro: #292f36;
-    --gris: #3a4047;
-    --blanco: #ffffff;
-    --papel: #f7f9fc;
-    --mute: #6f7c90;
-    */
-
     /* OPACIDADES vía color-mix sobre los colores base, en lugar de rgba()
        literal: si cambia el color de marca, las opacidades siguen. */
     --azul-10: color-mix(in srgb, var(--azul) 10%, transparent);
