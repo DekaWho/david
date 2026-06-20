@@ -1135,21 +1135,13 @@ li::marker {
 /* Cabeceras de los Niveles del programa — distinguidas por ir seguidas de su
    <ul> de contenidos (los clones van seguidos de un <p>), así no hace falta una
    clase aparte. Estilo "etiqueta de módulo" para romper la monotonía con los
-   clones: centradas, manuscritas (Kalam) y azules, con una regla azul a todo el
-   ancho por debajo que cierra cada módulo. */
+   clones: centradas, manuscritas (Kalam) y azules. La regla azul separadora la
+   dibuja .forja-estrellas (entre las estrellas de nivel y el título). */
 .cuerpo--la-forja h3.titulo-seccion:has(+ ul) {
     font-family: var(--hand);
     font-size: clamp(1.7rem, 2.8vw, 2.4rem);
     text-align: center;
     color: var(--azul);
-}
-.cuerpo--la-forja h3.titulo-seccion:has(+ ul)::after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 2px;
-    margin: 0.5em auto 0;
-    background: var(--azul);
 }
 
 /* Botón de compra "Acceder a La Forja" — variante del .block del sistema para
@@ -1338,6 +1330,70 @@ li::marker {
     max-width: 100%;
     max-height: clamp(160px, 28vh, 260px);
     background: var(--negro);
+}
+
+/* Garabato decorativo del cuerpo (línea SVG suelta): centra la pieza y hereda
+   el color del modificador --rojo/--azul (el SVG trae el stroke a currentColor).
+   Todos van al mismo ancho grande, como el tornado. Cada SVG recorta su viewBox
+   al dibujo (sin aire alrededor, que se leía como margen) y declara ese ancho en
+   --vbw; el stroke-width se deriva de --vbw para que el grosor renderizado salga
+   constante (≈ 0.03·ancho) entre todos, aunque cada viewBox mida distinto. */
+.cuerpo--la-forja .forja-svg {
+    display: flex;
+    justify-content: center;
+    margin: var(--gap-md) auto;
+}
+.cuerpo--la-forja .forja-svg svg {
+    width: clamp(78px, 18vw, 88px);
+    height: auto;
+}
+.cuerpo--la-forja .forja-svg svg path {
+    stroke-width: calc(var(--vbw, 400) * 0.03);
+}
+.cuerpo--la-forja .forja-svg--rojo {
+    color: var(--rojo);
+}
+.cuerpo--la-forja .forja-svg--azul {
+    color: var(--azul);
+}
+/* Estrellas de "nivel" coronando los títulos de módulo: 1/2/3 dibujadas a mano,
+   centradas arriba. La regla azul separadora va debajo de las estrellas (borde
+   inferior de este bloque) y el título queda bajo la regla. Heredan el --azul
+   del título vía currentColor. */
+.cuerpo--la-forja .forja-estrellas {
+    display: flex;
+    justify-content: center;
+    gap: 0.15em;
+    line-height: 1;
+    width: 100%;
+    padding-bottom: 0.4em;
+    margin-bottom: 0.35em;
+    border-bottom: 2px solid var(--azul);
+}
+.cuerpo--la-forja .forja-estrellas svg {
+    width: 1.5em;
+    height: 1.5em;
+}
+/* Garabato a la izquierda de un texto (no centrado en su línea): fila con el
+   dibujo y el párrafo alineados verticalmente. */
+.cuerpo--la-forja .forja-fila {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+    margin: var(--gap-xl) auto;
+}
+.cuerpo--la-forja .forja-fila .forja-svg {
+    margin: 0;
+    flex-shrink: 0;
+}
+.cuerpo--la-forja .forja-fila p {
+    margin: 0;
+}
+/* El diamante (clase global, compartida con /servicios) iguala su presencia a
+   la de los garabatos en esta página: al ser un cuadrado macizo necesita algo
+   más de lado que el ancho de los garabatos (trazos altos) para pesar lo mismo. */
+.cuerpo--la-forja .diamond {
+    width: clamp(95px, 22vw, 108px);
 }
 
 /* FAQ — lista de definición: pregunta en negrita, respuesta en cuerpo.
