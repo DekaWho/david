@@ -816,6 +816,23 @@ li::marker {
     font-size: 26px;
 }
 
+/* Sombra reforzada de los CTA: más opaca y con menos blur que la box-shadow
+   plana base de .block, para despegarlos del papel. Misma forma (offset 4, blur
+   5) en todos, distinta opacidad por fondo. Los primary azules —el botón de
+   clones de /la-forja y el CTA azul de la home— la llevan marcada (0.4) porque
+   sobre el azul oscuro la sombra negra contrasta poco; los CTA sobre fondo claro
+   —los amarillos de acceder de /la-forja y las .block--secondary blancas de la
+   home— van más suaves (0.22) porque ahí el contraste sobra y a 0.4 cargaban
+   demasiado. .forja-comprar y .block--secondary son exclusivos de su página. */
+.hero--la-forja .block--primary,
+.blocks .block--primary {
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
+}
+.block.forja-comprar,
+.block--secondary {
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.22);
+}
+
 /* Hero unificado: columna centrada con ancho de lectura acotado a 720px. */
 .hero {
     display: flex;
@@ -1138,7 +1155,7 @@ li::marker {
 .block.forja-comprar {
     justify-content: center;
     padding: clamp(1rem, 2.4vh, 1.5rem) 1.2rem;
-    margin-bottom: var(--gap-md);
+    margin-bottom: var(--gap-2xl);
     background: var(--amarillo);
 }
 
@@ -2605,7 +2622,7 @@ audio::-webkit-media-controls-panel {
     margin: 8px 14px 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
 }
 
 .block {
@@ -2798,38 +2815,44 @@ audio::-webkit-media-controls-panel {
     background: var(--amarillo);
     color: var(--negro);
     font-family: var(--hand);
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 700;
-    padding: 5px 10px 3px;
+    padding: 6px 12px 4px;
     box-shadow:
         0 3px 8px rgba(0, 0, 0, 0.12),
         0 1px 2px rgba(0, 0, 0, 0.08);
-    transform: rotate(4deg);
+    transform: rotate(-4deg);
 }
 
 /* Mismo lenguaje que la cinta del postit, en miniatura. La rotación
-   negativa compensa el +4deg del badge para que la cinta caiga casi
+   positiva compensa el -4deg del badge para que la cinta caiga casi
    horizontal en lugar de inclinarse el doble. */
 .badge::before {
     content: "";
     position: absolute;
     top: -6px;
     left: 50%;
-    transform: translateX(-50%) rotate(-6deg);
-    width: 34px;
-    height: 11px;
+    transform: translateX(-50%) rotate(6deg);
+    width: 38px;
+    height: 12px;
     background: rgba(255, 255, 255, 0.55);
     border-left: 1px dashed rgba(0, 0, 0, 0.08);
     border-right: 1px dashed rgba(0, 0, 0, 0.08);
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* Dentro del bloque, el badge va como hijo flex antes de .arrow.
-   align-self lo sube respecto al centro del flex; el rotado 4deg
-   de .badge le da el aire de pegatina inclinada. */
+/* El badge se saca del flujo flex: como hijo normal ocupaba columna propia
+   y le restaba ancho al .body, partiendo el título en dos líneas. Absoluto y
+   anclado abajo a la derecha (a la altura del subtitle, que es corto y deja
+   hueco ahí), la línea del título recupera el ancho completo del bloque y cabe
+   entera; el rotado -4deg de .badge le mantiene el aire de pegatina inclinada. */
+.block:has(.badge) {
+    position: relative;
+}
 .block .badge {
-    align-self: flex-start;
-    margin-top: 2px;
+    position: absolute;
+    right: 28px;
+    bottom: -8px;
 }
 
 @media (max-width: 380px) {
@@ -2887,7 +2910,7 @@ audio::-webkit-media-controls-panel {
 
     .blocks {
         margin: clamp(6px, 1vh, 10px) 94px 0;
-        gap: clamp(6px, 1vh, 10px);
+        gap: clamp(12px, 1.7vh, 18px);
     }
 
     .block {
