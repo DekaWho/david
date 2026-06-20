@@ -24,7 +24,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <ul class="forja-nav-panel">
             <li><a href="#inicio">Inicio</a></li>
             <li><a href="#quien-soy">Quién Soy</a></li>
-            <li><a href="#clones">Los clones</a></li>
+            <li><a href="#clones">Los clones que uso</a></li>
             <li><a href="#que-incluye">Qué incluye el programa</a></li>
             <li><a href="#no-es-para-ti">Esto NO es para ti si...</a></li>
             <li><a href="#preguntas">Preguntas importantes</a></li>
@@ -34,14 +34,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <div class="banner">
         <section class="hero hero--la-forja" id="inicio">
             <p class="bsl-leadin">
-                Para personas no muy técnicas que están casi satisfechas con su
-                IA de confianza pero sienten que podrían sacarle más partido
-                para 1) trabajar menos y ganar tiempo libre o para 2) llegar más
-                alto sin necesidad de contratar
+                Para personas no muy técnicas que sienten que podrían sacarle
+                más partido a la <strong>IA</strong> para <strong>1)</strong> trabajar
+                menos y ganar tiempo libre o <strong>2)</strong> llegar más alto sin
+                necesidad de contratar
             </p>
 
             <h1 class="forja-wordmark">
-                <span class="forja-kicker">Te presento...</span>
+                <span class="forja-kicker"><strong>Te presento...</strong></span
+                >
                 <img
                     src="/imgs/forja-yunque.webp"
                     alt=""
@@ -53,15 +54,29 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
             <p class="bsl-deck">
                 El programa para crear tu ejército de clones y controlar casi
-                todo tu negocio desde un solo panel de IA
+                todo tu negocio desde un solo panel de IA. Te muestro cómo lo
+                uso en este vídeo:
             </p>
 
-            <p>[video pendiente]</p>
+            <video
+                class="hero-video"
+                controls
+                controlslist="nodownload"
+                preload="none"
+                playsinline
+                poster="/videos/forja-hero-poster.webp"
+                width="1920"
+                height="1080"
+            >
+                <source src="/videos/forja-hero.webm" type="video/webm" />
+                <source src="/videos/forja-hero.mp4" type="video/mp4" />
+                Tu navegador no puede reproducir este vídeo.
+            </video>
 
-            <a class="block block--primary" href="#que-incluye">
-                <img class="icon" src="/imgs/favicon-forja-48.png" alt="⚒️" />
+            <a class="block block--primary" href="#clones">
+                <img class="icon" src="/imgs/svg/robot.svg" alt="🤖" />
                 <span class="body">
-                    <span class="title">Qué incluye el programa</span>
+                    <span class="title">Los clones que uso</span>
                 </span>
                 <span class="arrow" aria-hidden="true">↓</span>
             </a>
@@ -82,6 +97,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         >
             soy <span class="squiggle">David Varea</span>
         </h2>
+
+        <div class="hero-photo-wrap">
+            <img
+                class="hero-photo"
+                src="/imgs/profile-pic.webp"
+                alt="David Varea"
+                loading="lazy"
+            />
+        </div>
 
         <p>Me gano la vida dando servicios como freelance.</p>
 
@@ -178,8 +202,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         </p>
 
         <p class="hand text-rojo">
-            (empezaba a alucinar o a responder tan mal que gastaba más tiempo
-            corrigiendo a la IA que si lo hacía yo desde cero)
+            (empezaba a responder tan mal que gastaba más tiempo corrigiendo a
+            la IA que si lo hacía yo desde cero)
         </p>
 
         <section class="seccion-blanca">
@@ -262,6 +286,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <video
             class="forja-video"
             controls
+            controlslist="nodownload"
             preload="none"
             playsinline
             poster="/videos/claude-skill-poster.webp"
@@ -322,6 +347,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         <video
             class="forja-video"
             controls
+            controlslist="nodownload"
             preload="none"
             playsinline
             poster="/videos/ladron-poster.webp"
@@ -392,7 +418,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         </p>
 
         <h2 class="forja-wordmark">
-            <span class="forja-kicker">Te presento...</span>
+            <span class="forja-kicker"><strong>Te presento...</strong></span>
             <img
                 src="/imgs/forja-yunque.webp"
                 alt=""
@@ -409,8 +435,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         </p>
 
         <p id="que-incluye">
-            Una formación que te enseña a construir<u class="mark-amarillo">
-                clones hechos a tu medida.</u
+            Una formación que te enseña a construir <u class="mark-amarillo"
+                >clones hechos a tu medida.</u
             >
         </p>
 
@@ -635,6 +661,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             href="https://www.skool.com/la-forja-5050/about"
         >
             <span class="title">Acceder a La Forja</span>
+            <span class="skool-badge">
+                <img
+                    src="/imgs/skool-logo.png"
+                    alt="Skool"
+                    width="185"
+                    height="60"
+                />
+            </span>
         </a>
 
         <div class="aviso-mano aviso-mano--recto">
@@ -801,6 +835,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                     una vez esté construido puedes volverte al plan de 20€ al
                     mes.
                 </dd>
+
+                <dt>¿Hay prueba gratis o garantía de devolución?</dt>
+                <dd>
+                    Si has leído toda la página hasta aquí, además has visto los
+                    vídeos y aún así tienes dudas de si esto te sirve. Entonces
+                    no compres, esto no es para ti.
+                </dd>
             </dl>
 
             <p class="titulo-mano">
@@ -812,7 +853,30 @@ import BaseLayout from "../layouts/BaseLayout.astro";
                 href="https://www.skool.com/la-forja-5050/about"
             >
                 <span class="title">Acceder a La Forja</span>
+                <span class="skool-badge">
+                    <img
+                        src="/imgs/skool-logo.png"
+                        alt="Skool"
+                        width="185"
+                        height="60"
+                    />
+                </span>
             </a>
+
+            <div class="aviso-mano aviso-mano--recto">
+                <span class="aviso-mano-icono" aria-hidden="true"></span>
+                <p>
+                    <strong>CUIDADO CON TU BANCO.</strong> Lee con atención:<br
+                    /><br />
+                    <strong>1)</strong> Skool cobra en dólares porque son americanos
+                    y están locos, pero 228$ son 199€<br /><br />
+                    <strong>2)</strong> Si usas un banco tradicional y te intentan
+                    cobrar más (igual unos 50€ extra) es que te quieren sablar una
+                    comisión oculta por "cambio de divisa". Habla con ellos y que te
+                    lo arreglen o usa algún banco online más moderno. Yo no puedo
+                    hacer nada por ti.
+                </p>
+            </div>
         </section>
     </div>
 </BaseLayout>

@@ -813,11 +813,9 @@ li::marker {
 
 /* CTA del banner: reutiliza .block.block--primary (sección 8). El banner
    es flex-column con stretch por defecto, así que solo hace falta evitar
-   que el botón ocupe el 100% del ancho. La flecha amarilla se mantiene
-   como acento de marca (en la home el .block--primary usa color blanco).
-   Padding vertical ampliado: este CTA va solo con .title (sin .subtitle-hand),
-   así que el padding base de 14px lo dejaría fino frente a la versión de la
-   home que ocupa dos líneas. */
+   que el botón ocupe el 100% del ancho. Padding vertical ampliado: este CTA
+   va solo con .title (sin .subtitle-hand), así que el padding base de 14px lo
+   dejaría fino frente a la versión de la home que ocupa dos líneas. */
 .banner .block--primary {
     align-self: center;
     padding: clamp(11px, 1.9vh, 18px) 12px;
@@ -827,7 +825,7 @@ li::marker {
     font-weight: 500;
 }
 .banner .block--primary .arrow {
-    color: var(--amarillo);
+    color: var(--blanco);
     opacity: 1;
     font-size: 26px;
 }
@@ -870,7 +868,7 @@ li::marker {
     margin: 0 auto clamp(0.1em, 1.5vh, 0.45em);
 
     font-family: var(--serif);
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: -0.015em;
     line-height: 1.18;
     text-align: center;
@@ -892,6 +890,21 @@ li::marker {
 .forja-wordmark img {
     width: auto;
     height: clamp(96px, 20vh, 190px);
+}
+
+/* En el hero el wordmark va compacto y con el yunque más grande: es el primer
+   golpe de marca de la página y debe caber sin scroll. El gap aprieta el yunque
+   contra "Te presento…" y "LA FORJA"; el yunque crece como primera impresión.
+   El line-height a 1 recorta el aire propio (half-leading) de "LA FORJA" arriba
+   y abajo: al ser texto grande ese aire es el que sobra; "Te presento…", pequeño,
+   apenas lo nota. Se compensa achicando el .bsl-deck del hero (abajo). El
+   wordmark repetido sobre la oferta conserva los valores base de arriba. */
+.hero--la-forja .forja-wordmark {
+    gap: clamp(0px, 0.3vh, 0.18rem);
+    line-height: 1;
+}
+.hero--la-forja .forja-wordmark img {
+    height: clamp(120px, 26vh, 240px);
 }
 
 /* Navegador de secciones de /la-forja — burger fijo arriba-derecha. En
@@ -1057,7 +1070,7 @@ li::marker {
     max-width: 38rem;
     margin: 0 auto var(--gap-md);
     font-size: clamp(1rem, 1.25vw, 1.2rem);
-    line-height: 1.45;
+    line-height: 1.3;
     color: color-mix(in srgb, var(--negro) 70%, transparent);
     text-align: center;
 }
@@ -1075,6 +1088,14 @@ li::marker {
     text-align: center;
 }
 
+/* En el hero el deck baja un escalón para devolver el alto que gana el yunque
+   grande (arriba) y que el hero entero siga visible sin scroll. El deck del
+   bloque central conserva el tamaño base: ahí es la promesa de la oferta y no
+   tiene restricción de altura, así que mantiene su peso. */
+.hero--la-forja .bsl-deck {
+    font-size: clamp(1.05rem, 1.5vw, 1.4rem);
+}
+
 /* Grito / interjección emocional del cuerpo ("Acabé abrumado.", latigazos que
    cortan la lectura): mismo lenguaje que el h2 (centrado, bolder) un punto más
    pequeño y en rojo señalético. */
@@ -1086,6 +1107,19 @@ li::marker {
     color: var(--rojo);
     text-align: center;
     hyphens: none;
+}
+
+/* Retrato del autor bajo "Hola, soy David Varea": reusa .hero-photo (círculo
+   sin borde) pero alineado a la izquierda como el nombre manuscrito que lo
+   precede, al doble del tamaño del hero global y con aire propio arriba/abajo
+   para que lea como pieza del cuerpo, no como avatar de cabecera. */
+.cuerpo--la-forja .hero-photo-wrap {
+    justify-content: flex-start;
+    margin: var(--gap-2xl) 0;
+}
+.cuerpo--la-forja .hero-photo {
+    width: clamp(192px, 28vh, 300px);
+    height: clamp(192px, 28vh, 300px);
 }
 
 /* h3 de sección en /la-forja: los clones narrativos ("1. Consumir formación…")
@@ -1134,6 +1168,47 @@ li::marker {
     font-size: clamp(1.3rem, 2.4vw, 1.8rem);
     color: var(--negro);
     text-align: center;
+}
+
+/* Logo de Skool a la derecha del texto del CTA, montado como pegatina
+   pegada con celo (mismo lenguaje que .badge de la home): papel blanco
+   con el wordmark dentro, leve rotación + sombra editorial y la tira de
+   cinta del ::before. Marca que el botón abre la comunidad en Skool. */
+.skool-badge {
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    /* Aire extra sobre el gap de 8px del .block para despegar la pegatina
+       del texto del CTA. */
+    margin-left: clamp(0.6rem, 2.2vw, 1.2rem);
+    background: var(--blanco);
+    padding: 6px 10px;
+    transform: rotate(4deg);
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.skool-badge img {
+    display: block;
+    width: clamp(54px, 11vw, 74px);
+    height: auto;
+}
+
+/* Cinta de celo, réplica de .badge::before. La rotación negativa compensa
+   el +4deg de la pegatina para que la cinta caiga casi horizontal. */
+.skool-badge::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-6deg);
+    width: 34px;
+    height: 11px;
+    background: rgba(255, 255, 255, 0.55);
+    border-left: 1px dashed rgba(0, 0, 0, 0.08);
+    border-right: 1px dashed rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 /* Antesala manuscrita del CTA en /la-forja ("¿Quieres construir tu propio
@@ -1231,6 +1306,16 @@ li::marker {
     background: var(--negro);
 }
 
+/* Oculta solo la duración total del reproductor nativo y deja el tiempo
+   transcurrido: el lector ve cuánto lleva, no la longitud del vídeo. Es un
+   pseudo-elemento del shadow DOM del player, expuesto solo en Chromium/WebKit;
+   Firefox no lo soporta y ahí la duración sigue visible (tráfico residual).
+   Cubre los dos players con controles del sitio (.forja-video y .hero-video). */
+.forja-video::-webkit-media-controls-time-remaining-display,
+.hero-video::-webkit-media-controls-time-remaining-display {
+    display: none;
+}
+
 /* Medios del cuerpo (gif ambiental): centra una o varias piezas en fila, con
    salto de línea cuando no caben en el ancho de la columna. */
 .cuerpo--la-forja .forja-media {
@@ -1276,15 +1361,15 @@ li::marker {
     line-height: 1.5;
 }
 
-/* /cerebro: demo en vídeo entre el H1 y el CTA. Los atributos
-   width/height del elemento fijan el aspect-ratio y evitan layout shift.
-   El ancho se acota vía min() con el alto objetivo (38vh convertido a
-   ancho 16:9): limitar el alto directamente (max-height) letterboxearía
-   el vídeo con bandas laterales; limitando el ancho, la proporción se
-   conserva y en viewports bajos el bloque encoge para que el form del
-   hero siga asomando bajo el fold (regla "hero visible sin scroll").
-   Borde tinta 1px: lenguaje dossier, no player flotante. El fondo negro
-   cubre el instante entre play y primer frame decodificado. */
+/* Demo en vídeo dentro del hero, entre el wordmark/H1 y el CTA (compartida
+   por /cerebro y /la-forja). Los atributos width/height del elemento fijan
+   el aspect-ratio y evitan layout shift. El ancho se acota vía min() con el
+   alto objetivo (38vh convertido a ancho 16:9): limitar el alto directamente
+   (max-height) letterboxearía el vídeo con bandas laterales; limitando el
+   ancho, la proporción se conserva y en viewports bajos el bloque encoge para
+   que el CTA del hero siga asomando bajo el fold (regla "hero visible sin
+   scroll"). Borde tinta 1px: lenguaje dossier, no player flotante. El fondo
+   negro cubre el instante entre play y primer frame decodificado. */
 .hero-video {
     display: block;
     width: min(100%, calc(38vh * 16 / 9));
@@ -1732,6 +1817,10 @@ p:has(+ .diamond) {
    en el border-box y no asoma el papel del body bajo el último bloque. */
 .seccion-blanca--hasta-final {
     margin-bottom: 0;
+    /* Cierre de página con aire bajo el último CTA, por encima del padding base
+       de la banda. El botón es :last-child (su margin-bottom queda neutralizado
+       arriba), así que el aire lo da este padding, no un margin del botón. */
+    padding-bottom: 5rem;
     clip-path: inset(0 -100vmax -100vmax -100vmax);
 }
 
