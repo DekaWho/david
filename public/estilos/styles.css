@@ -2026,10 +2026,10 @@ p:has(+ .diamond) {
     transform: none;
 }
 
-/* Variante recta del aviso: conserva el rojo manuscrito y el icono de alerta,
-   pero anula el tilt -2° (bloque e icono). Para una alerta que debe leerse como
-   aclaración factual recta —una nota de precio bajo el CTA—, no como anotación
-   al margen inclinada. */
+/* Variante recta del aviso: lo pinta en tinta en vez del rojo base del
+   aviso-mano y anula el tilt -2° (bloque e icono). Para una nota factual recta
+   —condiciones de precio bajo el CTA— que acompaña sin gritar como la alerta
+   roja manuscrita ni inclinarse como anotación al margen. */
 .aviso-mano--recto,
 .aviso-mano--recto .aviso-mano-icono {
     transform: none;
@@ -2043,6 +2043,7 @@ p:has(+ .diamond) {
 .aviso-mano--recto {
     flex-direction: column;
     max-width: none;
+    color: var(--negro);
 }
 
 .cuerpo > p:has(+ .aviso-mano) {
