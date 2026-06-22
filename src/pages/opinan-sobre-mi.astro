@@ -20,7 +20,7 @@ import TextoContacto from "../components/TextoContacto.astro";
         </div>
 
         <div class="cuerpo" slot="tras-audios">
-            <h2 class="text-rojo">Opiniones sobre mí de quien lee mi copy</h2>
+            <h2 class="text-rojo">Opiniones de quien lee mis correos</h2>
             <a
                 class="captura-link"
                 href="/reviews/ejemplo-de-comunicar.webp"
@@ -45,7 +45,22 @@ import TextoContacto from "../components/TextoContacto.astro";
                 <img
                     class="captura-email"
                     src="/reviews/rio.webp"
-                    alt="«Guapísimo el mail eh, me encantó el asunto»"
+                    alt="«Guapísimo el mail eh»"
+                    loading="lazy"
+                    decoding="async"
+                />
+            </a>
+
+            <a
+                class="captura-link captura-link--estrecha"
+                href="/reviews/sublime.webp"
+                target="_blank"
+                rel="noopener"
+            >
+                <img
+                    class="captura-email"
+                    src="/reviews/sublime.webp"
+                    alt="«Sublime el email del jefe cabrón, ajajaj»"
                     loading="lazy"
                     decoding="async"
                 />
@@ -60,7 +75,7 @@ import TextoContacto from "../components/TextoContacto.astro";
                 <img
                     class="captura-email"
                     src="/reviews/mila.webp"
-                    alt="Mensaje de Mila Coco: «Me encanta esa landing»"
+                    alt="«Me encanta esa landing»"
                     loading="lazy"
                     decoding="async"
                 />
@@ -90,7 +105,7 @@ import TextoContacto from "../components/TextoContacto.astro";
                 <img
                     class="captura-email"
                     src="/reviews/trimarketers.webp"
-                    alt="Comentario de Elsa y Maite López: «David es un cerebrito, en unos pocos meses aprendiendo copy ya nos da mil vueltas a todos, es un crack»"
+                    alt="«David es un cerebrito, en unos pocos meses aprendiendo copy ya nos da mil vueltas a todos, es un crack»"
                     loading="lazy"
                     decoding="async"
                 />
@@ -99,7 +114,11 @@ import TextoContacto from "../components/TextoContacto.astro";
     </Reviews>
 
     <div class="cuerpo">
-        <h2>Si quieres que trabajemos juntos puedo hacer 2 cosas por ti</h2>
+        <p style="font-size: 1.5rem; text-align: center">
+            <strong
+                >Si quieres que trabajemos juntos puedo hacer 2 cosas por ti</strong
+            >
+        </p>
     </div>
 
     <div class="contacto-mensajes">
