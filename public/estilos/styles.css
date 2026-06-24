@@ -4192,6 +4192,12 @@ body.blog-hub .banner-subline {
 .contacto-mensajes ol li::marker {
     color: var(--azul);
 }
+/* En /opinan-sobre-mi los números van en rojo: esa página no lleva el
+   cierre firmado azul de /contacto del que separarlos, y el rojo los alinea
+   con los titulares .text-rojo que encabezan los testimonios. */
+.opiniones .contacto-mensajes ol li::marker {
+    color: var(--rojo);
+}
 .contacto-mensajes .hand {
     color: var(--azul);
 }
