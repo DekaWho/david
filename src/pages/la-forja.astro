@@ -1023,4 +1023,43 @@ const estrella = `<svg viewBox="0 0 400 400" fill="none" aria-hidden="true"><pat
             </section>
         </p>
     </div>
+
+    {/* Title parpadeante estilo notificación de WhatsApp: se dispara cuando el
+        lector deja de mirar la página, para reengancharlo. Cubre los dos casos
+        de "irse": cambiar de pestaña/minimizar (visibilitychange) y mover el
+        foco a otro programa con la pestaña aún activa (blur de window) — este
+        último no levanta document.hidden, de ahí los dos disparadores y el
+        document.hasFocus(). Al recuperar foco se restaura el título. Inline por
+        ser exclusivo de esta landing. */}
+    <script is:inline>
+        (function () {
+            const original = document.title;
+            const alerta = "(1) " + original;
+            let timer = null;
+            let mostrandoAlerta = false;
+
+            function arrancar() {
+                if (timer) return;
+                timer = setInterval(function () {
+                    document.title = mostrandoAlerta ? original : alerta;
+                    mostrandoAlerta = !mostrandoAlerta;
+                }, 1000);
+            }
+
+            function parar() {
+                clearInterval(timer);
+                timer = null;
+                document.title = original;
+            }
+
+            function sincronizar() {
+                if (document.hidden || !document.hasFocus()) arrancar();
+                else parar();
+            }
+
+            document.addEventListener("visibilitychange", sincronizar);
+            window.addEventListener("blur", sincronizar);
+            window.addEventListener("focus", sincronizar);
+        })();
+    </script>
 </BaseLayout>
