@@ -1,7 +1,7 @@
 ---
 /* HTML/CSS y comportamiento base del optin del sitio. NO incrustar
    directamente en una página: cada lead magnet vive en su propio wrapper
-   (OptinRobame, OptinCerebro, …) que fija el form-id de MailerLite para
+   (OptinRobame, OptinClaudeYTSkill, …) que fija el form-id de MailerLite para
    que la automatización de bienvenida correcta dispare por destino del
    submit, no por filtrado de UTMs posterior.
 
@@ -28,7 +28,7 @@ const {
 
 if (!formId) {
     throw new Error(
-        "OptinBase.astro: prop `formId` requerida. No incrustar este componente directamente — usar <OptinRobame /> u <OptinCerebro /> (o crear un nuevo wrapper si toca otro lead magnet)."
+        "OptinBase.astro: prop `formId` requerida. No incrustar este componente directamente — usar <OptinRobame /> u <OptinClaudeYTSkill /> (o crear un nuevo wrapper si toca otro lead magnet)."
     );
 }
 ---

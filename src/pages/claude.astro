@@ -1,0 +1,337 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import OptinClaudeSkool from "../components/OptinClaudeSkool.astro";
+
+// Estrella dibujada a mano (de /imgs/svg/star.svg) inline para teñirla con el
+// --azul del título vía currentColor. Se repite 1/2/3 veces como "nivel" de
+// cada módulo.
+const estrella = `<svg viewBox="0 0 400 400" fill="none" aria-hidden="true"><path d="M168.958 155.927C176.737 130.329 183.098 111.177 188.041 98.4702C195.455 79.4104 212.356 53.1502 212.356 60.1603C212.356 67.1705 239.365 153.837 243.921 155.927C248.477 158.016 327.888 156.593 326.992 160.124C326.097 163.655 327.188 164.541 317.314 170.331C310.732 174.19 287.62 191.086 247.979 221.017C245.644 221.991 245.882 224.949 248.692 229.891C252.907 237.304 265.034 277.871 269.41 290.528C273.786 303.186 282.717 337.149 278.251 340.628C273.786 344.108 252.431 322.129 247.979 317.222C243.527 312.314 212.356 253.79 204.271 253.79C196.186 253.79 178.108 279.57 174.148 284.216C170.187 288.862 128.921 336.672 114.124 338.65C99.3259 340.628 104.105 328.539 114.124 309.534C120.803 296.863 134.107 267.309 154.037 220.87C144.027 216.395 135.15 212.906 127.406 210.401C115.791 206.644 79.1085 194.473 73.9807 192.933C68.8528 191.392 84.9287 184.462 96.8396 177.396C108.751 170.331 135.032 160.124 149.953 160.124" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+---
+
+<BaseLayout
+    titulo="Claude Code de 0 a 100"
+    canonical="/claude"
+    ogTitle="Claude Code de 0 a 100"
+    ogDescription="Trabajar como si tuvieras 100 brazos (gracias a la IA y sin necesidad de contratar)"
+    ogUrl="https://davidvarea.com/claude"
+    noindex={true}
+    favicon="muscle"
+    bodyClass="claude"
+>
+    <div class="banner">
+        <section class="hero hero--la-forja" id="inicio">
+            <p class="bsl-leadin">
+                Para personas no muy técnicas que sienten que podrían sacarle
+                más partido a la <strong>IA</strong> para <strong>1)</strong> trabajar
+                menos y ganar tiempo libre o <strong>2)</strong> llegar más alto sin
+                necesidad de contratar. <strong>Te presento...</strong>
+            </p>
+
+            <h1 class="forja-wordmark">
+                <img
+                    src="/imgs/forja-yunque.webp"
+                    alt=""
+                    width="512"
+                    height="444"
+                />
+                LA FORJA
+            </h1>
+
+            <p class="bsl-deck bsl-deck--promesa">
+                El proceso para trabajar como si tuvieras 100 brazos (gracias a
+                la IA y sin necesidad de contratar)
+            </p>
+
+            <p class="bsl-deck bsl-deck--oferta">
+                Te mando los dos primeros módulos de esta formación de pago
+                sobre Claude Code
+            </p>
+
+            <OptinClaudeSkool />
+
+            <p class="bsl-deck bsl-deck--promesa">
+                Te muestro mi Claude Code por dentro
+            </p>
+
+            <video
+                class="hero-video"
+                controls
+                controlslist="nodownload"
+                preload="none"
+                playsinline
+                poster="/videos/forja-hero-poster.webp"
+                width="1920"
+                height="1080"
+            >
+                <source src="/videos/forja-hero.webm" type="video/webm" />
+                <source src="/videos/forja-hero.mp4" type="video/mp4" />
+                Tu navegador no puede reproducir este vídeo.
+            </video>
+        </section>
+    </div>
+
+    <div class="cuerpo cuerpo--la-forja">
+        <p id="que-incluye">Qué incluye La Forja:</p>
+
+        <h3 class="titulo-seccion">
+            <span class="forja-estrellas" set:html={estrella} />
+            Un inicio sencillo
+        </h3>
+
+        <ul class="bold-odd">
+            <li>
+                El método de Sam Altman (el de Chat GPT) y Mark Zuckerberg (el
+                de Meta) para crear un buen prompt. Porque lo que la mayoría de
+                gurús dicen por internet es un mito. [Módulo 1, Lección 04]
+            </li>
+            <li>
+                La diferencia entre Claude y Claude Code (y cómo instalarlo en
+                unos minutos sin calentarte la cabeza) [Módulo 1, Lección 01]
+            </li>
+            <li>
+                Por qué a partir de ahora está prohibido que uses PDFs con tu
+                inteligencia artificial. [Módulo 2, Lección 01]
+            </li>
+            <li>
+                Cuál es el formato rey para que la IA lo entienda mejor y
+                consuma menos tokens (o sea gaste menos dinero de tu
+                suscripción) [Módulo 2, Lección 01]
+            </li>
+            <li>
+                Cómo tener un panel único donde usas la IA y controlas tu
+                negocio (casi al completo) en un mismo sitio. Aunque no seas tu
+                propio jefe y trabajes para otro. [Módulo 1]
+            </li>
+
+            <li>
+                ¿Tienes la memoria de la IA encendida? Casi seguro que sí
+                (porque viene así por defecto). Es algo que sabotea
+                sigilosamente tus conversaciones con Claude. Te cuento por qué
+                la apago y cuál es la mejor alternativa. [Módulo 1, Lección 05]
+            </li>
+        </ul>
+
+        <OptinClaudeSkool />
+
+        <h3 class="titulo-seccion">
+            <span class="forja-estrellas" set:html={estrella.repeat(2)} />
+            Crea tus 100 brazos
+        </h3>
+
+        <ul class="bold-odd">
+            <li>
+                Qué coñazo empezar a usar una herramienta nueva y tener que
+                migrar todo a Claude Code... Sí. Y por eso no tienes que hacerlo
+                a mano, que te ayude el propio claude.
+            </li>
+            <li>
+                Para dominar Claude Code no necesitas memorizar teoría durante
+                semanas. Empiezas el día 1 construyendo lo más básico y vas
+                creándote nuevos "brazos" cuando surge la necesidad.
+            </li>
+            <li>
+                Cómo transformar un prompt sencillo en todo un plan de acción
+                para que Claude haga una tarea muy complicada (sin tener tú que
+                calentarte la cabeza para prepararlo)
+            </li>
+            <li>
+                Comandos ocultos de Claude que no sabías que necesitabas hasta
+                que los pruebas y no paras de usarlos en cada conversación.
+            </li>
+            <li>
+                ¿Quieres usar la IA para crear post en redes (o cualquier otro
+                tipo de redacción) y te da guiones tan fétidos que tardas más
+                corrigiendo todo que si lo hubieses hecho desde 0? Dedico una
+                lección completa a este tema.
+            </li>
+        </ul>
+
+        <OptinClaudeSkool />
+
+        <h3 class="titulo-seccion">
+            <span class="forja-estrellas" set:html={estrella.repeat(3)} />
+            Cuidado. A partir de aquí querrás usar Claude Code para todo
+        </h3>
+
+        <ul class="bold-odd">
+            <li>
+                A veces la IA alucina más que si se hubiese fumado 4 porros. Te
+                cuento cómo poder detectarlo (y corregirlo) incluso cuando no
+                eres alguien experto en ese tema y no quieres calentarte la
+                cabeza.
+            </li>
+            <li>
+                Qué hacer para conectar Claude Code a otras herramientas (tu
+                email, calendario o lo que se te ocurra)
+            </li>
+            <li>
+                Cuándo vale la pena conectar la IA a otra herramienta y cuándo
+                vale la pena crear tu propia herramienta con IA (para evitar
+                pagar esa suscripción)
+            </li>
+            <li>
+                Cómo tener todo tu sistema en la nube para poder tener una copia
+                de seguridad con un historial de versiones y así nunca perder
+                nada (ni aunque borres algo y descubras semanas después que lo
+                necesitabas)
+            </li>
+            <li>
+                ¿Cómo puedes trabajar más rápido que usando Claude? Haciendo que
+                tu IA dirija a varias sub-IAs a la vez.
+            </li>
+            <li>
+                Cómo atar a Claude en corto con una correa para bloquear donde
+                no quieres que tenga acceso. Tienes dos opciones:
+                <span class="text-rojo">1)</span> Prohibirle tocar archivos concretos
+                <span class="text-rojo">2)</span> Prohibirle todo y dejarle acceso
+                solo a una carpeta de archivos.
+            </li>
+        </ul>
+
+        <p>
+            <span class="text-rojo hand">Spoiler:</span> No hablo de un prompt diciéndole
+            "no hagas esto" sino de un comando que apaga la IA cuando intenta hacer
+            algo prohibido. Sin opción de que se lo salte.
+        </p>
+
+        <OptinClaudeSkool />
+
+        <section class="seccion-blanca seccion-blanca--hasta-final">
+            <h2 id="no-es-para-ti">
+                Este programa <span class="ink-circle"
+                    >NO<svg
+                        class="ink-circle-svg"
+                        viewBox="0 0 100 60"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            fill="none"
+                            stroke-linecap="round"></path></svg
+                    ></span
+                > es para ti si...
+            </h2>
+
+            <ul class="bold-even">
+                <li>
+                    No es para ti si quieres montar un negocio vendiendo
+                    automatizaciones o chatbots a otras empresas. Aquí te enseño
+                    a usar la IA para potenciar lo que ya sabes hacer, no para
+                    crear un nuevo negocio.
+                </li>
+                <li>
+                    Aún no he podido entrenar a la IA para decirle "hazme rico"
+                    y lo consigue mientras yo me quedo tumbado en la playa
+                    tomando un mojito. Pronto. Pero aún no. Si ese era tu
+                    objetivo, La Forja no es para ti.
+                </li>
+                <li>
+                    No es para ti si no trabajas delante del ordenador. Si eres
+                    un electricista (por decir algo) poco podrá hacer la IA por
+                    ti. Bueno sí, todo lo que hagas delante de una pantalla
+                    (facturas, presupuestos, planos, cuadrar el calendario o
+                    cosas similares)
+                </li>
+                <li>
+                    No es para ti si buscas una plantilla para copiar, pegar y
+                    olvidarte. En la formación te enseño a domar a Claude Code
+                    para que crees tus propias soluciones, no voy a crearlas yo
+                    por ti.
+                </li>
+                <li>
+                    No es para ti si eres informático o programador. Si eres
+                    alguien muy técnico puedes estar buscando soluciones más
+                    complejas que no explico aquí.
+                </li>
+            </ul>
+
+            <OptinClaudeSkool />
+
+            <h2 id="preguntas">
+                Preguntas importantes que <u class="mark-amarillo"
+                    >deberías hacerte</u
+                >
+            </h2>
+
+            <dl class="forja-faq">
+                <dt>
+                    La IA cambia constantemente ¿el curso se va actualizando?
+                </dt>
+                <dd>
+                    El enfoque de este programa es darte el conocimiento y las
+                    herramientas para hacerte independiente de las últimas
+                    novedades. Porque es la IA quien comprueba la mejor forma de
+                    hacer algo en ese momento. Aún así, sí. Voy expandiendo las
+                    lecciones de La Forja.
+                </dd>
+                <dt>¿Necesito Claude de pago?</dt>
+                <dd>
+                    Sí. Al menos la versión de 20€ al mes. Y aún así he de
+                    avisarte que llega a su límite rápido según el uso que le
+                    des. Yo exprimo Claude a diario y por eso pago el plan de
+                    90€/mes. Con ese estoy encantado (nunca he llegado al
+                    límite) Claude es el trabajador más barato que puedo
+                    contratar.
+                </dd>
+
+                <dt>
+                    ¿Claude va a hacer todo por mí y ya no necesitaré hacer
+                    nada?
+                </dt>
+                <dd>
+                    No. Esto es un sistema proactivo. Requiere que tú seas el
+                    CEO de tu propia empresa. Claude no te va a sustituir, te da
+                    100 brazos pero (por ahora) todavía hace falta que tú pongas
+                    tu cabeza. Aún así sí hay ciertas automatizaciones que se
+                    pueden hacer.
+                </dd>
+            </dl>
+
+            <OptinClaudeSkool />
+        </section>
+    </div>
+</BaseLayout>
+
+{
+    /* Title parpadeante estilo notificación de WhatsApp: se dispara cuando el
+        lector deja de mirar la página, para reengancharlo. Cubre los dos casos
+        de "irse": cambiar de pestaña/minimizar (visibilitychange) y mover el
+        foco a otro programa con la pestaña aún activa (blur de window) — este
+        último no levanta document.hidden, de ahí los dos disparadores y el
+        document.hasFocus(). Al recuperar foco se restaura el título. Inline por
+        ser exclusivo de esta landing. */
+}
+<script is:inline>
+    (function () {
+        const original = document.title;
+        const alerta = "(1) " + original;
+        let timer = null;
+        let mostrandoAlerta = false;
+
+        function arrancar() {
+            if (timer) return;
+            timer = setInterval(function () {
+                document.title = mostrandoAlerta ? original : alerta;
+                mostrandoAlerta = !mostrandoAlerta;
+            }, 1000);
+        }
+
+        function parar() {
+            clearInterval(timer);
+            timer = null;
+            document.title = original;
+        }
+
+        function sincronizar() {
+            if (document.hidden || !document.hasFocus()) arrancar();
+            else parar();
+        }
+
+        document.addEventListener("visibilitychange", sincronizar);
+        window.addEventListener("blur", sincronizar);
+        window.addEventListener("focus", sincronizar);
+    })();
+</script>

@@ -1099,6 +1099,30 @@ li::marker {
     font-size: clamp(1.05rem, 1.5vw, 1.4rem);
 }
 
+/* En /claude el deck se estrecha en desktop para una columna más compacta bajo
+   el wordmark; en móvil el ancho lo marca ya el viewport, no el max-width. */
+@media (min-width: 801px) {
+    .claude .hero--la-forja .bsl-deck {
+        max-width: 32rem;
+    }
+}
+
+/* Primera línea del deck (la promesa, sobre la nota de oferta que la sigue):
+   peso normal para distinguirla de esa nota semibold. Sin márgenes verticales:
+   pegada al wordmark arriba y a la nota de oferta abajo (el hueco con la oferta
+   lo deja su propio margin-top). */
+.bsl-deck--promesa {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 400;
+}
+
+/* Nota de oferta bajo la promesa: acerca el optin que la sigue con la mitad
+   del margin-bottom base --gap-md (1.5rem). */
+.bsl-deck--oferta {
+    margin-bottom: 0.75rem;
+}
+
 /* Grito / interjección emocional del cuerpo ("Acabé abrumado.", latigazos que
    cortan la lectura): mismo lenguaje que el h2 (centrado, bolder) un punto más
    pequeño y en rojo señalético. */
@@ -1401,10 +1425,11 @@ li::marker {
 
 /* FAQ — lista de definición: pregunta en negrita, respuesta en cuerpo.
    Alineada a la izquierda (prosa de lectura), no centrada como los
-   titulo-seccion. Los <dl>/<dt>/<dd> escapan al reset de ul,ol. */
+   titulo-seccion. Los <dl>/<dt>/<dd> escapan al reset de ul,ol. El
+   margin-bottom despega el elemento que cierra la landing tras las preguntas. */
 .cuerpo--la-forja .forja-faq {
     width: 90%;
-    margin: var(--gap-lg) auto 0;
+    margin: var(--gap-lg) auto 3rem;
 }
 
 .cuerpo--la-forja .forja-faq dt {
@@ -1418,6 +1443,39 @@ li::marker {
     margin: var(--gap-sm) 0 0;
     font-size: var(--text-body);
     line-height: 1.5;
+}
+
+/* /claude reusa la piel de /la-forja (misma estructura .cuerpo--la-forja) pero
+   con otra paleta de acentos. Scopeado a body.claude para no tocar /la-forja.
+   Los títulos de sección con estrellas van en rojo: como las estrellas se tiñen
+   con currentColor, cambiar el color del h3 arrastra texto y estrellas juntos. */
+.claude .cuerpo--la-forja h3.titulo-seccion:has(.forja-estrellas) {
+    color: var(--rojo);
+}
+/* La línea separadora bajo las estrellas va fijada a --azul en la base, así que
+   no hereda el rojo del título; la reponemos a juego con el h3 rojo. */
+.claude .cuerpo--la-forja .forja-estrellas {
+    border-bottom-color: var(--rojo);
+}
+.claude .cuerpo--la-forja .forja-faq dt {
+    color: var(--azul);
+    font-size: clamp(1.45rem, 1.75vw, 1.75rem);
+}
+.claude .cuerpo--la-forja #preguntas {
+    margin-top: var(--gap-2xl);
+}
+/* Separa "LA FORJA" del yunque subiendo el gap del wordmark en el hero (el
+   resto del sitio conserva su separación base). */
+.claude .hero--la-forja .forja-wordmark {
+    gap: 1rem;
+}
+/* Aire bajo el botón de cada optin, para separarlo de lo que sigue. */
+.claude .optin button {
+    margin-bottom: 2rem;
+}
+/* Aire sobre el vídeo del hero (el margin base del .hero-video es 0 arriba). */
+.claude .hero-video {
+    margin-top: 1.5rem;
 }
 
 /* Demo en vídeo dentro del hero, entre el wordmark/H1 y el CTA (compartida
@@ -1808,6 +1866,12 @@ p:has(+ .diamond) {
    `> li` para que una sublista anidada no herede la alternancia ni descuadre
    el conteo nth-child de la lista padre. */
 .bold-odd > li:nth-child(odd) {
+    font-weight: bold;
+}
+
+/* Gemela de .bold-odd con el énfasis en los pares: aplícala a una lista para
+   que su alternancia arranque desfasada respecto a las .bold-odd del entorno. */
+.bold-even > li:nth-child(even) {
     font-weight: bold;
 }
 
@@ -2565,6 +2629,9 @@ audio::-webkit-media-controls-panel {
     font-size: 14.5px;
     line-height: 1.25;
     color: var(--negro);
+    /* Anula el hyphens:auto global: en una nota manuscrita corta, partir
+       palabras con guion rompe la lectura de anotación. */
+    hyphens: none;
 }
 
 .postit .tape {
@@ -2622,7 +2689,7 @@ audio::-webkit-media-controls-panel {
     margin: 8px 14px 0;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
 }
 
 .block {
@@ -2842,17 +2909,98 @@ audio::-webkit-media-controls-panel {
 }
 
 /* El badge se saca del flujo flex: como hijo normal ocupaba columna propia
-   y le restaba ancho al .body, partiendo el título en dos líneas. Absoluto y
-   anclado abajo a la derecha (a la altura del subtitle, que es corto y deja
-   hueco ahí), la línea del título recupera el ancho completo del bloque y cabe
-   entera; el rotado -4deg de .badge le mantiene el aire de pegatina inclinada. */
+   y le restaba ancho al .body, partiendo el título en dos líneas. Absoluto,
+   la línea del título recupera el ancho completo del bloque y cabe entera; el
+   rotado -4deg de .badge le mantiene el aire de pegatina inclinada. Cuelga por
+   debajo del borde inferior (bottom negativo) para no pisar el subtitle, que
+   llega hasta la esquina inferior derecha del bloque. */
 .block:has(.badge) {
     position: relative;
 }
 .block .badge {
     position: absolute;
     right: 28px;
-    bottom: -8px;
+    bottom: -24px;
+}
+
+/* ---- Bloque-acordeón (.block-group) ----
+   Un bloque de "¿Qué te trae por aquí?" que en vez de navegar despliega sus
+   sub-opciones. El disparador es un <button> por su semántica de toggle
+   (aria-expanded); lo demás reutiliza .block para hablar el mismo lenguaje. */
+.block-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Reset de la piel nativa del <button> para que herede el look de .block, que
+   está pensado para <a>. El fondo y la tipografía los pone .block--primary. */
+.block-toggle {
+    width: 100%;
+    border: 0;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+/* Caret que gira 180° al abrir. Reemplaza la flecha → de navegación porque
+   este bloque expande, no lleva a otra página. */
+.arrow--toggle {
+    transition: transform 200ms ease;
+}
+.block-toggle[aria-expanded="true"] .arrow--toggle {
+    transform: rotate(180deg);
+}
+
+/* Despliegue animado sin medir alturas en JS: la fila del grid pasa de 0fr a
+   1fr y el hijo con overflow:hidden recorta el contenido mientras crece. */
+.subblocks {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 250ms ease;
+}
+.block-toggle[aria-expanded="true"] + .subblocks {
+    grid-template-rows: 1fr;
+}
+.subblocks-inner {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    /* El aire respecto al disparador vive aquí, no como gap del grupo: así en
+       estado cerrado la fila colapsa a 0 sin dejar hueco fantasma. */
+    padding-top: 12px;
+}
+
+/* Sub-tarjeta: hija del bloque de consultoría. Indentada y algo más compacta
+   para leerse como nivel inferior del árbol. */
+.block--sub {
+    margin-left: clamp(14px, 5vw, 32px);
+}
+.block--sub .title {
+    font-size: 16px;
+}
+
+/* Tarjeta informativa no interactiva: conserva el aspecto de .block pero anula
+   el cursor de enlace y el press del :hover (transform + pérdida de sombra),
+   porque no navega. Para avisos que ocupan el sitio de una opción desactivada
+   (ej. "sin hueco"). Repite la sombra base de .block para que el hover no la
+   aplane como en las tarjetas clicables. */
+.block--sin-hueco {
+    cursor: default;
+}
+.block--sin-hueco:hover,
+.block--sin-hueco:active {
+    transform: none;
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .subblocks,
+    .arrow--toggle {
+        transition: none;
+    }
 }
 
 @media (max-width: 380px) {
@@ -2910,7 +3058,7 @@ audio::-webkit-media-controls-panel {
 
     .blocks {
         margin: clamp(6px, 1vh, 10px) 94px 0;
-        gap: clamp(12px, 1.7vh, 18px);
+        gap: clamp(6px, 1vh, 10px);
     }
 
     .block {
@@ -3288,7 +3436,7 @@ audio::-webkit-media-controls-panel {
 }
 
 /* Bloque opt-in autoral. Clase base de los bloques completos
-   (OptinCompletoRobame, OptinCompletoCerebro) — layout (flex column
+   (OptinCompletoRobame, OptinCompletoClaudeYTSkill) — layout (flex column
    centrado), foto, nombre, párrafo Kalam y form se rigen por estas reglas;
    cada bloque difiere solo en qué elementos monta, no en estilo.
    Banda blanca full-bleed (truco box-shadow + clip-path de .lista-azul)

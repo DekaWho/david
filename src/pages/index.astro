@@ -44,11 +44,9 @@ import { DESCRIPCION_19K } from "../data/bio.js";
             <div class="postit-wrap">
                 <div class="postit">
                     <span class="tape" aria-hidden="true"></span>
-                    Este título es para mí mismo, para
-                    <span class="bold"
-                        >fascinar al David Varea de hace 3 años.</span
-                    >
-                    No sabía ni qué significaba 'marketing' y quiso ser autodidacta..
+                    Este título <span class="bold"
+                        >va para el David Varea de hace 2 años:</span
+                    > El que apostó por sí mismo cuando lo seguro era conformarse.
                 </div>
             </div>
         </section>
@@ -61,54 +59,112 @@ import { DESCRIPCION_19K } from "../data/bio.js";
         </div>
 
         <nav class="blocks" aria-label="Secciones">
-            <a
-                class="block block--primary"
-                href="/la-forja"
-                target="_blank"
-                rel="noopener"
-                draggable="false"
-            >
-                <span class="handle" aria-hidden="true">⋮⋮</span>
-                <img class="icon" src="/imgs/svg/fire.svg" alt="🔥" />
-                <span class="body">
-                    <span class="title">LA FORJA</span>
-                    <span class="subtitle-hand"
-                        >crea tu ejército de clones IA</span
+            <div class="block-group">
+                <button
+                    type="button"
+                    class="block block--primary block-toggle"
+                    aria-expanded="false"
+                    aria-controls="sub-consultoria"
+                >
+                    <span class="handle" aria-hidden="true">⋮⋮</span>
+                    <img class="icon" src="/imgs/svg/fire.svg" alt="🔥" />
+                    <span class="body">
+                        <span class="title">Consultoría</span>
+                        <span class="subtitle-hand"
+                            >Pulsa para ver si tengo disponibilidad</span
+                        >
+                    </span>
+                    <span class="arrow arrow--toggle" aria-hidden="true">▾</span
                     >
-                </span>
-                <span class="arrow" aria-hidden="true">→</span>
-            </a>
+                </button>
+
+                <div class="subblocks" id="sub-consultoria">
+                    <div class="subblocks-inner">
+                        {/* Consultoría en pausa: las dos vías se ocultan
+                            mientras no hay hueco. Para reactivarlas, descomentar
+                            estos dos <a> y quitar la tarjeta de aviso de abajo. */}
+                        {/*
+                        <a
+                            class="block block--secondary block--sub"
+                            href="/servicios"
+                            target="_blank"
+                            rel="noopener"
+                            draggable="false"
+                        >
+                            <img
+                                class="icon"
+                                src="/imgs/svg/robot.svg"
+                                alt="🤖"
+                            />
+                            <span class="body">
+                                <span class="title"
+                                    >Aplicar IA a tu negocio</span
+                                >
+                                <span class="subtitle-hand"
+                                    >automatiza con Claude Code</span
+                                >
+                            </span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </a>
+
+                        <a
+                            class="block block--secondary block--sub"
+                            href="/servicios"
+                            target="_blank"
+                            rel="noopener"
+                            draggable="false"
+                        >
+                            <img
+                                class="icon"
+                                src="/imgs/svg/money-bag.svg"
+                                alt="💰"
+                            />
+                            <span class="body">
+                                <span class="title">Monetizar tu audiencia</span
+                                >
+                                <span class="subtitle-hand"
+                                    >convierte seguidores en clientes</span
+                                >
+                            </span>
+                            <span class="arrow" aria-hidden="true">→</span>
+                        </a>
+                        */}
+
+                        <div
+                            class="block block--secondary block--sub block--sin-hueco"
+                        >
+                            <img
+                                class="icon"
+                                src="/imgs/svg/crane.svg"
+                                alt="🏗️"
+                            />
+                            <span class="body">
+                                <span class="title"
+                                    >Ahora mismo no tengo hueco</span
+                                >
+                                <span class="subtitle-hand"
+                                    >Pronto abriré</span
+                                >
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <a
                 class="block block--secondary"
-                href="/servicios"
+                href="/claude"
                 target="_blank"
                 rel="noopener"
                 draggable="false"
             >
                 <span class="handle" aria-hidden="true">⋮⋮</span>
-                <img class="icon" src="/imgs/svg/handshake.svg" alt="🤝" />
+                <img class="icon" src="/imgs/svg/muscle.svg" alt="💪" />
                 <span class="body">
+                    <span class="title">Claude Code de 0 a 100</span>
                     <span class="subtitle-hand"
-                        >director de marketing en las sombras</span
+                        >trabaja como si tuvieras 100 brazos</span
                     >
-                    <span class="title">Mis servicios (o consultoría)</span>
-                </span>
-                <span class="arrow" aria-hidden="true">→</span>
-            </a>
-
-            <a
-                class="block block--secondary"
-                href="/cerebro"
-                target="_blank"
-                rel="noopener"
-                draggable="false"
-            >
-                <span class="handle" aria-hidden="true">⋮⋮</span>
-                <img class="icon" src="/imgs/svg/robot.svg" alt="🤖" />
-                <span class="body">
-                    <span class="title">Ya no veo ni cursos ni vídeos</span>
-                    <span class="subtitle-hand">uso esta skill de Claude</span>
                 </span>
                 <span class="badge">GRATIS</span>
                 <span class="arrow" aria-hidden="true">→</span>
@@ -145,6 +201,15 @@ import { DESCRIPCION_19K } from "../data/bio.js";
             handle: ".handle",
             animation: 150,
             ghostClass: "block--ghost",
+        });
+
+        // Bloques-acordeón: el disparador despliega sus sub-opciones en vez de
+        // navegar. El estado vive en aria-expanded; el CSS anima el despliegue.
+        document.querySelectorAll(".block-toggle").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const abierto = btn.getAttribute("aria-expanded") === "true";
+                btn.setAttribute("aria-expanded", String(!abierto));
+            });
         });
     </script>
 </BaseLayout>

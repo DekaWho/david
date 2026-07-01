@@ -6,7 +6,7 @@ import OptinBase from "./OptinBase.astro";
    su automatización de bienvenida dispare por destino del submit, no
    por filtrado de UTMs posterior — los UTMs pueden faltar o llegar
    incorrectos; el form-id siempre llega correcto. */
-const CEREBRO_FORM_ID = "188427651849914364";
+const CLAUDEYTSKILL_FORM_ID = "188427651849914364";
 
 /* Texto por defecto del botón para este lead magnet. La página puede
    overridearlo pasando `botonTexto`; el form-id se fija siempre después
@@ -14,4 +14,4 @@ const CEREBRO_FORM_ID = "188427651849914364";
 const { botonTexto = "Mándame gratis esa skill", ...rest } = Astro.props;
 ---
 
-<OptinBase {...rest} botonTexto={botonTexto} formId={CEREBRO_FORM_ID} />
+<OptinBase {...rest} botonTexto={botonTexto} formId={CLAUDEYTSKILL_FORM_ID} />

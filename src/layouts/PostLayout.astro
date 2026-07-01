@@ -1,7 +1,7 @@
 ---
 import Head from '../components/Head.astro';
-import OptinCerebro from '../components/OptinCerebro.astro';
-import OptinCompletoCerebro from '../components/OptinCompletoCerebro.astro';
+import OptinClaudeYTSkill from '../components/OptinClaudeYTSkill.astro';
+import OptinCompletoClaudeYTSkill from '../components/OptinCompletoClaudeYTSkill.astro';
 import Footer from '../components/Footer.astro';
 import { categorias } from '../data/categorias.js';
 
@@ -72,8 +72,8 @@ const {
         posts que ya montan un bloque completo a mitad. El id `post-end` ancla
         el link "Conclusión" del índice lateral. */}
     {cierreReducido
-      ? <OptinCerebro id="post-end" />
-      : <OptinCompletoCerebro id="post-end" />}
+      ? <OptinClaudeYTSkill id="post-end" />
+      : <OptinCompletoClaudeYTSkill id="post-end" />}
 
     <Footer />
 
