@@ -448,6 +448,14 @@ li::marker {
     margin-top: 2.5em;
 }
 
+/* Un punto por encima del compacto base, conservando su peso y line-height:
+   para el h2 que replica el hero como segundo CTA a pie de página, donde el
+   mínimo del compacto se queda corto pero el h2 global (2.5rem+) competiría
+   con el h1 del banner. */
+.titulo-compacto--lg {
+    font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+}
+
 /* /robame-hormozi: el cuerpo abre directamente con este H2, pegado al
    CTA del banner — la separación de sección del margin-top global está
    pensada para títulos a mitad de página y aquí descuelga el bloque. */
@@ -679,10 +687,12 @@ li::marker {
    conversacional dentro de un texto serif. El 0.9em corrige el cuerpo óptico
    del Kalam, que a igual tamaño se ve más grande que el EB Garamond y rompería
    la línea (mismo ajuste que .inciso-hand). Sin color ni rotación: fluye en la
-   misma línea como parte del texto. Dos contextos gemelos: el h1 del banner
-   (/robame, /cerebro) y el pitch del bloque opt-in autoral, que replica ese
-   hero mid-article. */
+   misma línea como parte del texto. Contextos gemelos: el h1 del banner
+   (/robame, /cerebro), el .titulo-compacto que replica ese hero como h2 de
+   sección en el cuerpo, y el pitch del bloque opt-in autoral, que lo replica
+   mid-article. */
 .banner h1 .aside-hand,
+.titulo-compacto .aside-hand,
 .optin-bloque-pitch .aside-hand {
     font-family: var(--hand);
     font-weight: 400;
@@ -1606,6 +1616,28 @@ li::marker {
     background-color: #f5b700;
 }
 
+.doodle--corona {
+    width: clamp(4rem, 7vw, 5rem);
+    /* El SVG viene con el viewBox ceñido al trazo, así que el lienzo copia esa
+       proporción para que no reaparezca aire al encajar la máscara con contain.
+       El aire corona↔título lo da el margin, no un hueco del lienzo. */
+    aspect-ratio: 182 / 142;
+    margin-top: var(--gap-lg);
+    margin-bottom: var(--gap-sm);
+}
+
+/* El h2 coronado no arrastra el margin-top del user-agent (a la escala del h2
+   son ~2.5rem, lo que despegaba el título de la corona): el aire lo fija el
+   margin-bottom del doodle. */
+.doodle--corona + h2 {
+    margin-top: 0;
+}
+
+.doodle--corona::before {
+    -webkit-mask-image: url(/imgs/svg/crown-svgrepo-com.svg);
+    mask-image: url(/imgs/svg/crown-svgrepo-com.svg);
+}
+
 /* Color de doodle alternativo al rojo por defecto, para acompañar bloques donde
    el rojo señalético competiría. */
 .doodle--azul::before {
@@ -1622,6 +1654,13 @@ li::marker {
     -webkit-mask: url(/imgs/svg/diamond-svgrepo-com.svg) center / contain
         no-repeat;
     mask: url(/imgs/svg/diamond-svgrepo-com.svg) center / contain no-repeat;
+}
+
+/* consulta-ia: un punto por encima del diamante base, sin tocar el resto de
+   páginas que lo comparten. El min del clamp sube para que en móvil (donde el
+   preferido 10vw cae por debajo del min) no encoja tanto respecto a desktop. */
+.reviews-blanco .diamond {
+    width: clamp(7rem, 10vw, 8.5rem);
 }
 
 /* El <p> previo al diamante recorta su margin-bottom (default --gap-3xl
@@ -1726,6 +1765,25 @@ p:has(+ .diamond) {
    margen entre los dos para reforzar esa unidad. */
 .titulo-breaker--bg-oscuro:has(+ .seccion-tinta) {
     margin-bottom: var(--gap-xl);
+}
+
+/* consulta-ia (body.reviews-blanco): el bloque de reseñas arranca sobre blanco,
+   enlazado con la .seccion-blanca anterior, en vez de que el titular negro
+   flote sobre el papel del body. La banda blanca de arriba baja su margen a 0 y
+   el titular pega el suyo (arriba y abajo), proyectando su propia banda blanca
+   full-bleed a los lados con la técnica box-shadow + clip-path de .seccion-
+   blanca; abajo topa con la franja .seccion-tinta, que pasa a ser el único corte
+   de color. El blanco queda continuo desde el bloque anterior hasta la tinta. */
+.reviews-blanco .cuerpo > .seccion-blanca:last-child {
+    margin-bottom: 0;
+}
+.reviews-blanco .titulo-breaker--bg-oscuro:has(+ .seccion-tinta) {
+    margin: 0 auto var(--gap-lg);
+    box-shadow: 0 0 0 100vmax var(--blanco);
+    /* El bottom del clip se abre hasta cubrir el margin-bottom, así el aire
+       entre la card y la franja de tinta queda blanco (continúa la banda), no
+       papel; coincide con el margin para no invadir la tinta que va debajo. */
+    clip-path: inset(0 -100vmax calc(-1 * var(--gap-lg)) -100vmax);
 }
 
 /* En /opinan-sobre-mi (body.opiniones) el bloque de prueba social ES la página
