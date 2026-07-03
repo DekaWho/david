@@ -649,9 +649,24 @@ li::marker {
     aspect-ratio: 1;
     margin: 0 auto;
     background-color: var(--rojo);
+    color: var(--rojo);
     -webkit-mask: url("/imgs/svg/gladiator-svgrepo-com.svg") center / contain
         no-repeat;
     mask: url("/imgs/svg/gladiator-svgrepo-com.svg") center / contain no-repeat;
+}
+
+/* Lupa del mismo set de dibujos que el gladiador, en azul, abriendo el bloque
+   de preguntas. Misma técnica de máscara. */
+.buscando {
+    display: block;
+    width: 8rem;
+    aspect-ratio: 1;
+    margin: var(--gap-xl) auto 0;
+    background-color: var(--azul);
+    color: var(--azul);
+    -webkit-mask: url("/imgs/svg/searching-svgrepo-com.svg") center / contain
+        no-repeat;
+    mask: url("/imgs/svg/searching-svgrepo-com.svg") center / contain no-repeat;
 }
 
 /* El párrafo que precede al gladiador recorta su margin-bottom para acercar
@@ -659,6 +674,17 @@ li::marker {
    siguiente bloque es la figura, no otro párrafo. */
 .cuerpo p:has(+ .gladiador) {
     margin-bottom: 2rem;
+}
+
+/* Los SVG de este set mezclan trazos a stroke-opacity 0.9 y 0.5; sobre fondo
+   claro los de 0.5 se leen pálidos. drop-shadow apilado en currentColor sin
+   offset ni blur repinta la silueta y suma alfa por composición, subiendo esos
+   trazos a opaco sin editar el asset —compartido con fondos donde el translúcido
+   se integra. Utilidad para los iconos-máscara sobre claro (.gladiador,
+   .buscando); cada icono fija su color en `color` junto al background. */
+.icono-solido {
+    filter: drop-shadow(0 0 0 currentColor) drop-shadow(0 0 0 currentColor)
+        drop-shadow(0 0 0 currentColor) drop-shadow(0 0 0 currentColor);
 }
 
 .capturas-email {
@@ -1470,6 +1496,10 @@ li::marker {
 .claude .cuerpo--la-forja .forja-faq dt {
     color: var(--azul);
     font-size: clamp(1.45rem, 1.75vw, 1.75rem);
+    /* Preguntas en la mano manuscrita: registro de anotación personal frente a
+       la respuesta en la tipografía de cuerpo. */
+    font-family: var(--hand);
+    font-weight: 400;
 }
 .claude .cuerpo--la-forja #preguntas {
     margin-top: var(--gap-2xl);
@@ -4411,16 +4441,16 @@ body.blog-hub .banner-subline {
     margin-top: 1rem;
 }
 /* SVG-icono dentro del postit. El archivo SVG actúa como máscara CSS
-   y se rellena con --rojo, así el icono queda intacto y se pinta del
+   y se rellena con --azul, así el icono queda intacto y se pinta del
    color que decida la página. */
 .postit-icono {
     display: block;
-    width: clamp(48px, 9vh, 72px);
-    height: clamp(48px, 9vh, 72px);
+    width: clamp(64px, 12vh, 96px);
+    height: clamp(64px, 12vh, 96px);
     margin: 0.3rem auto;
-    background-color: var(--rojo);
-    mask-image: url("/imgs/svg/chat-svgrepo-com.svg");
-    -webkit-mask-image: url("/imgs/svg/chat-svgrepo-com.svg");
+    background-color: var(--azul);
+    mask-image: url("/imgs/svg/boxing-svgrepo-com.svg");
+    -webkit-mask-image: url("/imgs/svg/boxing-svgrepo-com.svg");
     mask-size: contain;
     -webkit-mask-size: contain;
     mask-repeat: no-repeat;
