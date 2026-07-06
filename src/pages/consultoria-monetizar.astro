@@ -1,15 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Logros from "../components/Logros.astro";
 import Reviews from "../components/Reviews.astro";
 import OptinConsultoria from "../components/OptinConsultoria.astro";
 ---
 
 <BaseLayout
-    titulo="Te presto mi cerebro..."
-    ogTitle="Te presto mi cerebro (durante 47 minutos) para descubrir cómo aprovecharte de la IA en tu caso concreto"
-    canonical="/consultoria-ia"
-    ogUrl="https://davidvarea.com/consultoria-ia"
-    favicon="brain"
+    titulo="Róbame hasta 19.970€ desde tu sofá (debo estar loco)"
+    ogTitle="Róbame hasta 19.970€ desde tu sofá (debo estar loco)"
+    canonical="/consultoria-monetizar"
+    ogUrl="https://davidvarea.com/consultoria-monetizar"
+    favicon="money"
     bodyClass="reviews-blanco"
 >
     <div class="banner">
@@ -27,19 +28,29 @@ import OptinConsultoria from "../components/OptinConsultoria.astro";
                 David Varea
             </h2>
 
-            <h1>
-                Te presto mi cerebro <span class="aside-hand"
-                    >(durante 47 minutos)</span
-                > para descubrir cómo aprovecharte de
-                <u class="banner-mark">la IA en tu caso concreto</u>
+            <h1 class="banner-h1--small">
+                Me he gastado <u class="banner-mark"
+                    >19.970€ en cursos y mentorías</u
+                > de viralidad, marca personal y vender online <span
+                    class="aside-hand"
+                    >(aparte de mi experiencia dando servicios)</span
+                >
+                para que <span class="squiggle">tú no tengas que hacerlo</span>
             </h1>
 
-            <p>
-                Si quieres rendir como si tuvieras 100 brazos pero dudas dónde
-                aplicar la IA (o por dónde empezar exactamente) te mando <span
-                    class="squiggle"
-                    >un correo con los detalles de este servicio 1a1</span
-                > y el precio que tiene:
+            <img
+                class="banner-proof"
+                src="/imgs/heads.webp"
+                alt="las caras de los referentes estudiados"
+                loading="eager"
+                decoding="async"
+            />
+
+            <p class="hand">
+                y si quieres robarme el cerebro (en una llamada de 47min) te
+                mando <span class="text-rojo"
+                    >un correo con los detalles y el precio</span
+                > de este servicio:
             </p>
 
             <OptinConsultoria botonTexto="Me interesa una llamada 1a1" />
@@ -68,13 +79,14 @@ import OptinConsultoria from "../components/OptinConsultoria.astro";
                 </strong><br /><br />
                 <ol>
                     <li>
-                        En qué punto exacto de tu negocio puedes implementar la
-                        IA de <u class="mark-amarillo">la forma más simple (</u
-                        >para tenerla ya funcionando durante esta misma semana)
+                        Cuál es la acción más inmediata que puedes hacer para
+                        aumentar tu facturación (o beneficio, lo que prefieras
+                        escalar)
                     </li>
                     <li>
-                        Un plan de acción pensado en el largo plazo. Dónde
-                        encaja la IA pero requiere más días de preparación.
+                        Un plan de acción pensado en el largo plazo. Un pico de
+                        ingresos está fantástico pero el negocio más sano (y más
+                        escalable) es el que tiene clientes recurrentes.
                     </li>
                 </ol>
             </li>
@@ -95,25 +107,23 @@ import OptinConsultoria from "../components/OptinConsultoria.astro";
             <h2 style="font-family: var(--hand); color: var(--azul)">
                 Qué han logrado mis clientes
             </h2>
-            <p>
-                Soy monetizador de audiencias. Me gano la vida dando servicios
-                para monetizar audiencias de negocios o marcas personales.
-            </p>
-
             <div class="diamond" aria-hidden="true"></div>
+            <p>
+                Mis clientes han facturado 2.4 millones de € (con mi ayuda)
+                vendiendo por internet. Te cuento qué hice para ellos pero antes
+                una aclaración:
+            </p>
 
             <p>
                 <strong>
-                    Mis clientes han facturado 2.4 millones de € (con mi ayuda)
-                    vendiendo por internet. Aunque esta consultoría va sobre
-                    cómo puedes aprovecharte de la IA (no sobre cómo vender más)
-                    te lo cuento para darte contexto porque...
+                    Si ahora no te interesa leer los detalles técnicos avanza
+                    hasta el siguiente bloque <u class="mark-amarillo"
+                        >para escuchar las reseñas</u
+                    > de quien ya ha trabajado conmigo.
                 </strong>
             </p>
-            <p>
-                Yo uso la IA a diario para optimizar mi propio trabajo y rendir
-                como si tuviera 100 brazos (sin contratar a nadie)
-            </p>
+
+            <Logros />
         </section>
     </div>
     <Reviews id="opiniones" />
@@ -121,14 +131,13 @@ import OptinConsultoria from "../components/OptinConsultoria.astro";
     <div class="cuerpo">
         <h2 class="titulo-compacto titulo-compacto--lg">
             Roba mi cerebro <span class="aside-hand">(durante 47 minutos)</span> para
-            descubrir cómo aprovecharte de
-            <u class="banner-mark">la IA en tu profesión</u>
+
+            <u class="banner-mark">monetizar tu audiencia </u>(más)
         </h2>
 
         <p>
-            Si quieres rendir como si tuvieras 100 brazos pero dudas dónde
-            aplicar la IA (o por dónde empezar exactamente) te mando un email
-            con los detalles de este servicio 1a1 y el precio que tiene.
+            Te mando un email con los detalles de este servicio 1a1 y el precio
+            que tiene.
             <strong>Todavía no tengo la tarifa de 500€/h</strong> (más pronto que
             tarde ese será el precio)
         </p>

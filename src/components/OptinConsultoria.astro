@@ -1,0 +1,22 @@
+---
+import OptinBase from "./OptinBase.astro";
+
+/* Wrapper del optin de las consultorías 1a1 (/consultoria-ia y
+   /consultoria-monetizar): ambas comparten form y automatización de
+   bienvenida en MailerLite, así que el wrapper es común. Fija el form-id
+   para que la automatización dispare por destino del submit, no por
+   filtrado de UTMs posterior — los UTMs pueden faltar o llegar
+   incorrectos; el form-id siempre llega correcto. El campo ultimo_optin
+   (derivado del pathname) distingue desde qué landing se suscribió cada
+   lead. Si una de las dos estrena form y automatización propios, crear
+   su wrapper aparte y sustituir el import en su página. */
+const CONSULTORIA_FORM_ID = "191928498304059114";
+
+/* Texto por defecto del botón para este lead magnet. La página puede
+   overridearlo pasando `botonTexto`; el form-id se fija siempre después
+   del spread para que la página no pueda cambiarlo. */
+const { botonTexto = "Recibir gratis los valiosos emails", ...rest } =
+    Astro.props;
+---
+
+<OptinBase {...rest} botonTexto={botonTexto} formId={CONSULTORIA_FORM_ID} />

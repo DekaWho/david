@@ -469,6 +469,31 @@ li::marker {
     margin: 0 auto clamp(0.1em, 1.5vh, 0.45em);
 }
 
+/* Landings de consultoría (body.reviews-blanco): su hero es más denso que el
+   resto (titular de frase larga y pitch de varias líneas); con los
+   interlineados base se airea de más, así que titular y párrafo se compactan
+   un punto sin tocar el resto de páginas.
+   `.hero > p` deja fuera los <p> internos del optin (privacy note). */
+.reviews-blanco .banner h1 {
+    line-height: 1.1;
+}
+.reviews-blanco .hero > p:not(.hand) {
+    line-height: 1.4;
+    /* Un escalón menos que el ritmo global del <p> (--gap-3xl): acerca el
+       pitch al cajetín para que se lean como una unidad pregunta→acción.
+       El pie Kalam (.hand) queda fuera: su métrica la fija
+       .banner-proof + .hand y este selector la pisaría. */
+    margin-bottom: var(--gap-2xl);
+}
+/* En móvil el <p> global ya baja a --gap-xl (media query de la sección de
+   responsive); este selector le gana por especificidad, así que replica
+   aquí el mismo escalón de descuento sobre esa base. */
+@media (max-width: 800px) {
+    .reviews-blanco .hero > p:not(.hand) {
+        margin-bottom: var(--gap-lg);
+    }
+}
+
 /* Variante para titulares largos (frase completa, no claim corto): la
    escala base del banner h1 los infla y empuja el CTA fuera del fold.
    .titulo-compacto comparte el mismo tamaño/peso para que un h2 de
@@ -492,6 +517,57 @@ li::marker {
    con el h1 del banner. */
 .titulo-compacto--lg {
     font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+}
+
+/* Imagen embebida en el banner como prueba (las caras de los referentes
+   en /consultoria-monetizar). Ancho acotado para no romper la columna del
+   hero ni desplazar el CTA fuera del fold en móvil. */
+.banner-proof {
+    display: block;
+    max-width: clamp(240px, 68%, 340px);
+    height: auto;
+    margin: 0.5rem auto 0;
+}
+
+/* Scope por presencia de .banner-proof: ese hero apila un elemento más que
+   el resto (foto + h1 largo + prueba + pie Kalam + form) y comprime el
+   padding vertical del banner para mantener el CTA en el fold. Los demás
+   banners conservan el padding global. */
+.banner:has(.banner-proof) {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.banner:has(.banner-proof) .optin {
+    margin-bottom: 0;
+}
+
+/* Foto del autor reducida en ese hero: al tamaño global empuja el form
+   fuera del fold en viewports ajustados. */
+.banner:has(.banner-proof) .hero-photo {
+    width: clamp(80px, 12vh, 100px);
+    height: clamp(80px, 12vh, 100px);
+}
+
+@media (min-width: 700px) {
+    .banner:has(.banner-proof) .hero-photo {
+        width: clamp(92px, 12vh, 130px);
+        height: clamp(92px, 12vh, 130px);
+    }
+}
+
+/* Pie manuscrito bajo la imagen de prueba: tipografía pequeña, Kalam,
+   centrada, a todo el ancho del contenedor. El párrafo Kalam siempre
+   sigue a la captura de prueba, así que va por .banner-proof + .hand. */
+.banner-proof + .hand {
+    margin: 0.5rem auto;
+    text-align: center;
+    line-height: 1.15;
+    font-size: calc(var(--text-body) * 0.75);
+    color: var(--negro);
+    /* Anula el hyphens:auto global (html): un guion de corte parte palabras
+       y rompe el registro manuscrito del Kalam. */
+    hyphens: none;
 }
 
 /* Capturas de email (prueba social) en el cuerpo de /opinan-sobre-mi: recortes reales
@@ -617,9 +693,9 @@ li::marker {
    del Kalam, que a igual tamaño se ve más grande que el EB Garamond y rompería
    la línea (mismo ajuste que .inciso-hand). Sin color ni rotación: fluye en la
    misma línea como parte del texto. Contextos gemelos: el h1 del banner
-   (/consultoria-ia), el .titulo-compacto que replica ese hero como h2 de
-   sección en el cuerpo, y el pitch del bloque opt-in autoral, que lo replica
-   mid-article. */
+   (landings de consultoría), el .titulo-compacto que replica ese hero como h2
+   de sección en el cuerpo, y el pitch del bloque opt-in autoral, que lo
+   replica mid-article. */
 .banner h1 .aside-hand,
 .titulo-compacto .aside-hand,
 .optin-bloque-pitch .aside-hand {
@@ -1581,17 +1657,20 @@ li::marker {
     mask: url(/imgs/svg/diamond-svgrepo-com.svg) center / contain no-repeat;
 }
 
-/* consultoria-ia: un punto por encima del diamante base, sin tocar el resto de
-   páginas que lo comparten. El min del clamp sube para que en móvil (donde el
-   preferido 10vw cae por debajo del min) no encoja tanto respecto a desktop. */
+/* Landings de consultoría (body.reviews-blanco): un punto por encima del
+   diamante base, sin tocar el resto de páginas que lo comparten. El min del
+   clamp sube para que en móvil (donde el preferido 10vw cae por debajo del
+   min) no encoja tanto respecto a desktop. */
 .reviews-blanco .diamond {
     width: clamp(7rem, 10vw, 8.5rem);
 }
 
-/* El <p> previo al diamante recorta su margin-bottom (default --gap-3xl
-   separa bloques narrativos): el diamante actúa como pausa decorativa que
-   remata el párrafo, no como inicio de sección. */
-p:has(+ .diamond) {
+/* El elemento previo al diamante recorta su margin-bottom (los default
+   --gap-3xl del <p> y --gap-xl del h2 separan bloques narrativos): el
+   diamante actúa como pausa decorativa que remata lo anterior, no como
+   inicio de sección. */
+p:has(+ .diamond),
+h2:has(+ .diamond) {
     margin-bottom: 1rem;
 }
 
@@ -1692,7 +1771,7 @@ p:has(+ .diamond) {
     margin-bottom: var(--gap-xl);
 }
 
-/* consultoria-ia (body.reviews-blanco): el bloque de reseñas arranca sobre blanco,
+/* Landings de consultoría (body.reviews-blanco): el bloque de reseñas arranca sobre blanco,
    enlazado con la .seccion-blanca anterior, en vez de que el titular negro
    flote sobre el papel del body. La banda blanca de arriba baja su margen a 0 y
    el titular pega el suyo (arriba y abajo), proyectando su propia banda blanca

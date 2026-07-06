@@ -14,6 +14,10 @@
    - flechaFinal (boolean, default true): la flecha tras "SUFICIENTE" apunta a la
      oferta de abajo. En páginas sin oferta debajo (solo testimonios) se pasa
      false para no señalar al vacío.
+   - id (string, default "reviews"): ancla del titular fallback. El default es
+     el histórico de /servicios (lleva tiempo en producción, no renombrar);
+     las landings de consultoría pasan "opiniones". Solo aplica al fallback:
+     una página que rellena el slot "titulo" pone el ancla en su propio markup.
    - slot "tras-audios": punto de inserción opcional entre la franja de audios y
      el cierre "SUFICIENTE". Vacío por defecto (no renderiza nada), así que solo
      aparece donde se rellena. /opinan-sobre-mi mete ahí un testimonio extra
@@ -23,14 +27,14 @@
    fallback dentro del <slot>: rellenar un slot que lleva fallback markup hace
    que Astro descarte el markup hermano del componente (las reviews enteras).
    Con el ternario el titular es un hermano más y la sección siempre renderiza. */
-const { flechaFinal = true } = Astro.props;
+const { flechaFinal = true, id = "reviews" } = Astro.props;
 ---
 
 {
     Astro.slots.has("titulo") ? (
         <slot name="titulo" />
     ) : (
-        <h1 class="titulo-breaker titulo-breaker--bg-oscuro" id="reviews">
+        <h1 class="titulo-breaker titulo-breaker--bg-oscuro" id={id}>
             Pero
             <span class="ink-circle">
                 no
