@@ -1,18 +1,13 @@
 ---
 import OptinBase from "./OptinBase.astro";
 
-/* Wrapper del optin para el lead magnet 'Róbame'. Fija el form-id de
-   MailerLite de esa oferta para que la automatización de bienvenida
-   correspondiente dispare por destino del submit. El componente acepta
-   cualquier prop del OptinBase (botonTexto, successUrl, botonIcono,
-   mostrarPrivacyNote) salvo `formId` y `cerrado`, que se fuerzan aquí (un
-   override desde la página se descarta: el atributo del wrapper se aplica
-   después del spread).
-
-   `cerrado` está activo: Róbame tiene las plazas cerradas en TODA la web
-   donde aparece este optin — la landing /robame y los bloques de /privacidad
-   y /sobre-mí. Para reabrirlo, quitar `cerrado` del OptinBase de abajo. */
-const ROBAME_FORM_ID = "158544190416881022";
+/* Placeholder del optin de Róbame, lead magnet retirado: su form se borró
+   de MailerLite, así que no hay form-id que fijar. El cajetín se mantiene
+   como pieza visual en la landing /robame — `cerrado` lo deja inerte
+   (input y botón disabled, cartel "Acceso cerrado") y sin postear a
+   ningún sitio. Para reabrir Róbame: crear form + automatización nuevos
+   en MailerLite y convertir esto en un wrapper activo (fijar formId y
+   quitar `cerrado`; ver OptinClaudeSkool como referencia). */
 ---
 
-<OptinBase {...Astro.props} formId={ROBAME_FORM_ID} cerrado />
+<OptinBase {...Astro.props} cerrado />

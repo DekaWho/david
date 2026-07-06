@@ -1,6 +1,6 @@
 # Menú de secciones (nav flotante con burger)
 
-Navegación por anclas para una landing larga: un burger fijo arriba-derecha que despliega la lista de secciones de la página. Abrir/cerrar es solo CSS (checkbox-hack: un `<input type="checkbox">` oculto que un `<label>` hermano conmuta); un bloque de `public/scripts/scripts.js` lo complementa cerrando el panel al pulsar un enlace y, en móvil, ocultando el burger mientras el hero está en pantalla (reaparece al scrollear). Sin JS el nav queda siempre visible: degrada bien. Lo usa `/la-forja`.
+Navegación por anclas para una landing larga: un burger fijo arriba-derecha que despliega la lista de secciones de la página. Abrir/cerrar es solo CSS (checkbox-hack: un `<input type="checkbox">` oculto que un `<label>` hermano conmuta); un bloque de `public/scripts/scripts.js` lo complementa cerrando el panel al pulsar un enlace y, en móvil, ocultando el burger mientras el hero está en pantalla (reaparece al scrollear). Sin JS el nav queda siempre visible: degrada bien. Hoy ninguna página lo monta (lo estrenó `/la-forja`, landing retirada); queda como plantilla para la próxima landing larga.
 
 Para reutilizarlo en otra página del sitio:
 1. Pega el HTML como primer hijo dentro del layout.

@@ -536,8 +536,7 @@ li::marker {
 
 /* El pie Kalam que lleva el trofeo pierde su margin-bottom para que el trofeo
    se apoye en el cajetín del form. El Kalam siempre va tras la captura de
-   prueba (hero de /robame y OptinCompletoRobame), así que basta con
-   .banner-proof + .hand. */
+   prueba (hero de /robame), así que basta con .banner-proof + .hand. */
 .banner-proof + .hand:has(.banner-svg) {
     margin-bottom: 0;
     /* Ligero torcido manuscrito (mismo gesto que las review-card): el pie
@@ -545,23 +544,9 @@ li::marker {
     transform: rotate(-0.65deg);
 }
 
-/* Bloque opt-in autoral con trofeo (OptinCompletoRobame): el cajetín sigue al
-   trofeo sin el aire del row-gap del flex, como en el hero de /robame (que
-   espacia con márgenes, no gap). Anulamos el row-gap y reponemos la separación
-   como margin-top en cada hijo, omitiéndola en el form para que quede pegado;
-   el .hand pierde además su margin-bottom (regla de arriba) para el apoyo
-   total en el cajetín. */
-.optin-bloque:has(.banner-svg) {
-    row-gap: 0;
-}
-
-.optin-bloque:has(.banner-svg) > *:not(:first-child):not(.optin) {
-    margin-top: var(--gap-sm);
-}
-
 /* Pie manuscrito: tipografía pequeña, Kalam, centrada, a todo el ancho del
    contenedor. El párrafo Kalam siempre sigue a la captura de prueba (banner
-   de /robame y OptinCompletoRobame), así que va por .banner-proof + .hand. */
+   de /robame), así que va por .banner-proof + .hand. */
 .banner-proof + .hand {
     margin: 0.5rem auto;
     text-align: center;
@@ -574,16 +559,9 @@ li::marker {
     hyphens: none;
 }
 
-/* Dentro del .optin-bloque (flex align-items: center) el .hand encoge a su
-   línea más larga. align-self: stretch le da el ancho completo del bloque,
-   el mismo que tiene en el .hero de /robame (flex stretch). */
-.optin-bloque .hand:has(.banner-svg) {
-    align-self: stretch;
-}
-
 /* En pantallas grandes el pie del trofeo se acota al ancho del cajetín del
    form (480px — mismo max-width que .optin, sección 9) en vez de estirarse
-   al ancho completo del hero/bloque: las líneas cortas leen como caption
+   al ancho completo del hero: las líneas cortas leen como caption
    del form. El margin auto del selector base lo mantiene centrado. */
 @media (min-width: 801px) {
     .banner-proof + .hand:has(.banner-svg) {
@@ -3524,7 +3502,7 @@ audio::-webkit-media-controls-panel {
 }
 
 /* Bloque opt-in autoral. Clase base de los bloques completos
-   (OptinCompletoRobame, OptinCompletoClaudeYTSkill) — layout (flex column
+   (OptinCompletoClaudeYTSkill) — layout (flex column
    centrado), foto, nombre, párrafo Kalam y form se rigen por estas reglas;
    cada bloque difiere solo en qué elementos monta, no en estilo.
    Banda blanca full-bleed (truco box-shadow + clip-path de .lista-azul)
@@ -3588,13 +3566,6 @@ audio::-webkit-media-controls-panel {
    vídeo queda con más aire bajo él que el resto de elementos del bloque. */
 .optin-bloque .hero-video {
     margin: 0;
-}
-
-/* La imagen de prueba pesa más en el bloque que en el hero de /robame:
-   aquí es la única prueba visual del pitch, así que sube el tope respecto al
-   clamp base (340px) para que se lea sin forzar la vista. */
-.optin-bloque .banner-proof {
-    max-width: clamp(270px, 76%, 420px);
 }
 
 .optin-bloque .optin-bloque-nombre {

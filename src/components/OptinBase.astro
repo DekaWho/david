@@ -22,13 +22,15 @@ const {
     // `cerrado`: estado "plazas cerradas". El cajetín se ve pero queda inerte
     // (sin data-ml-form-id, input y botón disabled) bajo la cinta de obras y
     // un cartel. El handler de scripts.js solo engancha form[data-ml-form-id],
-    // así que al omitirlo el optin deja de postear a MailerLite.
+    // así que al omitirlo el optin deja de postear a MailerLite. Un optin
+    // cerrado puede vivir sin formId: es el placeholder de un lead magnet
+    // retirado cuyo form ya no existe en MailerLite (ver OptinRobame).
     cerrado = false,
 } = Astro.props;
 
-if (!formId) {
+if (!formId && !cerrado) {
     throw new Error(
-        "OptinBase.astro: prop `formId` requerida. No incrustar este componente directamente — usar <OptinRobame /> u <OptinClaudeYTSkill /> (o crear un nuevo wrapper si toca otro lead magnet)."
+        "OptinBase.astro: prop `formId` requerida en un optin activo. No incrustar este componente directamente — usar un wrapper por lead magnet (<OptinClaudeYTSkill />, <OptinClaudeSkool />, …) o crear uno nuevo."
     );
 }
 ---
