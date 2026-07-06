@@ -4,8 +4,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 <BaseLayout titulo="Error 404" noindex={true} scripts={false}>
     <script is:inline>
-        // GitHub Pages sirve archivos sobre Linux (case-sensitive): /Robame
-        // y /robame son rutas distintas, y una mayúscula de más en un enlace
+        // GitHub Pages sirve archivos sobre Linux (case-sensitive): /Claude
+        // y /claude son rutas distintas, y una mayúscula de más en un enlace
         // cae aquí. Antes de rendirse, reintenta la misma ruta en minúsculas
         // conservando query y hash. Si el path ya estaba en minúsculas es un
         // 404 genuino —> vuelve al inicio. El path en minúsculas nunca vuelve
