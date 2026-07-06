@@ -11,7 +11,7 @@ const CLAUDESKOOL_FORM_ID = "191796601716475583";
 /* Texto por defecto del botón para este lead magnet. La página puede
    overridearlo pasando `botonTexto`; el form-id se fija siempre después
    del spread para que la página no pueda cambiarlo. */
-const { botonTexto = "Mándame gratis esos módulos", ...rest } = Astro.props;
+const { botonTexto = "Mándame gratis el acceso", ...rest } = Astro.props;
 ---
 
 <OptinBase {...rest} botonTexto={botonTexto} formId={CLAUDESKOOL_FORM_ID} />

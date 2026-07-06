@@ -5,7 +5,24 @@ const {
     { href: '#contacto', label: 'Contacto', flechaDer: '↓' },
   ],
 } = Astro.props;
+
+/* Con un solo enlace el burger es un paso de más (abrir el menú para
+   pulsar la única opción): se renderiza el enlace directo y en móvil el
+   CSS (.menu--solo) lo pinta como botón-icono donde iría el burger. */
+const soloEnlace = enlaces.length === 1;
 ---
+{soloEnlace ? (
+  <nav class="menu menu--solo" aria-label="Navegación principal">
+    <a href={enlaces[0].href} class="menu-link" aria-label={enlaces[0].label}>
+      {enlaces[0].iconoCasa && (
+        <svg class="menu-link-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-hidden="true">
+          <path d="M192 413.952V896h640V413.952L512 147.328 192 413.952zM139.52 374.4l352-293.312a32 32 0 0 1 40.96 0l352 293.312A32 32 0 0 1 896 398.976V928a32 32 0 0 1-32 32H160a32 32 0 0 1-32-32V398.976a32 32 0 0 1 11.52-24.576z"/>
+        </svg>
+      )}
+      <span class="menu-link-label">{enlaces[0].label}</span>
+    </a>
+  </nav>
+) : (
 <nav class="menu" aria-label="Navegación principal">
   <input type="checkbox" id="menu-toggle" aria-label="Abrir menú" />
   <label for="menu-toggle" class="burger" aria-hidden="true">
@@ -30,3 +47,4 @@ const {
     ))}
   </div>
 </nav>
+)}

@@ -313,6 +313,36 @@ li::marker {
     vertical-align: bottom;
 }
 
+/* Estrella dibujada a mano como icono inline de texto (los [Módulo ★]). El
+   .svg trae el trazo hardcodeado (azul), así que se recolorea con la técnica
+   de máscara (como .gladiador): currentColor la tiñe del color del texto que
+   la rodea. El dibujo trae aire dentro de su viewBox (400x400 con la tinta en
+   ~60-350): el tamaño sube de 1em y el vertical-align negativo compensa ese
+   margen interno para que apoye en la línea del texto, no como subíndice. */
+.estrella-mano {
+    display: inline-block;
+    width: 1.25em;
+    height: 1.25em;
+    vertical-align: -0.28em;
+    background-color: currentColor;
+    -webkit-mask: url("/imgs/svg/star.svg") center / contain no-repeat;
+    mask: url("/imgs/svg/star.svg") center / contain no-repeat;
+}
+
+/* Cabeza parlante (el emoji 🗣 que nombra al módulo de reuniones) con el mismo
+   tratamiento inline que .estrella-mano. El emoji es silueta por diseño, así
+   que la máscara lo reproduce fiel teñido del color del texto. Menos aire
+   interno que la estrella: caja y descuelgue algo menores. */
+.cabeza-parlante {
+    display: inline-block;
+    width: 1.15em;
+    height: 1.15em;
+    vertical-align: -0.2em;
+    background-color: currentColor;
+    -webkit-mask: url("/imgs/svg/speaking-head.svg") center / contain no-repeat;
+    mask: url("/imgs/svg/speaking-head.svg") center / contain no-repeat;
+}
+
 /* ---------- 3. Menú / navegación ---------- */
 
 /* Pill flotante centrada — estética cuaderno/Notion: pestaña editorial
@@ -337,6 +367,14 @@ li::marker {
     justify-content: center;
     gap: 2px;
     margin: 0;
+}
+
+/* Variante de enlace único: el <a> cuelga directo del nav (sin .links ni
+   burger). Flex para que el enlace no genere line-box de inline y la pill
+   mida igual que la versión con .links. */
+.menu--solo {
+    display: flex;
+    align-items: center;
 }
 
 .menu-link {
@@ -456,120 +494,7 @@ li::marker {
     font-size: clamp(1.7rem, 2.8vw, 2.3rem);
 }
 
-/* /robame-hormozi: el cuerpo abre directamente con este H2, pegado al
-   CTA del banner — la separación de sección del margin-top global está
-   pensada para títulos a mitad de página y aquí descuelga el bloque. */
-.robame-hormozi .cuerpo > .titulo-compacto:first-child {
-    margin-top: 0;
-}
-
-/* Imagen embebida en el banner como prueba (ej: las caras de los referentes
-   en /robame). Ancho acotado para no romper la columna del hero ni
-   desplazar el CTA fuera del fold en móvil. */
-.banner-proof {
-    display: block;
-    max-width: clamp(240px, 68%, 340px);
-    height: auto;
-    margin: 0.5rem auto 0;
-}
-
-/* Scope al banner de /robame por la presencia de .banner-proof. Otros
-   banners (cerebro, servicios, home, blog) no tienen esa imagen y
-   conservan el padding-top global del .banner. */
-.banner:has(.banner-proof) {
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-
-.banner:has(.banner-proof) .optin {
-    margin-bottom: 0;
-}
-
-/* Foto del autor reducida solo en /robame: el hero apila foto + H1 largo +
-   captura prueba + Kalam + form, y la foto al tamaño global empujaba el
-   form fuera del fold en viewports ajustados. */
-.banner:has(.banner-proof) .hero-photo {
-    width: clamp(80px, 12vh, 100px);
-    height: clamp(80px, 12vh, 100px);
-}
-
-@media (min-width: 700px) {
-    .banner:has(.banner-proof) .hero-photo {
-        width: clamp(92px, 12vh, 130px);
-        height: clamp(92px, 12vh, 130px);
-    }
-}
-
-/* Doodle del trofeo como cierre del pie Kalam: bloque centrado bajo el texto,
-   apoyado justo encima del cajetín del form, igual en todos los viewports.
-   Dimensiones en em para que escale con la tipografía del Kalam. Recoloreado
-   con máscara (como .gladiador) porque el .svg trae el trazo hardcodeado a
-   negro; la máscara deja pasar el --rojo del fondo.
-   El SVG deja transparente la franja inferior de su viewBox (la base del
-   trofeo acaba a ~0.78 de los 400 de alto), así que con `contain` quedaría un
-   colchón muerto entre la base y el cajetín del form. Anclamos la máscara
-   arriba a tamaño completo y recortamos la altura de la caja a esa fracción
-   de tinta: el borde inferior coincide con la base y el trofeo se apoya en el
-   form sin márgenes negativos. */
-.banner-svg {
-    --svg-size: 3.8em;
-    /* Fracción vertical del viewBox (0-400) donde acaba la base del trofeo;
-       recorta el transparente inferior del SVG. */
-    --svg-ink: 0.78;
-    display: block;
-    width: var(--svg-size);
-    height: calc(var(--svg-size) * var(--svg-ink));
-    margin: 0 auto;
-    background-color: var(--rojo);
-    -webkit-mask: url("/imgs/svg/trophy-svgrepo-com.svg") center top /
-        var(--svg-size) var(--svg-size) no-repeat;
-    mask: url("/imgs/svg/trophy-svgrepo-com.svg") center top /
-        var(--svg-size) var(--svg-size) no-repeat;
-}
-
-/* En pantallas grandes el trofeo solo crece; el layout en bloque es el mismo. */
-@media (min-width: 1000px) {
-    .banner-svg {
-        --svg-size: 4.5em;
-    }
-}
-
-/* El pie Kalam que lleva el trofeo pierde su margin-bottom para que el trofeo
-   se apoye en el cajetín del form. El Kalam siempre va tras la captura de
-   prueba (hero de /robame), así que basta con .banner-proof + .hand. */
-.banner-proof + .hand:has(.banner-svg) {
-    margin-bottom: 0;
-    /* Ligero torcido manuscrito (mismo gesto que las review-card): el pie
-       Kalam lee como anotación a mano, no como línea maquetada. */
-    transform: rotate(-0.65deg);
-}
-
-/* Pie manuscrito: tipografía pequeña, Kalam, centrada, a todo el ancho del
-   contenedor. El párrafo Kalam siempre sigue a la captura de prueba (banner
-   de /robame), así que va por .banner-proof + .hand. */
-.banner-proof + .hand {
-    margin: 0.5rem auto;
-    text-align: center;
-    line-height: 1.15;
-    font-size: calc(var(--text-body) * 0.75);
-    color: var(--negro);
-    /* Anula el hyphens:auto global (html): un guion de corte parte palabras
-       y rompe el registro manuscrito del Kalam. Se nota al ensanchar el .hand
-       en el bloque, donde alguna línea queda justa. */
-    hyphens: none;
-}
-
-/* En pantallas grandes el pie del trofeo se acota al ancho del cajetín del
-   form (480px — mismo max-width que .optin, sección 9) en vez de estirarse
-   al ancho completo del hero: las líneas cortas leen como caption
-   del form. El margin auto del selector base lo mantiene centrado. */
-@media (min-width: 801px) {
-    .banner-proof + .hand:has(.banner-svg) {
-        max-width: 480px;
-    }
-}
-
-/* Capturas de email (prueba social) en el cuerpo de /robame: recortes reales
+/* Capturas de email (prueba social) en el cuerpo de /opinan-sobre-mi: recortes reales
    de la bandeja de quien ya recibe los emails. El blanco de la propia captura
    contrasta contra el papel del cuerpo y las recorta sin necesidad de borde
    (sistema editorial, sin radius). La rotación mínima alterna entre las dos
@@ -609,7 +534,7 @@ li::marker {
     max-width: 80%;
 }
 
-/* H2 del cuerpo de /robame (scope por .captura-email, exclusiva de la página):
+/* H2 del cuerpo de /opinan-sobre-mi (scope por .captura-email, exclusiva de la página):
    un punto menor que la escala global de landing y con aire arriba para
    despegar cada sección del bloque que la precede. */
 .cuerpo:has(.captura-email) h2 {
@@ -692,7 +617,7 @@ li::marker {
    del Kalam, que a igual tamaño se ve más grande que el EB Garamond y rompería
    la línea (mismo ajuste que .inciso-hand). Sin color ni rotación: fluye en la
    misma línea como parte del texto. Contextos gemelos: el h1 del banner
-   (/robame, /cerebro), el .titulo-compacto que replica ese hero como h2 de
+   (/consultoria-ia), el .titulo-compacto que replica ese hero como h2 de
    sección en el cuerpo, y el pitch del bloque opt-in autoral, que lo replica
    mid-article. */
 .banner h1 .aside-hand,
@@ -857,19 +782,7 @@ li::marker {
     box-sizing: border-box;
 }
 
-/* /cerebro: el párrafo cierra el hero tras el CTA, contextualizando la
-   promesa. Tamaño explícito más pequeño que --text-body para que el peso
-   visual del hero quede en H1 → CTA, no en este párrafo. Margins también
-   compactados — el default global (margin-bottom: --gap-3xl = 5rem) está
-   calculado para body a 1.3-1.5rem, no para este párrafo más pequeño. */
-.hero--cerebro > p {
-    font-size: clamp(0.95rem, 1.05vw, 1.1rem);
-    line-height: 1.45;
-    margin: 3rem 2px var(--gap-md);
-    text-align: center;
-}
-
-/* /la-forja: wordmark "LA FORJA" coronado por el yunque — el bloque de marca
+/* Wordmark "LA FORJA" coronado por el yunque — el bloque de marca
    que abre el hero y se repite a mitad de página, sobre la oferta. Clase
    compartida (en vez de `.hero--la-forja h1`) para que los dos sitios queden
    idénticos editando un solo lugar; autónoma en tipografía/tamaño para no
@@ -1080,10 +993,12 @@ li::marker {
     color: color-mix(in srgb, var(--negro) 65%, transparent);
 }
 
-/* Leadin (a quién va dirigido), solo en el hero: atenuado y pequeño como
-   "esto es para ti si…". Margin propio porque el <p> global trae el ritmo de
-   cuerpo (margin-bottom --gap-3xl) que dentro del hero descuelga. */
-.hero--la-forja .bsl-leadin {
+/* Leadin (a quién va dirigido), en el hero y en el bloque optin de La Forja:
+   atenuado y pequeño como "esto es para ti si…". Margin propio porque el <p>
+   global trae el ritmo de cuerpo (margin-bottom --gap-3xl) que aquí descuelga;
+   dentro del bloque optin lo anula la regla del bloque (sección 9). */
+.hero--la-forja .bsl-leadin,
+.optin-bloque--forja .bsl-leadin {
     max-width: 38rem;
     margin: 0 auto var(--gap-md);
     font-size: clamp(1rem, 1.25vw, 1.2rem);
@@ -1397,10 +1312,9 @@ li::marker {
 .cuerpo--la-forja .forja-svg--azul {
     color: var(--azul);
 }
-/* Estrellas de "nivel" coronando los títulos de módulo: 1/2/3 dibujadas a mano,
-   centradas arriba. La regla azul separadora va debajo de las estrellas (borde
-   inferior de este bloque) y el título queda bajo la regla. Heredan el --azul
-   del título vía currentColor. */
+/* Icono de "nivel" coronando los títulos de módulo, centrado arriba. La regla
+   azul separadora va debajo del icono (borde inferior de este bloque) y el
+   título queda bajo la regla. */
 .cuerpo--la-forja .forja-estrellas {
     display: flex;
     justify-content: center;
@@ -1411,9 +1325,43 @@ li::marker {
     margin-bottom: 0.35em;
     border-bottom: 2px solid var(--azul);
 }
-.cuerpo--la-forja .forja-estrellas svg {
-    width: 1.5em;
-    height: 1.5em;
+/* Figuras de nivel (escalera visual del programa: del sofá tumbado a las
+   pesas). Los .svg de librería traen el trazo hardcodeado a negro, así que se
+   recolorean con la técnica de máscara (como .gladiador); background-color en
+   currentColor para heredar el acento del título (azul base, rojo en /claude)
+   igual que hacían las estrellas vía stroke. */
+.forja-nivel {
+    display: block;
+    width: 4em;
+    height: 4em;
+    background-color: currentColor;
+}
+/* En desktop el título ya crece con su clamp y el icono a 4em dominaría el
+   bloque; baja un punto. El 4em base es para móvil, donde el clamp del h3
+   toca su mínimo y el icono quedaba pequeño. */
+@media (min-width: 801px) {
+    .forja-nivel {
+        width: 3.2em;
+        height: 3.2em;
+    }
+}
+.forja-nivel--sofa-tumbado {
+    -webkit-mask: url("/imgs/svg/couch-lying-svgrepo-com.svg") center / contain
+        no-repeat;
+    mask: url("/imgs/svg/couch-lying-svgrepo-com.svg") center / contain
+        no-repeat;
+}
+.forja-nivel--sofa-sentado {
+    -webkit-mask: url("/imgs/svg/couch-sitting-svgrepo-com.svg") center /
+        contain no-repeat;
+    mask: url("/imgs/svg/couch-sitting-svgrepo-com.svg") center / contain
+        no-repeat;
+}
+.forja-nivel--pesas {
+    -webkit-mask: url("/imgs/svg/weightlifting-svgrepo-com.svg") center /
+        contain no-repeat;
+    mask: url("/imgs/svg/weightlifting-svgrepo-com.svg") center / contain
+        no-repeat;
 }
 /* Garabato a la izquierda de un texto (no centrado en su línea): fila con el
    dibujo y el párrafo alineados verticalmente. */
@@ -1496,8 +1444,8 @@ li::marker {
     margin-top: 1.5rem;
 }
 
-/* Demo en vídeo dentro del hero, entre el wordmark/H1 y el CTA (compartida
-   por /cerebro y /la-forja). Los atributos width/height del elemento fijan
+/* Demo en vídeo dentro del hero (hoy la monta /claude, tras el form del
+   optin). Los atributos width/height del elemento fijan
    el aspect-ratio y evitan layout shift. El ancho se acota vía min() con el
    alto objetivo (38vh convertido a ancho 16:9): limitar el alto directamente
    (max-height) letterboxearía el vídeo con bandas laterales; limitando el
@@ -1512,37 +1460,6 @@ li::marker {
     margin: 0 auto clamp(0.6rem, 2vh, 1.2rem);
     border: 1px solid var(--negro);
     background: var(--negro);
-}
-
-/* /cerebro: el H2 base del .cuerpo va a .titulo-compacto (escala que
-   machea con .banner-h1--small del banner). Aquí el banner ocupa varias
-   líneas y la proporción se queda corta — el H2 del cuerpo se ve más
-   pequeño que el peso visual del bloque que abre. Sube un escalón sin
-   tocar la regla compartida (que sigue válida en /robame). */
-.cuerpo--cerebro > .titulo-compacto {
-    font-size: clamp(1.75rem, 3vw, 2.4rem);
-}
-
-/* La lista del .cuerpo--cerebro es una enumeración corta (4 items, una
-   frase cada uno) — el margin-bottom global del <li> (--gap-xl = 3rem)
-   está pensado para items largos donde cada uno respira aparte; aquí
-   apelmaza la idea en vez de dejar leerla como bloque. */
-.cuerpo--cerebro ul li {
-    margin-bottom: var(--gap-sm);
-}
-
-/* El párrafo que abre la lista ("Claude puede:") es continuación directa
-   del <ul> — el margin-bottom global del <p> (--gap-3xl) los separa como
-   si fueran bloques independientes y rompe la lectura. */
-.cuerpo--cerebro p:has(+ ul) {
-    margin-bottom: var(--gap-sm);
-}
-
-/* La lista compacta los <li> (margin-bottom --gap-sm) y el <ul> no tiene
-   margin-bottom propio, así que el <p> que sigue queda pegado. Le devuelvo
-   el aire del ritmo de cuerpo (lo que separa dos <p> normales). */
-.cuerpo--cerebro ul + p {
-    margin-top: var(--gap-3xl);
 }
 
 /* ---------- 5. Cuerpo, títulos-breaker, .flecha ---------- */
@@ -1664,7 +1581,7 @@ li::marker {
     mask: url(/imgs/svg/diamond-svgrepo-com.svg) center / contain no-repeat;
 }
 
-/* consulta-ia: un punto por encima del diamante base, sin tocar el resto de
+/* consultoria-ia: un punto por encima del diamante base, sin tocar el resto de
    páginas que lo comparten. El min del clamp sube para que en móvil (donde el
    preferido 10vw cae por debajo del min) no encoja tanto respecto a desktop. */
 .reviews-blanco .diamond {
@@ -1775,7 +1692,7 @@ p:has(+ .diamond) {
     margin-bottom: var(--gap-xl);
 }
 
-/* consulta-ia (body.reviews-blanco): el bloque de reseñas arranca sobre blanco,
+/* consultoria-ia (body.reviews-blanco): el bloque de reseñas arranca sobre blanco,
    enlazado con la .seccion-blanca anterior, en vez de que el titular negro
    flote sobre el papel del body. La banda blanca de arriba baja su margen a 0 y
    el titular pega el suyo (arriba y abajo), proyectando su propia banda blanca
@@ -1835,10 +1752,9 @@ p:has(+ .diamond) {
     color: var(--rojo);
 }
 
-/* Las capturas de testimonio reusan el ligero rotado "dossier" de /robame
-   alternando el ángulo captura a captura, pero sin el contenedor .capturas-email
-   (que arrastra un margin-bottom pensado para separar bloques de dos). Aquí van
-   varias seguidas dentro de .cuerpo, así que el rotado se aplica por nth-of-type. */
+/* Las capturas de testimonio se tuercen con el ligero rotado "dossier"
+   alternando el ángulo captura a captura. Aquí van varias seguidas dentro
+   de .cuerpo, así que el rotado se aplica por nth-of-type. */
 .opiniones .captura-link:nth-of-type(odd) {
     transform: rotate(-0.6deg);
 }
@@ -2266,7 +2182,7 @@ audio::-webkit-media-controls-panel {
 }
 
 /* Las reviews se tuercen alternando el ángulo: registro "clipping de cuaderno
-   de campo", mismo gesto que las .capturas-email de /robame. Son objetos
+   de campo", mismo gesto que las capturas de email de /opinan-sobre-mi. Son objetos
    visuales (avatar + reproductor), no texto de lectura, así que el ángulo no
    penaliza nada. nth-of-type sobre el <div>: en la .cuerpo de la franja de
    tinta los únicos elementos div son estas cards, así que odd las pega a un
@@ -2552,6 +2468,31 @@ audio::-webkit-media-controls-panel {
     /* el divisor solo tiene sentido en horizontal */
     .menu-divider {
         display: none;
+    }
+
+    /* Menú de enlace único (.menu--solo): sin burger que desplegar, el
+       propio enlace ocupa el sitio del burger con su misma caja (40px,
+       blanco, sombra) para que el botón se lea igual en todas las páginas;
+       solo cambia el dibujo interior (casita en vez de 3 líneas). */
+    .menu--solo .menu-link {
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        box-sizing: border-box;
+
+        background: var(--blanco);
+        border-radius: var(--radius-control);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .menu--solo .menu-link-label {
+        display: none;
+    }
+
+    .menu--solo .menu-link-icon {
+        width: 18px;
+        height: 18px;
     }
 
     .forjador {
@@ -3284,8 +3225,7 @@ audio::-webkit-media-controls-panel {
 /* Override del .banner .block--primary .title (sección 4): el CTA del
    opt-in convive con el input al lado, y el tamaño del banner CTA estándar
    eclipsa visualmente al cajetín. Bajamos un escalón. El font-weight 500
-   replica el override que .banner .block--primary .title aplica a /robame
-   — universaliza el peso para que cualquier optin (cajetín suelto, bloques
+   universaliza el peso para que cualquier optin (cajetín suelto, bloques
    OptinCompleto, futuras landings) lea igual de ligero. */
 .optin .block--primary .title {
     font-size: clamp(18px, 1.8vw, 22px);
@@ -3539,7 +3479,7 @@ audio::-webkit-media-controls-panel {
 
 /* El optin que cierra el artículo se monta fuera de .cuerpo (hijo directo de
    body.post), así que hereda el cap base de 480px y el pitch envuelve en
-   demasiadas líneas. Se ensancha al ancho del hero de /cerebro (720px) para
+   demasiadas líneas. Se ensancha al ancho de hero del sitio (.hero, 720px) para
    que el pitch y el nombre respiren igual; el cajetín (.optin, cap propio de
    480px) y el vídeo conservan su ancho dentro del bloque más amplio. */
 .post > .optin-bloque {
@@ -3592,6 +3532,16 @@ audio::-webkit-media-controls-panel {
 .optin-bloque .optin-bloque-pitch u {
     text-decoration-color: var(--rojo);
     text-decoration-thickness: 0.09em;
+}
+
+/* Bloque optin de La Forja (OptinCompletoClaudeSkool): réplica del banner de
+   /claude — leadin, wordmark, promesa, oferta y form — como cierre de posts
+   y remate de /sobre-mi y /privacidad. Reusa las clases autónomas del hero
+   (.forja-wordmark, .bsl-deck, .bsl-leadin), cuyos márgenes propios vienen
+   calculados para el ritmo del hero; dentro del bloque van a cero y la
+   separación la pone el gap del flex de .optin-bloque. */
+.optin-bloque--forja :is(.bsl-leadin, .forja-wordmark, .bsl-deck) {
+    margin: 0;
 }
 
 /* Imagen del cuerpo en desktop: rompe el ancho del .cuerpo (36vw) para
@@ -4385,7 +4335,7 @@ body.blog-hub .banner-subline {
     margin: 0 0 1rem;
 }
 /* Enlaces del cuerpo en rojo: la página es un nodo de salida (los dos
-   links de la lista mandan a /servicios y /robame, el email es el CTA
+   links de la lista mandan a /consultoria-ia y /claude, el email es el CTA
    final). El rojo señalético del sistema los marca como acción, no
    como navegación azul corriente. Scopeado a .contacto-mensajes para
    no tocar menú ni footer. */

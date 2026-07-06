@@ -1,0 +1,30 @@
+---
+/* Copy del hero de La Forja (lead magnet de Claude vía Skool) — fuente única:
+   lo montan el hero de /claude y OptinCompletoClaudeSkool. Editar aquí cambia
+   landing y bloques a la vez. `Tag` ajusta la semántica del wordmark a quien
+   monta: h1 en la landing (único de la página), p en los bloques optin (la
+   página que los monta ya tiene su propio h1). */
+const { Tag = "p" } = Astro.props;
+---
+
+<p class="bsl-leadin">
+    Para personas no muy técnicas que sienten que podrían sacarle más partido a
+    la <strong>IA</strong> para <strong>1)</strong> trabajar menos y ganar tiempo
+    libre o <strong>2)</strong> llegar más alto sin necesidad de contratar. <strong
+        >Te presento...</strong
+    >
+</p>
+
+<Tag class="forja-wordmark">
+    <img src="/imgs/forja-yunque.webp" alt="" width="512" height="444" />
+    LA FORJA
+</Tag>
+
+<p class="bsl-deck bsl-deck--promesa">
+    El proceso para rendir como si tuvieras 100 brazos (gracias a potenciarte
+    con la IA y sin necesidad de contratar para escalar tu negocio)
+</p>
+
+<p class="bsl-deck bsl-deck--oferta">
+    Te mando los dos primeros módulos de esta formación de pago sobre Claude
+</p>

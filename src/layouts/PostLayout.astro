@@ -1,7 +1,7 @@
 ---
 import Head from '../components/Head.astro';
-import OptinClaudeYTSkill from '../components/OptinClaudeYTSkill.astro';
-import OptinCompletoClaudeYTSkill from '../components/OptinCompletoClaudeYTSkill.astro';
+import OptinClaudeSkool from '../components/OptinClaudeSkool.astro';
+import OptinCompletoClaudeSkool from '../components/OptinCompletoClaudeSkool.astro';
 import Footer from '../components/Footer.astro';
 import { categorias } from '../data/categorias.js';
 
@@ -64,16 +64,16 @@ const {
       <slot />
     </article>
 
-    {/* Todos los posts cierran con el optin de Cerebro, sea cual sea su
-        categoría. Por defecto el bloque completo (autor +
-        pitch + vídeo + cierre): en casi todos los posts es el único optin de
-        la página y debe cargar el contexto entero del lead magnet.
-        `cierreReducido` lo cambia al cajetín suelto (input + botón) para los
-        posts que ya montan un bloque completo a mitad. El id `post-end` ancla
-        el link "Conclusión" del índice lateral. */}
+    {/* Todos los posts cierran con el optin de La Forja, sea cual sea su
+        categoría. Por defecto el bloque completo (réplica del banner de
+        /claude: leadin + wordmark + oferta + form): en casi todos los posts
+        es el único optin de la página y debe cargar el contexto entero del
+        lead magnet. `cierreReducido` lo cambia al cajetín suelto (input +
+        botón) para los posts que ya montan un bloque completo a mitad. El id
+        `post-end` ancla el link "Conclusión" del índice lateral. */}
     {cierreReducido
-      ? <OptinClaudeYTSkill id="post-end" />
-      : <OptinCompletoClaudeYTSkill id="post-end" />}
+      ? <OptinClaudeSkool id="post-end" />
+      : <OptinCompletoClaudeSkool id="post-end" />}
 
     <Footer />
 
