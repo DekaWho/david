@@ -910,7 +910,7 @@ li::marker {
     line-height: 1;
 }
 .hero--la-forja .forja-wordmark img {
-    height: clamp(120px, 26vh, 240px);
+    height: clamp(110px, 24vh, 220px);
 }
 
 /* Navegador de secciones de /la-forja — burger fijo arriba-derecha. En
@@ -1076,11 +1076,11 @@ li::marker {
 .hero--la-forja .bsl-leadin,
 .optin-bloque--forja .bsl-leadin {
     max-width: 38rem;
-    margin: 0 auto var(--gap-md);
+    margin: 0 auto 0.5rem;
     font-size: clamp(1rem, 1.25vw, 1.2rem);
     line-height: 1.3;
     color: color-mix(in srgb, var(--negro) 70%, transparent);
-    text-align: center;
+    text-align: left;
 }
 
 /* Deck (qué es el programa): la promesa bajo el wordmark, un escalón mayor que
@@ -1509,7 +1509,7 @@ li::marker {
 /* Separa "LA FORJA" del yunque subiendo el gap del wordmark en el hero (el
    resto del sitio conserva su separación base). */
 .claude .hero--la-forja .forja-wordmark {
-    gap: 1rem;
+    gap: 0.1rem;
 }
 /* Aire bajo el botón de cada optin, para separarlo de lo que sigue. */
 .claude .optin button {

@@ -12,11 +12,22 @@ import OptinBase from "./OptinBase.astro";
    su wrapper aparte y sustituir el import en su página. */
 const CONSULTORIA_FORM_ID = "191928498304059114";
 
-/* Texto por defecto del botón para este lead magnet. La página puede
-   overridearlo pasando `botonTexto`; el form-id se fija siempre después
-   del spread para que la página no pueda cambiarlo. */
-const { botonTexto = "Recibir gratis los valiosos emails", ...rest } =
-    Astro.props;
+/* Defaults del botón para este lead magnet: el CTA pide una llamada 1a1
+   (no una suscripción a emails, de ahí que el sobre genérico no valga) y
+   el rayo repite el icono del bloque Consultoría de la home — el mismo
+   símbolo acompaña el funnel entero. La página puede overridearlos; el
+   form-id se fija siempre después del spread para que la página no pueda
+   pisarlo. */
+const {
+    botonTexto = "Me interesa una llamada 1a1",
+    botonIcono = "/imgs/svg/lightning.svg",
+    ...rest
+} = Astro.props;
 ---
 
-<OptinBase {...rest} botonTexto={botonTexto} formId={CONSULTORIA_FORM_ID} />
+<OptinBase
+    {...rest}
+    botonTexto={botonTexto}
+    botonIcono={botonIcono}
+    formId={CONSULTORIA_FORM_ID}
+/>
