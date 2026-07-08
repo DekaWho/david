@@ -1,18 +1,18 @@
 ---
-import { DESCRIPCION_19K } from '../data/bio.js';
+import { BIO_PERSON } from "../data/bio.js";
 
 const {
-  titulo,
-  canonical = null,
-  ogTitle = null,
-  ogDescription = "Pulsa el enlace para descubrirlo",
-  ogImage = "https://davidvarea.com/imgs/profile-pic.webp",
-  ogUrl = null,
-  ogType = "website",
-  noindex = false,
-  trackLead = false,
-  favicon = "default",
-  scripts = true,
+    titulo,
+    canonical = null,
+    ogTitle = null,
+    ogDescription = "Pulsa el enlace para descubrirlo",
+    ogImage = "https://davidvarea.com/imgs/profile-pic.webp",
+    ogUrl = null,
+    ogType = "website",
+    noindex = false,
+    trackLead = false,
+    favicon = "default",
+    scripts = true,
 } = Astro.props;
 
 const finalOgTitle = ogTitle ?? titulo;
@@ -27,147 +27,177 @@ const showOg = canonical !== null;
    y la consolidación de entidad por crawlers de IA mejora cuando la
    misma Person aparece en todo el grafo del dominio. */
 const siteSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Person",
-      "@id": "https://davidvarea.com/#person",
-      "name": "David Varea",
-      "url": "https://davidvarea.com/sobre-mi",
-      "image": "https://davidvarea.com/imgs/profile-pic.webp",
-      "jobTitle": "Director de marketing freelance y copywriter de respuesta directa",
-      "description": DESCRIPCION_19K,
-      "sameAs": [
-        "https://www.linkedin.com/in/varea/",
-        "https://www.instagram.com/david_varea/",
-        "https://www.youtube.com/@david_varea",
-      ],
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://davidvarea.com/#website",
-      "url": "https://davidvarea.com/",
-      "name": "David Varea",
-      "inLanguage": "es-ES",
-      "publisher": { "@id": "https://davidvarea.com/#person" },
-    },
-  ],
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Person",
+            "@id": "https://davidvarea.com/#person",
+            name: "David Varea",
+            url: "https://davidvarea.com/sobre-mi",
+            image: "https://davidvarea.com/imgs/profile-pic.webp",
+            jobTitle:
+                "Consultor de IA. Enseño a quien trabaja delante del ordenador a rendir como si tuviera 100 esclavos (sin contratar a nadie) adaptando la IA a su caso concreto",
+            description: BIO_PERSON,
+            sameAs: [
+                "https://www.linkedin.com/in/varea/",
+                "https://www.instagram.com/david_varea/",
+                "https://www.youtube.com/@david_varea",
+            ],
+        },
+        {
+            "@type": "WebSite",
+            "@id": "https://davidvarea.com/#website",
+            url: "https://davidvarea.com/",
+            name: "David Varea",
+            inLanguage: "es-ES",
+            publisher: { "@id": "https://davidvarea.com/#person" },
+        },
+    ],
 };
 /* Favicons servidos como SVG directo desde el set de iconos: el navegador
    escala el SVG a cualquier tamaño del tab, sin generar variantes PNG. El
    resto (money, writing, default) siguen en PNG (set histórico, dos tamaños). */
-const faviconSvg = {
-  brain: "/imgs/svg/brain.svg",
-  robot: "/imgs/svg/robot.svg",
-  fire: "/imgs/svg/fire.svg",
-  muscle: "/imgs/svg/muscle.svg",
-}[favicon] ?? null;
-const faviconPrefix = {
-  money: "/imgs/favicon-money-",
-  writing: "/imgs/favicon-writing-",
-  forja: "/imgs/favicon-forja-",
-  default: "/imgs/favicon",
-}[favicon] ?? "/imgs/favicon";
+const faviconSvg =
+    {
+        brain: "/imgs/svg/brain.svg",
+        robot: "/imgs/svg/robot.svg",
+        fire: "/imgs/svg/fire.svg",
+        muscle: "/imgs/svg/muscle.svg",
+    }[favicon] ?? null;
+const faviconPrefix =
+    {
+        money: "/imgs/favicon-money-",
+        writing: "/imgs/favicon-writing-",
+        forja: "/imgs/favicon-forja-",
+        default: "/imgs/favicon",
+    }[favicon] ?? "/imgs/favicon";
 const faviconHref = (size) => `${faviconPrefix}${size}.png`;
 ---
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 <title>{titulo}</title>
-{canonical && <link rel="canonical" href={`https://davidvarea.com${canonical}`} />}
+{
+    canonical && (
+        <link rel="canonical" href={`https://davidvarea.com${canonical}`} />
+    )
+}
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
-  href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Kalam:wght@400;700&display=swap"
-  rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Kalam:wght@400;700&display=swap"
+    rel="stylesheet"
 />
 
 <link rel="stylesheet" href="/estilos/styles.css" />
 
-{faviconSvg ? (
-  <link rel="icon" type="image/svg+xml" href={faviconSvg} />
-) : (
-  <>
-    <link rel="icon" type="image/png" sizes="32x32" href={faviconHref(32)} />
-    <link rel="icon" type="image/png" sizes="48x48" href={faviconHref(48)} />
-  </>
-)}
+{
+    faviconSvg ? (
+        <link rel="icon" type="image/svg+xml" href={faviconSvg} />
+    ) : (
+        <>
+            <link
+                rel="icon"
+                type="image/png"
+                sizes="32x32"
+                href={faviconHref(32)}
+            />
+            <link
+                rel="icon"
+                type="image/png"
+                sizes="48x48"
+                href={faviconHref(48)}
+            />
+        </>
+    )
+}
 
-{showOg && (
-  <>
-    <meta property="og:title" content={finalOgTitle} />
-    {ogDescription && <meta property="og:description" content={ogDescription} />}
-    <meta property="og:image" content={ogImage} />
-    {finalOgUrl && <meta property="og:url" content={finalOgUrl} />}
-    <meta property="og:type" content={ogType} />
-  </>
-)}
+{
+    showOg && (
+        <>
+            <meta property="og:title" content={finalOgTitle} />
+            {ogDescription && (
+                <meta property="og:description" content={ogDescription} />
+            )}
+            <meta property="og:image" content={ogImage} />
+            {finalOgUrl && <meta property="og:url" content={finalOgUrl} />}
+            <meta property="og:type" content={ogType} />
+        </>
+    )
+}
 
-<script type="application/ld+json" is:inline set:html={JSON.stringify(siteSchema)}></script>
+<script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(siteSchema)}
+/>
 
-{scripts && <script src="/scripts/scripts.js" defer></script>}
+{scripts && <script src="/scripts/scripts.js" defer />}
 
 <script is:inline>
-  !(function (f, b, e, v, n, t, s) {
-    if (f.fbq) return;
-    n = f.fbq = function () {
-      n.callMethod
-        ? n.callMethod.apply(n, arguments)
-        : n.queue.push(arguments);
-    };
-    if (!f._fbq) f._fbq = n;
-    n.push = n;
-    n.loaded = !0;
-    n.version = "2.0";
-    n.queue = [];
-    t = b.createElement(e);
-    t.async = !0;
-    t.src = v;
-    s = b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t, s);
-  })(
-    window,
-    document,
-    "script",
-    "https://connect.facebook.net/en_US/fbevents.js",
-  );
-  fbq("init", "965235622886247");
-  fbq("track", "PageView");
+    !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+            n.callMethod
+                ? n.callMethod.apply(n, arguments)
+                : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+    })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js",
+    );
+    fbq("init", "965235622886247");
+    fbq("track", "PageView");
 </script>
 {trackLead && <script is:inline>fbq("track", "Lead");</script>}
 <noscript
-  ><img
-    height="1"
-    width="1"
-    style="display: none"
-    src="https://www.facebook.com/tr?id=965235622886247&ev=PageView&noscript=1"
-/></noscript>
+    ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=965235622886247&ev=PageView&noscript=1"
+    /></noscript
+>
 
 <script is:inline>
-  _linkedin_partner_id = "9252058";
-  window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-  window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-  (function (l) {
-    if (!l) {
-      window.lintrk = function (a, b) {
-        window.lintrk.q.push([a, b]);
-      };
-      window.lintrk.q = [];
-    }
-    var s = document.getElementsByTagName("script")[0];
-    var b = document.createElement("script");
-    b.type = "text/javascript";
-    b.async = true;
-    b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
-    s.parentNode.insertBefore(b, s);
-  })(window.lintrk);
+    _linkedin_partner_id = "9252058";
+    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+    window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+    (function (l) {
+        if (!l) {
+            window.lintrk = function (a, b) {
+                window.lintrk.q.push([a, b]);
+            };
+            window.lintrk.q = [];
+        }
+        var s = document.getElementsByTagName("script")[0];
+        var b = document.createElement("script");
+        b.type = "text/javascript";
+        b.async = true;
+        b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+        s.parentNode.insertBefore(b, s);
+    })(window.lintrk);
 </script>
 <noscript
-  ><img
-    height="1"
-    width="1"
-    style="display: none"
-    alt=""
-    src="https://px.ads.linkedin.com/collect/?pid=9252058&fmt=gif"
-/></noscript>
+    ><img
+        height="1"
+        width="1"
+        style="display: none"
+        alt=""
+        src="https://px.ads.linkedin.com/collect/?pid=9252058&fmt=gif"
+    /></noscript
+>

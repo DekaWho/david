@@ -1,14 +1,4 @@
-// Bio canónica del autor. Replicada literal en LinkedIn (versión larga) y
-// YouTube. Instagram usa una variante recortada porque no caben más letras;
-// esa variante NO se replica en la web — los metadatos del sitio
-// (ogDescription, JSON-LD description del Person) usan siempre la larga.
-//
-// Si la bio cambia, se cambia aquí: todos los metadatos lo recogen
-// automáticamente. Los textos visibles con HTML rich (el subline de /blog
-// y un párrafo del cuerpo de /sobre-mi) duplican el texto a mano para
-// poder envolverlo en marcado distinto por página.
-// Cuando cambie la cifra, grep "19.970€" para actualizar los duplicados
-// manualmente Y renombrar esta variable (el nombre lleva la cifra) en
-// todos los archivos que la importan.
-
-export const DESCRIPCION_19K = "Me he gastado 19.970€ en cursos y mentorías de marketing, viralidad, IA y emprendimiento (aparte de mi experiencia dando servicios) para que tú no tengas que hacerlo";
+// Bio canónica del autor: description del Person en el JSON-LD (Head.astro,
+// todas las páginas). En redes (LinkedIn, YouTube, Instagram) la bio es otra
+// —la promesa de La Forja (PitchClaudeSkool.astro)— y se actualiza a mano.
+export const BIO_PERSON = "Soy domador de IAs a diario (Claude más concretamente) para rendir como si tuviera 100 esclavos trabajando para mí (sin contratar a nadie). También enseño a quien trabaja delante del ordenador (pero no es alguien muy técnico) a hacer lo mismo adaptando la IA a su caso concreto.";
