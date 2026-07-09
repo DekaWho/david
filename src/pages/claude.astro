@@ -17,6 +17,23 @@ import PitchClaudeSkool from "../components/PitchClaudeSkool.astro";
             <PitchClaudeSkool Tag="h1" />
 
             <OptinClaudeSkool />
+
+            <p>Mira el vídeo para ver una de las skills</p>
+
+            <video
+                class="hero-video"
+                controls
+                controlslist="nodownload"
+                preload="none"
+                playsinline
+                poster="/videos/claude-hero-poster.webp"
+                width="1920"
+                height="1080"
+            >
+                <source src="/videos/claude-hero.webm" type="video/webm" />
+                <source src="/videos/claude-hero.mp4" type="video/mp4" />
+                Tu navegador no puede reproducir este vídeo.
+            </video>
         </section>
     </div>
 

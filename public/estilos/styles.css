@@ -1519,6 +1519,27 @@ li::marker {
 .claude .hero-video {
     margin-top: 1.5rem;
 }
+/* Leadin del vídeo demo: el <p> base trae margin-bottom var(--gap-3xl) (5rem,
+   pensado para prosa larga del cuerpo) y sin text-align propio hereda el
+   izquierdo del hero. Aquí es una sola línea de paso al vídeo, así que se
+   centra y se anula el margin-bottom — el margin-top del .hero-video de
+   arriba ya pone el aire que separa ambos. Selector :has() para no depender
+   de una clase nueva en el HTML: apunta al <p> que precede al vídeo, sea cual
+   sea su texto. */
+.claude .hero--la-forja p:has(+ .hero-video) {
+    text-align: center;
+    margin-bottom: 0;
+}
+/* En claude-perfil el bloque de La Forja abre el cuerpo, pegado al banner
+   blanco de arriba. El fondo blanco base de .optin-bloque (pensado para
+   destacar sobre el papel del cuerpo en posts/sobre-mi/privacidad) aquí deja
+   una franja de papel atrapada entre dos blancos en vez de una transición de
+   sección limpia; se funde con el papel del cuerpo, como el resto de cambios
+   de fondo de la landing. */
+.claude .cuerpo--la-forja > .optin-bloque--forja {
+    background: var(--papel);
+    box-shadow: 0 0 0 100vmax var(--papel);
+}
 
 /* Demo en vídeo dentro del hero (hoy la monta /claude, tras el form del
    optin). Los atributos width/height del elemento fijan
