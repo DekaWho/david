@@ -31,7 +31,7 @@ import Footer from "../components/Footer.astro";
     </h1>
 
     <div class="cuerpo">
-        <p><em>Última actualización: 26 de mayo de 2026</em></p>
+        <p><em>Última actualización: 10 de julio de 2026</em></p>
 
         <h2>1. Titular del sitio web</h2>
         <p>
@@ -40,16 +40,10 @@ import Footer from "../components/Footer.astro";
         </p>
         <ul>
             <li>
-                <strong>Email de contacto:</strong>
-                <a
-                    class="js-email"
-                    data-enc="cHJpdmFjaWRhZEBkYXZpZHZhcmVhLmNvbQ=="
-                    >[si no ves la dirección activa JavaScript]</a
-                >
-            </li>
-            <li>
-                <strong>Actividad:</strong> venta de productos digitales descargables
-                y prestación de servicios profesionales.
+                <strong>Email de contacto:</strong> He quitado de aquí mi dirección
+                de contacto porque se me llena la bandeja de entrada de bots haciendo
+                phishing y spam. Tú puedes contactarme respondiendo a cualquier email
+                que hayas recibido de mí.
             </li>
         </ul>
         <p>
@@ -61,11 +55,9 @@ import Footer from "../components/Footer.astro";
         <h2>2. Responsable del tratamiento</h2>
         <p>
             El responsable del tratamiento de tus datos personales es David
-            Varea, con quien puedes contactar en
-            <a class="js-email" data-enc="cHJpdmFjaWRhZEBkYXZpZHZhcmVhLmNvbQ=="
-                >[si no ves la dirección activa JavaScript]</a
-            >
-            para cualquier asunto relacionado con tus datos.
+            Varea, con quien puedes contactar respondiendo a cualquier email que
+            hayas recibido de mí para cualquier asunto relacionado con tus
+            datos.
         </p>
 
         <h2>3. Datos que recopilamos</h2>
@@ -201,12 +193,9 @@ import Footer from "../components/Footer.astro";
             </li>
         </ul>
         <p>
-            Para ejercerlos, escribe a
-            <a class="js-email" data-enc="cHJpdmFjaWRhZEBkYXZpZHZhcmVhLmNvbQ=="
-                >[si no ves la dirección activa JavaScript]</a
-            >
-            indicando el derecho que deseas ejercer. También puedes darte de baja
-            directamente desde cualquier email que recibas.
+            Para ejercerlos, responde a cualquier email que hayas recibido de mí
+            indicando el derecho que deseas ejercer. También puedes darte de
+            baja directamente desde cualquier email que recibas.
         </p>
         <p>
             Si consideras que tus derechos no han sido atendidos correctamente,
@@ -294,8 +283,8 @@ import Footer from "../components/Footer.astro";
 
         <h3>13.1 Productos digitales descargables</h3>
         <p>
-            Los productos digitales se entregan mediante descarga inmediata
-            tras el pago. Al iniciar la descarga, el contenido pasa a estar
+            Los productos digitales se entregan mediante descarga inmediata tras
+            el pago. Al iniciar la descarga, el contenido pasa a estar
             permanentemente en posesión del comprador y no es técnicamente
             posible "devolverlo".
         </p>
@@ -318,8 +307,8 @@ import Footer from "../components/Footer.astro";
             En el momento de la compra, el cliente acepta expresamente esta
             cláusula mediante una casilla de aceptación.
             <strong
-                >No se admiten devoluciones de productos digitales una vez iniciada la
-                descarga.</strong
+                >No se admiten devoluciones de productos digitales una vez
+                iniciada la descarga.</strong
             >
         </p>
 
@@ -345,11 +334,9 @@ import Footer from "../components/Footer.astro";
             </li>
         </ul>
         <p>
-            Para ejercer el derecho de desistimiento, escribe a
-            <a class="js-email" data-enc="cHJpdmFjaWRhZEBkYXZpZHZhcmVhLmNvbQ=="
-                >[si no ves la dirección activa JavaScript]</a
-            >
-            indicando tu nombre, el servicio contratado y la fecha de contratación.
+            Para ejercer el derecho de desistimiento, responde a cualquier email
+            que hayas recibido de mí indicando tu nombre, el servicio contratado
+            y la fecha de contratación.
         </p>
 
         <h2>14. Enlaces a terceros</h2>
@@ -381,21 +368,4 @@ import Footer from "../components/Footer.astro";
     </div>
 
     <Footer />
-
-    <script is:inline>
-        document.querySelectorAll(".js-email").forEach((el) => {
-            try {
-                const addr = atob(el.dataset.enc);
-                if (el.tagName === "A") {
-                    el.href = "mailto:" + addr;
-                    el.textContent = addr;
-                    el.rel = "nofollow";
-                } else {
-                    el.textContent = addr;
-                }
-            } catch (e) {
-                /* silencioso */
-            }
-        });
-    </script>
 </BaseLayout>

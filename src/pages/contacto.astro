@@ -51,10 +51,10 @@ const contactSchema = {
             <TextoContacto />
 
             <p>
-                O puedes escribirme a
-                <a class="js-email" data-enc="Y29udGFjdG9AZGF2aWR2YXJlYS5jb20="
-                    >[si no ves la dirección activa JavaScript]</a
-                > si tienes algo distinto pero jugoso que ofrecerme.
+                O puedes escribirme por email si tienes algo distinto pero
+                jugoso que ofrecerme. Para eso suscríbete a mi lista y
+                respondes al email que te llegue. Si pongo aquí la dirección
+                se me llena la bandeja de bots haciendo phishing y spam.
             </p>
 
             <p class="hand">David Varea.</p>
@@ -68,21 +68,4 @@ const contactSchema = {
         is:inline
         set:html={JSON.stringify(contactSchema)}
     />
-
-    <script is:inline>
-        document.querySelectorAll(".js-email").forEach((el) => {
-            try {
-                const addr = atob(el.dataset.enc);
-                if (el.tagName === "A") {
-                    el.href = "mailto:" + addr;
-                    el.textContent = addr;
-                    el.rel = "nofollow";
-                } else {
-                    el.textContent = addr;
-                }
-            } catch (e) {
-                /* silencioso */
-            }
-        });
-    </script>
 </BaseLayout>
