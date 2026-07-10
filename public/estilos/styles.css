@@ -4623,6 +4623,18 @@ body.blog-hub .banner-subline {
 .exit-popup .optin-bloque--forja .bsl-deck--promesa {
     margin-bottom: 4rem;
 }
+/* En móvil (donde disparan los triggers de retorno/inactividad) la carta
+   pierde puntos de altura — yunque un escalón menor y menos aire bajo la
+   promesa, que son proporciones de escritorio — para que el form entre sin
+   scroll también en pantalla de teléfono. */
+@media (max-width: 800px) {
+    .exit-popup .forja-wordmark img {
+        height: clamp(80px, 14vh, 130px);
+    }
+    .exit-popup .optin-bloque--forja .bsl-deck--promesa {
+        margin-bottom: 1.5rem;
+    }
+}
 /* Misma firma que la X del banner de cookies: área de click 3rem, glyph
    2rem pegado arriba, gris derivado de tinta, rojo al hover. */
 .exit-popup-close {

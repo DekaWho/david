@@ -267,16 +267,20 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
 
 /* Popup exit-intent (La Forja). El HTML viaja oculto en las páginas que lo
    montan (ExitPopupForja vía BaseLayout/PostLayout); aquí solo se decide
-   cuándo revelarlo. Trigger: el ratón abandona el documento por el borde
-   superior, donde viven la X de la pestaña y la barra de URL — señal que
-   solo existe en escritorio; en táctil no hay gesto de cierre detectable y
-   el popup no aparece nunca. Frenos: visto una vez → 24h de silencio en
-   todo el navegador (localStorage con timestamp; por pestaña no vale
-   porque los enlaces del menú abren pestaña nueva y perseguiría al
-   visitante en cada una), nunca para quien ya envió un optin en este
-   navegador (localStorage 'optin-enviado', lo marca el handler de submit
-   de arriba), y armado con retardo para no confundir el gesto de entrada
-   del ratón recién cargada la página con un exit. */
+   cuándo revelarlo, con triggers distintos por dispositivo. ESCRITORIO: el
+   ratón abandona el documento por el borde superior, donde viven la X de
+   la pestaña y la barra de URL. MÓVIL: no hay señal de cierre detectable,
+   así que se aproxima con dos momentos de atención rota — el retorno tras
+   ≥10s en otra app (visibilitychange no puede avisar de la salida: con la
+   página oculta no se pinta nada, así que recibe al que vuelve desubicado)
+   y 45s de inactividad (el lector activo ya tiene optins repartidos por el
+   texto; el quieto probablemente dejó de mirar el móvil). Frenos comunes:
+   visto una vez → 24h de silencio en todo el navegador (localStorage con
+   timestamp; por pestaña no vale porque los enlaces del menú abren pestaña
+   nueva y perseguiría al visitante en cada una), nunca para quien ya envió
+   un optin en este navegador (localStorage 'optin-enviado', lo marca el
+   handler de submit de arriba), y armado con retardo para no disparar
+   sobre la entrada recién cargada la página. */
 (() => {
     const popup = document.getElementById('exit-popup');
     if (!popup) return;
@@ -287,26 +291,42 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
         Date.now() - Number(localStorage.getItem('exit-popup-visto') || 0) < PAUSA_MS;
     if (enPausa()) return;
 
+    /* El puntero primario decide el juego de triggers y reescribe el código
+       de atribución del form: 99 (baked en el HTML) = popup de escritorio,
+       98 = popup móvil — así MailerLite separa qué variante convierte. */
+    const esTactil = matchMedia('(pointer: coarse)').matches;
+    if (esTactil) {
+        popup.querySelector('form[data-ml-form-id]')?.setAttribute('data-ml-posicion', '98');
+    }
+
     const cerrar = () => {
         popup.hidden = true;
         document.body.style.overflow = '';
     };
+    const desarmar = () => {
+        document.removeEventListener('mouseout', onExit);
+        document.removeEventListener('visibilitychange', onRetorno);
+        ACTIVIDAD.forEach((ev) => document.removeEventListener(ev, reiniciarInactividad));
+        clearTimeout(inactividadTimer);
+    };
     const mostrar = () => {
+        desarmar();
         /* Re-chequeo al disparar: otra pestaña abierta a la vez puede
            haberlo mostrado después de que esta página cargara y pasara el
            filtro de arriba. */
-        if (enPausa()) {
-            document.removeEventListener('mouseout', onExit);
-            return;
-        }
+        if (enPausa()) return;
         localStorage.setItem('exit-popup-visto', String(Date.now()));
         popup.hidden = false;
         /* Scroll de la página bloqueado mientras el overlay está abierto;
-           la carta scrollea por su cuenta si no cabe (max-height en CSS). */
+           la carta scrollea por su cuenta si no cabe (max-height en CSS).
+           El autofocus del email solo con ratón: en táctil levantaría el
+           teclado en pantalla tapando media carta. */
         document.body.style.overflow = 'hidden';
-        popup.querySelector('input[type="email"]')?.focus({ preventScroll: true });
-        document.removeEventListener('mouseout', onExit);
+        if (!esTactil) {
+            popup.querySelector('input[type="email"]')?.focus({ preventScroll: true });
+        }
     };
+
     /* mouseout sin relatedTarget = el puntero salió del documento (no un
        cambio entre elementos). El umbral de clientY lo acota al borde
        superior con margen: el último sample del puntero antes de salir
@@ -316,7 +336,40 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
     const onExit = (e) => {
         if (!e.relatedTarget && e.clientY < 50) mostrar();
     };
-    setTimeout(() => document.addEventListener('mouseout', onExit), 4000);
+
+    /* Retorno (móvil): dispara al volver a la página tras ≥10s oculta.
+       Menos de eso es un vistazo a una notificación o un salto de app de
+       segundos, no una ausencia que desubique. */
+    let ocultadoEn = 0;
+    const onRetorno = () => {
+        if (document.visibilityState === 'hidden') {
+            ocultadoEn = Date.now();
+        } else if (ocultadoEn && Date.now() - ocultadoEn >= 10 * 1000) {
+            mostrar();
+        }
+    };
+
+    /* Inactividad (móvil): 45s sin scroll ni toque. keydown incluido para
+       no saltar mientras teclean el email en un optin inline. Si el plazo
+       vence con la página oculta, el popup queda abierto esperando: al
+       volver lo encuentran en pantalla, que es justo el caso de uso. */
+    const ACTIVIDAD = ['scroll', 'touchstart', 'keydown'];
+    let inactividadTimer;
+    const reiniciarInactividad = () => {
+        clearTimeout(inactividadTimer);
+        inactividadTimer = setTimeout(mostrar, 45 * 1000);
+    };
+
+    setTimeout(() => {
+        if (esTactil) {
+            document.addEventListener('visibilitychange', onRetorno);
+            ACTIVIDAD.forEach((ev) =>
+                document.addEventListener(ev, reiniciarInactividad, { passive: true }));
+            reiniciarInactividad();
+        } else {
+            document.addEventListener('mouseout', onExit);
+        }
+    }, 4000);
 
     /* Cierre solo deliberado: la X o Escape. Click en el velo NO cierra —
        el popup es la última bala antes de perder al visitante y un click

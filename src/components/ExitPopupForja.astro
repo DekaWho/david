@@ -5,15 +5,17 @@ import PitchClaudeSkool from "./PitchClaudeSkool.astro";
 /* Popup de exit-intent con el optin de La Forja. Lo monta BaseLayout en toda
    página con scripts.js que no opte fuera vía exitPopup={false}, y PostLayout
    en todos los posts. El HTML viaja oculto ([hidden]) en la página; el bloque
-   de scripts.js lo revela cuando el ratón sale del viewport por el borde
-   superior (gesto de ir a cerrar la pestaña) — solo escritorio, una vez por
-   sesión de pestaña y nunca para quien ya envió un optin.
+   de scripts.js lo revela según el dispositivo — escritorio: el ratón sale
+   del viewport por arriba (exit-intent); móvil: retorno tras ≥10s en otra
+   app o 45s de inactividad. Visto una vez → 24h de silencio en todo el
+   navegador, y nunca para quien ya envió un optin.
 
    El pitch es la misma fuente única del hero de /claude y del cierre de los
-   posts (PitchClaudeSkool): editar la pieza actualiza también este popup.
-   posicion="99" etiqueta en MailerLite la suscripción como llegada por el
-   popup — el ordinal DOM del form variaría por página y no identificaría
-   nada.
+   posts (PitchClaudeSkool): editar la pieza actualiza también este popup (el
+   leadin se oculta aquí vía CSS, scope .exit-popup). posicion="99" etiqueta
+   en MailerLite la suscripción como llegada por el popup — el ordinal DOM
+   del form variaría por página y no identificaría nada; en táctil scripts.js
+   lo reescribe a 98 para separar la variante móvil de la de escritorio.
 
    La X vive fuera de .exit-popup-scroll (el área que scrollea si el
    viewport es bajo) para quedar siempre visible en la esquina de la carta. */
