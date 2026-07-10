@@ -237,11 +237,22 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
         <p class="cookie-banner__text">Texto muermazo para avisarte de que la web usa <strong>cookies</strong> para funcionar. <a class="cookie-banner__link" href="/privacidad" target="_blank" rel="noopener">Más info.</a></p>
         <button type="button" class="cookie-banner__accept">Aceptar</button>
     `;
+    // Reserva bajo el body la altura real del banner: sin esto, al llegar
+    // al final de páginas donde el último elemento es el footer (nav o
+    // disclaimer legal), el banner fixed lo tapa por completo hasta que se
+    // descarta — no hay más scroll posible para dejarlo ver.
+    const ajustarHueco = () => {
+        document.body.style.paddingBottom = banner.offsetHeight + 'px';
+    };
     const dismiss = () => {
         localStorage.setItem('cookie-banner-dismissed', '1');
+        window.removeEventListener('resize', ajustarHueco);
+        document.body.style.paddingBottom = '';
         banner.remove();
     };
     banner.querySelector('.cookie-banner__accept').addEventListener('click', dismiss);
     banner.querySelector('.cookie-banner__close').addEventListener('click', dismiss);
     document.body.appendChild(banner);
+    ajustarHueco();
+    window.addEventListener('resize', ajustarHueco);
 })();

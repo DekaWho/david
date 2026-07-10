@@ -4526,12 +4526,21 @@ body.blog-hub .banner-subline {
     font-size: inherit;
     line-height: 1.5;
 }
-/* Línea horizontal sobre el disclaimer + margin-top amplio: separa
-   el bloque legal del contenido para que no compita con el CTA de
-   la landing. Scope con :has() para no afectar al footer con nav. */
+/* Línea horizontal sobre el disclaimer: separa el bloque legal del
+   contenido. Scope con :has() para no afectar al footer con nav. La
+   separación del CTA de la landing la aporta la .flecha que precede
+   al footer, no el margin de esta regla. */
 .site-footer:has(.site-footer-disclaimer) {
-    margin-top: 10rem;
+    margin-top: 2rem;
     border-top: 1px solid color-mix(in srgb, var(--negro) 12%, transparent);
     padding-top: 2rem;
+}
+
+/* Flecha anidada como último hijo de la .seccion-blanca que precede al
+   footer (ver claude-perfil.astro): sin esto quedaría pegada al botón
+   del optin. Selector estructural, no de página, porque es la única
+   combinación hoy en el sitio. */
+.seccion-blanca > .flecha {
+    margin-top: var(--gap-2xl);
 }
 
