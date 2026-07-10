@@ -4544,3 +4544,120 @@ body.blog-hub .banner-subline {
     margin-top: var(--gap-2xl);
 }
 
+/* ---------- Popup exit-intent (La Forja) ---------- */
+
+/* Overlay a viewport completo. El HTML (ExitPopupForja.astro) viaja oculto
+   con [hidden] en cada página que lo monta; scripts.js lo revela al detectar
+   exit-intent (solo escritorio). z-index por encima del menú fijo y del
+   banner de cookies (ambos a 1000). Velo compuesto del --negro del sistema
+   para que siga a la paleta si la tinta cambia. */
+.exit-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    display: grid;
+    place-items: center;
+    padding: var(--gap-md);
+    background-color: color-mix(in srgb, var(--negro) 55%, transparent);
+    animation: exit-popup-in 0.25s ease-out;
+}
+/* display:grid pisa el default de [hidden]; sin esta regla el overlay se
+   pintaría siempre. */
+.exit-popup[hidden] {
+    display: none;
+}
+/* Carta: mismo contrato visual que las cards del sitio — fondo --blanco y
+   borde tinta 1px, sin sombra ni curva. 720px = el ancho de hero del sitio
+   (mismo cap que .post > .optin-bloque), para que los decks respiren en
+   pocas líneas. El scroll de emergencia (viewports más bajos que el
+   contenido) vive en .exit-popup-scroll, un hijo aparte, para que la X —
+   absoluta en la carta — quede siempre visible en la esquina en vez de
+   scrollear con el contenido. */
+.exit-popup-card {
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: min(720px, 100%);
+    max-height: calc(100vh - 2 * var(--gap-md));
+    background-color: var(--blanco);
+    border: 1px solid var(--negro);
+    animation: exit-popup-card-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.exit-popup-scroll {
+    overflow-y: auto;
+    padding: var(--gap-lg) var(--gap-md) var(--gap-md);
+}
+/* El bloque optin reutilizado dentro de la carta trae el truco de banda
+   blanca full-bleed (box-shadow 100vmax + clip-path) pensado para el flujo
+   de la página; dentro del overlay pintaría una franja blanca de borde a
+   borde del viewport. Se neutraliza y el fondo lo pone la carta. */
+.exit-popup .optin-bloque {
+    margin: 0;
+    padding: 0;
+    max-width: none;
+    background: none;
+    box-shadow: none;
+    clip-path: none;
+}
+/* Ajustes del pitch dentro de la carta: el popup abre directo con el golpe
+   de marca (yunque + LA FORJA a tamaño de hero) y sin el leadin
+   cualificador, que aquí retrasaría la promesa — quien lo ve ya estaba
+   marchándose. Se oculta por CSS y no tocando el componente para que
+   PitchClaudeSkool siga siendo fuente única del copy compartido con el
+   hero de /claude y el cierre de posts. Los decks bajan un punto y el gap
+   aprieta para que el bloque entero, form incluido, quepa sin scroll en el
+   viewport efectivo de escritorio (~700px con scaling de Windows) — mismo
+   principio que el "hero visible sin scroll" del sitio. */
+.exit-popup .optin-bloque--forja {
+    gap: 0.75rem;
+}
+.exit-popup .optin-bloque--forja .bsl-leadin {
+    display: none;
+}
+.exit-popup .bsl-deck {
+    font-size: clamp(1.15rem, 1.6vw, 1.45rem);
+}
+/* Aire extra bajo la promesa (primer párrafo de la carta): solo con el gap
+   compacto del bloque, promesa y oferta se leían como un único tocho. */
+.exit-popup .optin-bloque--forja .bsl-deck--promesa {
+    margin-bottom: 4rem;
+}
+/* Misma firma que la X del banner de cookies: área de click 3rem, glyph
+   2rem pegado arriba, gris derivado de tinta, rojo al hover. */
+.exit-popup-close {
+    position: absolute;
+    top: 1px;
+    right: 0.25rem;
+    width: 3rem;
+    height: 3rem;
+    font-size: 2rem;
+    line-height: 0.9;
+    color: color-mix(in srgb, var(--negro) 40%, transparent);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    transition: color 0.2s;
+}
+.exit-popup-close:hover {
+    color: var(--rojo);
+}
+@keyframes exit-popup-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes exit-popup-card-in {
+    from { transform: translateY(14px) scale(0.98); opacity: 0; }
+    to { transform: none; opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .exit-popup,
+    .exit-popup-card {
+        animation: none;
+    }
+}
+

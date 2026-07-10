@@ -2,6 +2,7 @@
 import Head from '../components/Head.astro';
 import OptinClaudeSkool from '../components/OptinClaudeSkool.astro';
 import OptinCompletoClaudeSkool from '../components/OptinCompletoClaudeSkool.astro';
+import ExitPopupForja from '../components/ExitPopupForja.astro';
 import Footer from '../components/Footer.astro';
 import { categorias } from '../data/categorias.js';
 
@@ -76,6 +77,8 @@ const {
       : <OptinCompletoClaudeSkool id="post-end" />}
 
     <Footer />
+
+    <ExitPopupForja />
 
     <script is:inline>
       const fechaEl = document.getElementById("post-fecha");

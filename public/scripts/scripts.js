@@ -193,8 +193,11 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
            que en las landings es el del banner). Sale del orden de documento
            del querySelectorAll, no de sessionStorage: es propio de cada form,
            no del aterrizaje, así que no es first-touch. Combinado con
-           ultimo_optin dice en qué optin de la landing convirtió. */
-        body.append('fields[posicion_optin]', posicionOptin);
+           ultimo_optin dice en qué optin de la landing convirtió.
+           data-ml-posicion (prop `posicion` de OptinBase) lo sobreescribe
+           para optins fuera del flujo de la página — el popup exit-intent
+           manda 99 — cuyo ordinal variaría por página sin identificar nada. */
+        body.append('fields[posicion_optin]', form.dataset.mlPosicion ?? posicionOptin);
 
         /* Atribución de origen capturada al cargar la página (bloque arriba).
            Vacíos se envían como "" — MailerLite los acepta y mantiene la
@@ -217,6 +220,11 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
                llegó, el visitante volverá a probar al no recibir el lead
                magnet. Mostrar error rompería más de lo que arregla. */
         }
+
+        /* Marca "ya envió un optin" para que el popup exit-intent no vuelva
+           a perseguir a un suscriptor en este navegador. Best effort: en
+           otro dispositivo la marca no existe y el popup saldrá igual. */
+        localStorage.setItem('optin-enviado', '1');
 
         window.location.href = successUrl;
     });
@@ -255,4 +263,68 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
     document.body.appendChild(banner);
     ajustarHueco();
     window.addEventListener('resize', ajustarHueco);
+})();
+
+/* Popup exit-intent (La Forja). El HTML viaja oculto en las páginas que lo
+   montan (ExitPopupForja vía BaseLayout/PostLayout); aquí solo se decide
+   cuándo revelarlo. Trigger: el ratón abandona el documento por el borde
+   superior, donde viven la X de la pestaña y la barra de URL — señal que
+   solo existe en escritorio; en táctil no hay gesto de cierre detectable y
+   el popup no aparece nunca. Frenos: visto una vez → 24h de silencio en
+   todo el navegador (localStorage con timestamp; por pestaña no vale
+   porque los enlaces del menú abren pestaña nueva y perseguiría al
+   visitante en cada una), nunca para quien ya envió un optin en este
+   navegador (localStorage 'optin-enviado', lo marca el handler de submit
+   de arriba), y armado con retardo para no confundir el gesto de entrada
+   del ratón recién cargada la página con un exit. */
+(() => {
+    const popup = document.getElementById('exit-popup');
+    if (!popup) return;
+    if (localStorage.getItem('optin-enviado') === '1') return;
+
+    const PAUSA_MS = 24 * 60 * 60 * 1000;
+    const enPausa = () =>
+        Date.now() - Number(localStorage.getItem('exit-popup-visto') || 0) < PAUSA_MS;
+    if (enPausa()) return;
+
+    const cerrar = () => {
+        popup.hidden = true;
+        document.body.style.overflow = '';
+    };
+    const mostrar = () => {
+        /* Re-chequeo al disparar: otra pestaña abierta a la vez puede
+           haberlo mostrado después de que esta página cargara y pasara el
+           filtro de arriba. */
+        if (enPausa()) {
+            document.removeEventListener('mouseout', onExit);
+            return;
+        }
+        localStorage.setItem('exit-popup-visto', String(Date.now()));
+        popup.hidden = false;
+        /* Scroll de la página bloqueado mientras el overlay está abierto;
+           la carta scrollea por su cuenta si no cabe (max-height en CSS). */
+        document.body.style.overflow = 'hidden';
+        popup.querySelector('input[type="email"]')?.focus({ preventScroll: true });
+        document.removeEventListener('mouseout', onExit);
+    };
+    /* mouseout sin relatedTarget = el puntero salió del documento (no un
+       cambio entre elementos). El umbral de clientY lo acota al borde
+       superior con margen: el último sample del puntero antes de salir
+       queda dentro del viewport, y con movimiento rápido puede caer varias
+       decenas de px por debajo del borde — un 0 estricto casi nunca se
+       cumple (las libs clásicas de exit-intent usan 20-50px por esto). */
+    const onExit = (e) => {
+        if (!e.relatedTarget && e.clientY < 50) mostrar();
+    };
+    setTimeout(() => document.addEventListener('mouseout', onExit), 4000);
+
+    /* Cierre solo deliberado: la X o Escape. Click en el velo NO cierra —
+       el popup es la última bala antes de perder al visitante y un click
+       accidental fuera de la carta no debe descartarla. Escape se mantiene:
+       es una acción consciente y la salida estándar de un dialog para
+       teclado. */
+    popup.querySelector('.exit-popup-close').addEventListener('click', cerrar);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !popup.hidden) cerrar();
+    });
 })();

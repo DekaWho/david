@@ -1,10 +1,19 @@
 ---
 import Head from '../components/Head.astro';
+import ExitPopupForja from '../components/ExitPopupForja.astro';
 
 const {
   bodyClass = null,
+  exitPopup = true,
   ...headProps
 } = Astro.props;
+
+/* El popup exit-intent necesita el handler de scripts.js (sin él su form no
+   postea), así que hereda la cobertura de la prop scripts: transaccionales y
+   404 quedan fuera solos. exitPopup={false} excluye además las páginas donde
+   el popup estorba a la conversión principal (landings de consultoría,
+   /servicios) o es redundante (las landings propias de La Forja). */
+const montarExitPopup = exitPopup && headProps.scripts !== false;
 ---
 <!doctype html>
 <html lang="es">
@@ -13,5 +22,6 @@ const {
   </head>
   <body class={bodyClass}>
     <slot />
+    {montarExitPopup && <ExitPopupForja />}
   </body>
 </html>

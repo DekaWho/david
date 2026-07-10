@@ -19,6 +19,11 @@ const {
     botonTexto = "Recibir gratis los valiosos emails",
     botonIcono = "/imgs/svg/email.svg",
     mostrarPrivacyNote = true,
+    // `posicion`: fija el campo posicion_optin de MailerLite en lugar del
+    // ordinal DOM que calcula el handler de scripts.js. Para optins fuera
+    // del flujo de la página (el popup exit-intent manda 99), cuyo índice
+    // variaría según cuántos forms tenga cada página y no identificaría nada.
+    posicion,
     // `cerrado`: estado "plazas cerradas". El cajetín se ve pero queda inerte
     // (sin data-ml-form-id, input y botón disabled) bajo la cinta de obras y
     // un cartel. El handler de scripts.js solo engancha form[data-ml-form-id],
@@ -40,6 +45,7 @@ if (!formId && !cerrado) {
     id={id}
     data-ml-form-id={cerrado ? undefined : formId}
     data-ml-success={cerrado ? undefined : successUrl}
+    data-ml-posicion={cerrado ? undefined : posicion}
 >
     <label>
         <span class="visually-hidden">Email</span>
