@@ -1,0 +1,299 @@
+---
+/* Cuerpo compartido de la landing de La Forja — fuente única: lo montan
+   /claude y /claude-perfil, así sus bullets no pueden desincronizarse. Editar
+   aquí cambia las dos landings a la vez. El contenido ("Qué incluye La Forja",
+   el "NO es para ti" y el FAQ) está replicado a mano FUERA del repo, en el
+   email de entrega del lead magnet en MailerLite; el aviso de dos patas
+   (recordar-cuerpo-claude.sh + sección F del post-commit) lo recuerda al
+   cambiarlo, con botón a la automatización.
+   `hastaFinal` (default true): la última sección cierra la página con el
+   modificador --hasta-final (para /claude, sin footer). false cuando debajo va
+   un footer (/claude-perfil monta FooterDisclaimer): quita el modificador y
+   mete la flecha "volver arriba" dentro de la sección — ver el gotcha del
+   footer en CLAUDE.md. */
+import OptinClaudeSkool from "./OptinClaudeSkool.astro";
+const { hastaFinal = true } = Astro.props;
+---
+
+        <p id="que-incluye">Qué incluye La Forja:</p>
+
+        <h3 class="titulo-seccion">
+            <span class="forja-estrellas" aria-hidden="true">
+                <span class="forja-nivel forja-nivel--sofa-tumbado"></span>
+            </span>
+            Este bloque es más fácil que robar un caramelo a un niño mientras está
+            mirando una tablet
+        </h3>
+
+        <ul class="bold-even">
+            <li>
+                Cómo (no) escribir un prompt. Lo que la mayoría de gurús de IA
+                dicen por internet es un mito <span class="hand"
+                    >[Módulo <span class="estrella-mano" aria-hidden="true"
+                    ></span>]</span
+                >
+            </li>
+            <li>
+                La IA es retrasada mental. Haz esto para ponérselo más fácil y
+                liberar su magia <span class="hand"
+                    >[Módulo <span class="estrella-mano" aria-hidden="true"
+                    ></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>]</span
+                >
+            </li>
+            <li>
+                Por qué a partir de ahora está prohibido que uses PDFs <span
+                    class="hand"
+                    >[Módulo <span class="estrella-mano" aria-hidden="true"
+                    ></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>]</span
+                >
+            </li>
+            <li>
+                7 consejos básicos para hablar con la IA más allá de usarla como
+                si fuese un google <span class="hand"
+                    >[Módulo <span class="estrella-mano" aria-hidden="true"
+                    ></span>]</span
+                >
+            </li>
+            <li>
+                Si usas la IA en el navegador (o en su app) estás usando una IA
+                que lleva pañales y toma el biberón. Atiende a esta diferencia
+                entre Claude y Claude Code <span class="hand"
+                    >[Módulo <span class="estrella-mano" aria-hidden="true"
+                    ></span>]</span
+                >
+            </li>
+
+            <li>
+                ¿Por qué pensar en elefantes te hace usar la IA mejor? Es un
+                misterio misterioso que se resuelve aquí <span class="hand"
+                    >[Módulo <span class="estrella-mano" aria-hidden="true"
+                    ></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>]</span
+                >
+            </li>
+            <li>
+                El 93% de personas está usando una IA atada de pies y manos.
+                Para desencadenar todo su potencial tienes que... ... ... <span
+                    class="hand"
+                    >[Módulo <span class="estrella-mano" aria-hidden="true"
+                    ></span>]</span
+                >
+            </li>
+        </ul>
+
+        <OptinClaudeSkool />
+
+        <h3 class="titulo-seccion">
+            <span class="forja-estrellas" aria-hidden="true">
+                <span class="forja-nivel forja-nivel--sofa-sentado"></span>
+            </span>
+            Cuidado!! A partir de aquí querrás usar la IA para todo
+        </h3>
+
+        <ul class="bold-even">
+            <li>
+                A veces la IA alucina más que si se hubiese fumado 4 porros. Te
+                cuento cómo poder detectarlo (y corregirlo) incluso cuando no
+                eres alguien experto en ese tema y no quieres calentarte la
+                cabeza <span class="hand"
+                    >[Módulo <span class="estrella-mano" aria-hidden="true"
+                    ></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>]</span
+                >
+            </li>
+            <li>
+                Si ya tienes un segundo cerebro, dópalo con IA (y si no lo
+                tienes descubre si necesitas uno. Spoiler: sí) <span
+                    class="hand"
+                    >[Módulo <span class="estrella-mano" aria-hidden="true"
+                    ></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>]</span
+                >
+            </li>
+            <li>
+                El método para conectar Claude con otros servicios (tus
+                archivos, email, calendario, tu web o lo que necesites) y poder
+                vivir sin tener 2197 pestañas abiertas (manejando todo desde la
+                IA) <span class="hand"
+                    >[Módulo <span class="estrella-mano" aria-hidden="true"
+                    ></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>]</span
+                >
+            </li>
+            <li>
+                Cuándo vale la pena conectar la IA a otra herramienta y cuándo
+                vale la pena crear tu propia herramienta con IA (para evitar
+                pagar esa suscripción) <span class="hand"
+                    >[Módulo <span class="estrella-mano" aria-hidden="true"
+                    ></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>]</span
+                >
+            </li>
+            <li>
+                La fórmula que transforma un prompt sencillo en todo un plan de
+                acción (para que Claude haga una tarea compleja) <span
+                    class="hand"
+                    >[Módulo <span class="estrella-mano" aria-hidden="true"
+                    ></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>]</span
+                >
+            </li>
+            <li>
+                ¿Cómo puedes ir más rápido que usando Claude? Haciendo que tu IA
+                dirija a varias sub-IAs a la vez <span class="hand"
+                    >[Módulo <span class="estrella-mano" aria-hidden="true"
+                    ></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>&#8288;<span
+                        class="estrella-mano"
+                        aria-hidden="true"></span>]</span
+                >
+            </li>
+            <li>
+                La forma de procesar tus reuniones (con leads o clientes)
+                mediante IA. Para, por ejemplo, crear un perfil psicológico de
+                tu lead (y con eso generar ideas para redes o actualizar tu CRM) <span
+                    class="hand"
+                    >[Módulo <span class="cabeza-parlante" aria-hidden="true"
+                    ></span>]</span
+                >
+            </li>
+        </ul>
+
+        <OptinClaudeSkool />
+
+        <section class:list={["seccion-blanca", hastaFinal && "seccion-blanca--hasta-final"]}>
+            <span class="gladiador icono-solido" aria-hidden="true"></span>
+
+            <h2 id="no-es-para-ti">
+                Este programa <span class="ink-circle"
+                    >NO<svg
+                        class="ink-circle-svg"
+                        viewBox="0 0 100 60"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            fill="none"
+                            stroke-linecap="round"></path></svg
+                    ></span
+                > es para ti si...
+            </h2>
+
+            <ul class="bold-even">
+                <li>
+                    No es para ti si quieres montar un negocio vendiendo
+                    automatizaciones o chatbots a otras empresas. Aquí te enseño
+                    a usar la IA para potenciar lo que ya sabes hacer, no para
+                    crear un nuevo negocio.
+                </li>
+                <li>
+                    Aún no he podido entrenar a la IA para decirle "hazme rico"
+                    y lo consigue mientras yo me quedo tumbado en la playa
+                    tomando un mojito. Pronto. Pero aún no. Si ese era tu
+                    objetivo, La Forja no es para ti.
+                </li>
+                <li>
+                    No es para ti si no trabajas delante del ordenador. Si eres
+                    un electricista (por decir algo) poco podrá hacer la IA por
+                    ti. Bueno sí, todo lo que hagas delante de una pantalla
+                    (facturas, presupuestos, planos, cuadrar el calendario o
+                    cosas similares)
+                </li>
+                <li>
+                    No es para ti si buscas una plantilla para copiar, pegar y
+                    olvidarte. En la formación te enseño a domar a Claude Code
+                    para que crees tus propias soluciones, no voy a crearlas yo
+                    por ti.
+                </li>
+                <li>
+                    No es para ti si eres informático o programador. Si eres
+                    alguien muy técnico puedes estar buscando soluciones más
+                    complejas que no explico aquí.
+                </li>
+            </ul>
+
+            <OptinClaudeSkool />
+
+            <span class="buscando icono-solido" aria-hidden="true"></span>
+
+            <h2 id="preguntas">
+                Preguntas importantes que <u class="mark-amarillo"
+                    >deberías hacerte</u
+                >
+            </h2>
+
+            <dl class="forja-faq">
+                <dt>¿Haces factura?</dt>
+                <dd>
+                    La genera Skool automáticamente, puedes descargarla desde tu
+                    perfil.
+                </dd>
+                <dt>
+                    La IA cambia constantemente ¿el curso se va actualizando?
+                </dt>
+                <dd>
+                    El enfoque de este programa es darte el conocimiento y las
+                    herramientas para hacerte independiente de las últimas
+                    novedades. Porque es la IA quien comprueba la mejor forma de
+                    hacer algo en ese momento. Aún así, sí. Voy expandiendo las
+                    lecciones de La Forja.
+                </dd>
+                <dt>¿Necesito Claude de pago?</dt>
+                <dd>
+                    Sí. Al menos la versión de 20€ al mes. Y aún así he de
+                    avisarte que llega a su límite rápido según el uso que le
+                    des. Yo exprimo Claude a diario y por eso pago el plan de
+                    90€/mes. Con ese estoy encantado (nunca he llegado al
+                    límite) Claude es el trabajador más barato que puedo
+                    contratar.
+                </dd>
+
+                <dt>
+                    ¿Claude va a hacer todo por mí y ya no necesitaré hacer
+                    nada?
+                </dt>
+                <dd>
+                    No. Esto es un sistema proactivo. Requiere que tú seas el
+                    CEO de tu propia empresa. Claude no te va a sustituir, te da
+                    100 esclavos pero (por ahora) todavía hace falta que tú los
+                    dirijas. Aún así sí hay ciertas automatizaciones que se
+                    pueden hacer.
+                </dd>
+                <dt>Es muy barato...</dt>
+                <dd>Sí, fallo mío. Pronto sube el precio del plan premium.</dd>
+            </dl>
+
+            <OptinClaudeSkool />
+
+            {!hastaFinal && (
+                <div class="flecha flecha--up" aria-hidden="true"></div>
+            )}
+        </section>
