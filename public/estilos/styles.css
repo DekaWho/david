@@ -2485,6 +2485,21 @@ audio::-webkit-media-controls-panel {
         background: transparent;
         box-shadow: none;
         border-radius: 0;
+        transition:
+            opacity 200ms ease,
+            transform 200ms ease;
+    }
+
+    /* Estándar de menús fijos del sitio (compartido con .post-toc y
+       .forja-nav): en móvil el burger taparía el titular del hero, así que
+       scripts.js lo oculta mientras el H1 está en viewport y lo muestra al
+       scrollear por debajo. Scopeado al media móvil: en escritorio la pill
+       cabe en la esquina sin pisar titulares y queda visible aunque lleve la
+       clase. Si el JS no corre, el menú queda visible (degrada a lo seguro). */
+    .menu--hidden {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-8px);
     }
 
     /* Patrón checkbox-hack: el checkbox queda oculto pero accesible y dispara

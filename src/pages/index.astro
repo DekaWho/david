@@ -58,75 +58,41 @@ import Footer from "../components/Footer.astro";
         </div>
 
         <nav class="blocks" aria-label="Secciones">
-            <div class="block-group">
-                <button
-                    type="button"
-                    class="block block--primary block-toggle"
-                    aria-expanded="false"
-                    aria-controls="sub-consultoria"
-                >
-                    <span class="handle" aria-hidden="true">⋮⋮</span>
-                    <img class="icon" src="/imgs/svg/lightning.svg" alt="⚡" />
-                    <span class="body">
-                        <span class="title">Consultoría</span>
-                        <span class="subtitle-hand"
-                            >Pulsa para ver si tengo disponibilidad</span
-                        >
-                    </span>
-                    <span class="arrow arrow--toggle" aria-hidden="true">▾</span
+            <!-- <a
+                class="block block--primary"
+                href="/servicios#portfolio"
+                target="_blank"
+                rel="noopener"
+                draggable="false"
+            >
+                <span class="handle" aria-hidden="true">⋮⋮</span>
+                <img class="icon" src="/imgs/svg/lightning.svg" alt="⚡" />
+                <span class="body">
+                    <span class="title">Portfolio</span>
+                    <span class="subtitle-hand"
+                        >Logros conseguidos para otros clientes</span
                     >
-                </button>
+                </span>
+                <span class="arrow" aria-hidden="true">→</span>
+            </a> -->
 
-                <div class="subblocks" id="sub-consultoria">
-                    <div class="subblocks-inner">
-                        <a
-                            class="block block--secondary block--sub"
-                            href="/consultoria-ia"
-                            target="_blank"
-                            rel="noopener"
-                            draggable="false"
-                        >
-                            <img
-                                class="icon"
-                                src="/imgs/svg/broken-chain.svg"
-                                alt="⛓️‍💥"
-                            />
-                            <span class="body">
-                                <span class="subtitle-hand"
-                                    >el 93% usa una IA limitada</span
-                                >
-                                <span class="title"
-                                    >Te guío para desencadenar todo
-                                    su&nbsp;potencial</span
-                                >
-                            </span>
-                            <span class="arrow" aria-hidden="true">→</span>
-                        </a>
-                        <a
-                            class="block block--secondary block--sub"
-                            href="/consultoria-monetizar"
-                            target="_blank"
-                            rel="noopener"
-                            draggable="false"
-                        >
-                            <img
-                                class="icon"
-                                src="/imgs/svg/money-bag.svg"
-                                alt="💰"
-                            />
-                            <span class="body">
-                                <span class="subtitle-hand"
-                                    >debo estar loco...</span
-                                >
-                                <span class="title"
-                                    >Róbame hasta 19.970€ desde tu&nbsp;sofá</span
-                                >
-                            </span>
-                            <span class="arrow" aria-hidden="true">→</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            <a
+                class="block block--primary"
+                href="/consultoria-monetizar"
+                target="_blank"
+                rel="noopener"
+                draggable="false"
+            >
+                <span class="handle" aria-hidden="true">⋮⋮</span>
+                <img class="icon" src="/imgs/svg/money-bag.svg" alt="💰" />
+                <span class="body">
+                    <span class="subtitle-hand">debo estar loco...</span>
+                    <span class="title"
+                        >Róbame hasta 19.970€ desde tu&nbsp;sofá</span
+                    >
+                </span>
+                <span class="arrow" aria-hidden="true">→</span>
+            </a>
 
             <a
                 class="block block--secondary"
@@ -160,15 +126,6 @@ import Footer from "../components/Footer.astro";
             handle: ".handle",
             animation: 150,
             ghostClass: "block--ghost",
-        });
-
-        // Bloques-acordeón: el disparador despliega sus sub-opciones en vez de
-        // navegar. El estado vive en aria-expanded; el CSS anima el despliegue.
-        document.querySelectorAll(".block-toggle").forEach((btn) => {
-            btn.addEventListener("click", () => {
-                const abierto = btn.getAttribute("aria-expanded") === "true";
-                btn.setAttribute("aria-expanded", String(!abierto));
-            });
         });
     </script>
 </BaseLayout>

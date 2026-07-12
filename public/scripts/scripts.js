@@ -89,21 +89,49 @@
     const hero = document.getElementById('inicio');
     if (hero && 'IntersectionObserver' in window) {
         nav.classList.add('forja-nav--hidden');
-        const io = new IntersectionObserver(([entry]) => {
-            nav.classList.toggle('forja-nav--hidden', entry.isIntersecting);
-            if (entry.isIntersecting && checkbox) checkbox.checked = false;
-        });
+        const io = new IntersectionObserver(
+            ([entry]) => {
+                nav.classList.toggle('forja-nav--hidden', entry.isIntersecting);
+                if (entry.isIntersecting && checkbox) checkbox.checked = false;
+            },
+            /* Mismo umbral que .menu y .post-toc: los tres menús fijos del
+               sitio aparecen en el mismo punto de scroll. */
+            { rootMargin: '-35% 0px 0px 0px' }
+        );
         io.observe(hero);
     }
 })();
 
-/* Cerrar el menú burger al pulsar cualquiera de sus enlaces */
-document.querySelectorAll('.menu .menu-link').forEach(link => {
-    link.addEventListener('click', () => {
-        const toggle = document.getElementById('menu-toggle');
-        if (toggle) toggle.checked = false;
+/* Menú principal (.menu): cierra el panel al pulsar un enlace y aplica el
+   estándar de menús fijos del sitio — en móvil el burger taparía el titular
+   del hero, así que se oculta mientras el H1 de la página está en viewport y
+   aparece al scrollear por debajo. Mismo IntersectionObserver que el índice
+   del blog y el nav de secciones; la clase .menu--hidden está scopeada al
+   @media móvil, así que en escritorio el menú queda visible aunque la lleve.
+   Estado inicial hidden para evitar flash antes de que dispare el observer;
+   sin H1 o sin IntersectionObserver el menú queda visible (degrada). */
+(() => {
+    const menu = document.querySelector('.menu');
+    if (!menu) return;
+    const toggle = document.getElementById('menu-toggle');
+    menu.querySelectorAll('.menu-link').forEach((link) => {
+        link.addEventListener('click', () => {
+            if (toggle) toggle.checked = false;
+        });
     });
-});
+    const h1 = document.querySelector('h1');
+    if (h1 && 'IntersectionObserver' in window) {
+        menu.classList.add('menu--hidden');
+        const io = new IntersectionObserver(
+            ([entry]) => {
+                menu.classList.toggle('menu--hidden', entry.isIntersecting);
+                if (entry.isIntersecting && toggle) toggle.checked = false;
+            },
+            { rootMargin: '-35% 0px 0px 0px' }
+        );
+        io.observe(h1);
+    }
+})();
 
 /* Account ID de MailerLite (público, sale en la URL del endpoint de subscribe). */
 const ML_ACCOUNT_ID = '1628594';

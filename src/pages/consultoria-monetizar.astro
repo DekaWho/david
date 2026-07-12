@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Menu from "../components/Menu.astro";
 import Logros from "../components/Logros.astro";
 import Reviews from "../components/Reviews.astro";
 import OptinConsultoria from "../components/OptinConsultoria.astro";
@@ -14,6 +15,15 @@ import OptinConsultoria from "../components/OptinConsultoria.astro";
     bodyClass="reviews-blanco"
     exitPopup={false}
 >
+    <Menu
+        enlaces={[
+            { href: "#que-ofrezco", label: "Qué te ofrezco" },
+            { href: "#resultados", label: "Resultados" },
+            { href: "#opiniones", label: "Opiniones" },
+            { href: "#llamada", label: "Llamada 1a1", flechaDer: "↓" },
+        ]}
+    />
+
     <div class="banner">
         <section class="hero">
             <div class="hero-photo-wrap">
@@ -48,8 +58,8 @@ import OptinConsultoria from "../components/OptinConsultoria.astro";
             />
 
             <p class="hand">
-                y si quieres robarme el cerebro (en una llamada de 47min) te
-                mando <span class="text-rojo"
+                y tú puedes robarme el cerebro (durante una llamada de 47min).
+                Te mando <span class="text-rojo"
                     >un correo con los detalles y el precio</span
                 > de este servicio:
             </p>
@@ -126,7 +136,7 @@ import OptinConsultoria from "../components/OptinConsultoria.astro";
     <Reviews id="opiniones" />
 
     <div class="cuerpo">
-        <h2 class="titulo-compacto titulo-compacto--lg">
+        <h2 class="titulo-compacto titulo-compacto--lg" id="llamada">
             Roba mi cerebro <span class="aside-hand">(durante 47 minutos)</span> para
 
             <u class="banner-mark">monetizar tu audiencia </u>(más)
