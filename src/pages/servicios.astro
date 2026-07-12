@@ -14,7 +14,14 @@ import Reviews from "../components/Reviews.astro";
     ogUrl="https://davidvarea.com/servicios"
     exitPopup={false}
 >
-    <Menu />
+    <Menu
+        enlaces={[
+            { href: "/", label: "Portada", iconoCasa: true },
+            { href: "#portfolio", label: "Portfolio" },
+            { href: "#reviews", label: "Reviews" },
+            { href: "#contacto", label: "Contacto", flechaDer: "↓" },
+        ]}
+    />
 
     <div class="banner">
         <section class="hero">
@@ -184,7 +191,7 @@ import Reviews from "../components/Reviews.astro";
             </strong>
         </p>
 
-        <p>
+        <p id="portfolio">
             Y no lo digo por decir. Yo he trabajado con ecommerce, infoproductos
             y en el sector financiero. Estos son algunos de mis logros en los
             últimos años:
