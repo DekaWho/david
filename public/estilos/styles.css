@@ -200,6 +200,42 @@ del {
     text-decoration: line-through;
 }
 
+/* La text-decoration no se pinta sobre atomic inlines como <img> (regla de
+   la spec), así que un emoji dentro de un <del> quedaría sin tachar. El
+   wrapper repone el trazo con un ::after que cruza la imagen a la altura
+   del line-through del texto, para que se lea como una sola raya continua. */
+del .emoji-tachado {
+    position: relative;
+    display: inline-block;
+}
+del .emoji-tachado::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    /* Calibrado contra el strikeout real de EB Garamond, que va casi al
+       tope de la x-height (no al centro de las letras): a 49% del span
+       ambos trazos se leen como una sola raya continua. */
+    top: 49%;
+    border-top: 0.07em solid currentColor;
+}
+
+/* Tachado en tinta de corrección (azul o rojo), con el texto en su color de
+   siempre. La raya del emoji va aparte: su ::after pinta con currentColor
+   (el color del TEXTO, no el de la decoración), así que se tiñe explícita. */
+del.tachado-azul {
+    text-decoration-color: var(--azul);
+}
+del.tachado-azul .emoji-tachado::after {
+    border-top-color: var(--azul);
+}
+del.tachado-rojo {
+    text-decoration-color: var(--rojo);
+}
+del.tachado-rojo .emoji-tachado::after {
+    border-top-color: var(--rojo);
+}
+
 u {
     text-decoration: underline;
     text-underline-offset: 0.2em;
@@ -1144,12 +1180,17 @@ li::marker {
 /* Retrato del autor bajo "Hola, soy David Varea": reusa .hero-photo (círculo
    sin borde) pero alineado a la izquierda como el nombre manuscrito que lo
    precede, al doble del tamaño del hero global y con aire propio arriba/abajo
-   para que lea como pieza del cuerpo, no como avatar de cabecera. */
-.cuerpo--la-forja .hero-photo-wrap {
+   para que lea como pieza del cuerpo, no como avatar de cabecera. El segundo
+   selector lleva el mismo gesto a la presentación del autor en el cuerpo de
+   las landings de consultoría (body.reviews-blanco); su avatar de banner no
+   se ve afectado porque vive fuera de .cuerpo. */
+.cuerpo--la-forja .hero-photo-wrap,
+.reviews-blanco .cuerpo .hero-photo-wrap {
     justify-content: flex-start;
     margin: var(--gap-2xl) 0;
 }
-.cuerpo--la-forja .hero-photo {
+.cuerpo--la-forja .hero-photo,
+.reviews-blanco .cuerpo .hero-photo {
     width: clamp(192px, 28vh, 300px);
     height: clamp(192px, 28vh, 300px);
 }
@@ -1636,6 +1677,18 @@ li::marker {
        claro y oscurecerlo lo vuelve ocre turbio). Hex inline a propósito — no
        promover a variable, solo lo usa este doodle. */
     background-color: #f5b700;
+}
+
+.doodle--pesas {
+    /* El dibujo trae aire dentro de su viewBox (la tinta ocupa ~2/3 del
+       lienzo), así que al tamaño estándar de .doodle se percibe menor que sus
+       hermanos; el lienzo extra lo deja al peso visual del resto. */
+    width: clamp(8rem, 14vw, 11rem);
+}
+
+.doodle--pesas::before {
+    -webkit-mask-image: url(/imgs/svg/weightlifting-svgrepo-com.svg);
+    mask-image: url(/imgs/svg/weightlifting-svgrepo-com.svg);
 }
 
 .doodle--corona {
@@ -2193,6 +2246,17 @@ h2:has(+ .diamond) {
     flex-direction: column;
     max-width: none;
     color: var(--negro);
+}
+
+/* En las landings de consultoría el aviso combina las dos tintas: el
+   triángulo en azul de marca (lo pinta el currentColor del contenedor) y
+   el texto manuscrito de vuelta al rojo de anotación del aviso base — el
+   icono deja de gritar como alerta pero la nota conserva su voz a boli. */
+.reviews-blanco .aviso-mano {
+    color: var(--azul);
+}
+.reviews-blanco .aviso-mano p {
+    color: var(--rojo);
 }
 
 .cuerpo > p:has(+ .aviso-mano) {
@@ -3710,6 +3774,23 @@ audio::-webkit-media-controls-panel {
     padding: 0 0.12em;
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
+}
+
+/* Dentro de texto manuscrito (.hand = Kalam) los stops genéricos fallan:
+   las métricas de Kalam reservan mucho descendiente en el line box y la
+   baseline cae al ~69% del alto, así que la franja 60-92% queda casi
+   entera POR DEBAJO de las letras. Aquí la franja sube y se ensancha
+   para cubrir la x-height completa — en manuscrita el gesto es
+   highlighter que tapa el trazo, no rotulador por debajo. */
+.hand .mark-amarillo {
+    background-image: linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 32%,
+        var(--amarillo) 32%,
+        var(--amarillo) 78%,
+        transparent 78%
+    );
 }
 
 /* Imagen del cuerpo de post: centrada, no se sale del ancho de lectura,

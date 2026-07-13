@@ -51,8 +51,9 @@ import CuerpoClaudeSkool from "../components/CuerpoClaudeSkool.astro";
         de "irse": cambiar de pestaña/minimizar (visibilitychange) y mover el
         foco a otro programa con la pestaña aún activa (blur de window) — este
         último no levanta document.hidden, de ahí los dos disparadores y el
-        document.hasFocus(). Al recuperar foco se restaura el título. Inline por
-        ser exclusivo de esta landing. */
+        document.hasFocus(). Al recuperar foco se restaura el título. Inline
+        porque solo lo llevan las landings que lo montan, no el sitio entero
+        (scripts.js). */
 }
 <script is:inline>
     (function () {

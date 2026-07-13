@@ -17,10 +17,9 @@ import OptinConsultoria from "../components/OptinConsultoria.astro";
 >
     <Menu
         enlaces={[
-            { href: "#que-ofrezco", label: "Qué te ofrezco" },
             { href: "#resultados", label: "Resultados" },
             { href: "#opiniones", label: "Opiniones" },
-            { href: "#llamada", label: "Llamada 1a1", flechaDer: "↓" },
+            { href: "#que-ofrezco", label: "Qué recibes", flechaDer: "↓" },
         ]}
     />
 
@@ -34,17 +33,12 @@ import OptinConsultoria from "../components/OptinConsultoria.astro";
                 />
             </div>
 
-            <h2 style="color: var(--azul)">
-                <img class="emoji" src="/imgs/svg/handshake.svg" alt="🤝" />
-                David Varea
-            </h2>
-
             <h1 class="banner-h1--small">
                 Me he gastado <u class="banner-mark"
                     >19.970€ en cursos y mentorías</u
-                > de viralidad, marca personal y vender online <span
+                > de viralidad, marca personal y monetizar online <span
                     class="aside-hand"
-                    >(aparte de mi experiencia dando servicios)</span
+                    >(además de mi experiencia dando servicios)</span
                 >
                 para que <span class="squiggle">tú no tengas que hacerlo</span>
             </h1>
@@ -58,57 +52,77 @@ import OptinConsultoria from "../components/OptinConsultoria.astro";
             />
 
             <p class="hand">
-                y tú puedes robarme el cerebro (durante una llamada de 47min).
-                Te mando <span class="text-rojo"
-                    >un correo con los detalles y el precio</span
-                > de este servicio:
+                y puedes robarme el cerebro (durante <span class="text-rojo"
+                    >una llamada</span
+                > de 47min) para evitar hacer otra formación más. Te mando un correo
+                con <u class="mark-amarillo">todos los detalles y el precio:</u>
             </p>
 
-            <OptinConsultoria botonTexto="Me interesa una llamada 1a1" />
+            <OptinConsultoria />
         </section>
     </div>
 
     <div class="cuerpo">
-        <div class="doodle doodle--corona" aria-hidden="true"></div>
-
         <h2
-            id="que-ofrezco"
-            style="font-family: var(--hand); color: var(--rojo)"
+            class="titulo-seccion hand"
+            style="color: var(--negro); text-align: left"
         >
-            Qué te ofrezco exactamente
+            <strong
+                >Hola <img
+                    class="emoji"
+                    src="/imgs/svg/handshake.svg"
+                    alt="🤝"
+                /></strong
+            >
+        </h2>
+        <h2
+            class="titulo-seccion hand"
+            style="color: var(--negro); text-align: left"
+        >
+            soy David Varea
         </h2>
 
-        <ul>
-            <li>
-                Una llamada de 47 minutos donde antes de reunirnos he leído
-                sobre tus inquietudes <u class="mark-amarillo"
-                    >para prepararme la reunión</u
-                > y no estar hablando contigo como si no supiera de donde me viene
-                el aire.
-            </li>
-            <li>
-                <strong>
-                    Al salir de esa reunión sales con un plan de acción en dos
-                    fases:
-                </strong><br /><br />
-                <ol>
-                    <li>
-                        Cuál es la acción más inmediata que puedes hacer para
-                        aumentar tu facturación (o beneficio, lo que prefieras
-                        escalar)
-                    </li>
-                    <li>
-                        Un plan de acción pensado en el largo plazo. Un pico de
-                        ingresos está fantástico pero el negocio más sano (y más
-                        escalable) es el que tiene clientes recurrentes.
-                    </li>
-                </ol>
-            </li>
-            <li>
-                Transcripción de la llamada y el plan por escrito para que
-                puedas consultarlo siempre que quieras.
-            </li>
-        </ul>
+        <div class="hero-photo-wrap">
+            <img
+                class="hero-photo"
+                src="/imgs/profile-pic.webp"
+                alt="David Varea"
+                loading="lazy"
+            />
+        </div>
+
+        <p>En 2019 me di de alta como autónomo...</p>
+
+        <p>
+            <strong>
+                Además de saber dar el servicio (de editor de vídeo) tuve que
+                aprender sobre emprender, marketing, captar clientes (sin tener
+                millones de visitas) o finanzas <del class="tachado-rojo"
+                    >para cuando llega nuestra socia obligatoria Hacienda <span
+                        class="emoji-tachado"
+                        ><img
+                            class="emoji"
+                            src="/imgs/svg/skull.svg"
+                            alt="💀"
+                        /></span
+                    ></del
+                >
+            </strong>
+        </p>
+
+        <span class="doodle doodle--pesas" aria-hidden="true"></span>
+
+        <p>
+            Me obsesioné tanto con entender <u class="mark-amarillo"
+                >las mejores formas de rentabilizar una misma audiencia</u
+            > que dejé de ser editor de vídeo.
+        </p>
+        <p>
+            <strong>
+                Me convertí en monetizador de audiencias. Dando servicios a
+                ecommerce, infoproductores u otros negocios de servicios.
+            </strong>
+        </p>
 
         <section class="seccion-blanca" id="resultados">
             <h2 style="font-family: var(--hand); color: var(--azul)">
@@ -116,40 +130,156 @@ import OptinConsultoria from "../components/OptinConsultoria.astro";
             </h2>
             <div class="diamond" aria-hidden="true"></div>
             <p>
-                Mis clientes han facturado 2.4 millones de € (con mi ayuda)
-                vendiendo por internet. Te cuento qué hice para ellos pero antes
-                una aclaración:
-            </p>
-
-            <p>
-                <strong>
-                    Si ahora no te interesa leer los detalles técnicos avanza
-                    hasta el siguiente bloque <u class="mark-amarillo"
-                        >para escuchar las reseñas</u
-                    > de quien ya ha trabajado conmigo.
-                </strong>
+                Mis clientes han facturado 2.4 millones de € usando mis
+                servicios. Te cuento qué hice para ellos pero antes una
+                aclaración:
             </p>
 
             <Logros />
+            <span class="gladiador icono-solido" aria-hidden="true"></span>
         </section>
     </div>
     <Reviews id="opiniones" />
 
     <div class="cuerpo">
-        <h2 class="titulo-compacto titulo-compacto--lg" id="llamada">
-            Roba mi cerebro <span class="aside-hand">(durante 47 minutos)</span> para
-
-            <u class="banner-mark">monetizar tu audiencia </u>(más)
+        <h2
+            id="que-ofrezco"
+            style="font-family: var(--hand); color: var(--rojo)"
+        >
+            Qué recibes exactamente
         </h2>
 
+        <ul>
+            <li>
+                <strong>
+                    Una llamada de 47 minutos conmigo, David Varea. Antes de
+                    reunirnos me leo tus inquietudes para llegar con contexto
+                    sobre tu caso.
+                </strong>
+            </li>
+            <li>
+                Sales con un par de jugadas bajo la manga:
+                <ol>
+                    <li>
+                        La acción más inmediata que puedes hacer para monetizar
+                        tu audiencia (A veces necesitas un nuevo enfoque pero
+                        otras necesitas lanzar lo que llevas semanas preparando
+                        porque ya es suficientemente bueno).
+                    </li>
+                    <li>
+                        Después: Cómo convertirlo en ingresos recurrentes sin
+                        tener que acertar cada vez. Dar un pelotazo está
+                        fantástico, pero seguir cobrando cada mes está mejor.
+                    </li>
+                </ol>
+            </li>
+            <li>
+                <strong>
+                    Seguimiento extra de 21 días. Tendré tu conversación fijada
+                    en mi watsapp (solo una temática por consulta. Podrás
+                    plantear la siguiente cuando la responda)
+                </strong>
+            </li>
+            <li>
+                Transcripción de la llamada y el plan por escrito. Consúltalo
+                cuando lo necesites.
+            </li>
+        </ul>
+
+        <span class="buscando icono-solido" aria-hidden="true"></span>
+
+        <h2 style="font-family: var(--hand); margin-top: var(--gap-2xl);">
+            Para <span class="ink-circle ink-circle--azul"
+                >quién<svg
+                    class="ink-circle-svg"
+                    viewBox="0 0 100 60"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                        stroke-linecap="round"></path></svg
+                ></span
+            > es
+        </h2>
         <p>
-            Te mando un email con los detalles de este servicio 1a1 y el precio
-            que tiene.
-            <strong>Todavía no tengo la tarifa de 500€/h</strong> (más pronto que
-            tarde ese será el precio)
+            <strong>
+                Esta llamada tiene sentido si estás en una de estas 3 frases:
+            </strong>
+        </p>
+        <ol>
+            <li>
+                Llevas semanas a punto de hacer un lanzamiento (o una nueva
+                campaña) pero algo te frena.
+            </li>
+            <li>
+                <strong>
+                    Ya tienes tu propia audiencia (aunque sea pequeña y no
+                    tengas ningún vídeo viral) pero no la estás monetizando lo
+                    suficiente. A grandes rasgos se puede ganar 1€ al mes por
+                    cada suscriptor (activo) que tienes.
+                </strong>
+            </li>
+            <li>
+                Tu negocio funciona pero ves a la competencia facturando más con
+                un peor servicio.
+            </li>
+        </ol>
+        <p>
+            <strong>
+                Tres casos distintos donde puedo guiarte para monetizar. Te
+                mando un email con el precio de la llamada 1 a 1. Aún no tengo <u
+                    class="mark-amarillo">la tarifa de 500€/h (</u
+                >pero más pronto que tarde ese será el precio)
+            </strong>
         </p>
 
-        <OptinConsultoria botonTexto="Me interesa una llamada 1a1" />
+        <OptinConsultoria />
     </div>
     <div class="flecha flecha--up" aria-hidden="true"></div>
 </BaseLayout>
+
+{
+    /* Title parpadeante estilo notificación de WhatsApp: se dispara cuando el
+        lector deja de mirar la página, para reengancharlo. Cubre los dos casos
+        de "irse": cambiar de pestaña/minimizar (visibilitychange) y mover el
+        foco a otro programa con la pestaña aún activa (blur de window) — este
+        último no levanta document.hidden, de ahí los dos disparadores y el
+        document.hasFocus(). Al recuperar foco se restaura el título. Inline
+        porque solo lo llevan las landings que lo montan, no el sitio entero
+        (scripts.js). */
+}
+<script is:inline>
+    (function () {
+        const original = document.title;
+        const alerta = "(1) " + original;
+        let timer = null;
+        let mostrandoAlerta = false;
+
+        function arrancar() {
+            if (timer) return;
+            timer = setInterval(function () {
+                document.title = mostrandoAlerta ? original : alerta;
+                mostrandoAlerta = !mostrandoAlerta;
+            }, 1000);
+        }
+
+        function parar() {
+            clearInterval(timer);
+            timer = null;
+            document.title = original;
+        }
+
+        function sincronizar() {
+            if (document.hidden || !document.hasFocus()) arrancar();
+            else parar();
+        }
+
+        document.addEventListener("visibilitychange", sincronizar);
+        window.addEventListener("blur", sincronizar);
+        window.addEventListener("focus", sincronizar);
+    })();
+</script>
