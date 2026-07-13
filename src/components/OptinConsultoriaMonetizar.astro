@@ -1,0 +1,30 @@
+---
+import OptinBase from "./OptinBase.astro";
+
+/* Wrapper del optin de la consultoría de monetización 1a1
+   (/consultoria-monetizar). Fija el form-id para que su automatización de
+   bienvenida dispare por destino del submit, no por filtrado de UTMs
+   posterior — los UTMs pueden faltar o llegar incorrectos; el form-id
+   siempre llega correcto. La consultoría de IA tiene form y wrapper
+   propios (OptinConsultoriaIa). */
+const CONSULTORIA_MONETIZAR_FORM_ID = "192892264186381923";
+
+/* Defaults del botón para este lead magnet: el CTA pide una llamada 1a1
+   (no una suscripción a emails, de ahí que el sobre genérico no valga) y
+   el rayo repite el icono del bloque Consultoría de la home — el mismo
+   símbolo acompaña el funnel entero. La página puede overridearlos; el
+   form-id se fija siempre después del spread para que la página no pueda
+   pisarlo. */
+const {
+    botonTexto = "Me apetece una llamada 1a1",
+    botonIcono = "/imgs/svg/lightning.svg",
+    ...rest
+} = Astro.props;
+---
+
+<OptinBase
+    {...rest}
+    botonTexto={botonTexto}
+    botonIcono={botonIcono}
+    formId={CONSULTORIA_MONETIZAR_FORM_ID}
+/>
