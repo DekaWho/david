@@ -543,6 +543,15 @@ li::marker {
     line-height: 1.22;
 }
 
+/* Titular del pitch de La Forja: un escalón por encima de la escala compacta
+   compartida — es la promesa de la página, no un titular utilitario. Los dos
+   selectores igualan la especificidad de las reglas compactas de arriba en
+   sus dos contextos (h1 del banner / p de los bloques optin). */
+.banner h1.pitch-titular,
+p.pitch-titular {
+    font-size: clamp(1.55rem, 2.6vw, 2.15rem);
+}
+
 .titulo-compacto {
     margin-top: 2.5em;
 }
@@ -738,6 +747,15 @@ li::marker {
     font-family: var(--hand);
     font-weight: 400;
     font-size: 0.9em;
+}
+
+/* En el titular del pitch de La Forja el inciso Kalam pasa a trazo grueso:
+   junto al serif a peso 700 y el tamaño extra del titular, el trazo fino
+   base se quedaba débil. Selectores con elemento para ganar por orden a las
+   variantes de arriba en ambos contextos. */
+h1.pitch-titular .aside-hand,
+p.pitch-titular .aside-hand {
+    font-weight: 700;
 }
 
 /* Highlighter amarillo: gradient que pinta solo la mitad inferior de las
@@ -947,6 +965,28 @@ li::marker {
 }
 .hero--la-forja .forja-wordmark img {
     height: clamp(110px, 24vh, 220px);
+}
+
+/* Yunque bajo el titular del pitch de La Forja: golpe visual de marca entre
+   titular y oferta. Decorativo (alt vacío — la marca la nombra el copy) y
+   con alto en vh para contraerse con el viewport y mantener el hero visible
+   sin scroll. */
+.pitch-yunque {
+    display: block;
+    height: clamp(96px, 20vh, 190px);
+    /* El alto lo fija el clamp; sin esto el atributo width del <img> se
+       queda fijo y deforma la proporción. */
+    width: auto;
+    /* Duplica el aire que ya ponen sus vecinos: el top calca el
+       margin-bottom del titular del banner (vh para contraerse con el
+       viewport) y el bottom calca el margin-top de la nota de oferta. */
+    margin: clamp(0.15rem, 1.5vh, 0.7rem) auto var(--gap-sm);
+}
+
+/* En el hero crece como primera impresión de la página; los bloques optin y
+   el popup conservan el tamaño base. */
+.hero--la-forja .pitch-yunque {
+    height: clamp(120px, 26vh, 240px);
 }
 
 /* Navegador de secciones de /la-forja — burger fijo arriba-derecha. En
@@ -1238,7 +1278,8 @@ li::marker {
 /* Logo de Skool a la derecha del texto del CTA, montado como pegatina
    pegada con celo (mismo lenguaje que .badge de la home): papel blanco
    con el wordmark dentro, leve rotación + sombra editorial y la tira de
-   cinta del ::before. Marca que el botón abre la comunidad en Skool. */
+   cinta del ::before. Marca los CTA cuyo destino o lead magnet vive en
+   Skool (prop `skoolBadge` de OptinBase). */
 .skool-badge {
     position: relative;
     display: inline-flex;
@@ -1258,6 +1299,21 @@ li::marker {
     display: block;
     width: clamp(54px, 11vw, 74px);
     height: auto;
+}
+
+/* Dentro del botón del optin (prop skoolBadge de OptinBase) la pegatina va
+   al extremo derecho, tras el texto (el .body flex:1 la empuja al borde):
+   encoge respecto al tamaño base (pensado para un CTA de sección más alto),
+   suelta el margin-left grande de esa variante (la separación la pone el gap
+   del .block) y cae unos px del centrado vertical del flex — gesto de
+   pegatina puesta a mano, no icono alineado. */
+.optin .skool-badge {
+    margin-left: 0;
+    padding: 4px 8px;
+    transform: rotate(4deg) translateY(7px);
+}
+.optin .skool-badge img {
+    width: clamp(36px, 6vw, 46px);
 }
 
 /* Cinta de celo, réplica de .badge::before. La rotación negativa compensa
@@ -1554,22 +1610,33 @@ li::marker {
 }
 /* Aire bajo el botón de cada optin, para separarlo de lo que sigue. */
 .claude .optin button {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 /* Aire sobre el vídeo del hero (el margin base del .hero-video es 0 arriba). */
 .claude .hero-video {
     margin-top: 1.5rem;
 }
-/* Leadin del vídeo demo: el <p> base trae margin-bottom var(--gap-3xl) (5rem,
-   pensado para prosa larga del cuerpo) y sin text-align propio hereda el
-   izquierdo del hero. Aquí es una sola línea de paso al vídeo, así que se
-   centra y se anula el margin-bottom — el margin-top del .hero-video de
-   arriba ya pone el aire que separa ambos. Selector :has() para no depender
-   de una clase nueva en el HTML: apunta al <p> que precede al vídeo, sea cual
-   sea su texto. */
-.claude .hero--la-forja p:has(+ .hero-video) {
+/* Las dos líneas de paso que flanquean el vídeo demo (leadin arriba, pie que
+   presenta la prueba social debajo): el <p> base trae margin-bottom
+   var(--gap-3xl) (5rem, pensado para prosa larga del cuerpo) y sin text-align
+   propio hereda el izquierdo del hero. Aquí son una sola línea, así que se
+   centran y se anula el margin-bottom — el aire lo pone el margen propio del
+   elemento que sigue (.hero-video arriba, la captura debajo). Selectores por
+   posición respecto al vídeo para no depender de una clase nueva en el HTML,
+   sea cual sea su texto. */
+.claude .hero--la-forja p:has(+ .hero-video),
+.claude .hero--la-forja .hero-video + p {
     text-align: center;
     margin-bottom: 0;
+}
+/* La captura de opinión del hero es blanca sobre el banner blanco: la sombra
+   editorial (misma pareja que .skool-badge) la recorta como recorte pegado.
+   En /opinan-sobre-mi las capturas van sin sombra porque el papel del cuerpo
+   ya las contrasta. */
+.claude .hero--la-forja .captura-email {
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.12),
+        0 1px 2px rgba(0, 0, 0, 0.08);
 }
 /* En claude-perfil el bloque de La Forja abre el cuerpo, pegado al banner
    blanco de arriba. El fondo blanco base de .optin-bloque (pensado para
@@ -2949,6 +3016,12 @@ audio::-webkit-media-controls-panel {
     margin-top: -1px;
 }
 
+/* Variante azul del subtitle manuscrito: tinta de marca en vez del rojo de
+   énfasis (mismo par que .squiggle--azul). */
+.block .subtitle-hand--azul {
+    color: var(--azul);
+}
+
 /* Kalam con line-height "normal" (~1.67) reserva mucho leading bajo el glifo.
    Cuando el subtitle va ENCIMA del título ese hueco inferior cae entre ambos y
    abre el espacio; ajustamos su interlineado solo en ese orden (`:has(+ .title)`)
@@ -3714,12 +3787,11 @@ audio::-webkit-media-controls-panel {
 }
 
 /* Bloque optin de La Forja (OptinCompletoClaudeSkool): réplica del banner de
-   /claude — leadin, wordmark, promesa, oferta y form — como cierre de posts
-   y remate de /sobre-mi y /privacidad. Reusa las clases autónomas del hero
-   (.forja-wordmark, .bsl-deck, .bsl-leadin), cuyos márgenes propios vienen
-   calculados para el ritmo del hero; dentro del bloque van a cero y la
-   separación la pone el gap del flex de .optin-bloque. */
-.optin-bloque--forja :is(.bsl-leadin, .forja-wordmark, .bsl-deck) {
+   /claude — titular, oferta y form — como cierre de posts y remate de
+   /sobre-mi y /privacidad. Reusa las clases del hero, cuyos márgenes propios
+   vienen calculados para el ritmo del hero; dentro del bloque van a cero y
+   la separación la pone el gap del flex de .optin-bloque. */
+.optin-bloque--forja :is(.titulo-compacto, .bsl-deck) {
     margin: 0;
 }
 
@@ -3783,6 +3855,22 @@ audio::-webkit-media-controls-panel {
    para cubrir la x-height completa — en manuscrita el gesto es
    highlighter que tapa el trazo, no rotulador por debajo. */
 .hand .mark-amarillo {
+    background-image: linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 32%,
+        var(--amarillo) 32%,
+        var(--amarillo) 78%,
+        transparent 78%
+    );
+}
+
+/* Mismo ajuste manuscrito para el banner-mark: dentro de un inciso Kalam
+   (.aside-hand en titulares, .hand en prosa) los stops 58-92% del hero caen
+   bajo la baseline hundida de la manuscrita; la franja sube y se ensancha
+   igual que la del .hand .mark-amarillo de arriba. */
+.hand .banner-mark,
+.aside-hand .banner-mark {
     background-image: linear-gradient(
         180deg,
         transparent 0,

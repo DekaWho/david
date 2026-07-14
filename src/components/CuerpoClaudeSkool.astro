@@ -1,9 +1,9 @@
 ---
 /* Cuerpo compartido de la landing de La Forja — fuente única: lo montan
    /claude y /claude-perfil, así sus bullets no pueden desincronizarse. Editar
-   aquí cambia las dos landings a la vez. El contenido ("Qué incluye La Forja",
-   el "NO es para ti" y el FAQ) está replicado a mano FUERA del repo, en el
-   email de entrega del lead magnet en MailerLite; el aviso de dos patas
+   aquí cambia las dos landings a la vez. El contenido (los bullets de
+   contenido, el "NO es para ti" y el FAQ) está replicado a mano FUERA del
+   repo, en el email de entrega del lead magnet en MailerLite; el aviso de dos patas
    (recordar-cuerpo-claude.sh + sección F del post-commit) lo recuerda al
    cambiarlo, con botón a la automatización.
    `hastaFinal` (default true): la última sección cierra la página con el
@@ -15,7 +15,9 @@ import OptinClaudeSkool from "./OptinClaudeSkool.astro";
 const { hastaFinal = true } = Astro.props;
 ---
 
-        <p id="que-incluye">Qué incluye La Forja:</p>
+        <p id="que-incluye">
+            Esto es parte de lo que verás en el plan premium de la Forja:
+        </p>
 
         <h3 class="titulo-seccion">
             <span class="forja-estrellas" aria-hidden="true">
@@ -86,7 +88,7 @@ const { hastaFinal = true } = Astro.props;
             </li>
         </ul>
 
-        <OptinClaudeSkool />
+        <OptinClaudeSkool skoolBadge />
 
         <h3 class="titulo-seccion">
             <span class="forja-estrellas" aria-hidden="true">
@@ -184,7 +186,7 @@ const { hastaFinal = true } = Astro.props;
             </li>
         </ul>
 
-        <OptinClaudeSkool />
+        <OptinClaudeSkool skoolBadge />
 
         <section class:list={["seccion-blanca", hastaFinal && "seccion-blanca--hasta-final"]}>
             <span class="gladiador icono-solido" aria-hidden="true"></span>
@@ -240,7 +242,7 @@ const { hastaFinal = true } = Astro.props;
                 </li>
             </ul>
 
-            <OptinClaudeSkool />
+            <OptinClaudeSkool skoolBadge />
 
             <span class="buscando icono-solido" aria-hidden="true"></span>
 
@@ -291,7 +293,7 @@ const { hastaFinal = true } = Astro.props;
                 <dd>Sí, fallo mío. Pronto sube el precio del plan premium.</dd>
             </dl>
 
-            <OptinClaudeSkool />
+            <OptinClaudeSkool skoolBadge />
 
             {!hastaFinal && (
                 <div class="flecha flecha--up" aria-hidden="true"></div>

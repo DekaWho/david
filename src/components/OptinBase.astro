@@ -24,6 +24,12 @@ const {
     // del flujo de la página (el popup exit-intent manda 99), cuyo índice
     // variaría según cuántos forms tenga cada página y no identificaría nada.
     posicion,
+    // `skoolBadge`: quita el icono del sobre del botón de submit y pega la
+    // pegatina del logo de Skool (papel con cinta de celo, .skool-badge) al
+    // extremo derecho. Para los optins cuyo lead magnet vive en Skool — hoy
+    // los heros de /claude y /claude-perfil y los cajetines de su cuerpo
+    // compartido (CuerpoClaudeSkool).
+    skoolBadge = false,
     // `cerrado`: estado "plazas cerradas". El cajetín se ve pero queda inerte
     // (sin data-ml-form-id, input y botón disabled) bajo la cinta de obras y
     // un cartel. El handler de scripts.js solo engancha form[data-ml-form-id],
@@ -69,10 +75,22 @@ if (!formId && !cerrado) {
         )
     }
     <button type="submit" class="block block--primary" disabled={cerrado}>
-        <img class="icon" src={botonIcono} alt="" />
+        {!skoolBadge && <img class="icon" src={botonIcono} alt="" />}
         <span class="body">
             <span class="title">{botonTexto}</span>
         </span>
+        {
+            skoolBadge && (
+                <span class="skool-badge">
+                    <img
+                        src="/imgs/skool-logo.png"
+                        alt="Skool"
+                        width="185"
+                        height="60"
+                    />
+                </span>
+            )
+        }
     </button>
     {cerrado && <span class="optin-cerrado-cartel">Acceso cerrado</span>}
 </form>

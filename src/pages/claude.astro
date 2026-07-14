@@ -6,11 +6,11 @@ import CuerpoClaudeSkool from "../components/CuerpoClaudeSkool.astro";
 ---
 
 <BaseLayout
-    titulo="Rinde como si tuvieras 100 esclavos (sin necesidad de contratar y gracias a adaptar la IA a tu negocio en concreto)"
+    titulo="Desencadena a la IA para desbloquear todo tu potencial"
     canonical="/claude"
-    ogTitle="Rinde como si tuvieras 100 esclavos (sin necesidad de contratar y gracias a adaptar la IA a tu negocio en concreto)"
+    ogTitle="Desencadena a la IA para desbloquear todo tu potencial"
     ogUrl="https://davidvarea.com/claude"
-    favicon="fire"
+    favicon="broken-chain"
     bodyClass="claude"
     exitPopup={false}
 >
@@ -18,9 +18,9 @@ import CuerpoClaudeSkool from "../components/CuerpoClaudeSkool.astro";
         <section class="hero hero--la-forja" id="inicio">
             <PitchClaudeSkool Tag="h1" />
 
-            <OptinClaudeSkool />
+            <OptinClaudeSkool skoolBadge />
 
-            <p>Mira el vídeo para ver una de las skills</p>
+            <p>Mira el vídeo para ver una de las skills que te regalo</p>
 
             <video
                 class="hero-video"
@@ -36,6 +36,25 @@ import CuerpoClaudeSkool from "../components/CuerpoClaudeSkool.astro";
                 <source src="/videos/claude-hero.mp4" type="video/mp4" />
                 Tu navegador no puede reproducir este vídeo.
             </video>
+
+            <p>Esta es la opinión de alguien que ya la ha probado:</p>
+
+            <a
+                class="captura-link"
+                href="/imgs/testimonio-claude.webp"
+                target="_blank"
+                rel="noopener"
+            >
+                <img
+                    class="captura-email"
+                    src="/imgs/testimonio-claude.webp"
+                    alt="Opinión de un usuario que ya ha probado la skill"
+                    loading="lazy"
+                    decoding="async"
+                    width="912"
+                    height="175"
+                />
+            </a>
         </section>
     </div>
 

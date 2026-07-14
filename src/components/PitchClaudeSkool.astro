@@ -1,32 +1,43 @@
 ---
 /* Copy del hero de La Forja (lead magnet de Claude vía Skool) — fuente única:
-   lo montan el hero de /claude y OptinCompletoClaudeSkool. Editar aquí cambia
-   landing y bloques a la vez. `Tag` ajusta la semántica del wordmark a quien
-   monta: h1 en la landing (único de la página), p en los bloques optin (la
-   página que los monta ya tiene su propio h1). */
+   lo montan el hero de /claude, OptinCompletoClaudeSkool y el popup
+   exit-intent. Editar aquí cambia landing, bloques y popup a la vez. `Tag`
+   ajusta la semántica del titular a quien monta: h1 en la landing (único de
+   la página), p en los bloques optin (la página que los monta ya tiene su
+   propio h1). El titular lleva las dos clases de la escala compacta porque
+   .banner-h1--small solo aplica dentro de .banner (la landing) y
+   .titulo-compacto replica esa misma escala fuera (bloques y popup). */
 const { Tag = "p" } = Astro.props;
 ---
 
-<p class="bsl-leadin">
-    Para personas no muy técnicas que sienten que podrían sacarle más partido a
-    la <strong>IA</strong> para <strong>1)</strong> trabajar menos y ganar tiempo
-    libre o <strong>2)</strong> llegar más alto sin necesidad de contratar. <strong
-        >Te presento...</strong
-    >
-</p>
-
-<Tag class="forja-wordmark">
-    <img src="/imgs/forja-yunque.webp" alt="" width="512" height="444" />
-    LA FORJA
+<Tag class="banner-h1--small titulo-compacto pitch-titular">
+    Desbloquea todo tu potencial <span class="aside-hand"
+        >(gracias a <u class="banner-mark">desencadenar tu IA</u>)</span
+    > para rendir como si tuvieras <span class="ink-circle"
+        >100 esclavos<svg
+            class="ink-circle-svg"
+            viewBox="0 0 100 60"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+        >
+            <path
+                d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
+                stroke="currentColor"
+                stroke-width="1.5"
+                fill="none"
+                stroke-linecap="round"></path></svg
+        ></span
+    > trabajando para ti
 </Tag>
 
-<p class="bsl-deck bsl-deck--promesa">
-    El entreno para rendir como si tuvieras 100 esclavos (sin necesidad de
-    contratar y gracias a adaptar la IA a tu negocio en concreto)
-</p>
+<img
+    class="pitch-yunque"
+    src="/imgs/forja-yunque.webp"
+    alt=""
+    width="512"
+    height="444"
+/>
 
 <p class="bsl-deck bsl-deck--oferta">
-    La Forja es de pago pero te doy <u class="mark-amarillo"
-        >acceso a un módulo con skills de Claude</u
-    > para potenciarte si trabajas delante del ordenador
+    Accede a parte del contenido de La Forja gratis.
 </p>
