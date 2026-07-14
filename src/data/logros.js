@@ -12,7 +12,7 @@ export const LOGROS = [
     },
     {
         clase: "logro--email",
-        texto: "Tasa de apertura entorno al 35% (si miramos solo segmento de clientes tasa de apertura hasta el 60%) en campañas de email marketing (Klaviyo) para una lista de un ecommerce con más de 340.000 emails.",
+        texto: "En una lista con 340.000 emails (un ecommerce) tasa de apertura en torno al 35% (o alrededor del 60% si miramos solo el segmento de clientes).",
     },
     {
         texto: "Escribí una landing para tráfico frío sin poder usar prueba social u otro tipo de autoridad de marca. Un MVP para testear si un nuevo ecommerce tenía tracción en ese mercado. Tuvo un 33.9% de añadido al carrito.",

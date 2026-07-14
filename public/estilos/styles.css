@@ -530,6 +530,43 @@ li::marker {
     }
 }
 
+/* Rayo dorado bajo el h1 de /consultoria-monetizar: eco del icono de su card
+   en la home y de su favicon, para que el que llega desde allí reencuentre el
+   símbolo. Va como <img> directo, no como máscara tipo .doodle: el asset trae
+   su propia rampa dorada y aplanarlo a un color de la paleta la perdería.
+   Escala de ilustración (par de los .doodle del cuerpo), no de emoji inline;
+   tope ~150px. El SVG es cuadrado pero el glifo ocupa media anchura del
+   lienzo, así que el ancho del <img> dobla aprox. al rayo visible. */
+.hero-rayo {
+    display: block;
+    width: clamp(7rem, 12vw, 9.4rem);
+    /* El aire a ambos lados del rayo lo pone él solo, simétrico; el h1 de
+       este hero deja su margin-bottom a 0 (flex: los márgenes no colapsan
+       y sumarían por arriba). */
+    margin: var(--gap-sm) auto var(--gap-sm);
+}
+
+/* Entradilla-spoiler del hero de /consultoria-monetizar: un escalón sobre el
+   cuerpo para que pese como entradilla del titular y no como párrafo
+   corriente. Clamp por componente, como el resto de tamaños no tokenizados.
+   Cierra el acto del titular, así que respira el doble que el resto de <p>
+   del hero antes del "Hola soy David". El selector largo (y no .hero-spoiler
+   a secas) es a propósito: empata en especificidad con la regla general
+   `.reviews-blanco .hero > p:not(.hand)` de arriba y gana por orden — una
+   clase sola perdería el margin-bottom contra ella. Por lo mismo, la variante
+   móvil replica tamaño y margen: la regla `p` del @media móvil perdería
+   contra este selector y desharía el escalón. */
+.reviews-blanco .hero > p.hero-spoiler {
+    font-size: clamp(1.5rem, 1.5vw, 1.7rem);
+    margin-bottom: var(--gap-4xl);
+}
+@media (max-width: 800px) {
+    .reviews-blanco .hero > p.hero-spoiler {
+        font-size: 1.4rem;
+        margin-bottom: var(--gap-2xl);
+    }
+}
+
 /* Variante para titulares largos (frase completa, no claim corto): la
    escala base del banner h1 los infla y empuja el CTA fuera del fold.
    .titulo-compacto comparte el mismo tamaño/peso para que un h2 de
@@ -564,41 +601,73 @@ p.pitch-titular {
     font-size: clamp(1.7rem, 2.8vw, 2.3rem);
 }
 
-/* Imagen embebida en el banner como prueba (las caras de los referentes
-   en /consultoria-monetizar). Ancho acotado para no romper la columna del
-   hero ni desplazar el CTA fuera del fold en móvil. */
+/* Prueba visual embebida en el hero (las caras de los referentes en
+   /consultoria-monetizar): pieza con presencia propia y aire arriba/abajo.
+   El ancho se acota para no romper la columna de lectura del hero. */
 .banner-proof {
     display: block;
-    max-width: clamp(240px, 68%, 340px);
+    max-width: clamp(300px, 85%, 460px);
     height: auto;
-    margin: 0.5rem auto 0;
+    margin: var(--gap-lg) auto;
 }
 
-/* Scope por presencia de .banner-proof: ese hero apila un elemento más que
-   el resto (foto + h1 largo + prueba + pie Kalam + form) y comprime el
-   padding vertical del banner para mantener el CTA en el fold. Los demás
-   banners conservan el padding global. */
-.banner:has(.banner-proof) {
-    padding-top: 2px;
-    padding-bottom: 2px;
+/* Banner-presentación — scope estructural por la imagen de prueba,
+   exclusiva de este hero (/consultoria-monetizar): promesa → saludo
+   manuscrito → retrato → titular de inversión → prueba → pie → form.
+   Renuncia deliberada al "hero en el fold": la unidad entera no cabe, el
+   fold lo abre la promesa y la cadena invita a scrollear hasta el form.
+   El retrato es pieza de presentación bajo "Hola, soy David Varea" (doble
+   del hero global), no avatar de cabecera. Como .hero es flex, los
+   márgenes verticales no colapsan: el aire foto→titular lo pone solo la
+   foto y el margin-top de sección del .titulo-compacto se anula. */
+.banner:has(.banner-proof) .hero-photo-wrap {
+    margin-bottom: var(--gap-lg);
+    position: relative;
+}
+.banner:has(.banner-proof) .hero-photo {
+    width: clamp(176px, 25vh, 270px);
+    height: clamp(176px, 25vh, 270px);
+}
+/* Aro rojo del retrato, trazado "a boli": va en un pseudo-elemento y no como
+   border de la foto porque el gesto es justo que NO encaje — radios desiguales
+   (elipse orgánica, no círculo de compás), un pelín descentrado y rotado, así
+   que pisa la foto por un lado y deja aire por el otro. El tamaño replica el
+   clamp de la foto de arriba: si ese clamp cambia, cambiar este a la vez. El
+   wrap es flex centrado, de ahí el left 50% + translateX para anclar el aro
+   al retrato antes de desviarlo. */
+.banner:has(.banner-proof) .hero-photo-wrap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: clamp(176px, 25vh, 270px);
+    height: clamp(176px, 25vh, 270px);
+    box-sizing: border-box;
+    border: 4px solid var(--rojo);
+    border-radius: 51% 49% 53% 47% / 48% 53% 47% 52%;
+    transform: translateX(-50%) translate(6px, 5px) rotate(-6deg);
+    pointer-events: none;
+}
+.banner:has(.banner-proof) .hero-photo-wrap + .titulo-compacto {
+    margin-top: 0;
 }
 
-.banner:has(.banner-proof) .optin {
+/* La promesa cede todo el aire inferior al rayo que la sigue (que lo
+   reparte simétrico a sus dos lados); el margin-bottom del .banner h1
+   global se sumaría por arriba al no colapsar márgenes el .hero flex. */
+.banner:has(.banner-proof) h1 {
     margin-bottom: 0;
 }
-
-/* Foto del autor reducida en ese hero: al tamaño global empuja el form
-   fuera del fold en viewports ajustados. */
-.banner:has(.banner-proof) .hero-photo {
-    width: clamp(80px, 12vh, 100px);
-    height: clamp(80px, 12vh, 100px);
-}
-
-@media (min-width: 700px) {
-    .banner:has(.banner-proof) .hero-photo {
-        width: clamp(92px, 12vh, 130px);
-        height: clamp(92px, 12vh, 130px);
-    }
+/* Saludo manuscrito del banner-presentación ("Hola / soy David Varea"):
+   conserva el registro del h2 de sección del cuerpo — Kalam grande, trazo
+   400 — frente al tratamiento serif de nombre de cabecera que .banner h2
+   impone al resto de heros (y que ganaría a .hand por especificidad). */
+.banner h2.hand {
+    font-family: var(--hand);
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 400;
+    letter-spacing: 0;
+    margin-bottom: var(--gap-xl);
 }
 
 /* Pie manuscrito bajo la imagen de prueba: tipografía pequeña, Kalam,
@@ -613,6 +682,14 @@ p.pitch-titular {
     /* Anula el hyphens:auto global (html): un guion de corte parte palabras
        y rompe el registro manuscrito del Kalam. */
     hyphens: none;
+}
+
+/* Titular compacto seguido de la imagen de prueba: la presenta, así que va
+   pegado a ella — el aire titular→prueba lo pone el margin-top de la propia
+   prueba y el margin-bottom global del h2 (--gap-xl) sobreseparaba el par.
+   Mismo escalón que .banner h1. */
+.titulo-compacto:has(+ .banner-proof) {
+    margin-bottom: clamp(0.1em, 1.5vh, 0.45em);
 }
 
 /* Capturas de email (prueba social) en el cuerpo de /opinan-sobre-mi: recortes reales
@@ -1220,17 +1297,12 @@ p.pitch-titular .aside-hand {
 /* Retrato del autor bajo "Hola, soy David Varea": reusa .hero-photo (círculo
    sin borde) pero alineado a la izquierda como el nombre manuscrito que lo
    precede, al doble del tamaño del hero global y con aire propio arriba/abajo
-   para que lea como pieza del cuerpo, no como avatar de cabecera. El segundo
-   selector lleva el mismo gesto a la presentación del autor en el cuerpo de
-   las landings de consultoría (body.reviews-blanco); su avatar de banner no
-   se ve afectado porque vive fuera de .cuerpo. */
-.cuerpo--la-forja .hero-photo-wrap,
-.reviews-blanco .cuerpo .hero-photo-wrap {
+   para que lea como pieza del cuerpo, no como avatar de cabecera. */
+.cuerpo--la-forja .hero-photo-wrap {
     justify-content: flex-start;
     margin: var(--gap-2xl) 0;
 }
-.cuerpo--la-forja .hero-photo,
-.reviews-blanco .cuerpo .hero-photo {
+.cuerpo--la-forja .hero-photo {
     width: clamp(192px, 28vh, 300px);
     height: clamp(192px, 28vh, 300px);
 }
@@ -3349,9 +3421,12 @@ audio::-webkit-media-controls-panel {
 
 /* El SVG del .squiggle global lleva vector-effect: non-scaling-stroke,
    así el grosor en px se mantiene aunque el span estire horizontalmente;
-   en h1 (font grande) el padding-bottom se comprime para acercar la raya
-   al baseline. */
-.banner h1 .squiggle {
+   en titulares el padding-bottom se comprime para acercar la raya al
+   baseline. .titulo-compacto comparte el gesto: es la escala del h1
+   compacto llevada a otros contextos (h2 de sección, réplicas del hero)
+   y debe machearlo también aquí. */
+.banner h1 .squiggle,
+.titulo-compacto .squiggle {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='2.3' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
     padding-bottom: 0.05em;
 }
@@ -3886,8 +3961,11 @@ audio::-webkit-media-controls-panel {
    lazy + async porque suelen ir bajo el fold del post. Selector `> img`
    para que solo afecte a imágenes de contenido (hijas directas del
    <article>), no a iconos dentro de botones (.block .icon) ni a imágenes
-   anidadas en secciones como .optin-bloque que tienen estilo propio. */
-.cuerpo > img {
+   anidadas en secciones como .optin-bloque que tienen estilo propio.
+   .banner-proof queda fuera aunque sea hija directa: la prueba del hero
+   replicado en el cuerpo trae ancho acotado y ritmo propios del banner,
+   y el max-width/margin de esta regla los pisaría por especificidad. */
+.cuerpo > img:not(.banner-proof) {
     display: block;
     max-width: 100%;
     height: auto;
