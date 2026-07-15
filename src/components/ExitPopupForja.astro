@@ -19,8 +19,14 @@ import PitchClaudeSkool from "./PitchClaudeSkool.astro";
 
    La X vive fuera de .exit-popup-scroll (el área que scrollea si el
    viewport es bajo) para quedar siempre visible en la esquina de la carta. */
+
+/* Interruptor del popup en todo el sitio. Con false el componente renderiza
+   vacío: los layouts lo siguen montando sin efecto y el bloque de scripts.js
+   sale limpio al no encontrar #exit-popup. Reactivarlo = ponerlo a true. */
+const POPUP_ACTIVO = false;
 ---
 
+{POPUP_ACTIVO && (
 <div class="exit-popup" id="exit-popup" hidden>
     <div
         class="exit-popup-card"
@@ -39,3 +45,4 @@ import PitchClaudeSkool from "./PitchClaudeSkool.astro";
         </div>
     </div>
 </div>
+)}
