@@ -256,8 +256,7 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
 
 /* Banner de cookies — aviso informativo único, dismissed via localStorage.
    Solo aparece en páginas que cargan scripts.js (landings comerciales +
-   posts del blog); transaccionales nunca lo ven. Aceptar y X hacen lo
-   mismo: persisten el dismiss y retiran el elemento. */
+   posts del blog); transaccionales nunca lo ven.*/
 (() => {
     if (localStorage.getItem('cookie-banner-dismissed') === '1') return;
     const banner = document.createElement('aside');
@@ -265,9 +264,11 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
     banner.setAttribute('role', 'region');
     banner.setAttribute('aria-label', 'Aviso de cookies');
     banner.innerHTML = `
-        <button type="button" class="cookie-banner__close" aria-label="Cerrar aviso">&times;</button>
         <p class="cookie-banner__text">Texto muermazo para avisarte de que la web usa <strong>cookies</strong> para funcionar. <a class="cookie-banner__link" href="/privacidad" target="_blank" rel="noopener">Más info.</a></p>
-        <button type="button" class="cookie-banner__accept">Aceptar</button>
+        <div class="cookie-banner__botones">
+            <button type="button" class="cookie-banner__accept">Aceptar todas</button>
+            <button type="button" class="cookie-banner__accept cookie-banner__accept--blanco">Solo las necesarias</button>
+        </div>
     `;
     // Reserva bajo el body la altura real del banner: sin esto, al llegar
     // al final de páginas donde el último elemento es el footer (nav o
@@ -282,8 +283,7 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
         document.body.style.paddingBottom = '';
         banner.remove();
     };
-    banner.querySelector('.cookie-banner__accept').addEventListener('click', dismiss);
-    banner.querySelector('.cookie-banner__close').addEventListener('click', dismiss);
+    banner.querySelectorAll('.cookie-banner__accept').forEach((boton) => boton.addEventListener('click', dismiss));
     document.body.appendChild(banner);
     ajustarHueco();
     window.addEventListener('resize', ajustarHueco);

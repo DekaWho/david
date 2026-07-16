@@ -4542,10 +4542,7 @@ body.blog-hub .banner-subline {
 
 /* Inyectado por JS solo en páginas que cargan scripts.js (landings
    comerciales + posts del blog); las transaccionales nunca lo ven.
-   Cualquiera de los dos botones (Aceptar / ×) lo cierra y guarda el
-   dismiss en localStorage, así no reaparece en visitas futuras.
-   Fondo --blanco (más claro que el --papel del body) + borde superior
-   tinta: el contraste de fondos hace de separador, sin sombra. */
+   */
 .cookie-banner {
     position: fixed;
     left: 0;
@@ -4556,10 +4553,7 @@ body.blog-hub .banner-subline {
     flex-direction: column;
     align-items: center;
     gap: var(--gap-sm);
-    /* padding-top: 0 → la X (absolute, top:1px) dicta el espacio superior
-       del banner; el texto se separa con su propio margin-top. Sin esto,
-       el padding del banner sumaba aire vacío encima de la X. */
-    padding: 0 clamp(1rem, 3vw, 3rem) var(--gap-md);
+    padding: var(--gap-md) clamp(1rem, 3vw, 3rem);
     background-color: var(--blanco);
     /* Gris derivado del --negro al 40% sobre transparente: el sistema no
        tiene token de gris, así que se compone con color-mix para mantener
@@ -4573,10 +4567,7 @@ body.blog-hub .banner-subline {
     animation: cookie-banner-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .cookie-banner__text {
-    /* margin-top acomoda la altura visible de la X (símbolo pegado arriba
-       del botón gracias a flex-start + line-height 0.9, no los 3rem
-       completos del área de click). */
-    margin: 2rem 0 0;
+    margin: 0;
     color: var(--negro);
     text-align: center;
 }
@@ -4588,6 +4579,15 @@ body.blog-hub .banner-subline {
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
+}
+/* Los dos botones caben en fila en casi cualquier viewport; el wrap
+   centrado es la red de seguridad para móviles muy estrechos, donde
+   apilan sin desbordar el banner. */
+.cookie-banner__botones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--gap-sm);
 }
 .cookie-banner__accept {
     flex-shrink: 0;
@@ -4603,36 +4603,11 @@ body.blog-hub .banner-subline {
 .cookie-banner__accept:hover {
     font-style: italic;
 }
-/* X grande: área de click 3rem para uso cómodo en táctil; el símbolo
-   queda a 2rem para que la silueta se lea desde lejos. Posicionada
-   absoluta arriba a la derecha del banner (el padre es position:fixed,
-   que ya hace de contexto de positioning). */
-.cookie-banner__close {
-    position: absolute;
-    top: 1px;
-    right: 0.25rem;
-    width: 3rem;
-    height: 3rem;
-    font-size: 2rem;
-    /* Símbolo pegado arriba del botón (flex-start) en lugar de centrado:
-       así el × visible queda al ras del borde superior del banner sin
-       perder los 3rem de área de click. line-height: 0.9 elimina el aire
-       tipográfico extra del glyph. */
-    line-height: 0.9;
-    /* Mismo gris que el borde dashed para que X y borde se lean como
-       una sola firma visual del banner. */
-    color: color-mix(in srgb, var(--negro) 40%, transparent);
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    transition: color 0.2s;
-}
-.cookie-banner__close:hover {
-    color: var(--rojo);
+/* Variante fantasma: mismo trazo azul, fondo blanco. Ambos botones hacen
+   lo mismo; la jerarquía de color solo señala el gesto por defecto. */
+.cookie-banner__accept--blanco {
+    color: var(--azul);
+    background-color: var(--blanco);
 }
 @keyframes cookie-banner-in {
     from { transform: translateY(100%); }
@@ -4646,6 +4621,12 @@ body.blog-hub .banner-subline {
         padding-left: var(--gap-sm);
         padding-right: var(--gap-sm);
         padding-bottom: var(--gap-sm);
+    }
+
+    /* Padding horizontal contenido: con el 2.5em de escritorio los dos
+       botones no caben en fila en un móvil de 360px y saltarían al wrap. */
+    .cookie-banner__accept {
+        padding: 0.75em 1.25em;
     }
 
     /* Solo móvil: las dos badges del hero (/servicios) se separan a los
@@ -4697,9 +4678,9 @@ body.blog-hub .banner-subline {
     margin: 0 0 1rem;
 }
 /* Enlaces del cuerpo en rojo: la página es un nodo de salida (los dos
-   links de la lista mandan a /consultoria-ia y /claude, el email es el CTA
-   final). El rojo señalético del sistema los marca como acción, no
-   como navegación azul corriente. Scopeado a .contacto-mensajes para
+   links de la lista mandan a /consultoria-monetizar y /claude, el email
+   es el CTA final). El rojo señalético del sistema los marca como acción,
+   no como navegación azul corriente. Scopeado a .contacto-mensajes para
    no tocar menú ni footer. */
 .contacto-mensajes a {
     color: var(--rojo);
@@ -4934,4 +4915,3 @@ body.blog-hub .banner-subline {
         animation: none;
     }
 }
-
