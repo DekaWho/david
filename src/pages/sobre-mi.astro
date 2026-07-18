@@ -2,7 +2,6 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Menu from "../components/Menu.astro";
 import Footer from "../components/Footer.astro";
-import OptinCompleto from "../components/OptinCompletoClaudeSkool.astro";
 import Logros from "../components/Logros.astro";
 
 /* ProfilePage cuya mainEntity es el Person global declarado en Head.astro
@@ -26,7 +25,7 @@ const profileSchema = {
 >
     <Menu
         enlaces={[
-            { href: "/", label: "Portada", iconoCasa: true },
+            { href: "/", label: "Ir a la home", iconoCasa: true },
             { href: "/contacto", label: "Contacto" },
         ]}
     />
@@ -119,8 +118,6 @@ const profileSchema = {
 
         <Logros />
     </div>
-
-    <OptinCompleto />
 
     <Footer />
 

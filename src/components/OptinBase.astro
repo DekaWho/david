@@ -1,9 +1,9 @@
 ---
 /* HTML/CSS y comportamiento base del optin del sitio. NO incrustar
    directamente en una página: cada lead magnet vive en su propio wrapper
-   (OptinRobame, OptinClaudeYTSkill, …) que fija el form-id de MailerLite para
-   que la automatización de bienvenida correcta dispare por destino del
-   submit, no por filtrado de UTMs posterior.
+   (OptinConsultoriaMonetizar, …) que fija el form-id de MailerLite para que
+   la automatización de bienvenida correcta dispare por destino del submit,
+   no por filtrado de UTMs posterior.
 
    El handler de submit y la captura de atribución (utm_source/medium/
    content + referrer + ultimo_optin) viven en public/scripts/scripts.js
@@ -21,27 +21,21 @@ const {
     mostrarPrivacyNote = true,
     // `posicion`: fija el campo posicion_optin de MailerLite en lugar del
     // ordinal DOM que calcula el handler de scripts.js. Para optins fuera
-    // del flujo de la página (el popup exit-intent manda 99), cuyo índice
-    // variaría según cuántos forms tenga cada página y no identificaría nada.
+    // del flujo de la página, cuyo índice variaría según cuántos forms tenga
+    // cada página y no identificaría nada.
     posicion,
-    // `skoolBadge`: quita el icono del sobre del botón de submit y pega la
-    // pegatina del logo de Skool (papel con cinta de celo, .skool-badge) al
-    // extremo derecho. Para los optins cuyo lead magnet vive en Skool — hoy
-    // los heros de /claude y /claude-perfil y los cajetines de su cuerpo
-    // compartido (CuerpoClaudeSkool).
-    skoolBadge = false,
     // `cerrado`: estado "plazas cerradas". El cajetín se ve pero queda inerte
     // (sin data-ml-form-id, input y botón disabled) bajo la cinta de obras y
     // un cartel. El handler de scripts.js solo engancha form[data-ml-form-id],
     // así que al omitirlo el optin deja de postear a MailerLite. Un optin
     // cerrado puede vivir sin formId: es el placeholder de un lead magnet
-    // retirado cuyo form ya no existe en MailerLite (ver OptinRobame).
+    // retirado cuyo form ya no existe en MailerLite.
     cerrado = false,
 } = Astro.props;
 
 if (!formId && !cerrado) {
     throw new Error(
-        "OptinBase.astro: prop `formId` requerida en un optin activo. No incrustar este componente directamente — usar un wrapper por lead magnet (<OptinClaudeYTSkill />, <OptinClaudeSkool />, …) o crear uno nuevo."
+        "OptinBase.astro: prop `formId` requerida en un optin activo. No incrustar este componente directamente — usar un wrapper por lead magnet (<OptinConsultoriaMonetizar />, …) o crear uno nuevo."
     );
 }
 ---
@@ -75,22 +69,10 @@ if (!formId && !cerrado) {
         )
     }
     <button type="submit" class="block block--primary" disabled={cerrado}>
-        {!skoolBadge && <img class="icon" src={botonIcono} alt="" />}
+        <img class="icon" src={botonIcono} alt="" />
         <span class="body">
             <span class="title">{botonTexto}</span>
         </span>
-        {
-            skoolBadge && (
-                <span class="skool-badge">
-                    <img
-                        src="/imgs/skool-logo.png"
-                        alt="Skool"
-                        width="185"
-                        height="60"
-                    />
-                </span>
-            )
-        }
     </button>
     {cerrado && <span class="optin-cerrado-cartel">Acceso cerrado</span>}
 </form>

@@ -204,7 +204,7 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
 
         /* ultimo_optin: campo custom en MailerLite. Se deriva del pathname
            para que el mismo form-id en cualquier página etiquete su origen
-           sin marcar cada HTML. /claude → claude, / → home (los slashes
+           sin marcar cada HTML. /monetizar → monetizar, / → home (los slashes
            internos pasan a guiones). Sobreescribe en cada suscripción; el
            "primer optin" se copia desde MailerLite a otro campo vía automation. */
         const origen = location.pathname
