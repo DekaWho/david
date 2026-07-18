@@ -2904,6 +2904,17 @@ audio::-webkit-media-controls-panel {
     text-align: center;
 }
 
+/* Jerarquía de peso dentro del h1 de la home: la promesa principal engorda a
+   800 mientras el inciso entre paréntesis (.hl-nota) baja a 600, más ligero por
+   contraste. Scopeado a .home para no engordar el h1 de /contacto, que comparte
+   .hero-headline. EB Garamond es variable, así que ambos pesos son reales. */
+.home .hero-headline {
+    font-weight: 800;
+}
+.hl-nota {
+    font-weight: 600;
+}
+
 .hl-squiggle {
     position: relative;
     /* inline-block, no inline: el .squiggle-svg absolute resuelve su width:100%
@@ -4705,6 +4716,14 @@ body.blog-hub .banner-subline {
 }
 .contacto-mensajes .hand {
     color: var(--azul);
+}
+/* El postit cuelga absolute del fondo de la hero-card (top:100%), así que el
+   hueco para que no pise el contenido siguiente lo reserva el margin-bottom de
+   .hero-card. En /contacto la altura del postit (icono + padding fijo) supera
+   ese hueco base en viewports cortos y tapaba el primer punto de
+   .contacto-mensajes; un margin-bottom mayor le reserva sitio suficiente. */
+.contacto-page .hero-card {
+    margin-bottom: clamp(120px, 16vh, 150px);
 }
 .contacto-page .hero-card .hero-photo {
     margin-top: 1rem;
