@@ -1,4 +1,4 @@
 // Bio canónica del autor: description del Person en el JSON-LD (Head.astro,
 // todas las páginas). En redes (LinkedIn, YouTube, Instagram) la bio es otra
 // y se actualiza a mano.
-export const BIO_PERSON = "Soy domador de IAs a diario (Claude más concretamente) para rendir como si tuviera 100 esclavos trabajando para mí (sin contratar a nadie). También enseño a quien trabaja delante del ordenador (pero no es alguien muy técnico) a hacer lo mismo adaptando la IA a su negocio en concreto.";
+export const BIO_PERSON = "Soy monetizador de audiencias y estratega de contenido. Ayudo a negocios y creadores a convertir YouTube en su mayor imán de leads cualificados (sin ser virales ni hacer vídeos espectáculo), y soy experto en funnels para monetizar esos leads. Trabajo con ecommerce, infoproductores, coaches y SaaS.";
