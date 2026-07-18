@@ -4,15 +4,12 @@ import PitchClaudeSkool from "./PitchClaudeSkool.astro";
 
 /* Bloque opt-in del lead magnet de La Forja (Claude vía Skool): réplica del
    banner de /claude — titular, oferta y form — sin el vídeo que en la landing
-   sigue al form. Cierra todos los posts del blog (lo monta PostLayout),
-   remata /sobre-mi y /privacidad, y puede insertarse mid-article en
-   cualquier .mdx.
+   sigue al form. Remata /sobre-mi y /privacidad.
 
    El copy vive en PitchClaudeSkool, compartido con el hero de /claude: editar
    la pieza cambia landing y bloques a la vez.
 
-   `id` opcional: PostLayout pasa "post-end" cuando cierra el post; una
-   inserción mid-article va sin id para no duplicar anchors. */
+   `id` opcional: ancla para enlazar el bloque desde la propia página. */
 const { id } = Astro.props;
 ---
 

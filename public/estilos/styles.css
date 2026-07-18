@@ -530,7 +530,7 @@ li::marker {
     }
 }
 
-/* Rayo dorado bajo el h1 de /consultoria-monetizar: eco del icono de su card
+/* Rayo dorado bajo el h1 de /monetizar: eco del icono de su card
    en la home y de su favicon, para que el que llega desde allí reencuentre el
    símbolo. Va como <img> directo, no como máscara tipo .doodle: el asset trae
    su propia rampa dorada y aplanarlo a un color de la paleta la perdería.
@@ -546,7 +546,7 @@ li::marker {
     margin: var(--gap-sm) auto var(--gap-sm);
 }
 
-/* Entradilla-spoiler del hero de /consultoria-monetizar: un escalón sobre el
+/* Entradilla-spoiler del hero de /monetizar: un escalón sobre el
    cuerpo para que pese como entradilla del titular y no como párrafo
    corriente. Clamp por componente, como el resto de tamaños no tokenizados.
    Cierra el acto del titular, así que respira el doble que el resto de <p>
@@ -602,7 +602,7 @@ p.pitch-titular {
 }
 
 /* Prueba visual embebida en el hero (las caras de los referentes en
-   /consultoria-monetizar): pieza con presencia propia y aire arriba/abajo.
+   /monetizar): pieza con presencia propia y aire arriba/abajo.
    El ancho se acota para no romper la columna de lectura del hero. */
 .banner-proof {
     display: block;
@@ -612,7 +612,7 @@ p.pitch-titular {
 }
 
 /* Banner-presentación — scope estructural por la imagen de prueba,
-   exclusiva de este hero (/consultoria-monetizar): promesa → saludo
+   exclusiva de este hero (/monetizar): promesa → saludo
    manuscrito → retrato → titular de inversión → prueba → pie → form.
    Renuncia deliberada al "hero en el fold": la unidad entera no cabe, el
    fold lo abre la promesa y la cadena invita a scrollear hasta el form.
@@ -2873,7 +2873,7 @@ audio::-webkit-media-controls-panel {
    en 620px y el papel respira fuera de ella). */
 .hero-card {
     position: relative;
-    margin: 0 14px clamp(100px, 16vh, 140px);
+    margin: 0 14px clamp(90px, 14vh, 126px);
     background: var(--blanco);
     padding: 0 12px 2rem;
 }
@@ -2886,7 +2886,7 @@ audio::-webkit-media-controls-panel {
 .hero-photo {
     width: clamp(96px, 14vh, 120px);
     height: clamp(96px, 14vh, 120px);
-    margin-top: 0;
+    margin-top: 3px;
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
@@ -2906,6 +2906,11 @@ audio::-webkit-media-controls-panel {
 
 .hl-squiggle {
     position: relative;
+    /* inline-block, no inline: el .squiggle-svg absolute resuelve su width:100%
+       contra la caja del contenedor. Un inline relativo como contenedor lo
+       calculan mal los motores móviles (Safari iOS) y el trazo desaparecía
+       solo en móvil; inline-block le da una caja de ancho definido. */
+    display: inline-block;
     white-space: nowrap;
 }
 
@@ -2995,13 +3000,13 @@ audio::-webkit-media-controls-panel {
 }
 
 .section-heading {
-    margin: 2px 22px 0;
+    margin: 10px 22px 0;
     display: flex;
     align-items: center;
     gap: 6px;
     font-family: var(--serif);
     font-weight: 700;
-    font-size: 14px;
+    font-size: 16px;
     color: var(--negro);
 }
 
@@ -3170,8 +3175,8 @@ audio::-webkit-media-controls-panel {
 /* WIP — bloque "en construcción": parece un botón normal cubierto por
    una cinta diagonal amarillo+negro tipo valla de obras. La cinta es
    puramente decorativa (pointer-events:none) y atraviesa el centro
-   tapando parcialmente los textos — la metáfora pide eso: hay algo
-   debajo pero no puedes acceder todavía. */
+   translúcida sobre los textos, que se siguen leyendo — la metáfora pide
+   eso: se ve qué habrá aquí pero no puedes acceder todavía. */
 .block--wip {
     position: relative;
     overflow: hidden;
@@ -3201,6 +3206,7 @@ audio::-webkit-media-controls-panel {
     );
     pointer-events: none;
     z-index: 2;
+    opacity: 0.6;
 }
 
 .block--primary .title {
@@ -3355,7 +3361,7 @@ audio::-webkit-media-controls-panel {
     }
 
     .hero-card {
-        margin: 0 0 clamp(105px, 15vh, 160px);
+        margin: 0 0 clamp(94px, 13vh, 144px);
         padding: 0 22px 2rem;
     }
 
@@ -3384,7 +3390,6 @@ audio::-webkit-media-controls-panel {
 
     .section-heading {
         margin: clamp(12px, 2vh, 22px) 102px 0;
-        font-size: 16px;
     }
 
     .blocks {
@@ -4678,7 +4683,7 @@ body.blog-hub .banner-subline {
     margin: 0 0 1rem;
 }
 /* Enlaces del cuerpo en rojo: la página es un nodo de salida (los dos
-   links de la lista mandan a /consultoria-monetizar y /claude, el email
+   links de la lista mandan a /monetizar y /claude, el email
    es el CTA final). El rojo señalético del sistema los marca como acción,
    no como navegación azul corriente. Scopeado a .contacto-mensajes para
    no tocar menú ni footer. */
