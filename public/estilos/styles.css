@@ -770,6 +770,27 @@ p.pitch-titular {
     mask: url("/imgs/svg/searching-svgrepo-com.svg") center / contain no-repeat;
 }
 
+/* Regalo del mismo set, en rojo, bajo el titular de la oferta ("Qué recibes
+   exactamente") — hereda el acento del titular. Misma técnica de máscara.
+   Pegado al titular que lo presenta y con aire extra antes de la lista de
+   la oferta: el titular recorta su margin-bottom global (mismo recurso que
+   .cuerpo p:has(+ .gladiador)) y el hueco grande lo pone el propio icono. */
+h2:has(+ .regalo) {
+    margin-bottom: var(--gap-lg);
+}
+
+.regalo {
+    display: block;
+    width: 8rem;
+    aspect-ratio: 1;
+    margin: 0 auto var(--gap-2xl);
+    background-color: var(--rojo);
+    color: var(--rojo);
+    -webkit-mask: url("/imgs/svg/gift-svgrepo-com.svg") center / contain
+        no-repeat;
+    mask: url("/imgs/svg/gift-svgrepo-com.svg") center / contain no-repeat;
+}
+
 /* El párrafo que precede al gladiador recorta su margin-bottom para acercar
    el icono al texto: el aire estándar entre <p> es excesivo cuando el
    siguiente bloque es la figura, no otro párrafo. */

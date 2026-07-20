@@ -1,0 +1,47 @@
+---
+/* Embed de un formulario de Tally integrado en el sistema visual del
+   sitio (sin título, fondo transparente, altura dinámica), envuelto en
+   un .callout. El loader oficial (embed.js) se inyecta una sola vez
+   aunque la página monte varios embeds: el script comprueba si ya está
+   cargado y Tally.loadEmbeds() procesa todos los iframes a la vez. El
+   height es solo el alto inicial hasta que dynamicHeight ajusta al
+   contenido real; si el JS falla, el fallback carga el iframe a pelo y
+   ese height fijo es lo que se ve. */
+const { formId, height = "500", title = "Formulario" } = Astro.props;
+if (!formId) throw new Error("TallyForm requiere la prop formId");
+---
+
+<div class="callout">
+    <iframe
+        data-tally-src={`https://tally.so/embed/${formId}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`}
+        loading="lazy"
+        width="100%"
+        height={height}
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        title={title}></iframe>
+    <script is:inline>
+        var d = document,
+            w = "https://tally.so/widgets/embed.js",
+            v = function () {
+                "undefined" != typeof Tally
+                    ? Tally.loadEmbeds()
+                    : d
+                          .querySelectorAll(
+                              "iframe[data-tally-src]:not([src])",
+                          )
+                          .forEach(function (e) {
+                              e.src = e.dataset.tallySrc;
+                          });
+            };
+        if ("undefined" != typeof Tally) v();
+        else if (d.querySelector('script[src="' + w + '"]') == null) {
+            var s = d.createElement("script");
+            ((s.src = w),
+                (s.onload = v),
+                (s.onerror = v),
+                d.body.appendChild(s));
+        }
+    </script>
+</div>
