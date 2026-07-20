@@ -1010,6 +1010,76 @@ p.pitch-titular .aside-hand {
     box-sizing: border-box;
 }
 
+/* Señal de cuidado que corona el hero del thank-you de doble opt-in: escala
+   de ilustración (pariente menor de .hero-rayo), no de emoji inline — es el
+   golpe visual que sustituye al "Cuidado:" del titular. */
+.hero-aviso {
+    display: block;
+    width: clamp(4.5rem, 8vw, 6rem);
+    align-self: center;
+    margin: 0 auto 0.6rem;
+}
+
+/* Barra de progreso del hero (thank-you de doble opt-in): visualiza cuánto
+   del alta lleva completado el lector — lo casi-terminado empuja a rematar
+   el paso que falta. Sin borde: el track papel se despega del banner blanco
+   con la sombra suave de las cards del sitio. La escala 0%/100% va en Kalam,
+   como anotación manuscrita de cuaderno. El porcentaje lo fija cada página
+   con --progreso inline en el relleno; la barra no presume ningún valor. */
+.barra-progreso {
+    width: min(100%, 420px);
+    margin: 0 auto var(--gap-sm);
+    align-self: center;
+}
+.barra-progreso-track {
+    height: clamp(0.9rem, 1.8vh, 1.2rem);
+    background: var(--papel);
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.22);
+}
+.barra-progreso-escala {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+    font-family: var(--hand);
+    font-size: 0.95rem;
+    line-height: 1;
+    color: var(--rojo);
+}
+.barra-progreso-relleno {
+    display: block;
+    height: 100%;
+    width: var(--progreso, 0%);
+    background: var(--rojo);
+    animation: barra-progreso-carga 2.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s
+        both;
+}
+/* Dos pasadas de llenado en una sola línea temporal de 2.8s (0.9s carga +
+   1s de pausa + reinicio a 0 y 0.9s de recarga): la repetición rescata al
+   lector que aterrizó con la vista en otro sitio durante la primera. Los
+   cortes son 0.9/2.8 y 1.9/2.8. */
+@keyframes barra-progreso-carga {
+    0% {
+        width: 0;
+    }
+    32.1% {
+        width: var(--progreso, 0%);
+    }
+    67.9% {
+        width: var(--progreso, 0%);
+    }
+    68% {
+        width: 0;
+    }
+    100% {
+        width: var(--progreso, 0%);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .barra-progreso-relleno {
+        animation: none;
+    }
+}
+
 /* Wordmark "LA FORJA" coronado por el yunque — el bloque de marca
    que abre el hero y se repite a mitad de página, sobre la oferta. Clase
    compartida (en vez de `.hero--la-forja h1`) para que los dos sitios queden
