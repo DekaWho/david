@@ -12,7 +12,7 @@ import TallyForm from "../components/TallyForm.astro";
     canonical="/monetizar"
     ogUrl="https://davidvarea.com/monetizar"
     favicon="lightning"
-    bodyClass="reviews-blanco"
+    bodyClass="reviews-blanco title-alerta"
 >
     <Menu
         enlaces={[
@@ -22,7 +22,7 @@ import TallyForm from "../components/TallyForm.astro";
         ]}
     />
 
-    <div class="banner">
+    <div class="banner banner--presentacion">
         <section class="hero">
             <h1>
                 La jugada más instantánea que puedes hacer para <u
@@ -57,7 +57,7 @@ import TallyForm from "../components/TallyForm.astro";
                 soy David Varea
             </h2>
 
-            <div class="hero-photo-wrap">
+            <div class="hero-photo-wrap hero-photo-wrap--retrato">
                 <img
                     class="hero-photo"
                     src="/imgs/profile-pic.webp"
@@ -249,44 +249,3 @@ import TallyForm from "../components/TallyForm.astro";
     </div>
     <div class="flecha flecha--up" aria-hidden="true"></div>
 </BaseLayout>
-
-{
-    /* Title parpadeante estilo notificación. Cubre los dos casos
-        de "irse": cambiar de pestaña/minimizar (visibilitychange) y mover el
-        foco a otro programa con la pestaña aún activa (blur de window) — este
-        último no levanta document.hidden, de ahí los dos disparadores y el
-        document.hasFocus(). Al recuperar foco se restaura el título. Inline
-        porque solo lo llevan las landings que lo montan, no el sitio entero
-        (scripts.js). */
-}
-<script is:inline>
-    (function () {
-        const original = document.title;
-        const alerta = "(1) " + original;
-        let timer = null;
-        let mostrandoAlerta = false;
-
-        function arrancar() {
-            if (timer) return;
-            timer = setInterval(function () {
-                document.title = mostrandoAlerta ? original : alerta;
-                mostrandoAlerta = !mostrandoAlerta;
-            }, 1000);
-        }
-
-        function parar() {
-            clearInterval(timer);
-            timer = null;
-            document.title = original;
-        }
-
-        function sincronizar() {
-            if (document.hidden || !document.hasFocus()) arrancar();
-            else parar();
-        }
-
-        document.addEventListener("visibilitychange", sincronizar);
-        window.addEventListener("blur", sincronizar);
-        window.addEventListener("focus", sincronizar);
-    })();
-</script>

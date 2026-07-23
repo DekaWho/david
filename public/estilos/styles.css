@@ -273,7 +273,7 @@ u.subrayado-rojo {
 /* Modificador azul del squiggle base: mismo SVG y posición, solo cambia el
    stroke al --azul de marca. El squiggle por defecto es rojo (énfasis, el
    caso de toda la web); el azul es la excepción para términos del lenguaje
-   de marca (ratios, métricas) — hoy solo en /servicios. Color hardcodeado:
+   de marca (ratios, métricas, servicios propios). Color hardcodeado:
    data URIs no soportan currentColor. */
 .squiggle--azul {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%231f3a82' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
@@ -477,6 +477,23 @@ li::marker {
     display: none;
 }
 
+/* En /youtube el menú permanece oculto durante todo el banner de presentación
+   también en escritorio (el estándar solo lo oculta en el @media móvil): el
+   banner es la unidad de captación entera y la pill competiría con el hero.
+   scripts.js observa el banner —no el H1— y mantiene .menu--hidden hasta que el
+   cuerpo entra en viewport. La transición replica la del menú móvil para que la
+   pill entre y salga con fundido en vez de un salto. */
+.youtube .menu {
+    transition:
+        opacity 200ms ease,
+        transform 200ms ease;
+}
+.youtube .menu--hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+}
+
 /* ---------- 4. Banner + hero ---------- */
 
 /* Banner editorial: banda blanca full-bleed que abre la página, sin
@@ -546,6 +563,18 @@ li::marker {
     margin: var(--gap-sm) auto var(--gap-sm);
 }
 
+/* Foto-viñeta que abre el hero de /youtube: pone en escena el gancho del
+   titular (el cuchicheo de "se rieron") antes de leerlo. Ancho por debajo del
+   tope de la prueba (.banner-proof, 460px) para que el titular siga mandando;
+   va pegada a él (--gap-sm) porque foto y frase son un solo chiste. Eager, no
+   lazy: abre la página y es la candidata a LCP. */
+.hero-escena {
+    display: block;
+    max-width: clamp(260px, 68%, 400px);
+    height: auto;
+    margin: 0 auto var(--gap-sm);
+}
+
 /* Entradilla-spoiler del hero de /monetizar: un escalón sobre el
    cuerpo para que pese como entradilla del titular y no como párrafo
    corriente. Clamp por componente, como el resto de tamaños no tokenizados.
@@ -564,6 +593,114 @@ li::marker {
     .reviews-blanco .hero > p.hero-spoiler {
         font-size: 1.4rem;
         margin-bottom: var(--gap-2xl);
+    }
+}
+
+/* En /youtube el spoiler es el subtítulo de la página: el H1 es puro gancho
+   narrativo ("ya no se ríen") y la promesa vive aquí, así que sube un escalón
+   de tamaño y peso sobre la entradilla base — sin alcanzar el 700 ni la escala
+   del H1, que debe seguir mandando. La página lo reusa también como entradilla
+   dentro del cuerpo (presentación bajo "Hola, soy David Varea"), de ahí el
+   segundo selector. Misma especificidad que las reglas de arriba; ganan por
+   orden, y la variante móvil replica el escalón por el mismo motivo que la
+   base. */
+/* El banner cierra pegado a su último párrafo (el "Breve contexto:" que da
+   pie a la presentación del cuerpo): fuera el margen del propio .hero y el
+   respiro de entradilla (--gap-4xl) del último párrafo — solo queda el
+   colchón del banner base, y la réplica y su continuación se leen a un
+   salto de párrafo, no de sección. */
+.youtube .banner .hero {
+    margin-bottom: 0;
+}
+.youtube .banner .hero > :last-child {
+    margin-bottom: 0;
+}
+
+/* El titular de este hero es frase larga (dos oraciones con réplica), no claim
+   corto: a la escala base del banner ocupa media pantalla y le come el fold a
+   la promesa, que aquí vive en la entradilla de debajo. Baja un escalón la
+   escala entera manteniendo la proporción del clamp. */
+.youtube .banner h1 {
+    font-size: clamp(1.85rem, 2.7vw, 2.5rem);
+}
+
+.youtube .hero > p.hero-spoiler,
+.youtube .cuerpo > p.hero-spoiler {
+    font-size: clamp(1.55rem, 1.65vw, 1.8rem);
+    font-weight: 500;
+    text-align: center;
+    margin-top: var(--gap-lg);
+}
+
+/* En el banner la entradilla acompaña al titular en la bajada de escala: si se
+   queda en la escala del cuerpo empata con el h1 ya reducido y el hero pierde
+   jerarquía. En el cuerpo el mismo componente conserva su tamaño — allí es
+   entradilla de lectura, sin titular con el que competir. */
+.youtube .banner .hero > p.hero-spoiler {
+    font-size: clamp(1.3rem, 1.4vw, 1.5rem);
+}
+
+/* Los párrafos del banner van un escalón por encima del cuerpo en tamaño, así
+   que con el interlineado de lectura (1.4 de .reviews-blanco) las líneas se
+   separan de más y el bloque se lee como lista de frases sueltas. Compactarlo
+   los devuelve a la unidad de párrafo. Solo en el banner: en el cuerpo el
+   spoiler sí es texto de lectura larga. */
+.youtube .banner .hero > p {
+    line-height: 1.25;
+}
+
+/* Aire sobre el vídeo del hero (el margin base del .hero-video es 0 arriba,
+   y el spoiler que lo precede anula su margin-bottom). */
+.youtube .hero-video {
+    margin-top: 1.5rem;
+}
+
+/* Recortes de la lista de vídeos del canal viejo (prueba del "primer viral"
+   de /youtube): tiras oscuras de la UI de YouTube apiladas casi a hueso para
+   que se lean como una sola captura de la lista, no como imágenes sueltas.
+   Ritmo exterior de imagen de cuerpo (--gap-xl, como .cuerpo > img). */
+.capturas-virales {
+    display: flex;
+    flex-direction: column;
+    /* flex-start: cada tira conserva su ancho nativo (el stretch por defecto
+       las escalaría por encima de su resolución y emborronaría el texto). */
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin: var(--gap-xl) auto;
+}
+.capturas-virales img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* En /youtube el remate del bloque de reviews (el "SUFICIENTE" y la flecha
+   que baja a la oferta) pasa del rojo base al azul de marca: el acento del
+   par lo decide la página, el componente Reviews queda intacto para el
+   resto. La flecha hereda el tinte vía currentColor (la máscara pinta con
+   background-color: currentColor). */
+.youtube .suficiente {
+    color: var(--azul);
+}
+.youtube .flecha--down {
+    color: var(--azul);
+}
+@media (max-width: 800px) {
+    .youtube .hero > p.hero-spoiler,
+    .youtube .cuerpo > p.hero-spoiler {
+        font-size: 1.45rem;
+    }
+
+    /* El aire titular→entradilla lo pone un solo margen, el del spoiler: el
+       .banner h1 móvil reintroduce un margin-bottom que aquí se sumaría (el
+       .hero es flex y los márgenes no colapsan), duplicando el hueco. */
+    .youtube .banner h1 {
+        font-size: 1.85rem;
+        margin-bottom: 0;
+    }
+    .youtube .banner .hero > p.hero-spoiler {
+        font-size: 1.2rem;
+        margin-top: var(--gap-md);
     }
 }
 
@@ -611,20 +748,28 @@ p.pitch-titular {
     margin: var(--gap-lg) auto;
 }
 
-/* Banner-presentación — scope estructural por la imagen de prueba,
-   exclusiva de este hero (/monetizar): promesa → saludo
-   manuscrito → retrato → titular de inversión → prueba → pie → form.
+/* Banner-presentación — hero de presentación (promesa → saludo manuscrito →
+   retrato → titular de inversión → prueba → pie → form). Se activa con la
+   clase `.banner--presentacion` en el propio banner: el modo lo declara la
+   página, no el contenido que monte — así quitar o añadir piezas (la prueba,
+   el pie) no apaga el resto de estilos del hero.
    Renuncia deliberada al "hero en el fold": la unidad entera no cabe, el
-   fold lo abre la promesa y la cadena invita a scrollear hasta el form.
-   El retrato es pieza de presentación bajo "Hola, soy David Varea" (doble
-   del hero global), no avatar de cabecera. Como .hero es flex, los
-   márgenes verticales no colapsan: el aire foto→titular lo pone solo la
-   foto y el margin-top de sección del .titulo-compacto se anula. */
-.banner:has(.banner-proof) .hero-photo-wrap {
+   fold lo abre la promesa y la cadena invita a scrollear hasta el form. */
+
+/* Retrato de presentación — modifier autocontenido del wrap: foto al doble
+   del avatar de cabecera + aro rojo "a boli". Se activa en el markup del
+   propio wrap, sin depender del contenedor, para poder vivir tanto en el
+   hero (/monetizar) como en el cuerpo (/youtube). Doble clase para empatar
+   en especificidad con `.banner .hero-photo-wrap` (margin) y ganar por
+   orden cuando el retrato va en el hero — que además es flex y no colapsa
+   márgenes: el aire foto→titular lo pone solo la foto, y el margin-top de
+   sección del .titulo-compacto que le siga se anula (regla al pie del
+   bloque). */
+.hero-photo-wrap.hero-photo-wrap--retrato {
     margin-bottom: var(--gap-lg);
     position: relative;
 }
-.banner:has(.banner-proof) .hero-photo {
+.hero-photo-wrap--retrato .hero-photo {
     width: clamp(176px, 25vh, 270px);
     height: clamp(176px, 25vh, 270px);
 }
@@ -635,7 +780,7 @@ p.pitch-titular {
    clamp de la foto de arriba: si ese clamp cambia, cambiar este a la vez. El
    wrap es flex centrado, de ahí el left 50% + translateX para anclar el aro
    al retrato antes de desviarlo. */
-.banner:has(.banner-proof) .hero-photo-wrap::after {
+.hero-photo-wrap--retrato::after {
     content: "";
     position: absolute;
     top: 0;
@@ -648,14 +793,14 @@ p.pitch-titular {
     transform: translateX(-50%) translate(6px, 5px) rotate(-6deg);
     pointer-events: none;
 }
-.banner:has(.banner-proof) .hero-photo-wrap + .titulo-compacto {
+.hero-photo-wrap--retrato + .titulo-compacto {
     margin-top: 0;
 }
 
-/* La promesa cede todo el aire inferior al rayo que la sigue (que lo
-   reparte simétrico a sus dos lados); el margin-bottom del .banner h1
+/* La promesa cede todo el aire inferior a lo que la sigue (rayo o
+   entradilla, que traen el suyo propio); el margin-bottom del .banner h1
    global se sumaría por arriba al no colapsar márgenes el .hero flex. */
-.banner:has(.banner-proof) h1 {
+.banner--presentacion h1 {
     margin-bottom: 0;
 }
 /* Saludo manuscrito del banner-presentación ("Hola / soy David Varea"):
@@ -670,10 +815,12 @@ p.pitch-titular {
     margin-bottom: var(--gap-xl);
 }
 
-/* Pie manuscrito bajo la imagen de prueba: tipografía pequeña, Kalam,
-   centrada, a todo el ancho del contenedor. El párrafo Kalam siempre
-   sigue a la captura de prueba, así que va por .banner-proof + .hand. */
-.banner-proof + .hand {
+/* Pie manuscrito bajo la pieza visual que lo precede — la captura de prueba
+   (/monetizar) o el retrato de presentación (/youtube): tipografía pequeña,
+   Kalam, centrada, a todo el ancho del contenedor. Va por adyacencia porque
+   un pie siempre pertenece a la imagen que tiene encima. */
+.banner-proof + .hand,
+.hero-photo-wrap--retrato + .hand {
     margin: 0.5rem auto;
     text-align: center;
     line-height: 1.15;

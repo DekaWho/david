@@ -118,14 +118,20 @@
             if (toggle) toggle.checked = false;
         });
     });
-    const h1 = document.querySelector('h1');
-    if (h1 && 'IntersectionObserver' in window) {
+    /* Umbral de aparición. Por defecto el H1 (estándar de menús fijos: el menú
+       vuelve en cuanto el titular sale por arriba). En /youtube el banner de
+       presentación es alto (foto + h1 + entradilla + vídeo + form) y con el H1
+       el menú asomaría a mitad de banner, sobre el vídeo; se observa el banner
+       entero para que aparezca justo al entrar en el cuerpo. */
+    const umbral =
+        document.querySelector('.youtube .banner') || document.querySelector('h1');
+    if (umbral && 'IntersectionObserver' in window) {
         menu.classList.add('menu--hidden');
         const io = new IntersectionObserver(([entry]) => {
             menu.classList.toggle('menu--hidden', entry.isIntersecting);
             if (entry.isIntersecting && toggle) toggle.checked = false;
         });
-        io.observe(h1);
+        io.observe(umbral);
     }
 })();
 
@@ -404,4 +410,55 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !popup.hidden) cerrar();
     });
+})();
+
+/* Title parpadeante estilo notificación: reclama al visitante que se ha ido a
+   otra pestaña o a otro programa. Se activa con la clase `title-alerta` en el
+   <body> — lo pide la landing, no el sitio entero, así que una página sin la
+   clase carga este bloque y sale.
+   Cubre los dos casos de "irse": cambiar de pestaña o minimizar
+   (visibilitychange) y mover el foco a otro programa con la pestaña aún activa
+   (blur de window) — este último no levanta document.hidden, de ahí los dos
+   disparadores y el document.hasFocus().
+   La llamada inicial a sincronizar() es lo que cubre la pestaña que nace en
+   segundo plano (ctrl+clic, o el target=_blank de las cards de la home con el
+   visitante quedándose donde estaba): sin ella el reclamo espera un evento que
+   no llega hasta que el visitante vuelve, que es justo cuando ya sobra. */
+(function () {
+    if (!document.body.classList.contains('title-alerta')) return;
+
+    const original = document.title;
+    const alerta = '(1) ' + original;
+    let timer = null;
+    let mostrandoAlerta = false;
+
+    function pintar(conAlerta) {
+        document.title = conAlerta ? alerta : original;
+        mostrandoAlerta = conAlerta;
+    }
+
+    function arrancar() {
+        if (timer) return;
+        /* El primer parpadeo va inmediato: esperar al primer tick regala un
+           segundo de título quieto justo cuando el visitante mira la barra de
+           pestañas para elegir a dónde va. */
+        pintar(true);
+        timer = setInterval(() => pintar(!mostrandoAlerta), 1000);
+    }
+
+    function parar() {
+        clearInterval(timer);
+        timer = null;
+        pintar(false);
+    }
+
+    function sincronizar() {
+        if (document.hidden || !document.hasFocus()) arrancar();
+        else parar();
+    }
+
+    document.addEventListener('visibilitychange', sincronizar);
+    window.addEventListener('blur', sincronizar);
+    window.addEventListener('focus', sincronizar);
+    sincronizar();
 })();

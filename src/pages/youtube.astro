@@ -1,155 +1,155 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Menu from "../components/Menu.astro";
+import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 import Logros from "../components/Logros.astro";
 import Reviews from "../components/Reviews.astro";
+import TallyForm from "../components/TallyForm.astro";
 ---
 
 <BaseLayout
-    titulo="La jugada más instantánea que puedes hacer para monetizar tu audiencia"
-    ogTitle="La jugada más instantánea que puedes hacer para monetizar tu audiencia"
+    titulo="Se rieron cuando empezaste a subir vídeos pero ahora..."
+    ogTitle="Se rieron cuando empezaste a subir vídeos pero ahora..."
     canonical="/youtube"
     ogUrl="https://davidvarea.com/youtube"
-    favicon="lightning"
-    bodyClass="reviews-blanco"
+    favicon="laughing"
+    bodyClass="reviews-blanco youtube title-alerta"
 >
     <Menu
         enlaces={[
-            { href: "#resultados", label: "Resultados" },
+            { href: "#quien-soy", label: "Quién soy" },
             { href: "#opiniones", label: "Opiniones" },
-            { href: "#que-ofrezco", label: "Qué recibes", flechaDer: "↓" },
+            { href: "#para-quien", label: "Para quién", flechaDer: "↓" },
         ]}
     />
 
-    <div class="banner">
+    <div class="banner banner--presentacion">
         <section class="hero">
+            <img
+                class="hero-escena"
+                src="/imgs/cuchicheo.webp"
+                alt="dos personas cuchicheando"
+            />
+
             <h1>
-                La jugada más instantánea que puedes hacer para <u
-                    class="mark-amarillo">monetizar tu audiencia</u
-                >
-                <span class="aside-hand"
-                    >(solo funciona si ya has tenido clientes antes)</span
-                >
+                <u class="mark-amarillo">Se rieron cuando</u> empezaste a subir vídeos
+                pero ahora...
             </h1>
 
-            <img
-                class="hero-rayo"
-                src="/imgs/svg/lightning.svg"
-                alt=""
-                aria-hidden="true"
+            <p class="hero-spoiler" style="margin-bottom: 0;">
+                <img class="emoji" src="/imgs/svg/youtube.svg" alt="" />&nbsp;Tu
+                canal te paga las facturas. Y podría darte más <span
+                    class="inciso-hand">(sin echarle más horas)</span
+                > Para regrabar los vídeos que te funcionan no necesitas ayuda pero
+                <span class="inciso-hand" style="color: var(--rojo)"
+                    >si te da pereza el algoritmo yo soy el ermitaño</span
+                > que lo estudia por ti mientras tú sigues al mando. Mira:
+            </p>
+            <video
+                class="hero-video"
+                poster="/imgs/poster-estrategia.webp"
+                width="1920"
+                height="1080"></video>
+            <p style="margin-bottom: 0;">
+                Si has visto el vídeo puedes rellenar el formulario. Tengo hueco
+                en la agenda para agosto.
+            </p>
+
+            <TallyForm
+                formId="VLBNLN"
+                title="Formulario de la lista de espera"
             />
-
-            <p class="hero-spoiler">
-                <strong style="color: var(--rojo)">Spoiler: </strong>
-                A veces necesitas un nuevo enfoque pero otras necesitas lanzar lo
-                que llevas semanas preparando. <span class="squiggle"
-                    >Breve contexto</span
-                >:
-            </p>
-
-            <h2 class="titulo-seccion hand" style="text-align: left">
-                Hola <img
-                    class="emoji"
-                    src="/imgs/svg/handshake.svg"
-                    alt="🤝"
-                /><br />
-                soy David Varea
-            </h2>
-
-            <div class="hero-photo-wrap">
-                <img
-                    class="hero-photo"
-                    src="/imgs/profile-pic.webp"
-                    alt="David Varea"
-                    loading="lazy"
-                />
-            </div>
-
-            <h2 class="titulo-compacto">
-                Me he gastado <u class="banner-mark"
-                    >19.970€ en cursos y mentorías</u
-                > de viralidad, marca personal y monetizar online <span
-                    class="aside-hand"
-                    >(además de mi experiencia dando servicios)</span
-                >
-                para que <span class="squiggle">tú no tengas que hacerlo</span>
-            </h2>
-
-            <img
-                class="banner-proof"
-                src="/imgs/heads.webp"
-                alt="las caras de los referentes estudiados"
-                loading="eager"
-                decoding="async"
-            />
-
-            <p
-                class="hand"
-                style="font-size: var(--text-body); color: var(--rojo)"
-            >
-                Y puedo acompañarte durante <strong
-                    >tu próximo lanzamiento
-                </strong>(o en tu campaña de venta evergreen)
-            </p>
-
-            <p>
-                Para este servicio doy prioridad a gente con la que ya he
-                trabajado antes con su canal de Youtube. Pero si no hemos
-                trabajado juntos y aún así tienes tu propia audiencia puedes <u
-                    class="mark-amarillo"
-                    >apuntarte a la lista de espera.
-                </u>Aviso cuando tengo disponibilidad.
-            </p>
         </section>
     </div>
 
     <div class="cuerpo">
-        <h2 style="font-family: var(--hand);">Te cuento un poco más</h2>
-        <p>En 2019 me di de alta como autónomo...</p>
+        <h2 id="quien-soy" class="titulo-seccion hand" style="text-align: left">
+            Hola <img class="emoji" src="/imgs/svg/handshake.svg" alt="🤝" /><br
+            />
+            soy David Varea
+        </h2>
+
+        <div class="hero-photo-wrap hero-photo-wrap--retrato">
+            <img
+                class="hero-photo"
+                src="/imgs/profile-pic.webp"
+                alt="David Varea"
+                loading="lazy"
+            />
+        </div>
+        <p class="hand" style="font-size: var(--text-body); color: var(--rojo)">
+            Estratega de youtube y monetizador de audiencias
+        </p>
+
+        <p class="hero-spoiler">
+            <u class="mark-amarillo">En 2007 </u>subí mi primer vídeo a YouTube
+            y en 2008 hice mi primer viral. Cuando tener 10.000 visitas era un
+            logro al alcance de muy pocos <span class="inciso-hand"
+                >(si subías contenido en español)</span
+            >
+        </p>
+
+        <div class="capturas-virales">
+            <img
+                src="/imgs/ajedrez-varias.webp"
+                alt="vídeo «Jugada de Ajedrez - Varias jugadas de ajedrez», 306 mil visualizaciones, hace 17 años"
+                loading="lazy"
+                decoding="async"
+            />
+            <img
+                src="/imgs/ajedrez-mates.webp"
+                alt="vídeo «Jugada de Ajedrez - Mates», 239 mil visualizaciones, hace 17 años"
+                loading="lazy"
+                decoding="async"
+            />
+        </div>
 
         <p>
-            <strong>
-                Aparte de saber dar el servicio (de editor de vídeo) tuve que
-                aprender sobre emprender, marketing, captar clientes (sin tener
-                millones de visitas) o finanzas <del class="tachado-rojo"
-                    >para cuando llega nuestra socia obligatoria Hacienda <span
-                        class="emoji-tachado"
-                        ><img
-                            class="emoji"
-                            src="/imgs/svg/skull.svg"
-                            alt="💀"
-                        /></span
-                    ></del
-                >
-            </strong>
+            En aquel entonces ya había muchos vídeos de ajedrez, pero yo con 13
+            años supe encontrar un hueco en un nicho saturado de gente con
+            "autoridad ajedrecística" <span class="inciso-hand"
+                >(señores de 40-50 años que se grababan delante del tablero
+                dando clases de ajedrez)</span
+            >
         </p>
 
         <span class="doodle doodle--pesas" aria-hidden="true"></span>
 
         <p>
-            Me obsesioné tanto con entender <u class="mark-amarillo"
-                >las mejores formas de rentabilizar una misma audiencia</u
-            > que dejé de ser editor de vídeo.
-        </p>
-        <p>
-            <strong>
-                Me convertí en monetizador de audiencias. Dando servicios a
-                ecommerce, infoproductores u otros negocios de servicios.
-            </strong>
+            Años más tarde empezó mi carrera como editor de vídeo (y después
+            como <span class="squiggle">estratega de contenido) </span>Si sumas
+            las visitas de todos los vídeos largos en los que he estado detrás,
+            superas las <u class="mark-amarillo">100 millones de visitas.</u>
         </p>
 
-        <section class="seccion-blanca" id="resultados">
+        <section class="seccion-blanca">
             <h2 style="font-family: var(--hand); color: var(--azul)">
-                Qué han logrado mis clientes
+                ¿Y si tienes un negocio?
             </h2>
+
+            <p>
+                Youtube es el mayor <u class="mark-amarillo"
+                    >imán de leads cualificados
+                </u> (sin necesidad de vídeos virales ni súper producciones) Pregúntale
+                a cualquiera la diferencia entre sus leads de tiktok y de youtube.
+            </p>
+
+            <p>
+                <strong>
+                    Y esto lo sé porque después de especializarme en captar
+                    viewers puse el foco (y mi obsesión) en aprender a <span
+                        class="squiggle squiggle--azul"
+                        >monetizar audiencias</span
+                    > fuera del propio youtube.
+                </strong>
+            </p>
             <div class="diamond" aria-hidden="true"></div>
             <p>
                 Mis clientes han facturado 2.4 millones de € usando mis
-                servicios. Te cuento qué hice para ellos pero antes una
-                aclaración:
+                servicios para monetizar sus audiencias (de ecommerce,
+                infoproductos o negocios de servicios)
             </p>
 
-            <Logros />
             <span class="gladiador icono-solido" aria-hidden="true"></span>
         </section>
     </div>
@@ -157,48 +157,9 @@ import Reviews from "../components/Reviews.astro";
 
     <div class="cuerpo">
         <h2
-            id="que-ofrezco"
-            style="font-family: var(--hand); color: var(--rojo)"
+            id="para-quien"
+            style="font-family: var(--hand); margin-top: var(--gap-2xl);"
         >
-            Qué recibes exactamente
-        </h2>
-
-        <span class="regalo icono-solido" aria-hidden="true"></span>
-
-        <ul>
-            <li>
-                <strong>
-                    Mi acompañamiento durante tu próximo lanzamiento (o campaña
-                    evergreen) para generar ventas sin dañar tu reputación. Muy
-                    importante: Evita usar los "trucos" quemados de marketing
-                    que te hacen parecer alguien estafador.
-                </strong>
-            </li>
-            <li>
-                Revisión de tu propuesta para diferenciarte de otros sin
-                competir por precio. Y cómo puedes envolver lo que vendes para
-                volverlo más apetecible sin cambiar el servicio/producto.
-            </li>
-            <li>
-                <strong>
-                    Planificación y estrategia del lanzamiento + Escribir el
-                    copy (emails, whatsapps, guion del vídeo de venta y landing
-                    de venta)
-                </strong>
-            </li>
-            <li>
-                Una táctica para seguir monetizando a los clientes (a medio
-                plazo) aunque ya hayan comprado durante el lanzamiento. Y una
-                jugada para que los no-clientes te paguen (sin que tengas que
-                hacer nada extra y sin prostituir tu imagen con el falso "<em
-                    >volvemos a abrir plazas porque muchos lo habéis pedido</em
-                >")
-            </li>
-        </ul>
-
-        <span class="buscando icono-solido" aria-hidden="true"></span>
-
-        <h2 style="font-family: var(--hand); margin-top: var(--gap-2xl);">
             Para <span class="ink-circle ink-circle--azul"
                 >quién<svg
                     class="ink-circle-svg"
@@ -213,75 +174,51 @@ import Reviews from "../components/Reviews.astro";
                         fill="none"
                         stroke-linecap="round"></path></svg
                 ></span
-            > es
+            > es esto
         </h2>
+
+        <span class="buscando icono-solido" aria-hidden="true"></span>
+
         <p>
             <strong>
-                Esta llamada tiene sentido si estás en una de estas 3 fases:
+                Este servicio tiene sentido si te ves en una de estas 4
+                situaciones:
             </strong>
         </p>
         <ol type="A">
             <li>
-                Tu negocio funciona pero ves a la competencia facturando más
-                (puede que con un peor servicio) y no sabes exactamente por qué.
+                Ya vives de tu canal y te va bien pero en algunos puntos sientes
+                que podría irte mejor.
             </li>
             <li>
-                Ya tienes tu propia audiencia (aunque sea pequeña y no tengas
-                ningún vídeo viral) y has tenido clientes antes.
+                Vas probando a subir distintos tipos de vídeo y cuando uno te
+                funciona lo replicas pero no acabas de entender por qué ha
+                funcionado o qué rumbo seguir ahora.
             </li>
             <li>
-                Llevas semanas a punto de hacer un lanzamiento (o una nueva
-                campaña) pero algo te frena.
+                Quieres apoyo con la ideación de vídeos, el rumbo del canal y el
+                análisis de métricas. Tú sigues al mando y disfrutas grabando
+                pero de los dolores de cabeza con el algoritmo se encarga otro.
+            </li>
+            <li>
+                Tienes un negocio con canal de YouTube y quieres que te traiga
+                leads cualificados: no más visitas, sino gente que acaba
+                comprándote.
             </li>
         </ol>
 
+        <video
+            class="hero-video"
+            poster="/imgs/poster-estrategia.webp"
+            width="1920"
+            height="1080"></video>
         <p>
-            <strong>
-                Apúntate a la lista de espera para descubrir el precio (cuando
-                avise de que tengo disponibilidad)
-            </strong>
+            Si has visto el vídeo (es el mismo que el de arriba del todo) puedes
+            rellenar el formulario. Tengo hueco en la agenda para agosto.
         </p>
+
+        <TallyForm formId="VLBNLN" title="Formulario de la lista de espera" />
     </div>
     <div class="flecha flecha--up" aria-hidden="true"></div>
+    <FooterDisclaimer />
 </BaseLayout>
-
-{
-    /* Title parpadeante estilo notificación. Cubre los dos casos
-        de "irse": cambiar de pestaña/minimizar (visibilitychange) y mover el
-        foco a otro programa con la pestaña aún activa (blur de window) — este
-        último no levanta document.hidden, de ahí los dos disparadores y el
-        document.hasFocus(). Al recuperar foco se restaura el título. Inline
-        porque solo lo llevan las landings que lo montan, no el sitio entero
-        (scripts.js). */
-}
-<script is:inline>
-    (function () {
-        const original = document.title;
-        const alerta = "(1) " + original;
-        let timer = null;
-        let mostrandoAlerta = false;
-
-        function arrancar() {
-            if (timer) return;
-            timer = setInterval(function () {
-                document.title = mostrandoAlerta ? original : alerta;
-                mostrandoAlerta = !mostrandoAlerta;
-            }, 1000);
-        }
-
-        function parar() {
-            clearInterval(timer);
-            timer = null;
-            document.title = original;
-        }
-
-        function sincronizar() {
-            if (document.hidden || !document.hasFocus()) arrancar();
-            else parar();
-        }
-
-        document.addEventListener("visibilitychange", sincronizar);
-        window.addEventListener("blur", sincronizar);
-        window.addEventListener("focus", sincronizar);
-    })();
-</script>
