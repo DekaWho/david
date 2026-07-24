@@ -4,22 +4,22 @@ import Menu from "../components/Menu.astro";
 import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 import Logros from "../components/Logros.astro";
 import Reviews from "../components/Reviews.astro";
-import TallyForm from "../components/TallyForm.astro";
+import CalendarioGoogle from "../components/CalendarioGoogle.astro";
 ---
 
 <BaseLayout
-    titulo="Se rieron cuando empezaste a subir vídeos pero ahora..."
-    ogTitle="Se rieron cuando empezaste a subir vídeos pero ahora..."
+    titulo="La jugada más sensata para aumentar tu audiencia"
+    ogTitle="La jugada más sensata para aumentar tu audiencia"
     canonical="/youtube"
     ogUrl="https://davidvarea.com/youtube"
-    favicon="monocle"
+    favicon="fire"
     bodyClass="reviews-blanco youtube title-alerta"
 >
     <Menu
         enlaces={[
             { href: "#quien-soy", label: "Quién soy" },
             { href: "#opiniones", label: "Opiniones" },
-            { href: "#para-quien", label: "Para quién", flechaDer: "↓" },
+            { href: "#que-ofrezco", label: "Qué recibes", flechaDer: "↓" },
         ]}
     />
 
@@ -36,34 +36,93 @@ import TallyForm from "../components/TallyForm.astro";
                 pero ahora...
             </h1>
 
-            <p class="hero-spoiler" style="margin-bottom: 0;">
-                <img class="emoji" src="/imgs/svg/youtube.svg" alt="" />&nbsp;Tu
-                canal te paga las facturas. Y podría darte más <span
-                    class="inciso-hand">(sin echarle más horas)</span
-                >. Para regrabar los vídeos que te funcionan no necesitas ayuda
-                pero
-                <span class="inciso-hand" style="color: var(--rojo)"
-                    >si te da pereza el algoritmo yo soy el ermitaño</span
-                > que lo estudia mientras tú sigues al mando. Mira:
+            <p class="hero-spoiler">
+                <strong style="font-weight: 700">
+                    <img
+                        class="emoji"
+                        src="/imgs/svg/youtube.svg"
+                        alt=""
+                    />&nbsp;Tu canal te paga las facturas.
+                </strong>
+                Aunque hoy podrías explotarlo más por si en el futuro tu audiencia
+                se cansa.
+            </p>
+            <p>
+                <span class="squiggle">Desde 2007</span> en youtube he visto esto
+                mil veces: <span class="inciso-hand"
+                    >Canales top (con millones de subs) que 2 o 3 años después
+                    lo dejan porque ya no pasan de las 10K views.
+                    <span style="color: var(--rojo)">
+                        <strong> Mira: </strong>
+                    </span>
+                </span>
             </p>
             <video
                 class="hero-video"
-                poster="/imgs/poster-estrategia.webp"
-                width="1920"
-                height="1080"></video>
-            <p style="margin-bottom: 0;">
-                Si has visto el vídeo puedes rellenar el formulario. Tengo hueco
-                en la agenda para agosto.
+                poster="/imgs/miniatura-presentacion.webp"
+                width="1280"
+                height="720"
+                controls
+                controlslist="nodownload noplaybackrate"
+                preload="metadata"
+                playsinline
+            >
+                <source src="/videos/presentacion.webm" type="video/webm" />
+                <source src="/videos/presentacion.mp4" type="video/mp4" />
+                Tu navegador no soporta vídeo HTML5.
+            </video>
+
+            <CalendarioGoogle />
+
+            <p style="margin-bottom: var(--gap-sm)">
+                Regrabar los vídeos que ya te funcionaron lo puedes hacer (sin
+                ayuda de nadie) pero comprender el algoritmo y los cambios en tu
+                audiencia es algo más complicado como para hacerlo solo <span
+                    class="inciso-hand">(o mal acompañado)</span
+                >
             </p>
 
-            <TallyForm
-                formId="VLBNLN"
-                title="Formulario de la lista de espera"
-            />
+            <p
+                style="transform: rotate(-0.65deg); text-align: center; margin-block: var(--gap-md)"
+            >
+                <span
+                    class="inciso-hand"
+                    style="color: var(--rojo); font-size: 1.5rem"
+                >
+                    Yo soy el ermitaño que lleva años encerrado destripando al
+                    algoritmo
+                </span>
+            </p>
+
+            <span class="boxing icono-solido" aria-hidden="true"></span>
+
+            <p>
+                <strong>
+                    Agenda una llamada conmigo para tener una conversación
+                    (orientada a que <u class="mark-amarillo"
+                        >tu canal siga brillando)
+                    </u>Ahí me cuentas cómo está el canal, qué has probado y qué
+                    se atasca.
+                </strong>
+            </p>
+
+            <p>
+                Yo pregunto bastante pero la llamada dura 30min máx. Además
+                sabrás si tu canal es apto para hacerle la radiografía completa
+                <span class="inciso-hand"
+                    >(y si te puedo ayudar con ella más allá de lo que te cuente
+                    durante la llamada)</span
+                >
+            </p>
+
+            <CalendarioGoogle />
         </section>
     </div>
 
     <div class="cuerpo">
+        <p style="color: var(--rojo)">
+            <strong> Un poco más de contexto: </strong>
+        </p>
         <h2 id="quien-soy" class="titulo-seccion hand" style="text-align: left">
             Hola <img class="emoji" src="/imgs/svg/handshake.svg" alt="🤝" /><br
             />
@@ -114,7 +173,7 @@ import TallyForm from "../components/TallyForm.astro";
             >
         </p>
 
-        <span class="doodle doodle--pesas" aria-hidden="true"></span>
+        <span class="gladiador icono-solido" aria-hidden="true"></span>
 
         <p>
             Años más tarde empezó mi carrera como editor de vídeo (y después
@@ -123,40 +182,94 @@ import TallyForm from "../components/TallyForm.astro";
             superas las <u class="mark-amarillo">100 millones de visitas.</u>
         </p>
 
+        <CalendarioGoogle />
+
         <section class="seccion-blanca">
             <h2 style="font-family: var(--hand); color: var(--azul)">
-                ¿Y si tienes un negocio?
+                ¿Y si quieres monetizar tus visitas?
             </h2>
 
             <p>
                 Youtube es el mayor <u class="mark-amarillo"
                     >imán de leads cualificados
-                </u> (sin necesidad de vídeos virales ni súper producciones) Pregúntale
-                a cualquiera la diferencia entre sus leads de tiktok y de youtube.
+                </u> (sin necesidad de vídeos virales ni súper producciones)
             </p>
 
             <p>
                 <strong>
-                    Y esto lo sé porque después de especializarme en captar
-                    viewers puse el foco (y mi obsesión) en aprender a <span
-                        class="squiggle squiggle--azul"
-                        >monetizar audiencias</span
-                    > fuera del propio youtube.
+                    Pregúntale a cualquiera la diferencia entre sus clientes que
+                    llegan de tiktok o de youtube.
                 </strong>
             </p>
-            <div class="diamond" aria-hidden="true"></div>
-            <p>
-                Mis clientes han facturado 2.4 millones de € usando mis
-                servicios para monetizar sus audiencias (de ecommerce,
-                infoproductos o negocios de servicios)
-            </p>
 
-            <span class="gladiador icono-solido" aria-hidden="true"></span>
+            <div class="diamond" aria-hidden="true"></div>
+
+            <p>
+                No lo digo por decir, también he trabajado con ecommerce,
+                infoproductores o negocios de servicios (ayudándoles a facturar
+                2.4 millones de € en total)
+            </p>
         </section>
     </div>
     <Reviews id="opiniones" />
 
+    <CalendarioGoogle />
+
     <div class="cuerpo">
+        <h2
+            id="que-ofrezco"
+            style="font-family: var(--hand); color: var(--rojo)"
+        >
+            Qué recibes exactamente
+        </h2>
+
+        <span class="regalo icono-solido" aria-hidden="true"></span>
+
+        <p>
+            Una conversación orientada a que tu canal de youtube siga brillando.
+            Ahí me cuentas cómo está el canal, qué llevas probado y qué te tiene
+            atascado. Yo pregunto bastante pero la llamada dura 30min máx.
+        </p>
+
+        <p style="margin-bottom: var(--gap-md)">
+            <strong>
+                Con lo que me cuentes (y ojeando tu canal desde fuera) te
+                oriento con ojo de halcón. Cuando estamos muy metidos en un
+                proyecto es normal acabar borrachos de trabajo (y desorientados)
+                sin darnos cuenta.
+            </strong>
+        </p>
+
+        <span class="sisyphus icono-solido" aria-hidden="true"></span>
+
+        <p>
+            Ese ojo de halcón te lo llevas trabajemos juntos o no. Y al final de
+            la media hora pasa una de estas dos cosas:
+        </p>
+        <ol>
+            <li>Tu canal no necesita lo que yo hago y tan amigos.</li>
+            <li>
+                Sí puedo ayudarte con más criterio después de hacer una
+                radiografía entera de tu YouTube Studio (+ investigar el resto
+                de tu nicho de vídeos, la competencia). Pero eso es ya el
+                servicio de pago.
+            </li>
+        </ol>
+
+        <p>
+            <strong>
+                <u class="mark-amarillo" style="font-size: 1.2em"
+                    >NO agendes si</u
+                > tu canal no tiene al menos 20 vídeos largos subidos. O si no pretendes
+                subir <span style="font-size: 1.2em">MÍNIMO</span> un vídeo al mes
+                a partir de ahora.</strong
+            >
+        </p>
+
+        <CalendarioGoogle />
+
+        <span class="buscando icono-solido" aria-hidden="true"></span>
+
         <h2
             id="para-quien"
             style="font-family: var(--hand); margin-top: var(--gap-2xl);"
@@ -177,9 +290,6 @@ import TallyForm from "../components/TallyForm.astro";
                 ></span
             > es esto
         </h2>
-
-        <span class="buscando icono-solido" aria-hidden="true"></span>
-
         <p>
             <strong>
                 Este servicio tiene sentido si te ves en una de estas 4
@@ -203,23 +313,17 @@ import TallyForm from "../components/TallyForm.astro";
             </li>
             <li>
                 Tienes un negocio con canal de YouTube y quieres que te traiga
-                leads cualificados: no más visitas, sino gente que acaba
-                comprándote.
+                leads cualificados, no viralidad.
             </li>
         </ol>
 
-        <video
-            class="hero-video"
-            poster="/imgs/poster-estrategia.webp"
-            width="1920"
-            height="1080"></video>
-        <p>
-            Si has visto el vídeo (es el mismo que el de arriba del todo) puedes
-            rellenar el formulario. Tengo hueco en la agenda para agosto.
-        </p>
-
-        <TallyForm formId="VLBNLN" title="Formulario de la lista de espera" />
+        <CalendarioGoogle />
     </div>
-    <div class="flecha flecha--up" aria-hidden="true"></div>
+    <div
+        class="flecha flecha--up"
+        aria-hidden="true"
+        style="margin-top: var(--gap-4xl)"
+    >
+    </div>
     <FooterDisclaimer />
 </BaseLayout>

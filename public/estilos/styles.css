@@ -616,6 +616,21 @@ li::marker {
     margin-bottom: 0;
 }
 
+/* Aire bajo el último elemento del hero (hoy el CTA de agendar): el padding
+   base del banner lo deja pegado al borde inferior; este lo separa del cambio
+   de sección. */
+.youtube .banner {
+    padding-bottom: var(--gap-2xl);
+}
+
+/* El hero de /youtube acota su columna por debajo del ancho de lectura global
+   (.hero = 720px) para un banner más compacto. Scopeado a la página; el resto
+   de heros (incluido /monetizar, que comparte .banner--presentacion) conservan
+   los 720px. */
+.youtube .banner .hero {
+    max-width: 640px;
+}
+
 /* El titular de este hero es frase larga (dos oraciones con réplica), no claim
    corto: a la escala base del banner ocupa media pantalla y le come el fold a
    la promesa, que aquí vive en la entradilla de debajo. Baja un escalón la
@@ -644,9 +659,44 @@ li::marker {
    que con el interlineado de lectura (1.4 de .reviews-blanco) las líneas se
    separan de más y el bloque se lee como lista de frases sueltas. Compactarlo
    los devuelve a la unidad de párrafo. Solo en el banner: en el cuerpo el
-   spoiler sí es texto de lectura larga. */
+   spoiler sí es texto de lectura larga.
+   El margin-bottom baja a 0 para todos ellos: el ritmo base del <p> del hero
+   (--gap-2xl en escritorio, --gap-lg en móvil) parte el banner en bloques
+   sueltos, y aquí el texto acompaña al vídeo y al form como una sola pieza. El
+   aire lo pone el gap del flex en escritorio; en móvil van pegados para que el
+   banner quepa sin scroll. Empata en especificidad con las reglas
+   .reviews-blanco de arriba y gana por orden — de ahí que tenga que ir después
+   de ellas en el archivo. */
 .youtube .banner .hero > p {
     line-height: 1.25;
+    margin-bottom: 0;
+}
+
+/* Los <p> por debajo del vídeo recuperan margin-bottom (el resto del hero va a
+   0 para caber sin scroll, y tras el vídeo ese cero los apelmaza). El hero es
+   flex con gap: los márgenes no colapsan y el gap suma, así que --gap-xl iguala
+   el aire del cuerpo (donde el margin global colapsa a --gap-3xl). El <p> del
+   ermitaño, con su margin-block inline, conserva el suyo. */
+.youtube .banner .hero > .hero-video ~ p {
+    margin-bottom: var(--gap-xl);
+}
+
+/* En escritorio el hero de /youtube afloja el espaciado entre piezas con un gap
+   de flex: suma aire uniforme sin tocar el ritmo de márgenes ya afinado y sobre
+   unos <p> que ya van a margin-bottom 0. En móvil (base, sin gap) el hero se
+   mantiene compacto para caber sin scroll. */
+@media (min-width: 801px) {
+    .youtube .banner .hero {
+        gap: var(--gap-sm);
+    }
+}
+
+/* En /youtube el formulario (callout) del banner va pegado al párrafo que lo
+   presenta justo debajo: se anula su margin-bottom base (--gap-4xl), excesivo
+   para ese par. Solo esta página; el callout conserva su margen donde se usa
+   suelto (/monetizar, /servicios). */
+.youtube .banner .callout {
+    margin-bottom: 0;
 }
 
 /* Aire sobre el vídeo del hero (el margin base del .hero-video es 0 arriba,
@@ -674,17 +724,6 @@ li::marker {
     height: auto;
 }
 
-/* En /youtube el remate del bloque de reviews (el "SUFICIENTE" y la flecha
-   que baja a la oferta) pasa del rojo base al azul de marca: el acento del
-   par lo decide la página, el componente Reviews queda intacto para el
-   resto. La flecha hereda el tinte vía currentColor (la máscara pinta con
-   background-color: currentColor). */
-.youtube .suficiente {
-    color: var(--azul);
-}
-.youtube .flecha--down {
-    color: var(--azul);
-}
 @media (max-width: 800px) {
     .youtube .hero > p.hero-spoiler,
     .youtube .cuerpo > p.hero-spoiler {
@@ -903,6 +942,35 @@ p.pitch-titular {
     mask: url("/imgs/svg/gladiator-svgrepo-com.svg") center / contain no-repeat;
 }
 
+/* Icono de boxeo del banner de /youtube, bajo la frase del ermitaño. Mismo set
+   y técnica de máscara que .gladiador/.buscando/.regalo; en rojo, el registro
+   combativo del banner. */
+.boxing {
+    display: block;
+    width: 8rem;
+    aspect-ratio: 1;
+    margin: 0 auto var(--gap-lg);
+    background-color: var(--rojo);
+    color: var(--rojo);
+    -webkit-mask: url("/imgs/svg/boxing-svgrepo-com.svg") center / contain
+        no-repeat;
+    mask: url("/imgs/svg/boxing-svgrepo-com.svg") center / contain no-repeat;
+}
+
+/* Sísifo empujando la piedra, en rojo, ilustra el "borrachos de trabajo y
+   desorientados". Mismo set y técnica de máscara que .gladiador/.boxing. */
+.sisyphus {
+    display: block;
+    width: 10rem;
+    aspect-ratio: 1;
+    margin: 0 auto var(--gap-lg);
+    background-color: var(--rojo);
+    color: var(--rojo);
+    -webkit-mask: url("/imgs/svg/sisyphus-svgrepo-com.svg") center / contain
+        no-repeat;
+    mask: url("/imgs/svg/sisyphus-svgrepo-com.svg") center / contain no-repeat;
+}
+
 /* Lupa del mismo set de dibujos que el gladiador, en azul, abriendo el bloque
    de preguntas. Misma técnica de máscara. */
 .buscando {
@@ -928,7 +996,10 @@ h2:has(+ .regalo) {
 
 .regalo {
     display: block;
-    width: 8rem;
+    /* Caja mayor que los 8rem de .gladiador/.buscando: el glifo del gift ocupa
+       menos de su viewBox (más aire interno), así que necesita más lado para
+       renderizar al mismo tamaño visible que el resto del set. */
+    width: 10.5rem;
     aspect-ratio: 1;
     margin: 0 auto var(--gap-2xl);
     background-color: var(--rojo);
@@ -1737,13 +1808,11 @@ p.pitch-titular .aside-hand {
     background: var(--negro);
 }
 
-/* Oculta solo la duración total del reproductor nativo y deja el tiempo
-   transcurrido: el lector ve cuánto lleva, no la longitud del vídeo. Es un
-   pseudo-elemento del shadow DOM del player, expuesto solo en Chromium/WebKit;
-   Firefox no lo soporta y ahí la duración sigue visible (tráfico residual).
-   Cubre los dos players con controles del sitio (.forja-video y .hero-video). */
-.forja-video::-webkit-media-controls-time-remaining-display,
-.hero-video::-webkit-media-controls-time-remaining-display {
+/* Oculta la duración total del reproductor nativo dejando solo el tiempo
+   transcurrido: el lector ve cuánto lleva, no la longitud. Pseudo-elemento del
+   shadow DOM del player, expuesto solo en Chromium/WebKit (Firefox no lo
+   soporta y ahí la duración sigue visible). Aplica a .forja-video. */
+.forja-video::-webkit-media-controls-time-remaining-display {
     display: none;
 }
 
@@ -3142,15 +3211,27 @@ audio::-webkit-media-controls-panel {
     text-align: center;
 }
 
-/* Jerarquía de peso dentro del h1 de la home: la promesa principal engorda a
-   800 mientras el inciso entre paréntesis (.hl-nota) baja a 600, más ligero por
-   contraste. Scopeado a .home para no engordar el h1 de /contacto, que comparte
-   .hero-headline. EB Garamond es variable, así que ambos pesos son reales. */
+/* La promesa del h1 de la home engorda a 800. Scopeado a .home para no engordar
+   el h1 de /contacto, que comparte .hero-headline. */
 .home .hero-headline {
     font-weight: 800;
 }
-.hl-nota {
-    font-weight: 600;
+
+/* Las dos opciones van en un <ol> de verdad, hermano del h1 (dentro del <h1> no
+   cabe: solo admite contenido inline). Aire respecto al titular; los números
+   heredan el rojo global de li::marker y el cuerpo de lista (menor que el h1). */
+.hero-opciones {
+    margin-top: var(--gap-sm);
+}
+/* Sin aire entre las dos opciones: el margin-bottom global del li (--gap-xl)
+   las separaría como bloques; aquí van pegadas. */
+.hero-opciones li {
+    margin-bottom: 0;
+}
+/* Menos aire bajo la lista: la .hero-card reserva 2rem de padding inferior; en
+   la home basta menos (el postit cuelga aparte, en absolute). */
+.home .hero-card {
+    padding-bottom: 1.25rem;
 }
 
 .hl-squiggle {
@@ -3383,6 +3464,11 @@ audio::-webkit-media-controls-panel {
 .block--primary .subtitle-hand {
     color: rgba(255, 255, 255, 0.9);
 }
+/* El subtitle del secondary (fondo blanco) va en negro, no en el rojo de
+   énfasis del subtitle base. */
+.block--secondary .subtitle-hand {
+    color: var(--negro);
+}
 .block--primary .handle {
     color: rgba(255, 255, 255, 0.45);
 }
@@ -3395,6 +3481,34 @@ audio::-webkit-media-controls-panel {
 
 .block--secondary {
     background: var(--blanco);
+}
+
+/* CTA al calendario (CalendarioGoogle.astro): botón blanco con acento azul. El
+   logo de Google Calendar es azul y sobre un .block--primary (fondo azul) se
+   fundía; con fondo blanco contrasta. Borde y texto/flecha en azul de marca;
+   sombra con la forma del sistema (offset 4, blur 5) pero teñida de azul en vez
+   de la tinta habitual. */
+.block--calendario {
+    background: var(--blanco);
+    border: 2px solid var(--azul);
+    box-shadow: 0 4px 5px color-mix(in srgb, var(--azul) 32%, transparent);
+    /* A diferencia del resto de .block (que llenan el ancho de su columna),
+       este se ajusta a su contenido y se centra. Más alto vía padding vertical. */
+    width: fit-content;
+    max-width: 100%;
+    margin: 2rem auto 4rem;
+    padding: 1.4rem 1.9rem;
+}
+.block--calendario .title {
+    color: var(--azul);
+}
+/* La flecha, en peso normal a 16px, se lee más clara que el título bold pese a
+   ser el mismo azul; se le sube cuerpo y peso para que el azul rinda igual de
+   sólido. */
+.block--calendario .arrow {
+    color: var(--azul);
+    font-size: 20px;
+    font-weight: 700;
 }
 
 /* En evaluación — en la home (.blocks) el primary se diferencia SOLO por

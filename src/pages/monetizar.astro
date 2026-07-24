@@ -3,12 +3,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Menu from "../components/Menu.astro";
 import Logros from "../components/Logros.astro";
 import Reviews from "../components/Reviews.astro";
-import TallyForm from "../components/TallyForm.astro";
+import CalendarioGoogle from "../components/CalendarioGoogle.astro";
 ---
 
 <BaseLayout
-    titulo="La jugada más instantánea que puedes hacer para monetizar tu audiencia"
-    ogTitle="La jugada más instantánea que puedes hacer para monetizar tu audiencia"
+    titulo="La jugada más instantánea para monetizar mejor"
+    ogTitle="La jugada más instantánea para monetizar mejor"
     canonical="/monetizar"
     ogUrl="https://davidvarea.com/monetizar"
     favicon="lightning"
@@ -93,16 +93,12 @@ import TallyForm from "../components/TallyForm.astro";
                 </strong>(o en tu campaña de venta evergreen)
             </p>
 
-            <p>
-                Para este servicio doy prioridad a gente con la que ya he
-                trabajado antes (en su canal de Youtube). Pero si no hemos
-                trabajado juntos y aún así tienes tu propia audiencia puedes <u
-                    class="mark-amarillo"
-                    >apuntarte a la lista de espera.
-                </u>Aviso cuando tengo disponibilidad.
+            <p style="text-align: center">
+                <strong> Agenda una llamada y me cuentas.</strong> Yo pregunto bastante
+                pero la llamada dura 30min máx.
             </p>
 
-            <TallyForm formId="obQ6pM" title="Formulario de la consultoría" />
+            <CalendarioGoogle />
         </section>
     </div>
 
@@ -141,6 +137,8 @@ import TallyForm from "../components/TallyForm.astro";
             </strong>
         </p>
 
+        <CalendarioGoogle />
+
         <section class="seccion-blanca" id="resultados">
             <h2 style="font-family: var(--hand); color: var(--azul)">
                 Qué han logrado mis clientes
@@ -153,10 +151,12 @@ import TallyForm from "../components/TallyForm.astro";
             </p>
 
             <Logros />
+
             <span class="gladiador icono-solido" aria-hidden="true"></span>
         </section>
     </div>
     <Reviews id="opiniones" />
+    <CalendarioGoogle />
 
     <div class="cuerpo">
         <h2
@@ -199,6 +199,8 @@ import TallyForm from "../components/TallyForm.astro";
             </li>
         </ul>
 
+        <CalendarioGoogle />
+
         <span class="buscando icono-solido" aria-hidden="true"></span>
 
         <h2 style="font-family: var(--hand); margin-top: var(--gap-2xl);">
@@ -238,14 +240,12 @@ import TallyForm from "../components/TallyForm.astro";
             </li>
         </ol>
 
-        <p>
-            <strong>
-                Apúntate a la lista de espera para descubrir el precio (cuando
-                avise de que tengo disponibilidad)
-            </strong>
-        </p>
-
-        <TallyForm formId="obQ6pM" title="Formulario de la consultoría" />
+        <CalendarioGoogle />
     </div>
-    <div class="flecha flecha--up" aria-hidden="true"></div>
+    <div
+        class="flecha flecha--up"
+        aria-hidden="true"
+        style="margin-top: var(--gap-4xl)"
+    >
+    </div>
 </BaseLayout>
