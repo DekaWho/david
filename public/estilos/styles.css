@@ -3204,7 +3204,7 @@ audio::-webkit-media-controls-panel {
     margin: 10px 4px 0;
     font-family: var(--serif);
     font-weight: 700;
-    font-size: 34px;
+    font-size: 36px;
     line-height: 1.18;
     letter-spacing: -0.015em;
     color: var(--negro);
@@ -3221,7 +3221,7 @@ audio::-webkit-media-controls-panel {
    cabe: solo admite contenido inline). Aire respecto al titular; los números
    heredan el rojo global de li::marker y el cuerpo de lista (menor que el h1). */
 .hero-opciones {
-    margin-top: var(--gap-sm);
+    margin-top: var(--gap-lg);
 }
 /* Sin aire entre las dos opciones: el margin-bottom global del li (--gap-xl)
    las separaría como bloques; aquí van pegadas. */
@@ -3705,7 +3705,7 @@ audio::-webkit-media-controls-panel {
 
 @media (max-width: 380px) {
     .hero-headline {
-        font-size: 26px;
+        font-size: 28px;
     }
     .postit {
         width: 232px;
@@ -3734,7 +3734,7 @@ audio::-webkit-media-controls-panel {
     }
 
     .hero-headline {
-        font-size: clamp(30px, 3.8vh, 40px);
+        font-size: clamp(32px, 4.1vh, 43px);
         margin: clamp(8px, 1.1vh, 12px) 6px 0;
     }
 
