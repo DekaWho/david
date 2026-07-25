@@ -3511,23 +3511,44 @@ audio::-webkit-media-controls-panel {
     font-weight: 700;
 }
 
-/* En evaluación — en la home (.blocks) el primary se diferencia SOLO por
-   color: igualamos título, flecha y padding al resto de bloques. Scopeado a
-   .blocks (la home) para no tocar el botón optin de OptinBase ni el CTA de
-   /servicios, que comparten .block--primary y están bien con su tamaño
-   propio. (.blocks también lo usa /not-done, pero ahí no hay primary.)
-   Borrar este bloque restaura el primary destacado. */
+/* En evaluación — en la home (.blocks) los dos bloques son la misma tarjeta
+   blanca y se diferencian SOLO por el color de la tinta: el primary en negro
+   (mismo tamaño de título y flecha que el bloque base) y el secondary en azul
+   de marca. Scopeado a .blocks (la home) para no tocar el botón optin de
+   OptinBase ni el CTA de /servicios, que comparten .block--primary y siguen
+   siendo azules. (.blocks también lo usa /not-done, pero ahí no hay primary.)
+   Borrar este bloque restaura el primary azul destacado. */
 .blocks .block--primary {
+    background: var(--blanco);
     padding: 12px;
+    /* La sombra marcada (0.4) de la sección 4 existe para despegar el bloque
+       de su propio azul oscuro; sobre blanco carga, así que baja a la del
+       secondary. */
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.22);
 }
 .blocks .block--primary .title {
+    color: var(--negro);
     font-size: 18px;
     line-height: normal;
 }
+/* Como en el secondary, el subtitle manuscrito sobre fondo blanco va en la
+   tinta del bloque, no en el rojo de énfasis del subtitle base. */
+.blocks .block--primary .subtitle-hand {
+    color: var(--negro);
+}
+.blocks .block--primary .handle {
+    color: rgba(0, 0, 0, 0.25);
+}
 .blocks .block--primary .arrow {
+    color: var(--negro);
     font-size: 16px;
     opacity: 0.5;
     margin-left: 4px;
+}
+.blocks .block--secondary .title,
+.blocks .block--secondary .subtitle-hand,
+.blocks .block--secondary .arrow {
+    color: var(--azul);
 }
 @media (min-width: 700px) {
     .blocks .block--primary {
