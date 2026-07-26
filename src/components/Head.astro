@@ -10,7 +10,7 @@ const {
     ogUrl = null,
     ogType = "website",
     noindex = false,
-    trackLead = false,
+    trackEvento = null,
     favicon = "default",
     scripts = true,
 } = Astro.props;
@@ -170,7 +170,14 @@ const faviconHref = (size) => `${faviconPrefix}${size}.png`;
     fbq("init", "965235622886247");
     fbq("track", "PageView");
 </script>
-{trackLead && <script is:inline>fbq("track", "Lead");</script>}
+{/* Evento de conversión sobre el PageView base. Cada thank-you manda un evento
+   estándar DISTINTO: si dos pasos del embudo comparten evento, Meta los agrega
+   en una sola señal y optimiza hacia el más frecuente (el optin), enterrando al
+   escaso (la llamada agendada), que es el que vale dinero. JSON.stringify
+   escapa el valor al entrar en el <script> inline. */}
+{trackEvento && (
+    <script is:inline set:html={`fbq("track", ${JSON.stringify(trackEvento)});`} />
+)}
 <noscript
     ><img
         height="1"

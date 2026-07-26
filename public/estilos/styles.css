@@ -477,18 +477,19 @@ li::marker {
     display: none;
 }
 
-/* En /youtube el menú permanece oculto durante todo el banner de presentación
-   también en escritorio (el estándar solo lo oculta en el @media móvil): el
-   banner es la unidad de captación entera y la pill competiría con el hero.
-   scripts.js observa el banner —no el H1— y mantiene .menu--hidden hasta que el
-   cuerpo entra en viewport. La transición replica la del menú móvil para que la
-   pill entre y salga con fundido en vez de un salto. */
-.youtube .menu {
+/* Estándar de menús fijos del sitio (compartido con .post-toc y .forja-nav):
+   el menú arranca oculto y entra cuando el H1 sale por arriba, para que el
+   lector empiece por el titular sin nada que compita con él. Aplica en las dos
+   anchuras — en escritorio la pill cabe en la esquina sin pisar el titular,
+   pero reclama atención igual. Lo alterna scripts.js con un
+   IntersectionObserver sobre el H1; si el JS no corre, el menú queda visible
+   (degrada a lo seguro). */
+.menu {
     transition:
         opacity 200ms ease,
         transform 200ms ease;
 }
-.youtube .menu--hidden {
+.menu--hidden {
     opacity: 0;
     pointer-events: none;
     transform: translateY(-8px);
@@ -1375,13 +1376,12 @@ p.pitch-titular .aside-hand {
     height: clamp(120px, 26vh, 240px);
 }
 
-/* Navegador de secciones de /la-forja — burger fijo arriba-derecha. En
-   escritorio visible siempre; en móvil se oculta mientras el hero está en
-   viewport (taparía el copy) y reaparece al scrollear. Lo gestiona scripts.js
-   con el mismo IntersectionObserver que el índice del blog, vía la clase
-   .forja-nav--hidden (scopeada al @media móvil; si el JS no corre, el nav
-   queda visible — degrada igual que el post-toc). Patrón checkbox-hack para
-   abrir/cerrar el panel; el JS solo cierra al elegir sección y oculta en móvil.
+/* Navegador de secciones de /la-forja — burger fijo arriba-derecha. Se oculta
+   mientras el hero está en viewport (taparía el copy) y entra al scrollear, en
+   las dos anchuras. Lo gestiona scripts.js con el mismo IntersectionObserver
+   que el índice del blog, vía la clase .forja-nav--hidden (si el JS no corre,
+   el nav queda visible — degrada igual que el post-toc). Patrón checkbox-hack
+   para abrir/cerrar el panel; el JS solo cierra al elegir sección y oculta.
    Pill de papel blanco sin borde: el fondo basta para que las líneas azules se
    lean sobre cualquier contenido por debajo. */
 .forja-nav {
@@ -1389,23 +1389,14 @@ p.pitch-titular .aside-hand {
     top: 14px;
     right: 14px;
     z-index: 1000;
+    transition:
+        opacity 200ms ease,
+        transform 200ms ease;
 }
-
-/* Móvil: el burger tapa el leadin/H1 del hero, así que mientras el hero está
-   en viewport scripts.js le pone .forja-nav--hidden y lo retira al scrollear
-   más abajo. En escritorio no aplica: el botón cabe en la esquina sin pisar
-   los titulares centrados, así que el nav queda visible aunque tenga la clase. */
-@media (max-width: 800px) {
-    .forja-nav {
-        transition:
-            opacity 200ms ease,
-            transform 200ms ease;
-    }
-    .forja-nav--hidden {
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(-8px);
-    }
+.forja-nav--hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
 }
 
 /* Checkbox oculto pero accesible: dispara el estado abierto/cerrado vía
@@ -2995,21 +2986,6 @@ audio::-webkit-media-controls-panel {
         background: transparent;
         box-shadow: none;
         border-radius: 0;
-        transition:
-            opacity 200ms ease,
-            transform 200ms ease;
-    }
-
-    /* Estándar de menús fijos del sitio (compartido con .post-toc y
-       .forja-nav): en móvil el burger taparía el titular del hero, así que
-       scripts.js lo oculta mientras el H1 está en viewport y lo muestra al
-       scrollear por debajo. Scopeado al media móvil: en escritorio la pill
-       cabe en la esquina sin pisar titulares y queda visible aunque lleve la
-       clase. Si el JS no corre, el menú queda visible (degrada a lo seguro). */
-    .menu--hidden {
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(-8px);
     }
 
     /* Patrón checkbox-hack: el checkbox queda oculto pero accesible y dispara
@@ -4486,6 +4462,16 @@ audio::-webkit-media-controls-panel {
 .post-toc {
     position: fixed;
     z-index: 5;
+    transition: opacity 200ms ease;
+}
+
+/* Estándar de menús fijos (ver .menu en la sección 3): oculto mientras el H1
+   está en viewport, en las dos anchuras. Sin transform: en escritorio el TOC es
+   un panel lateral alto, no una pill, y el desplazamiento vertical se leería
+   como un salto de layout. */
+.post-toc--hidden {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .post-toc > input[type="checkbox"] {
@@ -4546,7 +4532,7 @@ audio::-webkit-media-controls-panel {
 /* Desktop: lateral derecho, fijo. top calibrado para arrancar por debajo
    del banner del post; max-height + overflow para posts largos en
    pantallas cortas. La hamburguesa se hereda hidden de .burger (sección 3),
-   así que el panel queda siempre visible. */
+   así que lo que entra al pasar el H1 es el panel entero. */
 @media (min-width: 801px) {
     .post-toc {
         top: clamp(7rem, 14vh, 11rem);
@@ -4561,20 +4547,13 @@ audio::-webkit-media-controls-panel {
    y panel desplegable debajo, idéntico patrón visual a .links mobile.
    La animación X de las 3 líneas espeja el bloque #menu-toggle:checked
    de la sección 3 — mismo movimiento, parametrizado al checkbox propio.
-   El burger arranca oculto y aparece al scrollear pasado el H1; el JS
-   toggle .post-toc--hidden vía IntersectionObserver sobre el h1, para
-   que el burger no tape el título cuando se está leyendo arriba. */
+   El ocultado mientras el H1 manda lo lleva .post-toc--hidden (arriba, común a
+   las dos anchuras): aquí lo que se oculta es el burger, porque el panel está
+   cerrado. */
 @media (max-width: 800px) {
     .post-toc {
         top: 10px;
         right: 10px;
-    }
-    .post-toc .burger {
-        transition: opacity 200ms ease;
-    }
-    .post-toc--hidden .burger {
-        opacity: 0;
-        pointer-events: none;
     }
     #post-toc-checkbox:checked + .burger span:nth-child(1) {
         transform: translateY(6px) rotate(45deg);

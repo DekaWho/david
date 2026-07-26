@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /done
 Disallow: /not-done
-Disallow: /formulario-recibido
+Disallow: /llamada-confirmada
 
 User-agent: GPTBot
 Allow: /

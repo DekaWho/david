@@ -1,0 +1,21 @@
+---
+// Vídeo de presentación de /youtube, montado dos veces en la misma página
+// (hero y cierre). Sin wrapper propio: Astro emite el <video> tal cual, así
+// que sigue siendo hijo directo de .hero y las reglas por posición del CSS
+// (.youtube .banner .hero > .hero-video ~ p) siguen enganchando.
+---
+
+<video
+    class="hero-video"
+    poster="/imgs/miniatura-presentacion.webp"
+    width="1280"
+    height="720"
+    controls
+    controlslist="nodownload noplaybackrate"
+    preload="metadata"
+    playsinline
+>
+    <source src="/videos/presentacion.webm" type="video/webm" />
+    <source src="/videos/presentacion.mp4" type="video/mp4" />
+    Tu navegador no soporta vídeo HTML5.
+</video>

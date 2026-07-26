@@ -5,6 +5,7 @@ import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 import Logros from "../components/Logros.astro";
 import Reviews from "../components/Reviews.astro";
 import CalendarioGoogle from "../components/CalendarioGoogle.astro";
+import VideoPresentacion from "../components/VideoPresentacion.astro";
 ---
 
 <BaseLayout
@@ -42,6 +43,7 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
                         class="emoji"
                         src="/imgs/svg/youtube.svg"
                         alt=""
+                        style="width: 1.9em"
                     />&nbsp;Tu canal te paga las facturas.
                 </strong>
                 Aunque hoy podrías explotarlo más por si en el futuro tu audiencia
@@ -57,20 +59,7 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
                     </span>
                 </span>
             </p>
-            <video
-                class="hero-video"
-                poster="/imgs/miniatura-presentacion.webp"
-                width="1280"
-                height="720"
-                controls
-                controlslist="nodownload noplaybackrate"
-                preload="metadata"
-                playsinline
-            >
-                <source src="/videos/presentacion.webm" type="video/webm" />
-                <source src="/videos/presentacion.mp4" type="video/mp4" />
-                Tu navegador no soporta vídeo HTML5.
-            </video>
+            <VideoPresentacion />
 
             <CalendarioGoogle />
 
@@ -301,6 +290,8 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
         </ol>
 
         <CalendarioGoogle />
+
+        <VideoPresentacion />
     </div>
     <div
         class="flecha flecha--up"

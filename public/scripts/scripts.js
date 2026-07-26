@@ -49,12 +49,11 @@
     list.addEventListener('click', (e) => {
         if (e.target.tagName === 'A' && checkbox) checkbox.checked = false;
     });
-    /* En móvil el burger tapaba el H1 del banner. Lo ocultamos mientras
-       el H1 está en viewport y lo mostramos cuando sale del todo por
-       arriba. La clase `post-toc--hidden` está scopeada en CSS al @media
-       móvil, así que el lateral de desktop no se ve afectado. Estado
-       inicial hidden para evitar flash al cargar antes de que dispare el
-       observer. Sin rootMargin negativo a propósito: recortar el root por
+    /* El índice compite con el H1 del banner mientras se está leyendo arriba
+       (en móvil el burger llega a taparlo). Lo ocultamos mientras el H1 está
+       en viewport y lo mostramos cuando sale del todo por arriba, en las dos
+       anchuras. Estado inicial hidden para evitar flash al cargar antes de
+       que dispare el observer. Sin rootMargin negativo a propósito: recortar el root por
        arriba da el titular por "desaparecido" en cuanto su borde inferior
        queda sobre esa línea, y un h1 compacto pegado al top cabe entero en
        la franja excluida ya al cargar — el burger saldría sin scroll,
@@ -69,10 +68,10 @@
     }
 })();
 
-/* /la-forja: el burger de secciones (fijo arriba-derecha) tapa el copy del
-   hero en móvil. Mismo patrón que el post-toc de arriba: lo ocultamos
-   (.forja-nav--hidden, scopeada en CSS al @media móvil) mientras el hero está
-   en viewport y lo mostramos al scrollear por debajo. JS cierra además el
+/* /la-forja: el burger de secciones (fijo arriba-derecha) compite con el copy
+   del hero. Mismo patrón que el post-toc de arriba: lo ocultamos
+   (.forja-nav--hidden) mientras el hero está en viewport y lo mostramos al
+   scrollear por debajo. JS cierra además el
    panel al pulsar un enlace (el checkbox-hack no se desmarca solo en anclas de
    la misma página). Estado inicial hidden para evitar flash antes de que
    dispare el observer. No-op fuera de /la-forja. */
@@ -100,15 +99,13 @@
 })();
 
 /* Menú principal (.menu): cierra el panel al pulsar un enlace y aplica el
-   estándar de menús fijos del sitio — en móvil el burger taparía el titular
-   del hero, así que se oculta mientras el H1 de la página está en viewport y
-   aparece cuando el titular sale del todo por arriba. Mismo
+   estándar de menús fijos del sitio — se oculta mientras el H1 de la página
+   está en viewport y aparece cuando el titular sale del todo por arriba, para
+   que el lector empiece por el titular sin nada que compita con él. Mismo
    IntersectionObserver que el índice del blog y el nav de secciones (sin
-   rootMargin — ver el post-toc arriba); la clase .menu--hidden está scopeada
-   al @media móvil, así que en escritorio el menú queda visible aunque la
-   lleve. Estado inicial hidden para evitar flash antes de que dispare el
-   observer; sin H1 o sin IntersectionObserver el menú queda visible
-   (degrada). */
+   rootMargin — ver el post-toc arriba). Estado inicial hidden para evitar
+   flash antes de que dispare el observer; sin H1 o sin IntersectionObserver
+   el menú queda visible (degrada). */
 (() => {
     const menu = document.querySelector('.menu');
     if (!menu) return;
@@ -118,13 +115,9 @@
             if (toggle) toggle.checked = false;
         });
     });
-    /* Umbral de aparición. Por defecto el H1 (estándar de menús fijos: el menú
-       vuelve en cuanto el titular sale por arriba). En /youtube el banner de
-       presentación es alto (foto + h1 + entradilla + vídeo + form) y con el H1
-       el menú asomaría a mitad de banner, sobre el vídeo; se observa el banner
-       entero para que aparezca justo al entrar en el cuerpo. */
-    const umbral =
-        document.querySelector('.youtube .banner') || document.querySelector('h1');
+    /* Umbral de aparición: el H1 (estándar de menús fijos — el menú vuelve en
+       cuanto el titular sale por arriba, con poco scroll). */
+    const umbral = document.querySelector('h1');
     if (umbral && 'IntersectionObserver' in window) {
         menu.classList.add('menu--hidden');
         const io = new IntersectionObserver(([entry]) => {

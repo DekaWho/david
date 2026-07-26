@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+    titulo="Llamada confirmada"
+    noindex={true}
+    scripts={false}
+    trackEvento="Schedule"
+>
+    <h1
+        class="titulo-breaker titulo-breaker--bg-claro"
+        style="color:var(--rojo)"
+    >
+        Llamada confirmada ✔︎
+    </h1>
+
+    <div class="cuerpo">
+        <p>
+            Recibirás un aviso por email (o whatsapp si lo diste) 24h antes (y
+            1h antes) de la llamada.
+        </p>
+    </div>
+</BaseLayout>
