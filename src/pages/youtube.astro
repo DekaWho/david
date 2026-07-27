@@ -95,13 +95,30 @@ import VideoPresentacion from "../components/VideoPresentacion.astro";
                 </strong>
             </p>
 
+            <CalendarioGoogle />
+
             <p>
                 Agenda una llamada (de 10-15 minutos) conmigo para contarme tus
                 objetivos con youtube, qué has probado y qué se te atasca. Yo te
-                diré si puedo ayudar a un canal como el tuyo.
+                diré si puedo ayudar a un canal como el tuyo <span
+                    class="inciso-hand"
+                    >(y si no puedo te diré por qué, y te recomendaré con quién
+                    ir)</span
+                >
             </p>
 
-            <CalendarioGoogle />
+            <p style="margin-bottom: 0;">
+                <span style="font-size: 1.2em; font-weight: 700;"
+                    ><u class="mark-rojo">NO</u> agendes si</span
+                >
+            </p>
+
+            <ul class="lista-compacta">
+                <li>Has subido menos de 20 vídeos horizontales.</li>
+                <li>Vas a subir menos de un vídeo al mes.</li>
+                <li>Tienes un canal creado íntegro con IA.</li>
+                <li>Tampoco agendes si estás buscando un editor de vídeo.</li>
+            </ul>
         </section>
     </div>
 
@@ -214,7 +231,9 @@ import VideoPresentacion from "../components/VideoPresentacion.astro";
         <p>
             Una llamada (de 10-15 minutos) conmigo para contarme tus objetivos
             con youtube, qué has probado y qué se te atasca. Yo te diré si puedo
-            ayudar a un canal como el tuyo.
+            ayudar a un canal como el tuyo <span class="inciso-hand"
+                >(y si no puedo te diré por qué, y te recomendaré con quién ir)</span
+            >
         </p>
 
         <p>
@@ -228,17 +247,20 @@ import VideoPresentacion from "../components/VideoPresentacion.astro";
             </strong>
         </p>
 
-        <p>
-            <span
-                style="font-size: 1.2em; color: var(--rojo); font-weight: 700;"
-                >NO agendes si</span
-            > tu canal no tiene al menos 20 vídeos (horizontales, no shorts) subidos.
-            O si no pretendes subir
-            <span style="font-size: 1.2em; font-weight: 500;">MÍNIMO</span> un vídeo
-            al mes a partir de ahora.
+        <CalendarioGoogle />
+
+        <p style="margin-bottom: 0;">
+            <span style="font-size: 1.2em; font-weight: 700;"
+                ><u class="mark-rojo">NO</u> agendes si</span
+            >
         </p>
 
-        <CalendarioGoogle />
+        <ul class="lista-compacta">
+            <li>Has subido menos de 20 vídeos horizontales.</li>
+            <li>Vas a subir menos de un vídeo al mes.</li>
+            <li>Tienes un canal creado íntegro con IA.</li>
+            <li>Tampoco agendes si estás buscando un editor de vídeo.</li>
+        </ul>
 
         <span class="buscando icono-solido" aria-hidden="true"></span>
 

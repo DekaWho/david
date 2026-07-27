@@ -2447,6 +2447,25 @@ h2:has(+ .diamond) {
     font-weight: bold;
 }
 
+/* Lista de items de una línea, para enumeraciones que se leen de un vistazo
+   (criterios de descarte, requisitos). El margin-bottom del <li> global
+   (--gap-xl, --gap-lg en móvil) está calibrado para items de varias líneas y
+   aquí desconectaría cuatro frases cortas en cuatro bloques sueltos: el aire
+   lo da el line-height y los markers separan los items. `> li` para que una
+   sublista anidada conserve el ritmo aireado del sistema. */
+.lista-compacta > li {
+    margin-bottom: 0;
+}
+
+/* El párrafo que hace de rótulo de una .lista-compacta va pegado a ella: el
+   margin-bottom global del <p> (--gap-3xl; --gap-xl en móvil) está pensado para
+   separar bloques independientes y frente a una lista densa deja el rótulo
+   flotando lejos de los items que anuncia. Acotado a esta variante de lista
+   para no tocar el ritmo de los <p> que introducen las listas aireadas. */
+p:has(+ .lista-compacta) {
+    margin-bottom: var(--gap-sm);
+}
+
 /* Banda blanca full-bleed con la lista dentro. Solo padding vertical: el
    horizontal viene del ul global (padding-left var(--gap-md) para los
    markers, sin padding-right). Los li se alinean exactamente igual que
@@ -4260,6 +4279,26 @@ audio::-webkit-media-controls-panel {
         transparent 60%,
         var(--amarillo) 60%,
         var(--amarillo) 92%,
+        transparent 92%
+    );
+    padding: 0 0.12em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+
+/* Highlighter rojo — mismo gesto y mismos stops que .mark-amarillo, en --rojo.
+   Es el resalte de las negaciones (criterios de descarte, avisos), donde el
+   amarillo se leería como énfasis de promesa. El texto que va debajo se queda
+   en negro: sobre --rojo mantiene ~4.9:1 de contraste y la franja solo cubre
+   de la baseline hacia abajo, así que la silueta de la letra no se pierde. */
+.mark-rojo {
+    text-decoration: none;
+    background-image: linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 60%,
+        var(--rojo) 60%,
+        var(--rojo) 92%,
         transparent 92%
     );
     padding: 0 0.12em;
