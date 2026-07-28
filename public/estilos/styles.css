@@ -184,6 +184,21 @@ h3.titulo-seccion {
     transform: rotate(-1.5deg);
 }
 
+/* Variante "escrito encima de la página": rojo de énfasis y tilt marcado, para
+   cuando el manuscrito ocupa el sitio de un elemento decorativo en lugar de
+   presentar el bloque que sigue. El ángulo se sale del ritmo recto de
+   alrededor —es lo que la delata como anotación a mano— y el margen propio la
+   suelta de ambos vecinos en vez de pegarla al de abajo. */
+.titulo-mano--nota {
+    color: var(--rojo);
+    transform: rotate(-4deg);
+    margin-block: 2rem clamp(8px, 1.6vh, 16px);
+    /* Techo más bajo que el de .titulo-mano: como remate no presenta nada, en
+       escritorio al tamaño de aquella competía con los bloques que cierra. El
+       mínimo se mantiene, así que en móvil no cambia. */
+    font-size: clamp(1.05rem, 1.2vw, 1.2rem);
+}
+
 p {
     margin: var(--gap-sm) 2px var(--gap-3xl);
     font-size: var(--text-body);
@@ -3193,9 +3208,14 @@ audio::-webkit-media-controls-panel {
    arriba — la card descansa sobre el papel por los cuatro costados. En
    desktop el override de .hero-card resetea a 0 (la stage ya está centrada
    en 620px y el papel respira fuera de ella). */
+/* El margin-bottom es el único que separa el hero de la sección de abajo: el
+   postit cuelga en absolute (no ocupa alto) y este margen le reserva el hueco.
+   Como colapsa con el margin-top del .section-heading que sigue, y siempre es
+   el mayor de los dos, la distancia entre bloques se regula AQUÍ — tocar el
+   margen del heading no mueve nada. */
 .hero-card {
     position: relative;
-    margin: 0 14px clamp(90px, 14vh, 126px);
+    margin: 0 14px clamp(108px, 15.5vh, 140px);
     background: var(--blanco);
     padding: 0 12px 2rem;
 }
@@ -3293,15 +3313,19 @@ audio::-webkit-media-controls-panel {
 
 .postit {
     position: relative;
-    width: 256px;
+    width: 288px;
     background: var(--amarillo);
-    padding: 12px 14px 14px;
+    /* Asimétrico a propósito: el texto se apoya arriba, bajo la cinta, y el
+       hueco mayor queda al pie — como en un post-it real, donde se escribe
+       desde el borde superior y sobra papel abajo. */
+    padding: 1rem 10px 2rem;
+    text-align: center;
     transform: rotate(-1.8deg);
     box-shadow:
         0 3px 8px rgba(0, 0, 0, 0.12),
         0 1px 2px rgba(0, 0, 0, 0.08);
     font-family: var(--hand);
-    font-size: 14.5px;
+    font-size: 16px;
     line-height: 1.25;
     color: var(--negro);
     /* Anula el hyphens:auto global: en una nota manuscrita corta, partir
@@ -3511,14 +3535,6 @@ audio::-webkit-media-controls-panel {
 }
 .block--solo-titulo .title {
     font-size: 19px;
-}
-
-/* Enlace que saca al calendario de citas fuera del sitio (hoy el segundo bloque
-   de la home). Título en azul de marca, la misma tinta del .block--calendario
-   de las landings: el color distingue el enlace que agenda del que lleva a una
-   página propia, que se queda en la tinta negra del sistema. */
-.block--agenda .title {
-    color: var(--azul);
 }
 
 /* CTA al calendario (CalendarioGoogle.astro): botón blanco con acento azul. El
@@ -3822,7 +3838,7 @@ audio::-webkit-media-controls-panel {
         font-size: 28px;
     }
     .postit {
-        width: 232px;
+        width: 260px;
     }
 }
 
@@ -3838,7 +3854,7 @@ audio::-webkit-media-controls-panel {
     }
 
     .hero-card {
-        margin: 0 0 clamp(94px, 13vh, 144px);
+        margin: 0 0 clamp(134px, 18vh, 190px);
         padding: 0 22px 2rem;
     }
 
@@ -3853,9 +3869,9 @@ audio::-webkit-media-controls-panel {
     }
 
     .postit {
-        width: clamp(290px, 33vh, 360px);
-        padding: clamp(12px, 1.5vh, 16px) clamp(14px, 1.7vh, 18px)
-            clamp(14px, 1.7vh, 18px);
+        /* Ancho y paddings los pone la regla base: el postit se mantiene
+           idéntico en las dos anchuras. Aquí solo sube la tipografía, que en
+           escritorio se leería diminuta al tamaño de móvil. */
         font-size: clamp(17px, 1.9vh, 20px);
         line-height: 1.28;
     }
