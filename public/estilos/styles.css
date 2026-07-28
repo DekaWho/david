@@ -3187,6 +3187,18 @@ audio::-webkit-media-controls-panel {
    Hub: el visitante elige a qué página interna ir según su interés.
    Jerarquía de neutros INVERTIDA respecto al resto del sitio: body
    blanco puro (vía `.stage`), hero-card elevada. */
+
+/* Única página del sitio sin partición de palabras: anula el `hyphens: auto`
+   de <html> para toda la home, herencia incluida. Es una columna estrecha
+   (.stage, 430px) de frases sueltas donde cada palabra carga sentido; un
+   guion de corte a mitad de "monetizar" se lee como error de maquetación y
+   no como justificación tipográfica. El resto del sitio, con párrafos
+   largos, sigue partiendo. */
+.home {
+    -webkit-hyphens: none;
+    hyphens: none;
+}
+
 .stage,
 .stage *,
 .stage *::before,
