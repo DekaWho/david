@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
+import { CALENDARIO_URL } from "../data/calendario.js";
 ---
 
 <BaseLayout
@@ -49,8 +50,8 @@ import Footer from "../components/Footer.astro";
             <div class="postit-wrap">
                 <div class="postit">
                     <span class="tape" aria-hidden="true"></span>
-                    Soy David Varea (las dos con V) Monetizador de audiencias y estratega
-                    de contenido. <strong>Cada segundo cuenta</strong>.
+                    Soy <strong>David Varea (las dos con V)</strong> Monetizador de
+                    audiencias y estratega de contenido.
                 </div>
             </div>
         </section>
@@ -64,25 +65,8 @@ import Footer from "../components/Footer.astro";
 
         <nav class="blocks" aria-label="Secciones">
             <a
-                class="block block--primary"
+                class="block block--secondary block--solo-titulo"
                 href="/youtube"
-                target="_blank"
-                rel="noopener"
-                draggable="false"
-            >
-                <span class="handle" aria-hidden="true">⋮⋮</span>
-                <img class="icon" src="/imgs/svg/fire.svg" alt="🔥" />
-                <span class="body">
-                    <span class="subtitle-hand">La jugada más sensata para</span
-                    >
-                    <span class="title">Aumentar tu audiencia</span>
-                </span>
-                <span class="arrow" aria-hidden="true">→</span>
-            </a>
-
-            <a
-                class="block block--secondary"
-                href="/monetizar"
                 target="_blank"
                 rel="noopener"
                 draggable="false"
@@ -90,10 +74,22 @@ import Footer from "../components/Footer.astro";
                 <span class="handle" aria-hidden="true">⋮⋮</span>
                 <img class="icon" src="/imgs/svg/lightning.svg" alt="⚡" />
                 <span class="body">
-                    <span class="subtitle-hand"
-                        >La jugada más instantánea para</span
-                    >
-                    <span class="title">Monetizar mejor</span>
+                    <span class="title">Crece tu audiencia y monetízala</span>
+                </span>
+                <span class="arrow" aria-hidden="true">→</span>
+            </a>
+
+            <a
+                class="block block--secondary block--solo-titulo block--agenda"
+                href={CALENDARIO_URL}
+                target="_blank"
+                rel="noopener"
+                draggable="false"
+            >
+                <span class="handle" aria-hidden="true">⋮⋮</span>
+                <img class="icon" src="/imgs/svg/google-calendar.svg" alt="" />
+                <span class="body">
+                    <span class="title">Agendar 1a1 en Google Meet</span>
                 </span>
                 <span class="arrow" aria-hidden="true">→</span>
             </a>

@@ -3498,6 +3498,29 @@ audio::-webkit-media-controls-panel {
     background: var(--blanco);
 }
 
+/* Bloque de una sola línea: título sin subtitle-hand. Con el padding base la
+   caja quedaría demasiado baja para su ancho —el título flotando en una franja
+   estrecha—, así que el padding vertical propio le devuelve cuerpo y lo deja
+   centrado. El título sube algo de tamaño porque es el único texto que sostiene
+   el bloque.
+   Doble clase en el selector del padding: el shorthand `padding` de .block en
+   la media query de escritorio, más abajo en el archivo, pisaría un
+   padding-block de igual especificidad. */
+.block.block--solo-titulo {
+    padding-block: clamp(14px, 2vh, 18px);
+}
+.block--solo-titulo .title {
+    font-size: 19px;
+}
+
+/* Enlace que saca al calendario de citas fuera del sitio (hoy el segundo bloque
+   de la home). Título en azul de marca, la misma tinta del .block--calendario
+   de las landings: el color distingue el enlace que agenda del que lleva a una
+   página propia, que se queda en la tinta negra del sistema. */
+.block--agenda .title {
+    color: var(--azul);
+}
+
 /* CTA al calendario (CalendarioGoogle.astro): botón blanco con acento azul. El
    logo de Google Calendar es azul y sobre un .block--primary (fondo azul) se
    fundía; con fondo blanco contrasta. Borde y texto/flecha en azul de marca;

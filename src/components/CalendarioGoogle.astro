@@ -4,12 +4,17 @@
    título + flecha, como los enlaces de la home y el de Gmail en /not-done) en
    vez del iframe embebido, cuyo widget trae su propia UI (textos, enlaces de
    "más información") que ensucia la página. Abre el link de reserva en pestaña
-   nueva. URL fija — si se regenera el calendario en Google, actualizarla aquí. */
+   nueva. */
+import { CALENDARIO_URL } from "../data/calendario.js";
 const { texto = "Agendar en Google Meet" } = Astro.props;
-const href = "https://calendar.app.google/2CpjfV4NZ7baPRsM9";
 ---
 
-<a class="block block--calendario" href={href} target="_blank" rel="noopener">
+<a
+    class="block block--calendario"
+    href={CALENDARIO_URL}
+    target="_blank"
+    rel="noopener"
+>
     <img class="icon" src="/imgs/svg/google-calendar.svg" alt="" />
     <span class="body">
         <span class="title">{texto}</span>
