@@ -4,6 +4,7 @@ import Menu from "../components/Menu.astro";
 import Logros from "../components/Logros.astro";
 import Reviews from "../components/Reviews.astro";
 import CalendarioGoogle from "../components/CalendarioGoogle.astro";
+import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 ---
 
 <BaseLayout
@@ -12,7 +13,7 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
     canonical="/monetizar"
     ogUrl="https://davidvarea.com/monetizar"
     favicon="lightning"
-    bodyClass="reviews-blanco title-alerta"
+    bodyClass="reviews-blanco title-alerta monetizar"
 >
     <Menu
         enlaces={[
@@ -137,8 +138,6 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
             </strong>
         </p>
 
-        <CalendarioGoogle />
-
         <section class="seccion-blanca" id="resultados">
             <h2 style="font-family: var(--hand); color: var(--azul)">
                 Qué han logrado mis clientes
@@ -156,7 +155,6 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
         </section>
     </div>
     <Reviews id="opiniones" />
-    <CalendarioGoogle />
 
     <div class="cuerpo">
         <h2
@@ -199,8 +197,6 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
             </li>
         </ul>
 
-        <CalendarioGoogle />
-
         <span class="buscando icono-solido" aria-hidden="true"></span>
 
         <h2 style="font-family: var(--hand); margin-top: var(--gap-2xl);">
@@ -239,8 +235,6 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
                 campaña) pero algo te frena.
             </li>
         </ol>
-
-        <CalendarioGoogle />
     </div>
     <div
         class="flecha flecha--up"
@@ -248,4 +242,14 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
         style="margin-top: var(--gap-4xl)"
     >
     </div>
+
+    {/* CTA flotante fijo: entra cuando el botón del hero sale por arriba, así la
+    acción acompaña toda la lectura sin repetir el bloque por el copy. Va al
+    final del documento por orden de lectura del markup — al ser fixed su
+    posición en el DOM no afecta al render. */}
+    <div class="cta-sticky">
+        <CalendarioGoogle />
+    </div>
+
+    <FooterDisclaimer />
 </BaseLayout>

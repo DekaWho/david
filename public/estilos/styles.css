@@ -564,6 +564,20 @@ li::marker {
     margin: var(--gap-sm) auto var(--gap-sm);
 }
 
+/* Logo de YouTube coronando el hero de /youtube: nombra la plataforma antes de
+   que se lea el titular, que habla de "tu canal" sin decir de cuál. Va como
+   <img> directo, no como máscara tipo .doodle, porque el #FF0000 es marca de
+   terceros y aplanarlo a un color de la paleta lo falsearía. Ancho por debajo
+   del de .hero-rayo aunque ambos coronen su hero: el lienzo aquí es apaisado y
+   el glifo lo llena de lado a lado, así que a igual medida pesaría bastante
+   más; es un sello de plataforma, no la ilustración del hero. */
+.hero-youtube {
+    display: block;
+    width: clamp(5rem, 10vw, 7.5rem);
+    height: auto;
+    margin: 0 auto var(--gap-sm);
+}
+
 /* Foto-viñeta que abre el hero de /youtube: pone en escena el gancho del
    titular (el cuchicheo de "se rieron") antes de leerlo. Ancho por debajo del
    tope de la prueba (.banner-proof, 460px) para que el titular siga mandando;
@@ -654,6 +668,12 @@ li::marker {
    entradilla de lectura, sin titular con el que competir. */
 .youtube .banner .hero > p.hero-spoiler {
     font-size: clamp(1.3rem, 1.4vw, 1.5rem);
+    /* Aire titular→entradilla. Lo pone un solo margen, el de la entradilla: el
+       h1 de este banner va a margin-bottom 0 (.banner--presentacion h1) porque
+       el .hero es flex y los márgenes no colapsan, así que reintroducirlo allí
+       sumaría los dos huecos. Escalón propio del banner — el mismo componente
+       en el cuerpo conserva el suyo, donde no separa titular de promesa. */
+    margin-top: var(--gap-xl);
 }
 
 /* Los párrafos del banner van un escalón por encima del cuerpo en tamaño, así
@@ -740,7 +760,7 @@ li::marker {
     }
     .youtube .banner .hero > p.hero-spoiler {
         font-size: 1.2rem;
-        margin-top: var(--gap-md);
+        margin-top: var(--gap-lg);
     }
 }
 
@@ -3504,6 +3524,82 @@ audio::-webkit-media-controls-panel {
     color: var(--azul);
     font-size: 20px;
     font-weight: 700;
+}
+
+/* CTA al calendario flotando fijo arriba (.cta-sticky). Variante del estándar
+   de menús fijos del sitio: arranca oculto, lo alterna scripts.js y sin JS
+   queda visible (degrada a lo seguro). El umbral sí cambia — es el
+   .block--calendario del hero, no el H1: mientras el botón original está en
+   pantalla el flotante sobra, y aparecer antes pondría dos CTA idénticos a la
+   vez.
+   El contenedor es una franja de ancho completo solo para centrar; va sin
+   fondo, así que el copy sigue viéndose correr por debajo y a los costados del
+   botón. Por eso también pointer-events: none — una franja transparente a todo
+   lo ancho se tragaría los clicks del texto que cruza por debajo — y el botón
+   los reactiva.
+   z-index por debajo del .menu (1000) para que el burger flote sobre él. */
+.cta-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 900;
+    pointer-events: none;
+
+    display: flex;
+    justify-content: center;
+    padding: 10px 12px;
+
+    transition:
+        opacity 200ms ease,
+        transform 200ms ease;
+}
+
+.cta-sticky .block--calendario {
+    pointer-events: auto;
+}
+
+.cta-sticky--hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+}
+
+/* Mismo tamaño que el CTA del flujo — solo cae su margen de bloque de página,
+   que aquí lo pone el padding del contenedor. */
+.cta-sticky .block--calendario {
+    margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cta-sticky {
+        transition: none;
+    }
+}
+
+/* Las dos reglas de abajo aplican a las landings con CTA flotante (hoy
+   /youtube y /monetizar, vía su clase de <body>). Una landing nueva que monte
+   .cta-sticky se añade a los dos selectores. */
+@media (max-width: 800px) {
+    /* El CTA flotante ocupa la franja superior a tamaño completo y no deja
+       hueco para el burger, que aterrizaría encima. Se retira el menú entero en
+       móvil: en una landing de CTA único la navegación por anclas aporta menos
+       que la acción, y el copy se recorre igual scrolleando. En escritorio
+       conviven (la pill cabe a la derecha del botón centrado), así que la regla
+       vive solo en esta anchura. */
+    .youtube .menu,
+    .monetizar .menu {
+        display: none;
+    }
+
+    /* Las anclas del menú saltan bajo el CTA flotante: el margen base de [id]
+       (sección 2) solo cuenta con la pill del menú, que no ocupa alto. Sigue
+       cubriendo a quien llegue con hash en la URL, aunque en esta anchura ya no
+       haya menú desde el que saltar. */
+    .youtube [id],
+    .monetizar [id] {
+        scroll-margin-top: calc(var(--gap-md) + 5rem);
+    }
 }
 
 /* En evaluación — en la home (.blocks) el primary se diferencia SOLO por

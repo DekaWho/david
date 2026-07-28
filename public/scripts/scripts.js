@@ -128,6 +128,36 @@
     }
 })();
 
+/* Barra fija con el CTA al calendario (.cta-sticky). Sigue el estándar de menús
+   fijos del sitio —mismo IntersectionObserver, misma degradación a visible si el
+   JS no corre— con un umbral propio: el CTA del hero en vez del H1, para que la
+   barra entre justo cuando el botón original sale por arriba y se retire al
+   volver. Con el H1 como umbral ambos coincidirían en pantalla un buen tramo. */
+(() => {
+    const barra = document.querySelector('.cta-sticky');
+    if (!barra) return;
+    /* El primer CTA en orden de documento que no cuelgue de la propia barra: el
+       del hero. Filtrar por contains() en vez de por posición hace que la barra
+       pueda vivir en cualquier punto del markup. */
+    const umbral = [...document.querySelectorAll('.block--calendario')].find(
+        (cta) => !barra.contains(cta),
+    );
+    if (umbral && 'IntersectionObserver' in window) {
+        barra.classList.add('cta-sticky--hidden');
+        const io = new IntersectionObserver(([entry]) => {
+            /* "Fuera de viewport" no basta como condición: al cargar, un CTA
+               que cae por debajo del fold ya está fuera y la barra saldría sin
+               haber scrolleado. El signo de boundingClientRect.top separa los
+               dos casos — negativo es que el botón quedó por arriba (lo has
+               pasado), positivo que aún no has llegado a él. */
+            const pasado =
+                !entry.isIntersecting && entry.boundingClientRect.top < 0;
+            barra.classList.toggle('cta-sticky--hidden', !pasado);
+        });
+        io.observe(umbral);
+    }
+})();
+
 /* Account ID de MailerLite (público, sale en la URL del endpoint de subscribe). */
 const ML_ACCOUNT_ID = '1628594';
 
