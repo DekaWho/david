@@ -3215,7 +3215,7 @@ audio::-webkit-media-controls-panel {
    margen del heading no mueve nada. */
 .hero-card {
     position: relative;
-    margin: 0 14px clamp(108px, 15.5vh, 140px);
+    margin: 0 14px clamp(148px, 20vh, 184px);
     background: var(--blanco);
     padding: 0 12px 2rem;
 }
@@ -3315,10 +3315,7 @@ audio::-webkit-media-controls-panel {
     position: relative;
     width: 288px;
     background: var(--amarillo);
-    /* Asimétrico a propósito: el texto se apoya arriba, bajo la cinta, y el
-       hueco mayor queda al pie — como en un post-it real, donde se escribe
-       desde el borde superior y sobra papel abajo. */
-    padding: 1rem 10px 2rem;
+    padding: 1rem 10px;
     text-align: center;
     transform: rotate(-1.8deg);
     box-shadow:
@@ -3368,10 +3365,15 @@ audio::-webkit-media-controls-panel {
     mask: url("/imgs/svg/arrow-s-svgrepo-com.svg") no-repeat center / contain;
 }
 
+/* Puente entre el hero y los bloques. Hoy monta solo el caret: la pregunta que
+   lo acompañaba se mudó al postit, y el símbolo se queda como la marca que
+   baja la vista hacia los enlaces. Va centrado porque sin texto al lado
+   quedaría suelto contra el margen izquierdo. */
 .section-heading {
     margin: 10px 22px 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     font-family: var(--serif);
     font-weight: 700;
@@ -3381,6 +3383,9 @@ audio::-webkit-media-controls-panel {
 
 .section-heading .caret {
     color: var(--negro);
+    /* Cuerpo propio: al tamaño del heading el signo solo se leía diminuto. */
+    font-size: 26px;
+    line-height: 1;
 }
 
 .blocks {
