@@ -115,6 +115,10 @@
             if (toggle) toggle.checked = false;
         });
     });
+    /* menu--siempre-visible (prop siempreVisible de Menu.astro): la página
+       pide el menú visible desde la carga — sin observer, queda en su estado
+       por defecto (visible), igual que la degradación sin JS. */
+    if (menu.classList.contains('menu--siempre-visible')) return;
     /* Umbral de aparición: el H1 (estándar de menús fijos — el menú vuelve en
        cuanto el titular sale por arriba, con poco scroll). */
     const umbral = document.querySelector('h1');

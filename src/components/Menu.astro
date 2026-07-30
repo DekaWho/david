@@ -4,6 +4,10 @@ const {
     { href: '/', label: 'Ir a la home', iconoCasa: true },
     { href: '#contacto', label: 'Contacto', flechaDer: '↓' },
   ],
+  /* Excluye al menú del estándar de menús fijos (ocultarse mientras el H1
+     está en viewport): queda visible desde la carga. La clase la lee el
+     bloque del menú en scripts.js para saltarse el observer. */
+  siempreVisible = false,
 } = Astro.props;
 
 /* Con un solo enlace el burger es un paso de más (abrir el menú para
@@ -12,7 +16,7 @@ const {
 const soloEnlace = enlaces.length === 1;
 ---
 {soloEnlace ? (
-  <nav class="menu menu--solo" aria-label="Navegación principal">
+  <nav class:list={["menu", "menu--solo", siempreVisible && "menu--siempre-visible"]} aria-label="Navegación principal">
     <a href={enlaces[0].href} class="menu-link" aria-label={enlaces[0].label}>
       {enlaces[0].iconoCasa && (
         <svg class="menu-link-icon" viewBox="0 0 1024 1024" fill="currentColor" aria-hidden="true">
@@ -23,7 +27,7 @@ const soloEnlace = enlaces.length === 1;
     </a>
   </nav>
 ) : (
-<nav class="menu" aria-label="Navegación principal">
+<nav class:list={["menu", siempreVisible && "menu--siempre-visible"]} aria-label="Navegación principal">
   <input type="checkbox" id="menu-toggle" aria-label="Abrir menú" />
   <label for="menu-toggle" class="burger" aria-hidden="true">
     <span></span><span></span><span></span>
