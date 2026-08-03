@@ -648,25 +648,34 @@ li::marker {
 
 /* Aire bajo el último elemento del hero (hoy el CTA de agendar): el padding
    base del banner lo deja pegado al borde inferior; este lo separa del cambio
-   de sección. */
+   de sección para que el blanco del banner se lea como bloque cerrado antes del
+   papel del cuerpo. Valor fuera de la escala a propósito: --gap-3xl (5rem) se
+   queda corto para cerrar un hero y --gap-4xl (8rem), el separador editorial
+   máximo, abre demasiado hueco bajo el botón. */
 .youtube .banner {
-    padding-bottom: var(--gap-2xl);
+    padding-bottom: 6rem;
 }
 
 /* El hero de /youtube acota su columna por debajo del ancho de lectura global
-   (.hero = 720px) para un banner más compacto. Scopeado a la página; el resto
-   de heros (incluido /monetizar, que comparte .banner--presentacion) conservan
-   los 720px. */
+   (.hero = 720px) para un banner más compacto donde el ancho escasea; en
+   escritorio la abre por encima de ese ancho (bloque de min-width: 801px), que
+   es donde el titular largo agradece líneas más largas. Scopeado a la página;
+   el resto de heros (incluido /monetizar, que comparte .banner--presentacion)
+   conservan los 720px. */
 .youtube .banner .hero {
     max-width: 640px;
 }
 
-/* El titular de este hero es frase larga (dos oraciones con réplica), no claim
-   corto: a la escala base del banner ocupa media pantalla y le come el fold a
-   la promesa, que aquí vive en la entradilla de debajo. Baja un escalón la
-   escala entera manteniendo la proporción del clamp. */
+/* El titular de este hero es la oferta entera en una sola frase con incisos, no
+   un claim corto: a escala de titular ocupa la pantalla y empuja el CTA fuera
+   del fold, así que esta página renuncia al contraste por tamaño y baja muy por
+   debajo de la escala de titular del banner: en el extremo móvil queda a un pelo
+   del cuerpo del propio hero (--text-body) y lo que lo separa del párrafo es el
+   serif a peso 700, no el cuerpo de letra. El clamp cubre las dos anchuras él
+   solo — el tramo vw solo despega por encima de ~950px de viewport, así que
+   móvil y tablet estrecha se quedan en el mínimo sin override propio. */
 .youtube .banner h1 {
-    font-size: clamp(1.85rem, 2.7vw, 2.5rem);
+    font-size: clamp(1.45rem, 2.4vw, 1.9rem);
 }
 
 .youtube .hero > p.hero-spoiler,
@@ -708,22 +717,34 @@ li::marker {
     margin-bottom: 0;
 }
 
-/* Los <p> por debajo del vídeo recuperan margin-bottom (el resto del hero va a
-   0 para caber sin scroll, y tras el vídeo ese cero los apelmaza). El hero es
-   flex con gap: los márgenes no colapsan y el gap suma, así que --gap-xl iguala
-   el aire del cuerpo (donde el margin global colapsa a --gap-3xl). El <p> del
-   ermitaño, con su margin-block inline, conserva el suyo. */
-.youtube .banner .hero > .hero-video ~ p {
+/* Los <p> por debajo de la captura recuperan margin-bottom (el resto del hero
+   va a 0 para caber sin scroll, y tras la pieza visual ese cero los apelmaza).
+   El hero es flex con gap: los márgenes no colapsan y el gap suma, así que
+   --gap-xl iguala el aire del cuerpo (donde el margin global colapsa a
+   --gap-3xl). El <p> del ermitaño, con su margin-block inline, conserva el
+   suyo. */
+.youtube .banner .hero > .hero-captura ~ p {
     margin-bottom: var(--gap-xl);
 }
 
 /* En escritorio el hero de /youtube afloja el espaciado entre piezas con un gap
    de flex: suma aire uniforme sin tocar el ritmo de márgenes ya afinado y sobre
-   unos <p> que ya van a margin-bottom 0. En móvil (base, sin gap) el hero se
+   unos <p> que ya van a margin-bottom 0. La columna se ensancha además por
+   encima del ancho de lectura base: el titular ocupa varias líneas y con la
+   columna estrecha se parte de más. En móvil (base, sin gap) el hero se
    mantiene compacto para caber sin scroll. */
 @media (min-width: 801px) {
     .youtube .banner .hero {
         gap: var(--gap-sm);
+        max-width: 760px;
+    }
+
+    /* El cierre del banner crece bastante con la pantalla: en móvil el hueco de
+       base ya ocupa un tercio de viewport, mientras que en escritorio hace
+       falta mucho más blanco para que la caída del banner al cuerpo se lea como
+       corte de sección y no como un salto de párrafo. */
+    .youtube .banner {
+        padding-bottom: 13rem;
     }
 }
 
@@ -735,9 +756,9 @@ li::marker {
     margin-bottom: 0;
 }
 
-/* Aire sobre el vídeo del hero (el margin base del .hero-video es 0 arriba,
-   y el spoiler que lo precede anula su margin-bottom). */
-.youtube .hero-video {
+/* Aire sobre la captura del hero (el margin base de .hero-captura es 0 arriba,
+   y el spoiler que la precede anula su margin-bottom). */
+.youtube .hero-captura {
     margin-top: 1.5rem;
 }
 
@@ -768,9 +789,10 @@ li::marker {
 
     /* El aire titular→entradilla lo pone un solo margen, el del spoiler: el
        .banner h1 móvil reintroduce un margin-bottom que aquí se sumaría (el
-       .hero es flex y los márgenes no colapsan), duplicando el hueco. */
+       .hero es flex y los márgenes no colapsan), duplicando el hueco. Solo el
+       margen: el tamaño lo resuelve el clamp de la regla base para las dos
+       anchuras, y fijarlo aquí lo dejaría congelado en móvil. */
     .youtube .banner h1 {
-        font-size: 1.85rem;
         margin-bottom: 0;
     }
     .youtube .banner .hero > p.hero-spoiler {
@@ -1021,13 +1043,29 @@ p.pitch-titular {
     mask: url("/imgs/svg/searching-svgrepo-com.svg") center / contain no-repeat;
 }
 
-/* Regalo del mismo set, en rojo, bajo el titular de la oferta ("Qué recibes
-   exactamente") — hereda el acento del titular. Misma técnica de máscara.
-   Pegado al titular que lo presenta y con aire extra antes de la lista de
-   la oferta: el titular recorta su margin-bottom global (mismo recurso que
-   .cuerpo p:has(+ .gladiador)) y el hueco grande lo pone el propio icono. */
-h2:has(+ .regalo) {
+/* Figura bajo el titular de la oferta ("Qué recibes…"), sea el icono-máscara
+   del set o un emoji 3D: pegada al titular que la presenta y con aire extra
+   antes de la lista de la oferta. El titular recorta su margin-bottom global
+   (mismo recurso que .cuerpo p:has(+ .gladiador)) y el hueco grande lo pone la
+   propia figura. Un tipo de figura nuevo en esa posición se suma aquí. */
+h2:has(+ .regalo),
+h2:has(+ .emoji-3d) {
     margin-bottom: var(--gap-lg);
+}
+
+/* Emoji a color del set 3D de Fluent Emoji (Microsoft) montado como figura de
+   sección, en el sitio que ocuparía un icono del set monocromo. Al traer color
+   propio queda fuera de la técnica de máscara: se monta como <img> y la clase
+   solo le da caja. Distinta de .emoji, que es el emoji inline dentro del texto.
+   Lado a media escala de las figuras monocromas del set (.gladiador, .regalo):
+   el color y el gradiente ya pesan por sí solos, y al lado de aquellas el emoji
+   dominaba el bloque en vez de abrir la sección. Los PNG de Fluent son de
+   256px, así que subir de ~9rem empieza a escalar por encima del original. */
+.emoji-3d {
+    display: block;
+    width: 4.25rem;
+    height: auto;
+    margin: 0 auto var(--gap-2xl);
 }
 
 .regalo {
@@ -2070,6 +2108,25 @@ p.pitch-titular .aside-hand {
     margin: 0 auto clamp(0.6rem, 2vh, 1.2rem);
     border: 1px solid var(--negro);
     background: var(--negro);
+}
+
+/* Captura de prueba dentro del hero (hoy la monta /youtube). Sale a propósito
+   del ancho de lectura del hero: es una UI densa de cifras pequeñas y dentro de
+   la columna de texto los números caen por debajo del umbral de lectura. El
+   tope en vw mantiene el desborde dentro del viewport (el .banner lo recortaría
+   con su overflow: hidden) y el tope en px evita que en pantallas anchas la
+   evidencia pese más que el titular. El centrado va por align-self y no por
+   márgenes auto: con espacio libre negativo los auto se resuelven a 0 y la
+   imagen se pegaría al borde izquierdo del hero. Los width/height del elemento
+   fijan el aspect-ratio y evitan layout shift; borde tinta 1px, mismo lenguaje
+   dossier que el resto de piezas visuales. */
+.hero-captura {
+    display: block;
+    align-self: center;
+    width: min(92vw, 1100px);
+    height: auto;
+    margin-bottom: clamp(0.6rem, 2vh, 1.2rem);
+    border: 1px solid var(--negro);
 }
 
 /* ---------- 5. Cuerpo, títulos-breaker, .flecha ---------- */
@@ -4458,18 +4515,22 @@ audio::-webkit-media-controls-panel {
     box-decoration-break: clone;
 }
 
-/* Dentro de texto manuscrito (.hand = Kalam) los stops genéricos fallan:
-   las métricas de Kalam reservan mucho descendiente en el line box y la
-   baseline cae al ~69% del alto, así que la franja 60-92% queda casi
-   entera POR DEBAJO de las letras. Aquí la franja sube y se ensancha
-   para cubrir la x-height completa — en manuscrita el gesto es
-   highlighter que tapa el trazo, no rotulador por debajo. */
-.hand .mark-amarillo {
+/* Dentro de texto manuscrito los stops genéricos fallan: las métricas de Kalam
+   reservan mucho descendiente en el line box y la baseline cae al ~69% del
+   alto, así que la franja 60-92% queda casi entera POR DEBAJO de las letras.
+   Aquí sube hasta morder la mitad inferior de la x-height y muere justo bajo la
+   baseline: rotulador pasado por encima del trazo, con la silueta de la letra
+   aún legible por arriba. Cubre los tres contextos Kalam del sitio (.hand en
+   prosa, .aside-hand e .inciso-hand en incisos inline); una clase manuscrita
+   nueva se suma a esta lista y a la del .banner-mark de abajo. */
+.hand .mark-amarillo,
+.aside-hand .mark-amarillo,
+.inciso-hand .mark-amarillo {
     background-image: linear-gradient(
         180deg,
         transparent 0,
-        transparent 32%,
-        var(--amarillo) 32%,
+        transparent 52%,
+        var(--amarillo) 52%,
         var(--amarillo) 78%,
         transparent 78%
     );
