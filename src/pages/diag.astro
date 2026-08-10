@@ -1,0 +1,106 @@
+---
+/* Página temporal de diagnóstico del renderizado de texto en navegadores
+   in-app (Instagram, Facebook). Mide escalado de fuente y ancho de viewport
+   con probes de tamaño conocido. Borrar cuando el diagnóstico se cierre. */
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout titulo="Diagnóstico" noindex={true} scripts={false}>
+    <div class="cuerpo" style="padding-top: 1rem; padding-bottom: 3rem;">
+        <h1 id="titular-test" style="text-align: left;">
+            El titular que en Chrome ocupa dos líneas y en Instagram cuatro
+        </h1>
+
+        <table
+            id="resultados"
+            style="width: 100%; border-collapse: collapse; font-size: 15px; font-family: monospace; background: var(--blanco);"
+        >
+        </table>
+
+        <p
+            id="veredicto"
+            style="margin-top: 1.5rem; padding: 0.8rem; border: 2px solid var(--azul); font-size: 16px; font-weight: 700;"
+        >
+        </p>
+    </div>
+
+    <!-- Probes fuera de pantalla. A: texto suelto con font-size absoluto —
+         line-height 1 hace que su altura renderizada sea exactamente el
+         font-size, así que cualquier desviación de 18 es escalado del motor.
+         B: el mismo probe dentro de un párrafo largo y estrecho, que es lo
+         que dispara el font boosting. C: en rem, para separar un cambio del
+         root de un escalado global. -->
+    <div
+        aria-hidden="true"
+        style="position: absolute; left: -9999px; top: 0; width: 320px;"
+    >
+        <div id="probeA" style="font-size: 18px; line-height: 1;">M</div>
+        <div id="probeC" style="font-size: 1rem; line-height: 1;">M</div>
+        <p style="font-size: 18px; line-height: 1;">
+            Texto de relleno suficientemente largo para que el algoritmo de
+            autosizing considere este bloque como contenido principal y le
+            aplique su multiplicador de fuente, que es justo lo que queremos
+            detectar aquí midiendo la altura del probe que va dentro. Repetimos
+            para dar volumen al bloque porque el heurístico exige una cantidad
+            mínima de texto antes de decidir que merece la pena inflarlo, y con
+            dos frases sueltas no se activaría nunca.
+            <span id="probeB" style="display: inline-block; line-height: 1;"
+                >M</span
+            >
+        </p>
+    </div>
+
+    <script is:inline>
+        const n = (v) => Math.round(v * 100) / 100;
+        const alto = (id) =>
+            document.getElementById(id).getBoundingClientRect().height;
+
+        const a = alto("probeA");
+        const b = alto("probeB");
+        const c = alto("probeC");
+
+        const h1 = document.getElementById("titular-test");
+        const h1Estilo = getComputedStyle(h1);
+        const h1Lineas = n(
+            h1.getBoundingClientRect().height / parseFloat(h1Estilo.lineHeight),
+        );
+
+        const filas = [
+            ["Ancho de viewport (CSS px)", window.innerWidth],
+            ["Ancho de pantalla", window.screen.width],
+            ["devicePixelRatio", window.devicePixelRatio],
+            [
+                "Zoom del visual viewport",
+                window.visualViewport ? n(window.visualViewport.scale) : "n/d",
+            ],
+            ["font-size del <html>", getComputedStyle(document.documentElement).fontSize],
+            ["PROBE A · 18px sueltos → altura", n(a) + " (esperado 18)"],
+            ["PROBE B · 18px en párrafo → altura", n(b) + " (esperado 18)"],
+            ["PROBE C · 1rem suelto → altura", n(c) + " (esperado 18)"],
+            ["ESCALADO GLOBAL", n(a / 18) + "×"],
+            ["BOOSTING EN PÁRRAFO", n(b / a) + "×"],
+            ["font-size del H1", h1Estilo.fontSize],
+            ["Líneas que ocupa el H1", h1Lineas],
+            ["Ancho del .cuerpo", n(h1.getBoundingClientRect().width)],
+            ["User agent", navigator.userAgent],
+        ];
+
+        document.getElementById("resultados").innerHTML = filas
+            .map(
+                ([k, v]) =>
+                    `<tr><td style="border:1px solid #ccc;padding:4px;">${k}</td><td style="border:1px solid #ccc;padding:4px;font-weight:700;word-break:break-all;">${v}</td></tr>`,
+            )
+            .join("");
+
+        const escalado = a / 18;
+        const boosting = b / a;
+        let veredicto;
+        if (escalado > 1.02)
+            veredicto = `TEXT ZOOM DEL SISTEMA: el motor infla todo el texto ×${n(escalado)}. No se apaga desde CSS, hay que compensarlo por JS.`;
+        else if (boosting > 1.02)
+            veredicto = `FONT BOOSTING ACTIVO: los párrafos se inflan ×${n(boosting)} pese a text-size-adjust.`;
+        else
+            veredicto = `TEXTO SIN ESCALAR. Si aquí se ve más grande que en Chrome, la causa es el ancho del viewport (${window.innerWidth}px), no la fuente.`;
+        document.getElementById("veredicto").textContent = veredicto;
+    </script>
+</BaseLayout>
