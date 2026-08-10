@@ -96,20 +96,23 @@
     --shadow-press: none;
 }
 
+/* Estos 18px son la unidad de medida de todo el sitio, así que TODO font-size
+   nuevo va en rem. Un px literal sobrevive intacto al reajuste que hace el
+   script del <head> cuando el navegador aplica text zoom (los WebView de
+   Instagram y Facebook heredan el "Tamaño de fuente" del sistema y multiplican
+   el texto por él), y esa regla suelta se queda un 15% más grande que el resto
+   de la página. */
 html {
     font-size: 18px;
     scroll-behavior: smooth;
     font-weight: 400;
     hyphens: auto;
 
-    /* Desactiva el font boosting de los WebView in-app (Instagram, Facebook,
-       TikTok): con el valor `auto` que traen por defecto, el motor infla el
-       font-size de cada bloque por su cuenta, con factor distinto según su
-       ancho — el mismo titular pasa de 2 a 4 líneas mientras un post-it pasa
-       de 2 a 3. Chrome exceptúa del algoritmo a las páginas con viewport
-       `width=device-width`; el WebView embebido no. Es crítico aquí porque
-       todo el sistema se mide en rem sobre estos 18px: inflar el root
-       desborda cajas, clamps y saltos de línea del sitio entero. `100%` y no
+    /* Desactiva el font boosting, el otro escalado de los WebView in-app: con
+       el `auto` que traen por defecto, el motor infla el texto bloque a bloque
+       con un factor distinto según su ancho, así que descuadra la jerarquía
+       además del tamaño. Chrome exceptúa del algoritmo a las páginas con
+       viewport `width=device-width`; el WebView embebido no. `100%` y no
        `none`: `none` desactivaba además el zoom manual en WebKit antiguo. */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
@@ -476,7 +479,7 @@ li::marker {
     flex-shrink: 0;
     color: var(--azul);
     font-family: "EB Garamond", Georgia, system-ui, serif;
-    font-size: 16px;
+    font-size: 0.889rem;
     font-weight: 600;
     line-height: 1;
     display: inline-block;
@@ -1278,13 +1281,13 @@ p.pitch-titular .aside-hand {
     padding: clamp(11px, 1.9vh, 18px) 12px;
 }
 .banner .block--primary .title {
-    font-size: clamp(22px, 2.5vw, 28px);
+    font-size: clamp(1.222rem, 2.5vw, 1.556rem);
     font-weight: 500;
 }
 .banner .block--primary .arrow {
     color: var(--blanco);
     opacity: 1;
-    font-size: 26px;
+    font-size: 1.444rem;
 }
 
 /* Sombra reforzada de los CTA: más opaca y con menos blur que la box-shadow
@@ -3308,7 +3311,7 @@ audio::-webkit-media-controls-panel {
     margin: 10px 4px 0;
     font-family: var(--serif);
     font-weight: 700;
-    font-size: 36px;
+    font-size: 2rem;
     line-height: 1.18;
     letter-spacing: -0.015em;
     color: var(--negro);
@@ -3391,7 +3394,7 @@ audio::-webkit-media-controls-panel {
         0 3px 8px rgba(0, 0, 0, 0.12),
         0 1px 2px rgba(0, 0, 0, 0.08);
     font-family: var(--hand);
-    font-size: 16px;
+    font-size: 0.889rem;
     line-height: 1.25;
     color: var(--negro);
     /* Anula el hyphens:auto global: en una nota manuscrita corta, partir
@@ -3446,14 +3449,14 @@ audio::-webkit-media-controls-panel {
     gap: 6px;
     font-family: var(--serif);
     font-weight: 700;
-    font-size: 16px;
+    font-size: 0.889rem;
     color: var(--negro);
 }
 
 .section-heading .caret {
     color: var(--negro);
     /* Cuerpo propio: al tamaño del heading el signo solo se leía diminuto. */
-    font-size: 26px;
+    font-size: 1.444rem;
     line-height: 1;
 }
 
@@ -3520,7 +3523,7 @@ audio::-webkit-media-controls-panel {
     display: block;
     font-family: var(--serif);
     font-weight: 700;
-    font-size: 18px;
+    font-size: 1rem;
     /* Interlineado apretado para que el título, al partir en 2 líneas en móvil,
        no abra un renglón editorial suelto. "normal" (~1.28) deja las dos líneas
        demasiado separadas para un titular corto de bloque. */
@@ -3531,7 +3534,7 @@ audio::-webkit-media-controls-panel {
 .block .subtitle-hand {
     display: block;
     font-family: var(--hand);
-    font-size: 15px;
+    font-size: 0.833rem;
     color: var(--rojo);
     margin-top: -1px;
 }
@@ -3559,7 +3562,7 @@ audio::-webkit-media-controls-panel {
    a fuente de emoji a color. */
 .block .arrow {
     font-family: "EB Garamond", Georgia, system-ui, serif;
-    font-size: 16px;
+    font-size: 0.889rem;
     color: var(--negro);
     opacity: 0.5;
     margin-left: 4px;
@@ -3586,7 +3589,7 @@ audio::-webkit-media-controls-panel {
     color: rgba(255, 255, 255, 0.45);
 }
 .block--primary .arrow {
-    font-size: 18px;
+    font-size: 1rem;
     color: var(--blanco);
     opacity: 0.9;
     margin-left: 0;
@@ -3608,7 +3611,7 @@ audio::-webkit-media-controls-panel {
     padding-block: clamp(14px, 2vh, 18px);
 }
 .block--solo-titulo .title {
-    font-size: 19px;
+    font-size: 1.056rem;
 }
 
 /* CTA al calendario (CalendarioGoogle.astro): botón blanco con acento azul. El
@@ -3630,12 +3633,12 @@ audio::-webkit-media-controls-panel {
 .block--calendario .title {
     color: var(--azul);
 }
-/* La flecha, en peso normal a 16px, se lee más clara que el título bold pese a
-   ser el mismo azul; se le sube cuerpo y peso para que el azul rinda igual de
-   sólido. */
+/* La flecha, al cuerpo heredado y en peso normal, se lee más clara que el
+   título bold pese a ser el mismo azul; se le sube cuerpo y peso para que el
+   azul rinda igual de sólido. */
 .block--calendario .arrow {
     color: var(--azul);
-    font-size: 20px;
+    font-size: 1.111rem;
     font-weight: 700;
 }
 
@@ -3725,11 +3728,11 @@ audio::-webkit-media-controls-panel {
     padding: 12px;
 }
 .blocks .block--primary .title {
-    font-size: 18px;
+    font-size: 1rem;
     line-height: normal;
 }
 .blocks .block--primary .arrow {
-    font-size: 16px;
+    font-size: 0.889rem;
     opacity: 0.5;
     margin-left: 4px;
 }
@@ -3777,7 +3780,7 @@ audio::-webkit-media-controls-panel {
 }
 
 .block--primary .title {
-    font-size: 21px;
+    font-size: 1.167rem;
     line-height: 1.1;
 }
 
@@ -3786,7 +3789,7 @@ audio::-webkit-media-controls-panel {
     background: var(--amarillo);
     color: var(--negro);
     font-family: var(--hand);
-    font-size: 13px;
+    font-size: 0.722rem;
     font-weight: 700;
     padding: 6px 12px 4px;
     box-shadow:
@@ -3881,7 +3884,7 @@ audio::-webkit-media-controls-panel {
     margin-left: clamp(14px, 5vw, 32px);
 }
 .block--sub .title {
-    font-size: 16px;
+    font-size: 0.889rem;
 }
 
 /* Tarjeta informativa no interactiva: conserva el aspecto de .block pero anula
@@ -3909,7 +3912,7 @@ audio::-webkit-media-controls-panel {
 
 @media (max-width: 380px) {
     .hero-headline {
-        font-size: 28px;
+        font-size: 1.556rem;
     }
     .postit {
         width: 260px;
@@ -3938,7 +3941,7 @@ audio::-webkit-media-controls-panel {
     }
 
     .hero-headline {
-        font-size: clamp(32px, 4.1vh, 43px);
+        font-size: clamp(1.778rem, 4.1vh, 2.389rem);
         margin: clamp(8px, 1.1vh, 12px) 6px 0;
     }
 
@@ -3946,7 +3949,7 @@ audio::-webkit-media-controls-panel {
         /* Ancho y paddings los pone la regla base: el postit se mantiene
            idéntico en las dos anchuras. Aquí solo sube la tipografía, que en
            escritorio se leería diminuta al tamaño de móvil. */
-        font-size: clamp(17px, 1.9vh, 20px);
+        font-size: clamp(0.944rem, 1.9vh, 1.111rem);
         line-height: 1.28;
     }
 
@@ -3975,11 +3978,11 @@ audio::-webkit-media-controls-panel {
     }
 
     .block .subtitle-hand {
-        font-size: 16px;
+        font-size: 0.889rem;
     }
 
     .block--primary .title {
-        font-size: 21px;
+        font-size: 1.167rem;
     }
 }
 
@@ -4102,7 +4105,7 @@ audio::-webkit-media-controls-panel {
     min-width: 0;
     padding: clamp(11px, 1.9vh, 18px) 14px;
     font-family: var(--serif);
-    font-size: clamp(16px, 1.3vw, 18px);
+    font-size: clamp(0.889rem, 1.3vw, 1rem);
     color: var(--negro);
     background: var(--blanco);
     border: 2px solid var(--negro);
@@ -4127,7 +4130,7 @@ audio::-webkit-media-controls-panel {
    universaliza el peso para que cualquier optin (cajetín suelto, bloques
    OptinCompleto, futuras landings) lea igual de ligero. */
 .optin .block--primary .title {
-    font-size: clamp(18px, 1.8vw, 22px);
+    font-size: clamp(1rem, 1.8vw, 1.222rem);
     font-weight: 500;
 }
 
@@ -4249,7 +4252,7 @@ audio::-webkit-media-controls-panel {
 .post .banner .postit {
     width: clamp(200px, 24vw, 270px);
     padding: clamp(14px, 1.8vh, 18px) clamp(14px, 1.8vw, 20px);
-    font-size: clamp(15px, 1.4vw, 17px);
+    font-size: clamp(0.833rem, 1.4vw, 0.944rem);
     line-height: 1.3;
 }
 

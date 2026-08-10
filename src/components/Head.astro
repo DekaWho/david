@@ -100,6 +100,31 @@ const faviconHref = (size) => `${faviconPrefix}${size}.png`;
 
 <link rel="stylesheet" href="/estilos/styles.css" />
 
+{/* Recalibra el root cuando el navegador aplica text zoom. Los WebView in-app
+   (Instagram, Facebook) heredan el ajuste "Tamaño de fuente" del sistema y
+   multiplican todo el texto por él — un 115% de Android deja el sitio con el
+   titular a cuatro líneas y las cards desbordadas. Chrome no lo hace, así que
+   el problema solo se ve al entrar desde la app. El factor se mide sobre el
+   propio motor (fijar 100px y leer cuánto computa) en vez de deducirlo del
+   user agent, y se divide dos veces: una deshace el zoom del valor que
+   escribimos, otra el del valor que ya traía. Va síncrono en el <head> y tras
+   el CSS —que bloquea al script hasta cargar— para que el ajuste ocurra antes
+   del primer pintado y no se vea el salto de tamaño.
+   Invariante: solo alcanza a lo que se mide en rem. Un font-size en px
+   literal queda fuera de la corrección y se escala igual. */}
+<script is:inline>
+    (function () {
+        var raiz = document.documentElement;
+        var actual = parseFloat(getComputedStyle(raiz).fontSize);
+        raiz.style.fontSize = "100px";
+        var factor = parseFloat(getComputedStyle(raiz).fontSize) / 100;
+        raiz.style.fontSize = "";
+        if (factor > 1.005) {
+            raiz.style.fontSize = actual / (factor * factor) + "px";
+        }
+    })();
+</script>
+
 {
     faviconSvg ? (
         <link rel="icon" type="image/svg+xml" href={faviconSvg} />

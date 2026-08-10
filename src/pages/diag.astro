@@ -92,15 +92,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
             )
             .join("");
 
-        const escalado = a / 18;
-        const boosting = b / a;
+        /* A va en px literal, así que mide el zoom crudo del motor: la
+           corrección del <head> no lo alcanza. C va en rem, así que mide el
+           resultado ya corregido. Los dos juntos dicen si el arreglo actuó. */
+        const zoomMotor = a / 18;
+        const trasCorreccion = c / 18;
         let veredicto;
-        if (escalado > 1.02)
-            veredicto = `TEXT ZOOM DEL SISTEMA: el motor infla todo el texto ×${n(escalado)}. No se apaga desde CSS, hay que compensarlo por JS.`;
-        else if (boosting > 1.02)
-            veredicto = `FONT BOOSTING ACTIVO: los párrafos se inflan ×${n(boosting)} pese a text-size-adjust.`;
+        if (zoomMotor <= 1.02)
+            veredicto = `SIN ZOOM: este navegador no escala el texto (×${n(zoomMotor)}), no hay nada que corregir aquí.`;
+        else if (trasCorreccion <= 1.02)
+            veredicto = `CORRECCIÓN OK: el motor escalaba ×${n(zoomMotor)} y el texto en rem sale a tamaño real (×${n(trasCorreccion)}).`;
         else
-            veredicto = `TEXTO SIN ESCALAR. Si aquí se ve más grande que en Chrome, la causa es el ancho del viewport (${window.innerWidth}px), no la fuente.`;
+            veredicto = `CORRECCIÓN FALLIDA: el motor escala ×${n(zoomMotor)} y el texto en rem sigue a ×${n(trasCorreccion)}.`;
         document.getElementById("veredicto").textContent = veredicto;
     </script>
 </BaseLayout>
