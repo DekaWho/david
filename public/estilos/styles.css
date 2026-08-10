@@ -101,6 +101,18 @@ html {
     scroll-behavior: smooth;
     font-weight: 400;
     hyphens: auto;
+
+    /* Desactiva el font boosting de los WebView in-app (Instagram, Facebook,
+       TikTok): con el valor `auto` que traen por defecto, el motor infla el
+       font-size de cada bloque por su cuenta, con factor distinto según su
+       ancho — el mismo titular pasa de 2 a 4 líneas mientras un post-it pasa
+       de 2 a 3. Chrome exceptúa del algoritmo a las páginas con viewport
+       `width=device-width`; el WebView embebido no. Es crítico aquí porque
+       todo el sistema se mide en rem sobre estos 18px: inflar el root
+       desborda cajas, clamps y saltos de línea del sitio entero. `100%` y no
+       `none`: `none` desactivaba además el zoom manual en WebKit antiguo. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
@@ -1506,9 +1518,8 @@ p.pitch-titular .aside-hand {
     transform-origin: center;
 }
 
-/* Las 3 líneas colapsan en X al abrir (mismo gesto que el burger móvil del
-   sitio). El foco por teclado en el checkbox oculto se refleja en el borde
-   del botón para no perder la pista de foco. */
+/* Las 3 líneas colapsan en X al abrir. El foco por teclado en el checkbox
+   oculto se refleja en el borde del botón para no perder la pista de foco. */
 .forja-nav-toggle:focus-visible + .forja-burger {
     outline: 2px solid var(--azul);
     outline-offset: 2px;
@@ -3105,14 +3116,17 @@ audio::-webkit-media-controls-panel {
         display: none;
     }
 
+    /* Tres puntos en fila — el "···" de menú contextual, no la hamburguesa
+       clásica. Son los mismos 3 <span> del label: la fila los pone en
+       horizontal y el círculo sale del border-radius, sin markup extra.
+       El icono se queda quieto al abrir; el desplegable ya señala el estado. */
     .burger {
         display: flex;
-        flex-direction: column;
+        align-items: center;
         justify-content: center;
         gap: 4px;
         width: 40px;
         height: 40px;
-        padding: 11px 9px;
         box-sizing: border-box;
 
         background: var(--blanco);
@@ -3122,24 +3136,10 @@ audio::-webkit-media-controls-panel {
     }
 
     .burger span {
-        display: block;
-        height: 2px;
+        width: 5px;
+        height: 5px;
         background: var(--azul);
-        border-radius: var(--radius-thread);
-        transition:
-            transform 160ms ease,
-            opacity 160ms ease;
-        transform-origin: center;
-    }
-
-    #menu-toggle:checked + .burger span:nth-child(1) {
-        transform: translateY(6px) rotate(45deg);
-    }
-    #menu-toggle:checked + .burger span:nth-child(2) {
-        opacity: 0;
-    }
-    #menu-toggle:checked + .burger span:nth-child(3) {
-        transform: translateY(-6px) rotate(-45deg);
+        border-radius: 50%;
     }
 
     .links {
@@ -3185,7 +3185,7 @@ audio::-webkit-media-controls-panel {
     /* Menú de enlace único (.menu--solo): sin burger que desplegar, el
        propio enlace ocupa el sitio del burger con su misma caja (40px,
        blanco, sombra) para que el botón se lea igual en todas las páginas;
-       solo cambia el dibujo interior (casita en vez de 3 líneas). */
+       solo cambia el dibujo interior (casita en vez de los 3 puntos). */
     .menu--solo .menu-link {
         justify-content: center;
         width: 40px;
@@ -4706,9 +4706,9 @@ audio::-webkit-media-controls-panel {
 }
 
 /* Índice de la página (TOC). Lateral fijo en desktop (sigue scroll por
-   position fixed) y hamburguesa + drawer desplegable en móvil. El burger
-   reutiliza la clase .burger del nav del sitio (sección 3) — mismo patrón
-   checkbox + label + 3 spans animadas a X — y el drawer espeja .links
+   position fixed) y botón + drawer desplegable en móvil. El botón reutiliza
+   la clase .burger del nav del sitio (sección 3) — mismo patrón checkbox +
+   label + 3 spans, así que hereda su dibujo — y el drawer espeja .links
    mobile para que el usuario sienta el mismo idioma de menú. La lista la
    construye JS leyendo H1 + H2s del .cuerpo + footer. */
 .post-toc {
@@ -4783,7 +4783,7 @@ audio::-webkit-media-controls-panel {
 
 /* Desktop: lateral derecho, fijo. top calibrado para arrancar por debajo
    del banner del post; max-height + overflow para posts largos en
-   pantallas cortas. La hamburguesa se hereda hidden de .burger (sección 3),
+   pantallas cortas. El botón se hereda hidden de .burger (sección 3),
    así que lo que entra al pasar el H1 es el panel entero. */
 @media (min-width: 801px) {
     .post-toc {
@@ -4795,26 +4795,16 @@ audio::-webkit-media-controls-panel {
     }
 }
 
-/* Móvil: hamburguesa fija arriba-derecha (misma posición que .menu mobile)
-   y panel desplegable debajo, idéntico patrón visual a .links mobile.
-   La animación X de las 3 líneas espeja el bloque #menu-toggle:checked
-   de la sección 3 — mismo movimiento, parametrizado al checkbox propio.
+/* Móvil: botón fijo arriba-derecha (misma posición que .menu mobile) y panel
+   desplegable debajo, idéntico patrón visual a .links mobile. El icono no
+   cambia al abrir, igual que el .burger del nav.
    El ocultado mientras el H1 manda lo lleva .post-toc--hidden (arriba, común a
-   las dos anchuras): aquí lo que se oculta es el burger, porque el panel está
+   las dos anchuras): aquí lo que se oculta es el botón, porque el panel está
    cerrado. */
 @media (max-width: 800px) {
     .post-toc {
         top: 10px;
         right: 10px;
-    }
-    #post-toc-checkbox:checked + .burger span:nth-child(1) {
-        transform: translateY(6px) rotate(45deg);
-    }
-    #post-toc-checkbox:checked + .burger span:nth-child(2) {
-        opacity: 0;
-    }
-    #post-toc-checkbox:checked + .burger span:nth-child(3) {
-        transform: translateY(-6px) rotate(-45deg);
     }
     .post-toc-panel {
         position: absolute;
