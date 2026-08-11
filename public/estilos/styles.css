@@ -183,7 +183,7 @@ h3.titulo-seccion {
     margin-bottom: var(--gap-md);
 }
 
-/* Antesala manuscrita a un bloque (CTA, formulario): Kalam bold azul,
+/* Antesala manuscrita a un bloque (CTA, formulario, titular): Kalam bold azul,
    centrada, margin-bottom corto para que se pegue al bloque siguiente y
    se lea como pregunta abriendo la pieza, no como párrafo independiente.
    Tilt negativo coherente con .banner-subline y .postit — refuerza la
@@ -664,11 +664,9 @@ li::marker {
 /* Aire bajo el último elemento del hero (hoy el CTA de agendar): el padding
    base del banner lo deja pegado al borde inferior; este lo separa del cambio
    de sección para que el blanco del banner se lea como bloque cerrado antes del
-   papel del cuerpo. Valor fuera de la escala a propósito: --gap-3xl (5rem) se
-   queda corto para cerrar un hero y --gap-4xl (8rem), el separador editorial
-   máximo, abre demasiado hueco bajo el botón. */
+   papel del cuerpo. */
 .youtube .banner {
-    padding-bottom: 6rem;
+    padding-bottom: var(--gap-3xl);
 }
 
 /* El hero de /youtube acota su columna por debajo del ancho de lectura global
@@ -681,6 +679,34 @@ li::marker {
     max-width: 640px;
 }
 
+/* Pretitular del hero de /youtube: acota a quién va dirigida la oferta antes de
+   que se lea el titular. Va en el manuscrito azul del sistema (.titulo-mano),
+   que es la voz de la apostilla, a media escala: el h1 de esta página ya baja
+   muy por debajo de la escala de titular, así que al tamaño base del componente
+   empataría con él y el hero perdería jerarquía. El margen propio lo despega del
+   logo y lo deja pegado al titular —lo presenta, no es una pieza suelta—; hace
+   falta explícito porque en móvil el hero va sin gap de flex y la regla de <p>
+   del banner lo dejaría a hueso contra el h1. */
+.youtube .banner .hero > .titulo-mano {
+    font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+    margin-bottom: 0.4rem;
+    /* Columna más corta que la del titular: al ocupar el ancho entero del hero
+       la condición se leía como una línea de texto más y no como sello sobre el
+       h1. El `balance` es lo que hace el recorte legible — con la caja estrecha
+       el reparto natural deja una segunda línea huérfana de dos palabras. */
+    max-width: min(85%, 26rem);
+    margin-inline: auto;
+    text-wrap: balance;
+    /* Recto, trazo fino y en rojo señalético, frente al azul inclinado y bold
+       del componente: aquí el manuscrito no es un aparte al margen sino la
+       condición de entrada, y el rojo es el color con el que esta página
+       descalifica (el "NO agendes si" del cuerpo). El trazo fino evita que
+       compita con el h1, que ya va reducido. */
+    font-weight: 400;
+    color: var(--rojo);
+    transform: none;
+}
+
 /* El titular de este hero es la oferta entera en una sola frase con incisos, no
    un claim corto: a escala de titular ocupa la pantalla y empuja el CTA fuera
    del fold, así que esta página renuncia al contraste por tamaño y baja muy por
@@ -691,6 +717,13 @@ li::marker {
    móvil y tablet estrecha se quedan en el mínimo sin override propio. */
 .youtube .banner h1 {
     font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+    /* El titular se despega por igual del pretitular y del CTA para leerse como
+       pieza suelta en el hero. Los dos huecos los pone el h1 —y no los vecinos—
+       porque el .hero es flex, los márgenes no colapsan y se sumarían; el
+       margin-bottom pisa además el 0 que impone .banner--presentacion h1, ahí
+       para heros donde el titular sí cede su aire a lo que le sigue. */
+    margin-top: var(--gap-lg);
+    margin-bottom: var(--gap-lg);
 }
 
 .youtube .hero > p.hero-spoiler,
@@ -759,7 +792,7 @@ li::marker {
        falta mucho más blanco para que la caída del banner al cuerpo se lea como
        corte de sección y no como un salto de párrafo. */
     .youtube .banner {
-        padding-bottom: 13rem;
+        padding-bottom: 10rem;
     }
 }
 
@@ -802,14 +835,6 @@ li::marker {
         font-size: 1.45rem;
     }
 
-    /* El aire titular→entradilla lo pone un solo margen, el del spoiler: el
-       .banner h1 móvil reintroduce un margin-bottom que aquí se sumaría (el
-       .hero es flex y los márgenes no colapsan), duplicando el hueco. Solo el
-       margen: el tamaño lo resuelve el clamp de la regla base para las dos
-       anchuras, y fijarlo aquí lo dejaría congelado en móvil. */
-    .youtube .banner h1 {
-        margin-bottom: 0;
-    }
     .youtube .banner .hero > p.hero-spoiler {
         font-size: 1.2rem;
         margin-top: var(--gap-lg);
@@ -2941,6 +2966,27 @@ audio::-webkit-media-controls-panel {
 
 .review-card audio::-webkit-media-controls-panel {
     background-color: var(--blanco);
+}
+
+/* Prueba en imagen (la placa de 100k de /youtube): entra en la serie de reviews
+   de la franja para heredar su ritmo de márgenes y el torcido alterno, pero
+   suelta el soporte blanco de las cards de audio — la foto ya trae su propio
+   marco (la placa recortada sobre el fondo del estudio) y encajarla en otro la
+   leía como captura pegada en una ficha. El ancho baja muy por debajo del de
+   las cards de audio: la foto es casi cuadrada y a su medida se comería una
+   pantalla de móvil entera; el tope está donde el "100,000 subscribers" grabado
+   en la placa aún se lee. El selector arranca en .seccion-tinta para ganarle al
+   max-width que las cards reciben en el bloque móvil de más abajo. */
+.seccion-tinta .review-card--placa {
+    max-width: min(340px, calc(100% - 4rem));
+    padding: 0;
+    background: none;
+}
+
+.review-card--placa img {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 /* Doodle de chat al margen derecho de la review-card: misma técnica de

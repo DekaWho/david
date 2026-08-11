@@ -22,6 +22,11 @@
      el cierre "SUFICIENTE". Vacío por defecto (no renderiza nada), así que solo
      aparece donde se rellena. /opinan-sobre-mi mete ahí un testimonio extra
      (captura de email); /servicios lo deja vacío.
+   - slot "ultima-review": prueba extra DENTRO de la franja de tinta, tras el
+     tercer audio, para la que solo vale en una página concreta. /youtube mete
+     ahí la placa de 100k. Va por slot y no en el markup fijo porque el bloque se
+     monta también en /monetizar, donde la marca YouTube no aparece a propósito
+     (su FooterDisclaimer omite el aviso de Google/YouTube).
 
    El titular por defecto se decide con Astro.slots.has, no con contenido
    fallback dentro del <slot>: rellenar un slot que lleva fallback markup hace
@@ -117,6 +122,8 @@ const { flechaFinal = true, id = "reviews" } = Astro.props;
             visto junto a Ibai en alguno de sus eventos o porque forma parte del equipo
             que apoya a Lamine Yamal con sus redes sociales.
         </p>
+
+        <slot name="ultima-review" />
     </div>
 </section>
 
