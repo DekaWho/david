@@ -183,6 +183,13 @@ h3.titulo-seccion {
     margin-bottom: var(--gap-md);
 }
 
+/* El subrayado de este rótulo va a la mitad del grosor global: el trazo se
+   escala con el cuerpo de letra y a escala de titular el valor de prosa pesa
+   como una barra, compitiendo con el propio trazo manuscrito de la palabra. */
+.suficiente u {
+    text-decoration-thickness: 0.075em;
+}
+
 /* Antesala manuscrita a un bloque (CTA, formulario, titular): Kalam bold azul,
    centrada, margin-bottom corto para que se pegue al bloque siguiente y
    se lea como pregunta abriendo la pieza, no como párrafo independiente.
