@@ -5,23 +5,25 @@ import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 import Logros from "../components/Logros.astro";
 import Reviews from "../components/Reviews.astro";
 import CalendarioGoogle from "../components/CalendarioGoogle.astro";
+
+/* Los mismos destinos en las dos instancias del menú: la fila del banner
+   (enFlujo) y la barra fija que la releva al scrollear. */
+const SECCIONES = [
+    { href: "#agendar", label: "Agendar llamada", flechaDer: "↓" },
+    { href: "#quien-soy", label: "Quién soy" },
+    { href: "#opiniones", label: "Opiniones" },
+];
 ---
 
 <BaseLayout
-    titulo="Reduce objeciones con unos simples vídeos de Youtube"
-    ogTitle="⚡ Reduce objeciones y calienta al lead con unos simples vídeos de Youtube"
+    titulo="Potencia tu canal de Youtube"
+    ogTitle="🎬 Potencia tu canal de Youtube"
     canonical="/youtube"
     ogUrl="https://davidvarea.com/youtube"
-    favicon="lightning"
+    favicon="youtube"
     bodyClass="reviews-blanco youtube title-alerta"
 >
-    <Menu
-        enlaces={[
-            { href: "#quien-soy", label: "Quién soy" },
-            { href: "#opiniones", label: "Opiniones" },
-            { href: "#que-recibes", label: "Qué recibes", flechaDer: "↓" },
-        ]}
-    />
+    <Menu enlaces={SECCIONES} />
 
     <div class="banner banner--presentacion">
         <section class="hero">
@@ -44,7 +46,7 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
                 >
             </h1>
 
-            <CalendarioGoogle />
+            <Menu enFlujo enlaces={SECCIONES} />
         </section>
     </div>
 
@@ -188,10 +190,10 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
 
     <div class="cuerpo">
         <h2
-            id="que-recibes"
+            id="agendar"
             style="font-family: var(--hand); color: var(--rojo)"
         >
-            Qué recibes exactamente
+            Qué recibes en la&nbsp;llamada
         </h2>
 
         <img
@@ -204,7 +206,7 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
         />
 
         <p style="margin-bottom: 1rem;">
-            <strong>En la llamada recibes un diagnóstico de tu canal:</strong>
+            <strong>Un diagnóstico de tu canal:</strong>
         </p>
 
         <ul>
@@ -224,6 +226,8 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
                 para atraer a tu cliente ideal.
             </li>
         </ul>
+
+        <CalendarioGoogle />
 
         <span class="buscando icono-solido" aria-hidden="true"></span>
 
@@ -269,24 +273,6 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
                 muy concreta, te la cuento en la llamada).
             </li>
         </ol>
-
-        <CalendarioGoogle />
-    </div>
-    <div
-        class="flecha flecha--up"
-        aria-hidden="true"
-        style="margin-top: var(--gap-4xl)"
-    >
-    </div>
-
-    {
-        /* CTA flotante fijo: entra cuando el botón del hero sale por arriba, así la
-    acción acompaña toda la lectura sin repetir el bloque por el copy. Va al
-    final del documento por orden de lectura del markup — al ser fixed su
-    posición en el DOM no afecta al render. */
-    }
-    <div class="cta-sticky">
-        <CalendarioGoogle />
     </div>
 
     <FooterDisclaimer youtube />

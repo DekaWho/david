@@ -1,26 +1,29 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Menu from "../components/Menu.astro";
-import Footer from "../components/Footer.astro";
 import Logros from "../components/Logros.astro";
 import Reviews from "../components/Reviews.astro";
+import CalendarioGoogle from "../components/CalendarioGoogle.astro";
+
+/* Los mismos destinos en las dos instancias del menú: la fila del banner
+   (enFlujo) y la barra fija que la releva al scrollear. */
+const SECCIONES = [
+    { href: "#trabajar-juntos", label: "Cómo trabajar juntos", flechaDer: "↓" },
+    { href: "#portfolio", label: "Portfolio" },
+    { href: "#opiniones", label: "Opiniones" },
+];
 ---
 
 <BaseLayout
-    titulo="Director de marketing en las sombras | David Varea"
+    titulo="Escala tu negocio highticket sin más equipo"
     canonical="/servicios"
-    ogTitle="🤝 David Varea"
-    ogDescription="Director de marketing en las sombras (+LTV sin descuentos, -CAC sin gastar más en ads)"
+    ogTitle="Escala tu negocio highticket sin más equipo"
+    ogDescription="David Varea 🤝 Consultor estratégico de marketing y ventas."
     ogUrl="https://davidvarea.com/servicios"
+    favicon="lightning"
+    bodyClass="title-alerta"
 >
-    <Menu
-        siempreVisible
-        enlaces={[
-            { href: "#portfolio", label: "Portfolio" },
-            { href: "#reviews", label: "Reviews" },
-            { href: "#contacto", label: "Contacto", flechaDer: "↓" },
-        ]}
-    />
+    <Menu enlaces={SECCIONES} />
 
     <div class="banner">
         <section class="hero">
@@ -42,7 +45,7 @@ import Reviews from "../components/Reviews.astro";
 
             <h1>
                 ENCÁRGAME UN MARRÓN Y
-                <u class="banner-mark">LÍBRATE DE ÉL</u>
+                <u class="banner-mark">LÍBRATE</u> DE ÉL
             </h1>
 
             <ul class="banner-badges" aria-label="Lo que entrego">
@@ -143,13 +146,7 @@ import Reviews from "../components/Reviews.astro";
                 </li>
             </ul>
 
-            <a href="#contacto" class="block block--primary">
-                <span class="handle" aria-hidden="true">⋮⋮</span>
-                <img class="icon" src="/imgs/svg/email.svg" alt="" />
-                <span class="body">
-                    <span class="title">Cómo trabajar juntos</span>
-                </span>
-            </a>
+            <Menu enFlujo enlaces={SECCIONES} />
         </section>
     </div>
 
@@ -191,24 +188,24 @@ import Reviews from "../components/Reviews.astro";
         </p>
 
         <p id="portfolio">
-            Y no lo digo por decir. Yo he trabajado con ecommerce, infoproductos
-            y en el sector financiero. Estos son algunos de mis logros en los
-            últimos años:
+            Estos son algunos de mis logros en los últimos años:
         </p>
 
         <Logros />
     </div>
 
-    <Reviews />
-
-    <h1 class="titulo-breaker titulo-breaker--bg-claro">
-        Cómo <span class="banner-mark">trabajar&nbsp;juntos</span>
-    </h1>
+    <Reviews id="opiniones" />
 
     <div class="cuerpo">
-        <p id="contacto">
-            Ya sea como copywriter o como director de marketing freelance apunto
-            a un solo objetivo <span class="azul">→</span> Mejorar el ratio
+        <h2 id="trabajar-juntos" style="font-family: var(--hand); color: var(--rojo)">
+            Cómo trabajar juntos
+        </h2>
+
+        <img class="figura-apreton" src="/imgs/svg/handshake.svg" alt="" />
+
+        <p>
+            Ya sea como copywriter o como consultor estratégico apunto a un solo
+            objetivo <span class="azul">→</span>&nbsp;Mejorar el ratio
             <span class="ink-circle ink-circle--azul"
                 >LTGP:CAC<svg
                     class="ink-circle-svg"
@@ -224,82 +221,37 @@ import Reviews from "../components/Reviews.astro";
                         stroke-linecap="round"></path></svg
                 ></span
             >
-            <strong>
-                ¿Quién quiere facturar millones si el margen de beneficio queda
-                minúsculo?
+        </p>
+        <p>
+            <strong
+                ><span class="squiggle squiggle--azul">Porque...</span> ¿Quién quiere
+                facturar millones si el margen de beneficio queda minúsculo?
             </strong>
         </p>
 
-        <p>
-            <u class="mark-amarillo">A quién puedo ayudar: </u>A ecommerce,
-            infoproductores o negocios que venden servicios. Si necesitan una de
-            estas dos cosas...
+        <p style="margin-bottom: var(--gap-sm)">
+            <u class="mark-amarillo">A quién puedo ayudar: </u>A asesores,
+            consultores o coaches.
         </p>
 
         <ul>
             <li>
-                Un acompañamiento 1a1 para ganar claridad y ver cuál es el
-                siguiente paso que más te acerca a <strong
+                Dando soporte 1a1 para ganar claridad y ver cuál es el siguiente
+                paso que más te acerca a <strong
                     >conseguir clientes que molesten poco, paguen mucho y encima
                     repitan.
-                </strong>Te ofrezco una hoja de ruta personalizada para tu caso
-                concreto y eres tú quien la ejecuta.
-            </li>
-            <li>
-                Ya tienes claro qué necesita tu empresa a nivel de marketing y
-                ventas pero <strong
-                    >necesitas alguien que se encargue de ejecutar la misión.</strong
-                >
+                </strong>
             </li>
         </ul>
 
-        <p>
-            Rellenas el formulario para ver si puedo ayudarte. Te contacto sea
-            cual sea la respuesta y concretamos el horario para una reunión por
-            google meets.
-        </p>
-
         <div class="diamond" aria-hidden="true"></div>
 
-        <p class="titulo-mano">¿Tienes algo importante entre manos?</p>
+        <p class="titulo-mano" style="color: var(--negro)">
+            ¿Tienes algo importante entre manos?
+        </p>
 
-        <div class="callout">
-            <iframe
-                data-tally-src="https://tally.so/embed/wz6vZ8?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-                loading="lazy"
-                width="100%"
-                height="387"
-                frameborder="0"
-                marginheight="0"
-                marginwidth="0"
-                title="Formulario de contacto"></iframe>
-            <script is:inline>
-                var d = document,
-                    w = "https://tally.so/widgets/embed.js",
-                    v = function () {
-                        "undefined" != typeof Tally
-                            ? Tally.loadEmbeds()
-                            : d
-                                  .querySelectorAll(
-                                      "iframe[data-tally-src]:not([src])",
-                                  )
-                                  .forEach(function (e) {
-                                      e.src = e.dataset.tallySrc;
-                                  });
-                    };
-                if ("undefined" != typeof Tally) v();
-                else if (d.querySelector('script[src="' + w + '"]') == null) {
-                    var s = d.createElement("script");
-                    ((s.src = w),
-                        (s.onload = v),
-                        (s.onerror = v),
-                        d.body.appendChild(s));
-                }
-            </script>
-        </div>
+        <CalendarioGoogle />
 
         <div class="flecha flecha--up" aria-hidden="true"></div>
     </div>
-
-    <Footer />
 </BaseLayout>

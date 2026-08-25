@@ -316,6 +316,21 @@ u.subrayado-rojo {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%231f3a82' stroke-width='2.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
 }
 
+/* El grosor del squiggle es solidario con el alto de su caja: el SVG se
+   renderiza a background-size 0.35em y, aunque el path lleve non-scaling-stroke,
+   ese "no escalar" es respecto al viewport del propio SVG — que en móvil mide
+   menos px porque el em del cuerpo es menor. Resultado: la misma raya se ve
+   afilada. Se compensa engordando el trazo en el data URI, el mismo recurso que
+   usa la variante de titular (.banner h1 .squiggle) para ir más fina. */
+@media (max-width: 800px) {
+    .squiggle {
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='3.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    }
+    .squiggle--azul {
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%231f3a82' stroke-width='3.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    }
+}
+
 .hand {
     font-family: var(--hand);
     font-weight: 400;
@@ -470,11 +485,39 @@ li::marker {
 
 /* Hover scopeado a (hover: hover): solo dispositivos con ratón real. En
    táctil :hover se queda pegado tras el tap (no hay mouseleave)*/
+/* Subrayado con el gradiente de .mark-amarillo en vez de fondo pleno: el
+   amarillo llenando la caja grita más que el propio enlace, y el hover solo
+   tiene que señalar cuál se está apuntando. Va sobre el .menu-link-label y no
+   sobre el <a>: este último es inline-flex con padding, así que la raya cruzaría
+   la caja entera —icono y flecha incluidos— en vez de ceñirse a la palabra.
+   El :focus lo hereda a propósito: un enlace de ancla conserva el foco tras el
+   salto, así que la marca se queda puesta y hace de "estás aquí" hasta el
+   siguiente clic — en escritorio igual que en móvil. */
+.menu-link:focus .menu-link-label {
+    background-image: linear-gradient(
+        180deg,
+        transparent 0,
+        transparent 88%,
+        var(--amarillo) 88%,
+        var(--amarillo) 94%,
+        transparent 94%
+    );
+}
+
 @media (hover: hover) {
     .menu-link:hover {
-        background: var(--amarillo);
         color: var(--negro);
         text-decoration: none;
+    }
+    .menu-link:hover .menu-link-label {
+        background-image: linear-gradient(
+            180deg,
+            transparent 0,
+            transparent 88%,
+            var(--amarillo) 88%,
+            var(--amarillo) 94%,
+            transparent 94%
+        );
     }
     .menu-link:hover .menu-link-arrow,
     .menu-link:hover .menu-link-icon {
@@ -512,6 +555,60 @@ li::marker {
 #menu-toggle,
 .burger {
     display: none;
+}
+
+/* Los mismos enlaces del menú montados en el flujo del hero (Menu.astro con
+   enFlujo, hoy al cierre del banner de /servicios): cierran el banner
+   ofreciendo los destinos antes de que arranque el copy, en el sitio que antes
+   ocupaba un CTA. Sin pill: dentro del banner —que ya es blanco— el fondo y la
+   sombra de .menu dibujarían una caja flotando sobre otra; aquí basta la fila
+   de enlaces. Hace además de umbral del menú fijo, que entra al perderse esta
+   de vista (data-umbral-menu, lógica en scripts.js). */
+.nav-banner {
+    width: fit-content;
+    max-width: 100%;
+    /* El margen derecho absorbe la sombra: sin él, el desplazamiento de 5px
+       asoma por el borde del hero en las anchuras donde la fila lo llena. */
+    margin: clamp(0.6rem, 2.2vh, 1.4rem) auto 0;
+    padding: 6px 11px;
+
+    /* La pill flotante se recorta contra el papel del cuerpo; aquí el banner ya
+       es blanco y sin contorno la fila se leería como un párrafo más. Contorno
+       de tinta a 1px (el recurso de autoridad del brief) y sombra dura en el
+       azul de marca: sin blur y con offset a 45°, el gesto de sello editorial
+       —no la sombra blanda que el sistema descarta en :root—. El azul es el
+       mismo que ya llevan los divisores y la flecha de la propia fila. */
+    border: 1px solid var(--azul);
+    box-shadow: 4px 4px 0 var(--azul);
+    /* Solo el transform se anima: interpolar la sombra la encogería durante los
+       120ms y se leería como que se arrastra tras la caja. */
+    transition: transform 120ms ease;
+}
+
+/* Mismo gesto de pulsación que los .block: la fila recorre el offset exacto de
+   su sombra y esta desaparece con ella. El hover cuelga de la fila entera y no
+   de cada enlace — es una sola pieza, y hundir un enlace suelto la partiría. */
+.nav-banner:hover,
+.nav-banner:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+}
+
+/* Envuelve en vez de desbordar: son tres etiquetas de largo dispar y el hero
+   estrecha su columna antes que el resto de la página. */
+.nav-banner .links {
+    flex-wrap: wrap;
+    row-gap: 0;
+}
+
+/* Un punto sobre el cuerpo de la pill: aquí los enlaces no son una ayuda de
+   navegación al margen, son el remate del banner y se leen como tal. Mantienen
+   la tinta del menú fijo — el azul del sistema ya carga el copy del hero y unos
+   enlaces azules más se perderían entre él en vez de destacar. */
+.nav-banner .menu-link {
+    padding: 11px 18px;
+    font-size: 1.18rem;
+    font-weight: 600;
 }
 
 /* Estándar de menús fijos del sitio (compartido con .post-toc y .forja-nav):
@@ -1096,8 +1193,21 @@ p.pitch-titular {
    (mismo recurso que .cuerpo p:has(+ .gladiador)) y el hueco grande lo pone la
    propia figura. Un tipo de figura nuevo en esa posición se suma aquí. */
 h2:has(+ .regalo),
-h2:has(+ .emoji-3d) {
+h2:has(+ .emoji-3d),
+h2:has(+ .figura-apreton) {
     margin-bottom: var(--gap-lg);
+}
+
+/* Apretón de manos como figura de sección de /servicios ("Cómo trabajar
+   juntos"). Mismo SVG que el emoji inline del banner de esa página, montado
+   aquí en el calibre de figura: centrado, a ancho propio y con el clamp de
+   .hero-youtube, que es la otra marca gráfica suelta del sitio a esta escala.
+   Va como <img> y no por máscara porque el trazo del SVG ya trae su color. */
+.figura-apreton {
+    display: block;
+    width: clamp(5rem, 10vw, 7.5rem);
+    height: auto;
+    margin: 0 auto var(--gap-2xl);
 }
 
 /* Emoji a color del set 3D de Fluent Emoji (Microsoft) montado como figura de
@@ -1331,12 +1441,11 @@ p.pitch-titular .aside-hand {
    home— van más suaves (0.22) porque ahí el contraste sobra y a 0.4 cargaban
    demasiado. .forja-comprar y .block--secondary son exclusivos de su página. */
 .hero--la-forja .block--primary,
+/* El primary llena su caja del azul de marca, así que su sombra la lleva en
+   tinta: en azul se fundiría con el propio bloque en vez de despegarlo del
+   papel. El resto de variantes heredan la dura azul de .block. */
 .blocks .block--primary {
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
-}
-.block.forja-comprar,
-.block--secondary {
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.22);
+    box-shadow: 4px 4px 0 var(--negro);
 }
 
 /* Hero unificado: columna centrada con ancho de lectura acotado a 720px. */
@@ -3039,11 +3148,13 @@ audio::-webkit-media-controls-panel {
     object-fit: cover;
 }
 
-/* Offset de aterrizaje del ancla #contacto (botón "trabajar juntos" + link del
-   menú): el .menu es position:fixed arriba (top 14px + alto del pill ≈ 50px),
-   así que sin margen el salto deja el primer párrafo bajo el menú y lo tapa.
-   4rem lo baja lo justo para librar el pill con aire. */
-#contacto {
+/* Offset de aterrizaje del ancla #trabajar-juntos (el titular homónimo,
+   destino del enlace de cierre del menú): el .menu es position:fixed arriba
+   (top 14px + alto del pill ≈ 50px), así que sin margen el salto deja el
+   titular bajo el menú y lo tapa. 4rem lo baja lo justo para librar el pill con
+   aire. Solo escritorio — en móvil la barra va abajo y no hay nada que librar
+   (regla en el @media de responsive). */
+#trabajar-juntos {
     scroll-margin-top: var(--gap-2xl);
 }
 
@@ -3155,87 +3266,139 @@ audio::-webkit-media-controls-panel {
         margin-bottom: var(--gap-lg);
     }
 
-    /* En móvil el .menu deja de ser pill y pasa a contenedor de posicionamiento:
-       fondo y sombra los llevan el burger y el panel de enlaces por separado. */
-    .menu {
-        top: 10px;
-        right: 10px;
-        padding: 0;
-        background: transparent;
-        box-shadow: none;
+    /* En móvil el menú de varias secciones abandona la pill flotante y el
+       burger: pasa a barra inferior fija a todo lo ancho, el patrón de tab bar
+       de las apps nativas — cae bajo el pulgar y enseña los destinos sin gastar
+       un tap en abrir. Semitransparente con blur para que el papel siga
+       corriéndose por debajo y la barra no se lea como un bloque opaco pegado
+       al borde. Lleva texto donde una app pondría iconos: las secciones del
+       sitio se nombran, no se dibujan.
+       Excluye .menu--solo (un enlace, sin burger que ahorrar): ese conserva su
+       botón-icono arriba a la derecha, regla más abajo. */
+    .menu:not(.menu--solo) {
+        top: auto;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        max-width: none;
+        /* El safe-area levanta el contenido sobre la barra de gestos de iOS;
+           degrada a 0 donde la variable no existe. */
+        padding: 4px 6px calc(4px + env(safe-area-inset-bottom, 0px));
         border-radius: 0;
+
+        background: color-mix(in srgb, var(--blanco) 78%, transparent);
+        -webkit-backdrop-filter: blur(12px) saturate(140%);
+        backdrop-filter: blur(12px) saturate(140%);
+        border-top: 1px solid color-mix(in srgb, var(--negro) 8%, transparent);
+        /* Sombra con offset negativo: lo que la barra tapa está por encima. */
+        box-shadow: 0 -2px 12px
+            color-mix(in srgb, var(--negro) 10%, transparent);
     }
 
-    /* Patrón checkbox-hack: el checkbox queda oculto pero accesible y dispara
-       el estado abierto/cerrado vía :checked. Sin JS. */
-    #menu-toggle {
+    /* Sin backdrop-filter el fondo translúcido dejaría el copy cruzando por
+       encima de las etiquetas: se opaca. */
+    @supports not (
+        (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+    ) {
+        .menu:not(.menu--solo) {
+            background: var(--blanco);
+        }
+    }
+
+    /* El estándar de menús fijos retira la pill hacia arriba; la barra sale
+       por su propio borde, que es el de abajo. */
+    .menu:not(.menu--solo).menu--hidden {
+        transform: translateY(8px);
+    }
+
+    /* Los enlaces SON la barra: el burger y su checkbox sobran. */
+    #menu-toggle,
+    .burger {
         display: none;
     }
 
-    /* Tres puntos en fila — el "···" de menú contextual, no la hamburguesa
-       clásica. Son los mismos 3 <span> del label: la fila los pone en
-       horizontal y el círculo sale del border-radius, sin markup extra.
-       El icono se queda quieto al abrir; el desplegable ya señala el estado. */
-    .burger {
-        display: flex;
-        align-items: center;
+    .menu:not(.menu--solo) .links {
+        gap: 0;
+        width: 100%;
+        /* Reparte el sobrante entre los enlaces en vez de dárselo todo a los
+           costados: cada etiqueta se lleva el aire en proporción a lo que
+           ocupa. */
+        justify-content: space-evenly;
+    }
+
+    /* Ancho por contenido, no columnas iguales: con etiquetas de una y de tres
+       palabras el reparto a partes iguales le sobra sitio a "Portfolio" y se lo
+       quita a la larga, que acaba partiéndose y empujando su flecha fuera de la
+       caja. Con flex-basis auto cada enlace pide lo que mide y solo encoge si
+       falta ancho de verdad (shrink 1). */
+    .menu:not(.menu--solo) .menu-link {
+        flex: 0 1 auto;
+        min-width: 0;
         justify-content: center;
         gap: 4px;
-        width: 40px;
-        height: 40px;
-        box-sizing: border-box;
+        padding: 9px 7px;
+        text-align: center;
 
-        background: var(--blanco);
-        border-radius: var(--radius-control);
-        box-shadow: var(--shadow-soft);
-        cursor: pointer;
+        /* Un escalón por debajo del cuerpo de la pill de escritorio: aquí son
+           tres etiquetas repartiéndose el ancho del móvil y el texto ocupa el
+           sitio del icono que llevaría una tab bar. */
+        font-size: 0.78rem;
+        line-height: 1.2;
+        /* Las etiquetas largas caen en varias líneas antes que desbordar. */
+        hyphens: auto;
     }
 
-    .burger span {
-        width: 5px;
-        height: 5px;
-        background: var(--azul);
-        border-radius: 50%;
+    /* La flecha de dirección del enlace de cierre queda a escala del texto y
+       nunca cede ancho: es el único enlace que anuncia hacia dónde lleva y
+       perderla lo deja indistinguible de los otros dos. */
+    .menu:not(.menu--solo) .menu-link-arrow {
+        flex-shrink: 0;
+        font-size: 0.8rem;
     }
 
-    .links {
-        position: absolute;
-        top: 48px;
-        right: 0;
-
-        flex-direction: column;
-        align-items: stretch;
-        gap: 2px;
-        min-width: 180px;
-        padding: 6px;
-
-        background: var(--blanco);
-        border-radius: var(--radius-card);
-        box-shadow: var(--shadow-soft);
-
-        opacity: 0;
-        transform: translateY(-6px);
-        pointer-events: none;
-        transition:
-            opacity 160ms ease,
-            transform 160ms ease;
+    /* Los divisores se quedan en las dos instancias del menú: son lo que separa
+       un destino del siguiente en la fila del banner, y en la barra atan las
+       tres etiquetas como un solo control en vez de dejarlas flotando sueltas
+       sobre el blur. Ceden ancho antes que el texto (flex-shrink heredado) y no
+       se parten de línea. */
+    .menu:not(.menu--solo) .menu-divider {
+        flex-shrink: 0;
+        padding: 0 2px;
+        font-size: 0.78rem;
     }
 
-    #menu-toggle:checked ~ .links {
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: auto;
+    .nav-banner {
+        padding: 5px 7px;
     }
 
-    .menu-link {
-        justify-content: flex-start;
-        padding: 8px 12px;
-        font-size: 0.92rem;
+    /* Tope de crecimiento: por encima de estos valores las tres etiquetas y sus
+       divisores dejan de entrar en una línea a 375px y el flex-wrap de .links
+       las parte en dos, que descuadra la caja. Subir el cuerpo aquí exige
+       acortar alguna etiqueta antes. */
+    .nav-banner .menu-link {
+        padding: 8px 7px;
+        font-size: 0.83rem;
     }
 
-    /* el divisor solo tiene sentido en horizontal */
-    .menu-divider {
-        display: none;
+    .nav-banner .menu-divider {
+        padding: 0 1px;
+    }
+
+    /* El offset extra de #trabajar-juntos libraba la pill superior; con el menú abajo
+       ese aire deja el titular descolgado del borde, así que vuelve al margen
+       estándar de anclas de esta anchura. Repite el valor de [id] porque el id
+       gana especificidad al selector de atributo. */
+    #trabajar-juntos {
+        scroll-margin-top: var(--gap-md);
+    }
+
+    /* Reserva bajo el último bloque de la página para que la barra no se coma
+       el final del copy ni el footer. Las landings de CTA único retiran el menú
+       en esta anchura, así que quedan fuera; una landing que haga lo mismo se
+       excluye aquí con un :not(). */
+    body:has(.menu:not(.menu--solo)) {
+        padding-bottom: 4.5rem;
     }
 
     /* Menú de enlace único (.menu--solo): sin burger que desplegar, el
@@ -3528,22 +3691,55 @@ audio::-webkit-media-controls-panel {
     padding: 12px;
     text-decoration: none;
     color: var(--negro);
-    box-shadow:
-        0 3px 8px rgba(0, 0, 0, 0.12),
-        0 1px 2px rgba(0, 0, 0, 0.08);
-    transition:
-        transform 120ms ease,
-        box-shadow 120ms ease;
+    /* Sombra dura del sistema: sin blur, offset a 45° y en el azul de marca —el
+       mismo sello que llevan la fila de enlaces del banner y el CTA al
+       calendario, así que todo lo pulsable del sitio se anuncia igual. El azul
+       y no el rojo porque aquí el rojo es énfasis tipográfico (squiggles,
+       manuscritos, flechas), nunca interacción. */
+    box-shadow: 4px 4px 0 var(--azul);
+    /* Solo el transform se anima. Interpolar el box-shadow encoge la sombra de
+       su offset a cero durante los 120ms y eso se ve como que la sombra se
+       arrastra detrás del bloque; sin transición desaparece de golpe y el gesto
+       queda limpio: la caja se aplasta, la sombra ya no está. */
+    transition: transform 120ms ease;
 }
 
-.block:hover {
-    transform: translateY(1px);
+/* El bloque se aplasta contra el papel: recorre el offset exacto de su sombra
+   y esta desaparece en el mismo gesto, así que la caja acaba justo donde la
+   sombra la sostenía. El desplazamiento debe seguir igualando al offset — si se
+   desacoplan, o queda un resto de sombra o el bloque salta. */
+.block:hover,
+.block:active {
+    transform: translate(4px, 4px);
     box-shadow: none;
     text-decoration: none;
 }
 
-.block:active {
-    transform: translateY(2px);
+/* En la home la sombra va en tinta: el azul de marca no aparece en ningún otro
+   sitio de la página y entraría como color suelto, y el rojo compite con el
+   titular en un hub cuyo trabajo es que se elija destino, no mirar las cajas.
+   La arena es el tono medio de la paleta: da el volumen sin que la sombra pese
+   más que la card que sostiene, como sí hacía la tinta plena. Scope a .home y no a
+   .blocks: el listado de /not-done comparte contenedor y allí el azul sigue
+   siendo el color del sitio. */
+.home .block {
+    box-shadow: 4px 4px 0 color-mix(in srgb, var(--negro) 35%, transparent);
+}
+
+/* Repite el apagado del hover de .block: aquel selector empata en especificidad
+   con `.home .block` y esta regla va después en el archivo, así que sin esto la
+   sombra de la home sobrevive al hover y el bloque se desplaza con ella
+   detrás. */
+.home .block:hover,
+.home .block:active {
+    box-shadow: none;
+}
+
+/* El hueco entre cards sube al alto de la sombra: con 8px el sello de una caía
+   sobre el borde de la siguiente y las dos se leían como un bloque partido, no
+   como dos destinos. */
+.home .blocks {
+    gap: 1.4rem;
 }
 
 .block .handle {
@@ -3670,12 +3866,12 @@ audio::-webkit-media-controls-panel {
 /* CTA al calendario (CalendarioGoogle.astro): botón blanco con acento azul. El
    logo de Google Calendar es azul y sobre un .block--primary (fondo azul) se
    fundía; con fondo blanco contrasta. Borde y texto/flecha en azul de marca;
-   sombra con la forma del sistema (offset 4, blur 5) pero teñida de azul en vez
-   de la tinta habitual. */
+   sombra dura —sin blur, offset a 45°— en ese mismo azul, el gesto de sello
+   editorial que comparte con la fila de enlaces del banner (.nav-banner). El
+   blur bajo se lee sucio contra el trazo limpio del resto del sitio. */
 .block--calendario {
     background: var(--blanco);
-    border: 2px solid var(--azul);
-    box-shadow: 0 4px 5px color-mix(in srgb, var(--azul) 32%, transparent);
+    box-shadow: 4px 4px 0 var(--azul);
     /* A diferencia del resto de .block (que llenan el ancho de su columna),
        este se ajusta a su contenido y se centra. Más alto vía padding vertical. */
     width: fit-content;
@@ -3746,30 +3942,11 @@ audio::-webkit-media-controls-panel {
     }
 }
 
-/* Las dos reglas de abajo aplican a las landings con CTA flotante (hoy
-   /youtube y /monetizar, vía su clase de <body>). Una landing nueva que monte
-   .cta-sticky se añade a los dos selectores. */
-@media (max-width: 800px) {
-    /* El CTA flotante ocupa la franja superior a tamaño completo y no deja
-       hueco para el burger, que aterrizaría encima. Se retira el menú entero en
-       móvil: en una landing de CTA único la navegación por anclas aporta menos
-       que la acción, y el copy se recorre igual scrolleando. En escritorio
-       conviven (la pill cabe a la derecha del botón centrado), así que la regla
-       vive solo en esta anchura. */
-    .youtube .menu,
-    .monetizar .menu {
-        display: none;
-    }
-
-    /* Las anclas del menú saltan bajo el CTA flotante: el margen base de [id]
-       (sección 2) solo cuenta con la pill del menú, que no ocupa alto. Sigue
-       cubriendo a quien llegue con hash en la URL, aunque en esta anchura ya no
-       haya menú desde el que saltar. */
-    .youtube [id],
-    .monetizar [id] {
-        scroll-margin-top: calc(var(--gap-md) + 5rem);
-    }
-}
+/* Sin página que monte .cta-sticky hoy. Una landing que lo recupere necesita
+   además, en móvil, retirar su menú (el CTA flotante ocupa la franja superior
+   entera y el burger aterrizaría encima) y compensar el scroll-margin-top de
+   sus anclas con el alto del flotante: dos reglas scopeadas por su clase de
+   <body>, en un @media (max-width: 800px). */
 
 /* En evaluación — en la home (.blocks) el primary se diferencia SOLO por
    color: igualamos título, flecha y padding al resto de bloques. Scopeado a
@@ -3792,6 +3969,16 @@ audio::-webkit-media-controls-panel {
 @media (min-width: 700px) {
     .blocks .block--primary {
         padding: clamp(10px, 1.4vh, 14px);
+    }
+
+    /* El CTA se queda corto en escritorio: el padding de móvil, que ahí llena
+       buena parte del ancho, contra la columna ancha del hero deja el botón
+       menudo para el peso que tiene en la página.
+       Doble clase a propósito (mismo motivo que .block.block--solo-titulo): el
+       shorthand `padding` de .block en la otra media query de escritorio, más
+       abajo en el archivo, empata en especificidad y ganaría por orden. */
+    .block.block--calendario {
+        padding: 1.15rem 2rem;
     }
 }
 
@@ -5423,13 +5610,20 @@ body.blog-hub .banner-subline {
     line-height: 1.5;
 }
 /* Línea horizontal sobre el disclaimer: separa el bloque legal del
-   contenido. Scope con :has() para no afectar al footer con nav. La
-   separación del CTA de la landing la aporta la .flecha que precede
-   al footer, no el margin de esta regla. */
+   contenido. Scope con :has() para no afectar al footer con nav. El aire va
+   sobre la línea (margin) y no bajo ella (padding): es lo que hace que el aviso
+   legal se lea como un apéndice del documento y no como el cierre del
+   argumento — pegado al último párrafo, la letra pequeña compite con el remate
+   del copy. Ojo al calibrarlo: este margin **colapsa** con el margin-bottom del
+   hermano que precede al footer (la .flecha del cierre trae --gap-3xl), así que
+   el hueco real es el mayor de los dos, no la suma; subirlo por debajo de ese
+   valor no mueve nada en pantalla. */
 .site-footer:has(.site-footer-disclaimer) {
-    margin-top: 2rem;
+    margin-top: 12rem;
     border-top: 1px solid color-mix(in srgb, var(--negro) 12%, transparent);
-    padding-top: 2rem;
+    /* Lo justo para que el disclaimer no toque la línea: el bloque legal va
+       atado a su separador, todo el aire está arriba. */
+    padding-top: 1rem;
 }
 
 /* Flecha anidada como último hijo de la .seccion-blanca que precede al

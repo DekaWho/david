@@ -119,9 +119,14 @@
        pide el menú visible desde la carga — sin observer, queda en su estado
        por defecto (visible), igual que la degradación sin JS. */
     if (menu.classList.contains('menu--siempre-visible')) return;
-    /* Umbral de aparición: el H1 (estándar de menús fijos — el menú vuelve en
-       cuanto el titular sale por arriba, con poco scroll). */
-    const umbral = document.querySelector('h1');
+    /* Umbral de aparición: por defecto el H1 (estándar de menús fijos — el menú
+       vuelve en cuanto el titular sale por arriba, con poco scroll). Una página
+       que monta los mismos enlaces en el flujo (Menu.astro con enFlujo) marca
+       esa fila con data-umbral-menu y manda ella: el fijo entra cuando la fila
+       en flujo sale de pantalla, no antes, para no duplicar el menú a la vista. */
+    const umbral =
+        document.querySelector('[data-umbral-menu]') ||
+        document.querySelector('h1');
     if (umbral && 'IntersectionObserver' in window) {
         menu.classList.add('menu--hidden');
         const io = new IntersectionObserver(([entry]) => {
