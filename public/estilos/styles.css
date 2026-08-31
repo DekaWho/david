@@ -324,10 +324,10 @@ u.subrayado-rojo {
    usa la variante de titular (.banner h1 .squiggle) para ir más fina. */
 @media (max-width: 800px) {
     .squiggle {
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='3.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='4.2' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
     }
     .squiggle--azul {
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%231f3a82' stroke-width='3.4' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%231f3a82' stroke-width='4.2' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
     }
 }
 
@@ -1337,14 +1337,16 @@ p.pitch-titular .aside-hand {
     transform-origin: left center;
 }
 
-/* Cuando el subline es el ÚNICO hijo del h2 (caso /sobre-mi: el h2 solo
-   lleva el nombre del autor en manuscrita, sin texto serif arriba ni
-   icono), sube el tamaño para que el nombre cargue como elemento
-   identitario, no como apostilla. En el patrón estándar (h2 con texto
-   serif + subline de subtítulo, ej. /servicios) el subline mantiene
-   su 0.75em de apostilla. */
+/* Cuando el subline es el ÚNICO hijo del h2 (el h2 no lleva texto serif
+   arriba: solo el nombre manuscrito, con su emoji dentro del propio span),
+   sube el tamaño para que el nombre cargue como elemento identitario, no
+   como apostilla. En el patrón estándar (h2 con texto serif + subline de
+   subtítulo) el subline mantiene su 0.75em de apostilla. Va recto: el tilt
+   del subline funciona como anotación al margen de un titular serif, pero
+   cuando el manuscrito ES el titular la inclinación lo lee como post-it. */
 .banner h2:has(> .banner-subline:only-child) .banner-subline {
     font-size: 1em;
+    transform: none;
 }
 
 .banner h2 {
@@ -2238,7 +2240,7 @@ p.pitch-titular .aside-hand {
 }
 /* En claude-perfil el bloque de La Forja abre el cuerpo, pegado al banner
    blanco de arriba. El fondo blanco base de .optin-bloque (pensado para
-   destacar sobre el papel del cuerpo en posts/sobre-mi/privacidad) aquí deja
+   destacar sobre el papel del cuerpo en posts y /privacidad) aquí deja
    una franja de papel atrapada entre dos blancos en vez de una transición de
    sección limpia; se funde con el papel del cuerpo, como el resto de cambios
    de fondo de la landing. */
@@ -2702,6 +2704,37 @@ h2:has(+ .diamond) {
    sublista anidada conserve el ritmo aireado del sistema. */
 .lista-compacta > li {
     margin-bottom: 0;
+}
+
+/* Lista con el emoji de fuego como marcador (mismo .svg del set Fluent que
+   sirve de favicon). Va por ::before y no por ::marker ni list-style-image
+   porque el archivo trae width/height 32 hardcodeados y en esas dos vías se
+   pinta a 32px sin forma de escalarlo; como background del pseudoelemento sí
+   admite background-size y acompaña al cuerpo de letra. Sustituye al padding
+   global del ul (que reserva el hueco del marker) por uno en el propio li, así
+   el icono cae dentro de la caja del item y no se sale por la izquierda en
+   móvil. */
+.lista-fuego {
+    list-style: none;
+    padding-left: 0;
+}
+
+.lista-fuego > li {
+    position: relative;
+    padding-left: 2em;
+}
+
+.lista-fuego > li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    /* Baja el icono hasta la línea base de la primera línea del item: el
+       cuadrado del svg trae aire arriba y sin este empuje flota sobre el
+       texto. */
+    top: 0.2em;
+    width: 1.3em;
+    height: 1.3em;
+    background: url("/imgs/svg/fire.svg") no-repeat center / contain;
 }
 
 /* El párrafo que hace de rótulo de una .lista-compacta va pegado a ella: el
@@ -4613,8 +4646,8 @@ audio::-webkit-media-controls-panel {
    posts mid-article y /privacidad) el cap de 480px lo dejaba más estrecho que
    los párrafos en monitores donde 36vw > 480. Lo soltamos para que llene la
    columna y el contenido alinee con la prosa. El cap base sigue protegiendo
-   los montajes fuera del cuerpo (OptinCompleto en /sobre-mi y al cierre del
-   post), donde no hay columna que lo acote. */
+   los montajes fuera del cuerpo (OptinCompleto al cierre del post), donde no
+   hay columna que lo acote. */
 .cuerpo .optin-bloque {
     max-width: none;
 }
@@ -4678,7 +4711,7 @@ audio::-webkit-media-controls-panel {
 
 /* Bloque optin de La Forja (OptinCompletoClaudeSkool): réplica del banner de
    /claude — titular, oferta y form — como cierre de posts y remate de
-   /sobre-mi y /privacidad. Reusa las clases del hero, cuyos márgenes propios
+   /privacidad. Reusa las clases del hero, cuyos márgenes propios
    vienen calculados para el ritmo del hero; dentro del bloque van a cero y
    la separación la pone el gap del flex de .optin-bloque. */
 .optin-bloque--forja :is(.titulo-compacto, .bsl-deck) {
@@ -5563,8 +5596,8 @@ body.blog-hub .banner-subline {
     -webkit-mask-position: center;
 }
 
-/* Footer del sitio. Aparece solo en home, hub /blog, posts del blog,
-   /sobre-mi y /contacto (montado a mano en esas páginas, no en
+/* Footer del sitio. Aparece solo en home, hub /blog, posts del blog y
+   /contacto (montado a mano en esas páginas, no en
    BaseLayout — landings comerciales y transaccionales no lo llevan).
    Registro editorial: serif gris, separadores · entre enlaces. Las
    redes sociales no se exponen aquí; viven en el sameAs del JSON-LD
@@ -5760,5 +5793,27 @@ body.blog-hub .banner-subline {
     .exit-popup,
     .exit-popup-card {
         animation: none;
+    }
+}
+
+
+/* Engrosado móvil de los squiggles que traen data URI propio y por tanto no
+   heredan el del override de `.squiggle` (ver "El grosor del squiggle es
+   solidario con el alto de su caja"): los de la franja tinta y el de titular.
+   Va al final del archivo por orden en cascada — cada uno empata en
+   especificidad con su regla base, que aparece más abajo que aquel bloque, así
+   que un override colocado junto a él perdería. El de titular conserva su
+   proporción más fina respecto al del cuerpo: bajo un titular grande la misma
+   raya se lee más pesada. */
+@media (max-width: 800px) {
+    .seccion-tinta .squiggle {
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='4.2' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    }
+    .seccion-tinta .squiggle--alt {
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 6 Q 50 4.8 99 4' stroke='%23f40600' stroke-width='4.2' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    }
+    .banner h1 .squiggle,
+    .titulo-compacto .squiggle {
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='3.2' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
     }
 }

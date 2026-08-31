@@ -1,6 +1,5 @@
 /* Fuente única de los logros/resultados representativos. Los consume el
-   componente Logros.astro, montado idéntico en /servicios y /sobre-mi.
-   Editar un logro aquí lo cambia en ambas páginas. El orden del
+   componente Logros.astro, montado en /servicios. El orden del
    array es el orden de render; `clase` aplica el doodle de margen del logro
    (icono email / banderín) cuando lo lleva. */
 export const LOGROS = [
@@ -27,7 +26,7 @@ export const LOGROS = [
         texto: "Facturación de 6 cifras con un par de emails que se enviaron durante 48h vendiendo un producto low ticket.",
     },
     {
-        texto: "Más de 100 Millones de reproducciones en total (en vídeos horizontales orgánicos) trabajando con varios youtubers de entretenimiento.",
+        texto: "Más de 100 Millones de reproducciones (en vídeos de YouTube horizontales) trabajando detrás de cámara en varios canales.",
     },
     {
         texto: "Hice una campaña que redujo el coste de adquisición de clientes un 39.8% respecto a los meses anteriores. Mejoré la conversión de leads en clientes (incluso despertando leads que llevaban semanas dormidos sin haber comprado nunca)",
