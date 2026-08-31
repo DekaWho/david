@@ -958,6 +958,20 @@ li::marker {
     line-height: 1.22;
 }
 
+/* Escalón intermedio entre la escala base del banner y .banner-h1--small:
+   para el titular de frase media, largo para la escala base pero todavía la
+   promesa de la página — .banner-h1--small lo bajaría al calibre utilitario y
+   perdería el contraste con el resto del hero. Fija su propio mínimo, así que
+   también pisa el override móvil de .banner h1 por especificidad. */
+.banner h1.banner-h1--medium {
+    font-size: clamp(1.85rem, 2.7vw, 2.5rem);
+    /* Al bajar de calibre, el hueco en `em` del titular base encoge con él y el
+       titular queda pegado a lo que sigue: el margen se recalibra aquí para
+       conservar el aire real. Pisa también el margin-bottom móvil de
+       .banner h1 por especificidad, así que vale para las dos anchuras. */
+    margin-bottom: clamp(0.9em, 5.2vh, 1.7em);
+}
+
 /* Titular del pitch de La Forja: un escalón por encima de la escala compacta
    compartida — es la promesa de la página, no un titular utilitario. Los dos
    selectores igualan la especificidad de las reglas compactas de arriba en
@@ -1159,18 +1173,27 @@ p.pitch-titular {
     mask: url("/imgs/svg/boxing-svgrepo-com.svg") center / contain no-repeat;
 }
 
-/* Sísifo empujando la piedra, en rojo, ilustra el "borrachos de trabajo y
-   desorientados". Mismo set y técnica de máscara que .gladiador/.boxing. */
+/* Sísifo empujando la piedra: la figura del esfuerzo que no lleva a ningún
+   sitio, cierre gráfico del párrafo que la precede. Mismo set y técnica de
+   máscara que .gladiador/.boxing; en azul de marca porque remata una idea
+   propia, no un énfasis (que es el registro del rojo). El reparto de aire es
+   asimétrico a propósito — pegada al párrafo que ilustra y despegada del que
+   abre el tramo siguiente: el recorte de arriba lo pone el propio párrafo
+   (mismo recurso que .cuerpo p:has(+ .gladiador)). */
 .sisyphus {
     display: block;
     width: 10rem;
     aspect-ratio: 1;
-    margin: 0 auto var(--gap-lg);
-    background-color: var(--rojo);
-    color: var(--rojo);
+    margin: 0 auto var(--gap-xl);
+    background-color: var(--azul);
+    color: var(--azul);
     -webkit-mask: url("/imgs/svg/sisyphus-svgrepo-com.svg") center / contain
         no-repeat;
     mask: url("/imgs/svg/sisyphus-svgrepo-com.svg") center / contain no-repeat;
+}
+
+.cuerpo p:has(+ .sisyphus) {
+    margin-bottom: var(--gap-sm);
 }
 
 /* Lupa del mismo set de dibujos que el gladiador, en azul, abriendo el bloque
