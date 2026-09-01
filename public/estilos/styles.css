@@ -611,6 +611,15 @@ li::marker {
     font-weight: 600;
 }
 
+/* /servicios cierra su banner con dos etiquetas, no tres: el cuerpo base deja
+   la fila corta para el ancho del hero y se lee como pie de página del banner
+   en vez de como su remate. Con un destino menos hay sitio de sobra para
+   subirla sin acercarse al tope de una línea que limita la versión móvil. */
+.servicios .nav-banner .menu-link {
+    padding: 13px 22px;
+    font-size: 1.32rem;
+}
+
 /* Estándar de menús fijos del sitio (compartido con .post-toc y .forja-nav):
    el menú arranca oculto y entra cuando el H1 sale por arriba, para que el
    lector empiece por el titular sin nada que compita con él. Aplica en las dos
@@ -964,12 +973,14 @@ li::marker {
    perdería el contraste con el resto del hero. Fija su propio mínimo, así que
    también pisa el override móvil de .banner h1 por especificidad. */
 .banner h1.banner-h1--medium {
-    font-size: clamp(1.85rem, 2.7vw, 2.5rem);
+    font-size: clamp(2.05rem, 3vw, 2.75rem);
     /* Al bajar de calibre, el hueco en `em` del titular base encoge con él y el
        titular queda pegado a lo que sigue: el margen se recalibra aquí para
-       conservar el aire real. Pisa también el margin-bottom móvil de
-       .banner h1 por especificidad, así que vale para las dos anchuras. */
-    margin-bottom: clamp(0.9em, 5.2vh, 1.7em);
+       conservar el aire real. La holgura va por encima de ese mínimo — el
+       titular es la promesa de la página y necesita separarse de los badges
+       para leerse solo. Pisa también el margin-bottom móvil de .banner h1 por
+       especificidad, así que vale para las dos anchuras. */
+    margin-bottom: clamp(1.6em, 8.5vh, 2.8em);
 }
 
 /* Titular del pitch de La Forja: un escalón por encima de la escala compacta
@@ -1381,6 +1392,14 @@ p.pitch-titular .aside-hand {
     color: var(--negro);
     padding: 0;
     margin: 0 0 clamp(1rem, 3.2vh, 2rem);
+}
+
+/* El hueco sobre el h1 lo pone el margen inferior de este h2, no el titular
+   (que va con margin-top 0). En /servicios el nombre y el titular se leen como
+   una sola entrada, así que el par se junta y el aire recuperado se devuelve
+   debajo del h1 (ver .banner-h1--medium). */
+.servicios .banner h2 {
+    margin-bottom: clamp(0.5rem, 1.7vh, 1rem);
 }
 
 /* Dos promesas con anti-posición ("sin X") entre el h1 y el CTA: plantan el
@@ -3435,6 +3454,14 @@ audio::-webkit-media-controls-panel {
     .nav-banner .menu-link {
         padding: 8px 7px;
         font-size: 0.83rem;
+    }
+
+    /* El tope de arriba lo fijan tres etiquetas; /servicios lleva dos, así que
+       recupera cuerpo sin que el flex-wrap parta la caja a 375px. Añadir un
+       tercer destino a esa página obliga a volver a los valores base. */
+    .servicios .nav-banner .menu-link {
+        padding: 10px 13px;
+        font-size: 0.98rem;
     }
 
     .nav-banner .menu-divider {

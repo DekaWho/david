@@ -1,16 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Menu from "../components/Menu.astro";
-import Logros from "../components/Logros.astro";
 import Reviews from "../components/Reviews.astro";
 import CalendarioGoogle from "../components/CalendarioGoogle.astro";
 
 /* Los mismos destinos en las dos instancias del menú: la fila del banner
    (enFlujo) y la barra fija que la releva al scrollear. */
 const SECCIONES = [
-    { href: "#trabajar-juntos", label: "Cómo trabajar juntos", flechaDer: "↓" },
-    { href: "#portfolio", label: "Portfolio" },
     { href: "#opiniones", label: "Opiniones" },
+    { href: "#trabajar-juntos", label: "Cómo trabajar juntos", flechaDer: "↓" },
 ];
 ---
 
@@ -21,7 +19,7 @@ const SECCIONES = [
     ogDescription="David Varea 🤝"
     ogUrl="https://davidvarea.com/servicios"
     favicon="lightning"
-    bodyClass="title-alerta"
+    bodyClass="title-alerta servicios"
 >
     <Menu enlaces={SECCIONES} />
 
@@ -43,10 +41,11 @@ const SECCIONES = [
             </h2>
 
             <h1 class="banner-h1--medium">
-                Encuentro el cuello de botella que está frenando tu servicio B2B
-                y lo arreglamos
+                Encuentro el cuello de botella que está <u class="mark-amarillo"
+                    >frenando tu negocio</u
+                > high ticket y lo arreglamos
             </h1>
-
+            <!--
             <ul class="banner-badges" aria-label="Lo que entrego">
                 <li class="banner-badge">
                     <svg
@@ -143,7 +142,7 @@ const SECCIONES = [
                         >
                     </span>
                 </li>
-            </ul>
+            </ul> -->
 
             <Menu enFlujo enlaces={SECCIONES} />
         </section>
@@ -194,13 +193,14 @@ const SECCIONES = [
             compromiso de tenerlo en nómina. Mejor uno en las sombras.
         </p>
 
-        <p id="portfolio">
+        <p>
             <strong>
-                Estos son algunos de mis logros en los últimos años:
+                Ayudo a asesores, agencias, consultores (y algún ecommerce) a
+                conseguir clientes que <u class="mark-amarillo"
+                    >molesten poco y paguen lo que te mereces.</u
+                > En total he ayudado a facturar 2.4 millones de €
             </strong>
         </p>
-
-        <Logros />
     </div>
 
     <Reviews id="opiniones" />
@@ -238,25 +238,10 @@ const SECCIONES = [
             <strong
                 >Y para eso busco <span class="squiggle squiggle--azul"
                     >el menor cambio</span
-                > posible con el mayor impacto. No tiene sentido demoler el edificio
-                entero para apagar un fuego.
+                > posible con el mayor impacto en tu negocio. No tiene sentido demoler
+                el edificio entero para apagar un fuego.
             </strong>
         </p>
-
-        <p style="margin-bottom: var(--gap-sm)">
-            <u class="mark-amarillo">A quién puedo ayudar: </u>A asesores,
-            consultores y gente que vende servicios B2B.
-        </p>
-
-        <ul>
-            <li>
-                Dando soporte 1a1 para ver cuál es el siguiente paso que más te
-                acerca a <strong
-                    >conseguir clientes que molesten poco, paguen mucho y encima
-                    repitan.
-                </strong>
-            </li>
-        </ul>
 
         <div class="diamond" aria-hidden="true"></div>
 

@@ -1,6 +1,7 @@
 ---
 /* Bloque de prueba social: titular breaker + franja de tinta con las tres
-   reviews en audio (Pascual Cabedo / Gonzalo Zahonero / Rioboo) + remate
+   reviews en audio (Pascual Cabedo / Gonzalo Zahonero / Rioboo), la placa de
+   100k del canal de Chuso Montero entre la segunda y la tercera, + remate
    "SUFICIENTE" y flecha a la oferta. Montado en /servicios y
    /opinan-sobre-mi. Las reviews, textos y "SUFICIENTE" son markup fijo (no varían
    entre páginas), así que editar un testimonio aquí lo cambia en ambas.
@@ -22,11 +23,6 @@
      el cierre "SUFICIENTE". Vacío por defecto (no renderiza nada), así que solo
      aparece donde se rellena. /opinan-sobre-mi mete ahí un testimonio extra
      (captura de email); /servicios lo deja vacío.
-   - slot "ultima-review": prueba extra DENTRO de la franja de tinta, tras el
-     tercer audio, para la que solo vale en una página concreta. /youtube mete
-     ahí la placa de 100k. Va por slot y no en el markup fijo porque el bloque se
-     monta también en /monetizar, donde la marca YouTube no aparece a propósito
-     (su FooterDisclaimer omite el aviso de Google/YouTube).
 
    El titular por defecto se decide con Astro.slots.has, no con contenido
    fallback dentro del <slot>: rellenar un slot que lleva fallback markup hace
@@ -108,6 +104,22 @@ const { flechaFinal = true, id = "reviews" } = Astro.props;
             ██ ██████████
         </p>
 
+        <div class="review-card review-card--placa">
+            <img
+                src="/reviews/placa-100k.webp"
+                alt="Placa de los 100.000 suscriptores"
+                width="640"
+                height="699"
+                loading="lazy"
+                decoding="async"
+            />
+        </div>
+
+        <p>
+            Esta es la placa del canal de Chuso Montero. Estuve detrás de las
+            cámaras desde la subida del primer vídeo con 0 suscriptores.
+        </p>
+
         <div class="player-container review-card review-card--chat">
             <img class="avatar" src="/reviews/rioboo.webp" />
 
@@ -122,8 +134,6 @@ const { flechaFinal = true, id = "reviews" } = Astro.props;
             visto junto a Ibai en alguno de sus eventos o porque forma parte del equipo
             que apoya a Lamine Yamal con sus redes sociales.
         </p>
-
-        <slot name="ultima-review" />
     </div>
 </section>
 

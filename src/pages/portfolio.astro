@@ -1,0 +1,31 @@
+---
+/* Landing dedicada a los logros: el componente Logros con los datos de
+   src/data/logros.js, sin oferta alrededor. Es el único sitio del sitio donde
+   se ven los logros — existe para enlazarla suelta (email a un prospecto, DM,
+   bio) sin mandar a nadie a una landing de venta. Sin oferta debajo, así que
+   cierra con Footer. */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Menu from "../components/Menu.astro";
+import Logros from "../components/Logros.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<BaseLayout
+    titulo="Portfolio: algunos de mis logros de los últimos años"
+    ogTitle="Estos son algunos de mis logros de los últimos años"
+    ogDescription="David Varea ⚡"
+    canonical="/portfolio"
+    favicon="lightning"
+>
+    <Menu enlaces={[{ href: "/", label: "Ir a la home", iconoCasa: true }]} />
+
+    <h1 class="titulo-breaker titulo-breaker--bg-claro">
+        Algunos de mis logros de los últimos años
+    </h1>
+
+    <div class="cuerpo">
+        <Logros />
+    </div>
+
+    <Footer />
+</BaseLayout>

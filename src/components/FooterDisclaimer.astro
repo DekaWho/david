@@ -1,17 +1,16 @@
 ---
 /* Disclaimer de no-afiliación, en una sola frase que nombra a la vez las marcas
-   y a sus titulares. La mención de Meta es fija (todas las landings que montan
-   este footer reciben tráfico de Meta Ads); la de YouTube se pide con `youtube`
-   — en una landing que no habla del canal, el aviso solo mete ruido legal. */
-const { youtube = false } = Astro.props;
+   y a sus titulares. Nombra todas las plataformas del sitio siempre, aunque la
+   landing que lo monte no hable de alguna: el aviso de más no cuesta nada y
+   deja el footer válido el día que esa landing empiece a recibir tráfico de
+   pago o a enseñar la otra marca, sin depender de acordarse de cambiarlo.
+   Al sumar una plataforma cuya marca se muestre en el sitio, se amplía esta
+   frase — nunca se añade un párrafo aparte. */
 ---
 
 <footer class="site-footer">
   <p class="site-footer-disclaimer">
-    {
-      youtube
-        ? "Este sitio no está afiliado a Facebook™, Meta Platforms, Inc., YouTube™ ni Google LLC, titulares de las marcas registradas FACEBOOK y YOUTUBE."
-        : "Este sitio no está afiliado a Facebook™ ni a Meta Platforms, Inc., titular de la marca registrada FACEBOOK."
-    }
+    Este sitio no está afiliado a Facebook™, Meta Platforms, Inc., YouTube™ ni
+    Google LLC, titulares de las marcas registradas FACEBOOK y YOUTUBE.
   </p>
 </footer>
