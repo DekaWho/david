@@ -7,15 +7,16 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
 /* Los mismos destinos en las dos instancias del menú: la fila del banner
    (enFlujo) y la barra fija que la releva al scrollear. */
 const SECCIONES = [
+    { href: "#que-hago", label: "Qué hago" },
     { href: "#opiniones", label: "Opiniones" },
-    { href: "#trabajar-juntos", label: "Cómo trabajar juntos", flechaDer: "↓" },
+    { href: "#agendar", label: "Agendar llamada", flechaDer: "↓" },
 ];
 ---
 
 <BaseLayout
-    titulo="Escala tu negocio highticket sin más equipo"
+    titulo="Escala tu negocio high ticket sin más equipo"
     canonical="/servicios"
-    ogTitle="Encuentro el cuello de botella que está frenando tu servicio B2B y lo arreglamos"
+    ogTitle="Encuentro el cuello de botella que está frenando tu negocio high ticket y lo arreglamos"
     ogDescription="David Varea 🤝"
     ogUrl="https://davidvarea.com/servicios"
     favicon="lightning"
@@ -143,13 +144,12 @@ const SECCIONES = [
                     </span>
                 </li>
             </ul> -->
-
             <Menu enFlujo enlaces={SECCIONES} />
         </section>
     </div>
 
     <div class="cuerpo">
-        <p>Hay dos tipos de fuego en todo negocio...</p>
+        <p id="que-hago">Hay dos tipos de fuego en todo negocio...</p>
 
         <ul class="lista-fuego">
             <li>
@@ -172,10 +172,10 @@ const SECCIONES = [
 
         <p>
             Ahí no hace falta más agua, necesitas alguien que sepa dónde
-            tirarla. Tú ves el humo en <span class="squiggle squiggle--azul"
+            tirarla. El humo asoma en <span class="squiggle squiggle--azul"
                 >el coste de adquisición</span
-            > pero lo que está en llamas puede ser la propuesta, el ángulo de los
-            anuncios, las llamadas de ventas o incluso el LTGP.
+            > pero las llamas pueden venir de la propuesta, el ángulo de los anuncios,
+            las llamadas de ventas o incluso el LTGP.
         </p>
 
         <p>
@@ -196,58 +196,74 @@ const SECCIONES = [
         <p>
             <strong>
                 Ayudo a asesores, agencias, consultores (y algún ecommerce) a
-                conseguir clientes que <u class="mark-amarillo"
-                    >molesten poco y paguen lo que te mereces.</u
-                > En total he ayudado a facturar 2.4 millones de €
-            </strong>
+                quedarse solo con clientes que <u class="mark-amarillo"
+                    >molestan poco y te pagan lo que mereces.
+                </u>Esto con el menor cambio posible en tu negocio, porque para
+                apagar un fuego no hace falta demoler el edificio entero.</strong
+            >
+        </p>
+
+        <span class="gladiador icono-solido" aria-hidden="true"></span>
+
+        <p class="titulo-mano titulo-mano--nota titulo-mano--dato">
+            En total he ayudado a facturar 2.4M €
         </p>
     </div>
 
     <Reviews id="opiniones" />
 
     <div class="cuerpo">
-        <h2
-            id="trabajar-juntos"
-            style="font-family: var(--hand); color: var(--rojo)"
-        >
-            Cómo trabajar juntos
+        <h2 id="agendar" style="font-family: var(--hand); color: var(--rojo)">
+            Qué recibes en la&nbsp;llamada
         </h2>
 
-        <img class="figura-apreton" src="/imgs/svg/handshake.svg" alt="" />
+        <img
+            class="emoji-3d"
+            src="/imgs/pill-3d.webp"
+            width="256"
+            height="256"
+            alt=""
+            aria-hidden="true"
+        />
 
-        <p>
-            Mi gran objetivo es aumentar el ratio
-            <span class="ink-circle ink-circle--azul"
-                >LTGP:CAC<svg
-                    class="ink-circle-svg"
-                    viewBox="0 0 100 60"
-                    preserveAspectRatio="none"
-                    aria-hidden="true"
-                >
-                    <path
-                        d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                        stroke-linecap="round"></path></svg
-                ></span
-            ><span class="azul"> →</span>&nbsp;Porque... ¿Quién quiere facturar
-            millones si el margen es minúsculo?
-        </p>
-        <p>
-            <strong
-                >Y para eso busco <span class="squiggle squiggle--azul"
-                    >el menor cambio</span
-                > posible con el mayor impacto en tu negocio. No tiene sentido demoler
-                el edificio entero para apagar un fuego.
-            </strong>
+        <p style="margin-bottom: 1rem;">
+            <strong>Un diagnóstico de tu negocio:</strong>
         </p>
 
-        <div class="diamond" aria-hidden="true"></div>
+        <ul>
+            <li>
+                Dónde está tu cuello de botella ahora mismo (pocas veces está
+                donde crees).
+            </li>
+            <li>
+                <strong>
+                    Cómo mejorar tu ratio <span
+                        class="ink-circle ink-circle--azul"
+                        >LTGP:CAC<svg
+                            class="ink-circle-svg"
+                            viewBox="0 0 100 60"
+                            preserveAspectRatio="none"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                fill="none"
+                                stroke-linecap="round"></path></svg
+                        ></span
+                    ><span class="azul"> →</span>&nbsp;Porque... ¿Quién quiere
+                    facturar millones si el margen es minúsculo?
+                </strong>
+            </li>
+            <li>Qué no tienes que cambiar.</li>
+        </ul>
 
         <p class="titulo-mano" style="color: var(--negro)">
             ¿Tienes algo importante entre manos?
         </p>
+
+        <div class="diamond" aria-hidden="true"></div>
 
         <CalendarioGoogle />
 

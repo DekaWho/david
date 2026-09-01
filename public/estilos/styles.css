@@ -221,6 +221,15 @@ h3.titulo-seccion {
     font-size: clamp(1.05rem, 1.2vw, 1.2rem);
 }
 
+/* Variante sobria del manuscrito: conserva el Kalam y el color pero renuncia al
+   tilt y al trazo grueso. Para la cifra de resultados y cualquier dato que se
+   afirme en serio — el manuscrito da calidez, mientras que el ángulo y la
+   negrita lo empujan a proclama y le restan autoridad al número. */
+.titulo-mano--dato {
+    transform: none;
+    font-weight: 400;
+}
+
 p {
     margin: var(--gap-sm) 2px var(--gap-3xl);
     font-size: var(--text-body);
@@ -558,7 +567,7 @@ li::marker {
 }
 
 /* Los mismos enlaces del menú montados en el flujo del hero (Menu.astro con
-   enFlujo, hoy al cierre del banner de /servicios): cierran el banner
+   enFlujo, hoy al cierre del banner de /servicios y /youtube): cierran el banner
    ofreciendo los destinos antes de que arranque el copy, en el sitio que antes
    ocupaba un CTA. Sin pill: dentro del banner —que ya es blanco— el fondo y la
    sombra de .menu dibujarían una caja flotando sobre otra; aquí basta la fila
@@ -611,14 +620,6 @@ li::marker {
     font-weight: 600;
 }
 
-/* /servicios cierra su banner con dos etiquetas, no tres: el cuerpo base deja
-   la fila corta para el ancho del hero y se lee como pie de página del banner
-   en vez de como su remate. Con un destino menos hay sitio de sobra para
-   subirla sin acercarse al tope de una línea que limita la versión móvil. */
-.servicios .nav-banner .menu-link {
-    padding: 13px 22px;
-    font-size: 1.32rem;
-}
 
 /* Estándar de menús fijos del sitio (compartido con .post-toc y .forja-nav):
    el menú arranca oculto y entra cuando el H1 sale por arriba, para que el
@@ -1232,11 +1233,12 @@ h2:has(+ .figura-apreton) {
     margin-bottom: var(--gap-lg);
 }
 
-/* Apretón de manos como figura de sección de /servicios ("Cómo trabajar
-   juntos"). Mismo SVG que el emoji inline del banner de esa página, montado
-   aquí en el calibre de figura: centrado, a ancho propio y con el clamp de
-   .hero-youtube, que es la otra marca gráfica suelta del sitio a esta escala.
-   Va como <img> y no por máscara porque el trazo del SVG ya trae su color. */
+/* Apretón de manos en calibre de figura de sección: centrado, a ancho propio y
+   con el clamp de .hero-youtube, que es la otra marca gráfica suelta del sitio
+   a esta escala. Mismo SVG que el emoji inline del banner de /servicios,
+   montado como <img> y no por máscara porque el trazo del SVG ya trae su color.
+   Sin página que la monte hoy: /servicios abría con ella su bloque de cierre y
+   pasó al emoji 3D de /youtube, para que las dos landings cierren igual. */
 .figura-apreton {
     display: block;
     width: clamp(5rem, 10vw, 7.5rem);
@@ -3223,13 +3225,16 @@ audio::-webkit-media-controls-panel {
     object-fit: cover;
 }
 
-/* Offset de aterrizaje del ancla #trabajar-juntos (el titular homónimo,
-   destino del enlace de cierre del menú): el .menu es position:fixed arriba
-   (top 14px + alto del pill ≈ 50px), así que sin margen el salto deja el
-   titular bajo el menú y lo tapa. 4rem lo baja lo justo para librar el pill con
-   aire. Solo escritorio — en móvil la barra va abajo y no hay nada que librar
-   (regla en el @media de responsive). */
-#trabajar-juntos {
+/* Offset de aterrizaje de los destinos internos del menú de /servicios: el
+   .menu es position:fixed arriba (top 14px + alto del pill ≈ 50px), así que sin
+   margen el salto deja el texto de destino bajo el menú y lo tapa. 4rem lo baja
+   lo justo para librar el pill con aire. Solo escritorio — en móvil la barra va
+   abajo y no hay nada que librar (regla en el @media de responsive). Scopeado
+   por la clase de <body>: /youtube monta un #agendar propio y aterriza con el
+   margen estándar de anclas. Un destino nuevo en el menú de esta página se suma
+   a las dos listas. */
+.servicios #que-hago,
+.servicios #agendar {
     scroll-margin-top: var(--gap-2xl);
 }
 
@@ -3456,23 +3461,17 @@ audio::-webkit-media-controls-panel {
         font-size: 0.83rem;
     }
 
-    /* El tope de arriba lo fijan tres etiquetas; /servicios lleva dos, así que
-       recupera cuerpo sin que el flex-wrap parta la caja a 375px. Añadir un
-       tercer destino a esa página obliga a volver a los valores base. */
-    .servicios .nav-banner .menu-link {
-        padding: 10px 13px;
-        font-size: 0.98rem;
-    }
 
     .nav-banner .menu-divider {
         padding: 0 1px;
     }
 
-    /* El offset extra de #trabajar-juntos libraba la pill superior; con el menú abajo
-       ese aire deja el titular descolgado del borde, así que vuelve al margen
+    /* El offset extra libraba la pill superior; con el menú abajo ese aire
+       deja el destino descolgado del borde, así que vuelve al margen
        estándar de anclas de esta anchura. Repite el valor de [id] porque el id
        gana especificidad al selector de atributo. */
-    #trabajar-juntos {
+    .servicios #que-hago,
+    .servicios #agendar {
         scroll-margin-top: var(--gap-md);
     }
 
