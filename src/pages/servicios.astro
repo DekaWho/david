@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Menu from "../components/Menu.astro";
 import Reviews from "../components/Reviews.astro";
 import CalendarioGoogle from "../components/CalendarioGoogle.astro";
+import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 
 /* Los mismos destinos en las dos instancias del menú: la fila del banner
    (enFlujo) y la barra fija que la releva al scrollear. */
@@ -14,12 +15,12 @@ const SECCIONES = [
 ---
 
 <BaseLayout
-    titulo="Escala tu negocio high ticket sin más equipo"
+    titulo="Desatascar tu negocio"
     canonical="/servicios"
-    ogTitle="Encuentro el cuello de botella que está frenando tu negocio high ticket y lo arreglamos"
+    ogTitle="Escala tu negocio high ticket sin más equipo"
     ogDescription="David Varea 🤝"
     ogUrl="https://davidvarea.com/servicios"
-    favicon="lightning"
+    favicon="bottle"
     bodyClass="title-alerta servicios"
 >
     <Menu enlaces={SECCIONES} />
@@ -44,7 +45,7 @@ const SECCIONES = [
             <h1 class="banner-h1--medium">
                 Encuentro el cuello de botella que está <u class="mark-amarillo"
                     >frenando tu negocio</u
-                > high ticket y lo arreglamos
+                > high ticket y lo arreglamos en 21 días
             </h1>
             <!--
             <ul class="banner-badges" aria-label="Lo que entrego">
@@ -189,7 +190,8 @@ const SECCIONES = [
 
         <p>
             Te dará resultados alguien que analice cada habitación antes de
-            coger la manguera. Un director de marketing y ventas pero sin el
+            coger la manguera. Un director de marketing y ventas (o de
+            persuasión, que es lo que hay debajo de las dos) pero sin el
             compromiso de tenerlo en nómina. Mejor uno en las sombras.
         </p>
 
@@ -269,4 +271,6 @@ const SECCIONES = [
 
         <div class="flecha flecha--up" aria-hidden="true"></div>
     </div>
+
+    <FooterDisclaimer />
 </BaseLayout>

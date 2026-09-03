@@ -1,159 +1,58 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Menu from "../components/Menu.astro";
 import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 import Logros from "../components/Logros.astro";
 import Reviews from "../components/Reviews.astro";
 import CalendarioGoogle from "../components/CalendarioGoogle.astro";
-
-/* Los mismos destinos en las dos instancias del menú: la fila del banner
-   (enFlujo) y la barra fija que la releva al scrollear. */
-const SECCIONES = [
-    { href: "#agendar", label: "Agendar llamada", flechaDer: "↓" },
-    { href: "#quien-soy", label: "Quién soy" },
-    { href: "#opiniones", label: "Opiniones" },
-];
 ---
 
 <BaseLayout
-    titulo="Impulsar tu canal de Youtube"
-    ogTitle="🎬 Impulsar tu canal de Youtube"
+    titulo="Exprime Youtube como líder de opinión"
+    ogTitle="🎬 Exprime Youtube como líder de opinión"
     canonical="/youtube"
     ogUrl="https://davidvarea.com/youtube"
     favicon="youtube"
     bodyClass="reviews-blanco youtube title-alerta"
 >
-    <Menu enlaces={SECCIONES} />
-
     <div class="banner banner--presentacion">
         <section class="hero">
-            <img
-                class="hero-youtube"
-                src="/imgs/svg/youtube.svg"
-                alt="YouTube"
-            />
+            <div class="hero-photo-wrap">
+                <img
+                    class="hero-photo"
+                    src="/imgs/profile-pic.webp"
+                    alt="David Varea"
+                />
+            </div>
 
-            <p class="titulo-mano">
-                Solo para vídeos hablando a cámara (ni vlogs, ni videojuegos)
-            </p>
-
-            <h1>
-                Impulso canales de Youtube para que sean un imán de leads
-                cualificados <span class="inciso-hand"
-                    >(aumentando la tasa de cierre y <u class="mark-amarillo"
-                        >reduciendo las objeciones</u
-                    > que tienen antes de comprar tu servicio o infoproducto)</span
-                >
-            </h1>
-
-            <Menu enFlujo enlaces={SECCIONES} />
-        </section>
-    </div>
-
-    <div class="cuerpo">
-        <p style="color: var(--rojo)">
-            <strong> Un poco más de contexto: </strong>
-        </p>
-        <h2 id="quien-soy" class="titulo-seccion hand" style="text-align: left">
-            Hola <img class="emoji" src="/imgs/svg/handshake.svg" alt="🤝" /><br
-            />
-            soy David Varea
-        </h2>
-
-        <div class="hero-photo-wrap hero-photo-wrap--retrato">
-            <img
-                class="hero-photo"
-                src="/imgs/profile-pic.webp"
-                alt="David Varea"
-                loading="lazy"
-            />
-        </div>
-        <p class="hand" style="font-size: var(--text-body); color: var(--rojo)">
-            Estratega de youtube y monetizador de audiencias
-        </p>
-
-        <p class="hero-spoiler">
-            <u class="mark-amarillo">En 2007 </u>subí mi primer vídeo a YouTube
-            y en 2008 hice mi primer viral. Cuando tener 50.000 visitas era un
-            logro al alcance de muy pocos <span class="inciso-hand"
-                >(si subías contenido en español)</span
-            >
-        </p>
-
-        <div class="capturas-virales">
-            <img
-                src="/imgs/ajedrez-varias.webp"
-                alt="vídeo «Jugada de Ajedrez - Varias jugadas de ajedrez», 306 mil visualizaciones, hace 17 años"
-                loading="lazy"
-                decoding="async"
-            />
-            <img
-                src="/imgs/ajedrez-mates.webp"
-                alt="vídeo «Jugada de Ajedrez - Mates», 239 mil visualizaciones, hace 17 años"
-                loading="lazy"
-                decoding="async"
-            />
-        </div>
-
-        <p>
-            Con 13 años supe encontrar hueco en un nicho saturado de gente con
-            autoridad <span class="inciso-hand"
-                >(señores de 40-50 años que se grababan delante del tablero
-                dando clases de ajedrez)</span
-            >
-        </p>
-
-        <span class="gladiador icono-solido" aria-hidden="true"></span>
-
-        <p>
-            <strong>
-                Años más tarde empezó mi carrera como editor de vídeo (y después
-                como <span class="squiggle">estratega de contenido) </span>Si
-                sumas las visitas de todos los vídeos largos en los que he
-                estado detrás, superas las <u class="mark-amarillo"
-                    >100 millones de visitas.</u
-                >
-            </strong>
-        </p>
-
-        <p>
-            Sé cómo se genera una audiencia fiel en youtube. Y sé cómo un canal
-            de 4k subs (y mil visitas de media) factura más que un canal con
-            100k subs. Son dos estrategias distintas y cuál es mejor en tu caso
-            es lo primero que miramos en la llamada.
-        </p>
-
-        <section class="seccion-blanca">
-            <h2 style="font-family: var(--hand); color: var(--azul)">
-                ¿Quieres monetizar sin viralidad?
+            <h2>
+                <span class="banner-subline">
+                    <img class="emoji" src="/imgs/svg/handshake.svg" alt="🤝" />
+                    David Varea
+                </span>
             </h2>
 
-            <p>
-                Youtube es la mayor <u class="mark-amarillo"
-                    >máquina de cualificar leads
-                </u> (sin necesidad de vídeos virales ni súper producciones).
-            </p>
-
-            <p>
-                <strong>
-                    Los leads que pasan por un embudo de vídeos de Youtube
-                    <span class="inciso-hand"
-                        >(aunque te descubran desde un ad de Meta)</span
-                    > tienen <span class="squiggle"
-                        >menos objeciones en llamada</span
-                    > y la tasa de cierre aumenta del ~20% al ~40%.
-                </strong>
-            </p>
-
-            <div class="diamond" aria-hidden="true"></div>
-
-            <p>
-                No lo digo por decir. También he trabajado con ecommerce,
-                infoproductores o negocios de servicios (ayudándoles a facturar
-                2.4 millones de € en total)
-            </p>
+            <h1>
+                En 14 días te instalo un ecosistema de contenidos (llave en
+                mano) con el que te posicionas como <u class="mark-amarillo"
+                    >líder de opinión</u
+                > para tener <span class="squiggle"
+                    >un imán de oportunidades</span
+                > sin necesidad de gastar ni un céntimo en publicidad <span
+                    class="inciso-ligero"
+                    >y sin que tengas que pasarte más de 4h grabando al mes</span
+                >
+            </h1>
+            <h2>
+                <span class="inciso-hand">
+                    Aumentando tu reputación, atrayendo clientes ideales y
+                    reduciendo las objeciones que tienen antes de pagarte por tu
+                    servicio</span
+                >
+            </h2>
         </section>
+        <CalendarioGoogle />
     </div>
+
     <Reviews id="opiniones" />
 
     <div class="cuerpo">
