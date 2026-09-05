@@ -1,33 +1,31 @@
 ---
-/* Versión CV de la oferta: la página que se manda suelta (email, DM) a un dueño
-   de negocio que ya está hablando con David. Comparte cuerpo con /desatascar
-   (la landing enlazada desde la home) pero con el titular del marrón, el
-   portfolio dentro y un cierre que no pide agendar llamada: quien la lee
-   contesta por el canal por el que le llegó el enlace. */
+/* Landing de la oferta enlazada desde la card "Desatascar tu negocio" de la
+   home: mismo cuerpo que /servicios (la versión CV, que se manda suelta) pero
+   con el titular del cuello de botella, sin portfolio y con cierre de llamada
+   ("Qué recibes en la llamada" + calendario), alineado con /youtube. */
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Menu from "../components/Menu.astro";
-import Logros from "../components/Logros.astro";
 import Reviews from "../components/Reviews.astro";
+import CalendarioGoogle from "../components/CalendarioGoogle.astro";
+import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 
 /* Los mismos destinos en las dos instancias del menú: la fila del banner
-   (enFlujo) y la barra fija que la releva al scrollear. Tres etiquetas, que es
-   lo que la fila aguanta en una línea a 375px; el «Qué hago» que enlaza
-   /desatascar no cabe y aquí sobra: es el primer párrafo bajo el banner. */
+   (enFlujo) y la barra fija que la releva al scrollear. */
 const SECCIONES = [
-    { href: "#portfolio", label: "Portfolio" },
+    { href: "#que-hago", label: "Qué hago" },
     { href: "#opiniones", label: "Opiniones" },
-    { href: "#trabajar-juntos", label: "Trabajar juntos", flechaDer: "↓" },
+    { href: "#agendar", label: "Agendar llamada", flechaDer: "↓" },
 ];
 ---
 
 <BaseLayout
-    titulo="David Varea"
-    canonical="/servicios"
-    ogTitle="David Varea 🤝"
-    ogDescription="Hay dos tipos de fuegos en todo negocio..."
-    ogUrl="https://davidvarea.com/servicios"
-    favicon="handshake"
-    bodyClass="title-alerta servicios"
+    titulo="Desatascar tu negocio"
+    canonical="/desatascar"
+    ogTitle="Escala tu negocio high ticket sin más equipo"
+    ogDescription="David Varea 🤝"
+    ogUrl="https://davidvarea.com/desatascar"
+    favicon="bottle"
+    bodyClass="title-alerta desatascar"
 >
     <Menu enlaces={SECCIONES} />
 
@@ -48,10 +46,10 @@ const SECCIONES = [
                 </span>
             </h2>
 
-            <h1>
-                Pásame tu mayor dolor de cabeza <span class="aside-hand"
-                    >(en marketing y ventas)</span
-                > y <u class="mark-amarillo">duerme tranquilo</u>
+            <h1 class="banner-h1--medium">
+                Encuentro el cuello de botella que está <u class="mark-amarillo"
+                    >frenando tu negocio</u
+                > high ticket y lo arreglamos en 21 días
             </h1>
             <!--
             <ul class="banner-badges" aria-label="Lo que entrego">
@@ -156,7 +154,7 @@ const SECCIONES = [
     </div>
 
     <div class="cuerpo">
-        <p>Hay dos tipos de fuego en todo negocio...</p>
+        <p id="que-hago">Hay dos tipos de fuego en todo negocio...</p>
 
         <ul class="lista-fuego">
             <li>
@@ -196,58 +194,87 @@ const SECCIONES = [
 
         <p>
             Te dará resultados alguien que analice cada habitación antes de
-            coger la manguera. Alguien que no mida su trabajo por lo bonita que
-            ha quedado una campaña, sino por lo que ha potenciado el negocio.
+            coger la manguera. Un director de marketing y ventas (o de
+            persuasión, que es lo que hay debajo de las dos) pero sin el
+            compromiso de tenerlo en nómina. Mejor uno en las sombras.
         </p>
 
-        <p id="portfolio">
+        <p>
             <strong>
-                Estos son algunos de mis logros en los últimos años:
-            </strong>
+                Ayudo a asesores, agencias, consultores (y algún ecommerce) a
+                quedarse solo con clientes que <u class="mark-amarillo"
+                    >molestan poco y te pagan lo que mereces.
+                </u>Esto con el menor cambio posible en tu negocio, porque para
+                apagar un fuego no hace falta demoler el edificio entero.</strong
+            >
         </p>
-
-        <Logros />
 
         <span class="gladiador icono-solido" aria-hidden="true"></span>
+
+        <p class="titulo-mano titulo-mano--nota titulo-mano--dato">
+            En total he ayudado a facturar 2.4M €
+        </p>
     </div>
 
     <Reviews id="opiniones" />
 
     <div class="cuerpo">
-        <h2
-            id="trabajar-juntos"
-            style="font-family: var(--hand); color: var(--rojo)"
-        >
-            Cómo trabajar juntos
+        <h2 id="agendar" style="font-family: var(--hand); color: var(--rojo)">
+            Qué recibes en la&nbsp;llamada
         </h2>
 
-        <img class="figura-apreton" src="/imgs/svg/handshake.svg" alt="" />
+        <img
+            class="emoji-3d"
+            src="/imgs/pill-3d.webp"
+            width="256"
+            height="256"
+            alt=""
+            aria-hidden="true"
+        />
 
-        <p>
-            Mi gran objetivo en cada proyecto es aumentar el ratio
-            <span class="ink-circle ink-circle--azul"
-                >LTGP:CAC<svg
-                    class="ink-circle-svg"
-                    viewBox="0 0 100 60"
-                    preserveAspectRatio="none"
-                    aria-hidden="true"
-                >
-                    <path
-                        d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                        stroke-linecap="round"></path></svg
-                ></span
-            ><span class="azul"> →</span>&nbsp;Porque... ¿Quién quiere facturar
-            millones si el margen es minúsculo?
+        <p style="margin-bottom: 1rem;">
+            <strong>Un diagnóstico de tu negocio:</strong>
         </p>
 
-        <p>
-            No busco encargos sueltos. Quiero meterme a fondo en un negocio y
-            construir algo que dure.
+        <ul>
+            <li>
+                Dónde está tu cuello de botella ahora mismo (pocas veces está
+                donde crees).
+            </li>
+            <li>
+                <strong>
+                    Cómo mejorar tu ratio <span
+                        class="ink-circle ink-circle--azul"
+                        >LTGP:CAC<svg
+                            class="ink-circle-svg"
+                            viewBox="0 0 100 60"
+                            preserveAspectRatio="none"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                fill="none"
+                                stroke-linecap="round"></path></svg
+                        ></span
+                    ><span class="azul"> →</span>&nbsp;Porque... ¿Quién quiere
+                    facturar millones si el margen es minúsculo?
+                </strong>
+            </li>
+            <li>Qué no tienes que cambiar.</li>
+        </ul>
+
+        <p class="titulo-mano" style="color: var(--negro)">
+            ¿Tienes algo importante entre manos?
         </p>
 
-        <p class="titulo-mano">¿Cuál es tu mayor dolor de cabeza? Cuéntame.</p>
+        <div class="diamond" aria-hidden="true"></div>
+
+        <CalendarioGoogle />
+
+        <div class="flecha flecha--up" aria-hidden="true"></div>
     </div>
+
+    <FooterDisclaimer />
 </BaseLayout>

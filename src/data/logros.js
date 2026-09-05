@@ -1,5 +1,5 @@
 /* Fuente única de los logros/resultados representativos. Los consume el
-   componente Logros.astro, montado en /servicios. El orden del
+   componente Logros.astro, montado en /servicios y /portfolio. El orden del
    array es el orden de render; `clase` aplica el doodle de margen del logro
    (icono email / banderín) cuando lo lleva. */
 export const LOGROS = [
