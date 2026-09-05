@@ -847,6 +847,21 @@ li::marker {
     margin-bottom: var(--gap-lg);
 }
 
+/* Titular de /servicios: escala base pero frase de cuatro líneas con inciso
+   Kalam y marcador, así que el hueco base (pensado para un claim de dos
+   líneas) lo deja pegado al nombre por arriba y a la fila de enlaces por
+   abajo. Aire propio en las dos anchuras, en em para que acompañe al cuerpo
+   del titular: poco arriba (el nombre que lo precede ya pone el suyo, y el
+   .hero es flex, así que los dos se suman) y el grueso abajo, que es donde
+   el titular tiene que separarse de lo que sigue para leerse solo. El
+   interlineado baja del base: con cuatro líneas, el aire entre ellas compite
+   con el de fuera y el bloque se lee suelto en vez de como una sola frase. */
+.servicios .banner h1 {
+    line-height: 1.1;
+    margin-top: clamp(0.25em, 1.2vh, 0.45em);
+    margin-bottom: clamp(1.4em, 7vh, 2.5em);
+}
+
 /* Subtítulo del hero (el inciso Kalam bajo el titular): rojo y siempre un
    escalón por debajo del h1, calculado como fracción de su escala (0.79 es la
    proporción 1.5rem/1.9rem del extremo ancho). Un tamaño fijo no vale: el h1
