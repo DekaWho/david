@@ -19,6 +19,9 @@ const {
     botonTexto = "Recibir gratis los valiosos emails",
     botonIcono = "/imgs/svg/email.svg",
     mostrarPrivacyNote = true,
+    // `flecha`: añade al botón la flecha → de los enlaces-tarjeta de la home
+    // (.block .arrow), para que el CTA del optin se lea igual que ellos.
+    flecha = false,
     // `posicion`: fija el campo posicion_optin de MailerLite en lugar del
     // ordinal DOM que calcula el handler de scripts.js. Para optins fuera
     // del flujo de la página, cuyo índice variaría según cuántos forms tenga
@@ -73,6 +76,7 @@ if (!formId && !cerrado) {
         <span class="body">
             <span class="title">{botonTexto}</span>
         </span>
+        {flecha && <span class="arrow" aria-hidden="true">→</span>}
     </button>
     {cerrado && <span class="optin-cerrado-cartel">Acceso cerrado</span>}
 </form>

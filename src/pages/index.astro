@@ -24,8 +24,8 @@ import { CALENDARIO_URL } from "../data/calendario.js";
 
             <h1 class="hero-headline">
                 Hay solo dos cosas que
-                <span class="hl-squiggle"
-                    >mueven el mundo:
+                <span class="hl-squiggle">
+                    mueven el mundo:
                     <svg
                         class="squiggle-svg"
                         viewBox="0 0 140 10"
@@ -36,7 +36,8 @@ import { CALENDARIO_URL } from "../data/calendario.js";
                             d="M2 5 Q 35 1 70 5 T 138 5"
                             stroke-width="2.4"
                             fill="none"
-                            stroke-linecap="round"></path>
+                            stroke-linecap="round"
+                        ></path>
                     </svg>
                 </span>
             </h1>
@@ -49,8 +50,10 @@ import { CALENDARIO_URL } from "../data/calendario.js";
             <div class="postit-wrap">
                 <div class="postit">
                     <span class="tape" aria-hidden="true"></span>
-                    Soy <strong>David Varea</strong> (las dos con V)<br /><br
-                    />¿Qué te trae por aquí?
+                    Soy <strong>David Varea</strong> (las dos con V)
+                    <br />
+                    <br />
+                    ¿Qué te trae por aquí?
                 </div>
             </div>
         </section>
@@ -59,18 +62,41 @@ import { CALENDARIO_URL } from "../data/calendario.js";
 
         <nav class="blocks" aria-label="Secciones">
             <a
+                class="block block--primary block--solo-titulo"
+                href="/recursos"
+                target="_blank"
+                rel="noopener"
+                draggable="false"
+            >
+                <span class="handle" aria-hidden="true">
+                    ⋮⋮
+                </span>
+                <img class="icon" src="/imgs/svg/fire.svg" alt="🔥" />
+                <span class="body">
+                    <span class="title">Recursos (GRATIS)</span>
+                </span>
+                <span class="arrow" aria-hidden="true">
+                    →
+                </span>
+            </a>
+
+            <a
                 class="block block--secondary block--solo-titulo"
                 href="/youtube"
                 target="_blank"
                 rel="noopener"
                 draggable="false"
             >
-                <span class="handle" aria-hidden="true">⋮⋮</span>
+                <span class="handle" aria-hidden="true">
+                    ⋮⋮
+                </span>
                 <img class="icon" src="/imgs/svg/youtube.svg" alt="📷" />
                 <span class="body">
                     <span class="title">Exprimir Youtube</span>
                 </span>
-                <span class="arrow" aria-hidden="true">→</span>
+                <span class="arrow" aria-hidden="true">
+                    →
+                </span>
             </a>
 
             <a
@@ -80,12 +106,16 @@ import { CALENDARIO_URL } from "../data/calendario.js";
                 rel="noopener"
                 draggable="false"
             >
-                <span class="handle" aria-hidden="true">⋮⋮</span>
+                <span class="handle" aria-hidden="true">
+                    ⋮⋮
+                </span>
                 <img class="icon" src="/imgs/svg/bottle.svg" alt="🍾" />
                 <span class="body">
                     <span class="title">Desatascar tu negocio</span>
                 </span>
-                <span class="arrow" aria-hidden="true">→</span>
+                <span class="arrow" aria-hidden="true">
+                    →
+                </span>
             </a>
         </nav>
 

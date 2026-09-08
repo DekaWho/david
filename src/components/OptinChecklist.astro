@@ -1,0 +1,34 @@
+---
+import OptinBase from "./OptinBase.astro";
+
+/* Wrapper del optin del checklist «para que los clientes te elijan a ti y
+   no a otro más barato» (/recursos). Fija el form-id para que su
+   automatización de bienvenida dispare por destino del submit, no por
+   filtrado de UTMs posterior — los UTMs pueden faltar o llegar
+   incorrectos; el form-id siempre llega correcto. Reutiliza el form
+   «consultoria-monetizar» (el mismo que OptinConsultoriaMonetizar), el
+   único activo en MailerLite: su automatización de bienvenida es la que
+   dispara. */
+const CHECKLIST_FORM_ID = "192892264186381923";
+
+/* Defaults del botón para este lead magnet: el CTA entrega un recurso
+   concreto (el checklist), no una suscripción a emails, así que el texto
+   nombra lo que llega; el fuego es el icono de su card en la home y el
+   favicon de la landing, y la flecha → repite la de esas cards. La página
+   puede overridearlos; el form-id se fija siempre después del spread para
+   que la página no pueda pisarlo. */
+const {
+    botonTexto = "Acceder a los recursos gratuitos",
+    botonIcono = "/imgs/svg/fire.svg",
+    flecha = true,
+    ...rest
+} = Astro.props;
+---
+
+<OptinBase
+    {...rest}
+    botonTexto={botonTexto}
+    botonIcono={botonIcono}
+    flecha={flecha}
+    formId={CHECKLIST_FORM_ID}
+/>

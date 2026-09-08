@@ -768,10 +768,10 @@ li::marker {
    respiro de entradilla (--gap-4xl) del último párrafo — solo queda el
    colchón del banner base, y la réplica y su continuación se leen a un
    salto de párrafo, no de sección. */
-.youtube .banner .hero {
+:is(.youtube, .recursos) .banner .hero {
     margin-bottom: 0;
 }
-.youtube .banner .hero > :last-child {
+:is(.youtube, .recursos) .banner .hero > :last-child {
     margin-bottom: 0;
 }
 
@@ -780,7 +780,7 @@ li::marker {
    que sigue. Medio 3xl y no el 3xl entero: el CTA ya cierra el hero con su
    sombra y lo que viene debajo es el titular de las reseñas sobre el mismo
    blanco, no un cambio a papel que pida más colchón. */
-.youtube .banner {
+:is(.youtube, .recursos) .banner {
     padding-bottom: calc(var(--gap-3xl) / 2);
 }
 
@@ -790,7 +790,7 @@ li::marker {
    es donde el titular largo agradece líneas más largas. Scopeado a la página;
    el resto de heros (incluido /monetizar, que comparte .banner--presentacion)
    conservan los 720px. */
-.youtube .banner .hero {
+:is(.youtube, .recursos) .banner .hero {
     max-width: 640px;
 }
 
@@ -832,11 +832,11 @@ li::marker {
    móvil y tablet estrecha se quedan en el mínimo sin override propio. La
    escala vive en --yt-h1 sobre el banner porque el subtítulo (más abajo) se
    calcula como fracción de ella, no con un tamaño propio. */
-.youtube .banner {
+:is(.youtube, .recursos) .banner {
     --yt-h1: clamp(1.45rem, 2.4vw, 1.9rem);
 }
 
-.youtube .banner h1 {
+:is(.youtube, .recursos) .banner h1 {
     font-size: var(--yt-h1);
     /* El aire por arriba lo pone el nombre que lo precede (regla del pretitular,
        junto a .banner h2); por abajo el titular se despega del subtítulo con
@@ -894,6 +894,35 @@ li::marker {
    no leerse apoyada sobre el corte al titular de las reseñas. */
 .youtube .banner > .block--calendario {
     margin: clamp(2.2rem, 5.5vh, 3.2rem) auto 4.5rem;
+}
+
+/* /recursos comparte con /youtube el hero de foto + nombre + titular-oferta
+   (las reglas :is(.youtube, .recursos) de este bloque) y cierra el banner con
+   el cajetín del checklist en el sitio del CTA de agendar: mismo hueco por
+   arriba que el botón de /youtube, por el mismo motivo (el titular y la acción
+   son piezas distintas). Abajo cede su margen base porque lo que sigue es la
+   flecha, que trae el suyo (--gap-3xl) y cierra la página. */
+.recursos .banner > .optin {
+    margin: clamp(2.2rem, 5.5vh, 3.2rem) auto 0;
+}
+
+/* El titular de /recursos es aún más largo que el de /youtube (la oferta
+   entera con su paréntesis dentro del h1), así que baja un escalón más en la
+   misma variable —el resto de reglas compartidas la heredan. */
+.recursos .banner {
+    --yt-h1: clamp(1.25rem, 2vw, 1.6rem);
+}
+/* El paréntesis manuscrito del titular va en azul de marca: el cambio de
+   familia solo no lo despegaba lo bastante de la promesa en serif. */
+.recursos .banner h1 .inciso-hand {
+    color: var(--azul);
+}
+
+/* La flecha de cierre vive dentro del banner (blanco), no en un .cuerpo: la
+   página termina en el cajetín y la flecha solo remata; el aire por arriba lo
+   pone ella para despegarse de la sombra dura del botón. */
+.recursos .banner > .flecha {
+    margin-top: var(--gap-2xl);
 }
 
 /* CTA de agendar del cuerpo: cierra el bloque de la oferta ("Qué recibes en la
@@ -964,14 +993,14 @@ li::marker {
    márgenes de cada pieza, los mismos que en /servicios, para que los dos heros
    de foto + nombre + titular se lean iguales. */
 @media (min-width: 801px) {
-    .youtube .banner .hero {
+    :is(.youtube, .recursos) .banner .hero {
         max-width: 760px;
     }
 
     /* El cierre del banner crece con la pantalla (el doble del móvil): en
        escritorio hace falta más blanco para que la caída del hero al bloque de
        reseñas se lea como corte de sección y no como un salto de párrafo. */
-    .youtube .banner {
+    :is(.youtube, .recursos) .banner {
         padding-bottom: var(--gap-3xl);
     }
 }
@@ -4158,6 +4187,26 @@ audio::-webkit-media-controls-panel {
     .blocks .block--primary {
         padding: clamp(10px, 1.4vh, 14px);
     }
+}
+
+/* Cards de una línea de la home: el alto extra de .block--solo-titulo lo lleva
+   solo la destacada (primary), que así sobresale también en altura; las blancas
+   se quedan en el padding base de .block. Triple clase para ganar tanto a
+   .block.block--solo-titulo como al .blocks .block--primary de arriba, que
+   empatan entre sí y se resolvían por orden. */
+.blocks .block--primary.block--solo-titulo {
+    padding-block: clamp(14px, 2vh, 18px);
+}
+.blocks .block--primary.block--solo-titulo .title {
+    font-size: 1.056rem;
+}
+.blocks .block--secondary.block--solo-titulo {
+    padding-block: 12px;
+}
+@media (min-width: 700px) {
+    .blocks .block--secondary.block--solo-titulo {
+        padding-block: clamp(10px, 1.4vh, 14px);
+    }
 
     /* El CTA se queda corto en escritorio: el padding de móvil, que ahí llena
        buena parte del ancho, contra la columna ancha del hero deja el botón
@@ -4256,6 +4305,18 @@ audio::-webkit-media-controls-panel {
     position: absolute;
     right: 28px;
     bottom: -24px;
+}
+/* En un bloque de una sola línea la pegatina va centrada en vertical dentro
+   de la card, no colgando por un borde: sin subtitle que proteger, y con las
+   cards apiladas a 8px, por abajo caería sobre el título de la siguiente y por
+   arriba sobresale de la caja. Más separada del borde derecho que la base
+   para que no se pegue a la flecha. El rotate se repite porque el transform
+   del centrado pisaría el -4deg de .badge. */
+.block--solo-titulo .badge {
+    bottom: auto;
+    top: 50%;
+    right: 56px;
+    transform: translateY(-50%) rotate(-4deg);
 }
 
 /* ---- Bloque-acordeón (.block-group) ----
@@ -4550,6 +4611,15 @@ audio::-webkit-media-controls-panel {
     cursor: pointer;
     border: none;
     font-family: inherit;
+}
+
+/* Botón del cajetín de /recursos: el primary azul de la home con su misma
+   sombra (la tinta al 35% de .home .block) — la dura azul de .block se
+   fundiría con el fondo del botón y la tinta plena pesa más que el botón.
+   Es la card de la home continuada en la landing: mismo azul, mismo icono y
+   misma flecha. */
+.recursos .optin .block--primary {
+    box-shadow: 4px 4px 0 color-mix(in srgb, var(--negro) 35%, transparent);
 }
 
 /* Override del .banner .block--primary .title (sección 4): el CTA del
