@@ -26,6 +26,12 @@ const {
     // las dos respondidas.
     segmentar = true,
     botonTextoPaso2 = "Recibir los recursos gratuitos",
+    // Este form va SIN doble opt-in en MailerLite (desactivado en el panel):
+    // el paso 2 ya filtra las suscripciones accidentales. Por eso el
+    // redirect va directo a /done («ya te llega») y no a /not-done
+    // («confirma tu email»), y el evento Lead del pixel salta aquí mismo,
+    // en el navegador del anuncio — mejor atribución que desde el email.
+    successUrl = "/done",
     ...rest
 } = Astro.props;
 ---
@@ -37,5 +43,6 @@ const {
     flecha={flecha}
     segmentar={segmentar}
     botonTextoPaso2={botonTextoPaso2}
+    successUrl={successUrl}
     formId={CHECKLIST_FORM_ID}
 />
