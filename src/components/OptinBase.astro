@@ -27,6 +27,18 @@ const {
     // del flujo de la página, cuyo índice variaría según cuántos forms tenga
     // cada página y no identificaría nada.
     posicion,
+    // `segmentar`: form en dos pasos. El paso 1 es el cajetín de siempre
+    // (email + botón); al pulsar, el handler de scripts.js esconde el email
+    // y muestra las dos preguntas de segmentación (radios, sin teclear),
+    // ambas obligatorias. El POST a MailerLite sale SOLO cuando las dos
+    // están respondidas — si el visitante se va a medias no entra en la
+    // lista. Es el filtro contra las suscripciones accidentales (autofill
+    // del navegador de Instagram): el autofill rellena el email, no las
+    // preguntas. Los valores viajan como fields[situacion] y fields[sector];
+    // los slugs deben existir tal cual como campos custom en MailerLite.
+    segmentar = false,
+    // Texto del botón en el paso 2 (solo con `segmentar`).
+    botonTextoPaso2 = "Enviar",
     // `cerrado`: estado "plazas cerradas". El cajetín se ve pero queda inerte
     // (sin data-ml-form-id, input y botón disabled) bajo la cinta de obras y
     // un cartel. El handler de scripts.js solo engancha form[data-ml-form-id],
@@ -38,9 +50,55 @@ const {
 
 if (!formId && !cerrado) {
     throw new Error(
-        "OptinBase.astro: prop `formId` requerida en un optin activo. No incrustar este componente directamente — usar un wrapper por lead magnet (<OptinConsultoriaMonetizar />, …) o crear uno nuevo."
+        "OptinBase.astro: prop `formId` requerida en un optin activo. No incrustar este componente directamente — usar un wrapper por lead magnet (<OptinConsultoriaMonetizar />, …) o crear uno nuevo.",
     );
 }
+
+/* Preguntas de segmentación. El `name` es el slug del campo custom en
+   MailerLite; el `value` es lo que se guarda (corto, sin acentos, apto
+   para segmentos). Sin atributo `required`: las validamos en scripts.js,
+   porque un radio required dentro de un bloque oculto bloquearía el
+   submit del paso 1 con la burbuja nativa sobre un elemento invisible. */
+const preguntas = [
+    {
+        name: "situacion",
+        legend: "¿En qué punto estás?",
+        opciones: [
+            { value: "1-asalariado", label: "Soy asalariado" },
+            {
+                value: "2-empezando",
+                label: "Estoy empezando mi propio negocio",
+            },
+            {
+                value: "3-estable",
+                label: "Vivo de mi negocio y tengo clientes estables",
+            },
+            {
+                value: "4-independiente",
+                label: "Mi negocio funciona aunque yo no esté",
+            },
+        ],
+    },
+    {
+        name: "sector",
+        legend: "¿En qué sector te mueves?",
+        opciones: [
+            { value: "marketing", label: "Marketing, publicidad o redes" },
+            {
+                value: "consultoria",
+                label: "Consultoría, asesoría o dar servicios",
+            },
+            {
+                value: "formacion",
+                label: "Formación, coaching o infoproductos",
+            },
+            { value: "salud", label: "Salud, fitness o bienestar" },
+            { value: "ecommerce", label: "Producto físico o ecommerce" },
+            { value: "software", label: "Software o tecnología" },
+            { value: "otro", label: "Otro" },
+        ],
+    },
+];
 ---
 
 <form
@@ -49,8 +107,9 @@ if (!formId && !cerrado) {
     data-ml-form-id={cerrado ? undefined : formId}
     data-ml-success={cerrado ? undefined : successUrl}
     data-ml-posicion={cerrado ? undefined : posicion}
+    data-ml-paso2={segmentar && !cerrado ? botonTextoPaso2 : undefined}
 >
-    <label>
+    <label class="optin-email">
         <span class="visually-hidden">Email</span>
         <input
             type="email"
@@ -61,22 +120,56 @@ if (!formId && !cerrado) {
             disabled={cerrado}
         />
     </label>
-    {
-        mostrarPrivacyNote && !cerrado && (
-            <p class="privacy-note">
-                Puedes leer las burocráticas políticas de privacidad
-                <a href="/privacidad" target="_blank" rel="noopener">
-                    aquí
-                </a>
+    {segmentar && !cerrado && (
+        <>
+            <p class="optin-email-fijado" hidden>
+                <span class="optin-email-valor"></span>
+                <button type="button" class="optin-email-cambiar">
+                    cambiar
+                </button>
             </p>
-        )
-    }
+            <div class="optin-paso2" hidden>
+                {preguntas.map((p) => (
+                    <fieldset class="optin-pregunta" data-pregunta={p.name}>
+                        <legend>{p.legend}</legend>
+                        <div class="optin-opciones">
+                            {p.opciones.map((o) => (
+                                <label class="optin-opcion">
+                                    <input
+                                        type="radio"
+                                        name={p.name}
+                                        value={o.value}
+                                    />
+                                    <span>{o.label}</span>
+                                </label>
+                            ))}
+                        </div>
+                        <p class="optin-error" hidden>
+                            Te falta responder esta pregunta
+                        </p>
+                    </fieldset>
+                ))}
+            </div>
+        </>
+    )}
+    {mostrarPrivacyNote && !cerrado && (
+        <p class="privacy-note">
+            Puedes leer las burocráticas políticas de privacidad
+            <a href="/privacidad" target="_blank" rel="noopener">
+                aquí
+            </a>
+        </p>
+    )}
     <button type="submit" class="block block--primary" disabled={cerrado}>
         <img class="icon" src={botonIcono} alt="" />
         <span class="body">
             <span class="title">{botonTexto}</span>
         </span>
-        {flecha && <span class="arrow" aria-hidden="true">→</span>}
+        {flecha && (
+            <span class="arrow" aria-hidden="true">
+                →
+            </span>
+        )}
     </button>
     {cerrado && <span class="optin-cerrado-cartel">Acceso cerrado</span>}
 </form>

@@ -21,6 +21,11 @@ const {
     botonTexto = "Acceder a los recursos gratuitos",
     botonIcono = "/imgs/svg/fire.svg",
     flecha = true,
+    // Form en dos pasos: tras el email, dos preguntas de segmentación
+    // obligatorias (ver `segmentar` en OptinBase). El POST solo sale con
+    // las dos respondidas.
+    segmentar = true,
+    botonTextoPaso2 = "Recibir los recursos gratuitos",
     ...rest
 } = Astro.props;
 ---
@@ -30,5 +35,7 @@ const {
     botonTexto={botonTexto}
     botonIcono={botonIcono}
     flecha={flecha}
+    segmentar={segmentar}
+    botonTextoPaso2={botonTextoPaso2}
     formId={CHECKLIST_FORM_ID}
 />

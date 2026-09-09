@@ -234,21 +234,91 @@ ml('account', ML_ACCOUNT_ID);
        <button type="submit">…</button>
      </form> */
 document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin) => {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    /* Si el botón tiene .title (estructura típica de .block en este sitio),
+       cambiamos solo ese span para conservar el icono. Si no, fallback
+       al texto del botón entero. */
+    const labelEl = submitBtn?.querySelector('.title') || submitBtn;
+    const textoPaso1 = labelEl?.textContent;
+
+    /* Form en dos pasos (data-ml-paso2, prop `segmentar` de OptinBase): el
+       paso 1 valida el email y, en vez de postear, esconde el cajetín de
+       email y despliega las preguntas de segmentación. El POST solo sale en
+       el paso 2 con todas respondidas. El valor de data-ml-paso2 es el
+       texto del botón en el paso 2. */
+    const paso2 = form.querySelector('.optin-paso2');
+    const emailLabel = form.querySelector('.optin-email');
+    const emailFijado = form.querySelector('.optin-email-fijado');
+    const preguntas = [...form.querySelectorAll('.optin-pregunta')];
+    let enPaso2 = false;
+
+    const mostrarPaso2 = (email) => {
+        enPaso2 = true;
+        emailLabel.hidden = true;
+        emailFijado.querySelector('.optin-email-valor').textContent = email;
+        emailFijado.hidden = false;
+        paso2.hidden = false;
+        if (labelEl) labelEl.textContent = form.dataset.mlPaso2;
+        /* El foco pasa al primer radio (oculto visualmente pero operable con
+           teclado) sin scroll brusco; el botón se trae a la vista suave. */
+        paso2.querySelector('input[type="radio"]')?.focus({ preventScroll: true });
+        submitBtn?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    };
+
+    const volverPaso1 = () => {
+        enPaso2 = false;
+        paso2.hidden = true;
+        emailFijado.hidden = true;
+        emailLabel.hidden = false;
+        if (labelEl) labelEl.textContent = textoPaso1;
+        form.querySelector('input[type="email"]')?.focus();
+    };
+
+    /* Devuelve true si todas las preguntas tienen respuesta; marca en rojo
+       las que no, con su mensaje, y enfoca la primera fallida. */
+    const validarPaso2 = () => {
+        let primeraFallida = null;
+        preguntas.forEach((fs) => {
+            const ok = !!fs.querySelector('input[type="radio"]:checked');
+            fs.classList.toggle('optin-pregunta--error', !ok);
+            fs.querySelector('.optin-error').hidden = ok;
+            if (!ok && !primeraFallida) primeraFallida = fs;
+        });
+        if (primeraFallida) {
+            primeraFallida.querySelector('input[type="radio"]')?.focus({ preventScroll: true });
+            primeraFallida.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+        return !primeraFallida;
+    };
+
+    if (paso2) {
+        emailFijado.querySelector('.optin-email-cambiar')?.addEventListener('click', volverPaso1);
+        /* Al responder, el aviso de esa pregunta desaparece al instante. */
+        preguntas.forEach((fs) => {
+            fs.addEventListener('change', () => {
+                fs.classList.remove('optin-pregunta--error');
+                fs.querySelector('.optin-error').hidden = true;
+            });
+        });
+    }
+
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const formId = form.dataset.mlFormId;
         const successUrl = form.dataset.mlSuccess || '/';
         const emailInput = form.querySelector('input[type="email"]');
         if (!emailInput || !emailInput.value || !emailInput.checkValidity()) {
+            if (enPaso2) volverPaso1();
             emailInput?.focus();
             return;
         }
 
-        const submitBtn = form.querySelector('button[type="submit"]');
-        /* Si el botón tiene .title (estructura típica de .block en este sitio),
-           cambiamos solo ese span para conservar el icono. Si no, fallback
-           al texto del botón entero. */
-        const labelEl = submitBtn?.querySelector('.title') || submitBtn;
+        if (paso2 && !enPaso2) {
+            mostrarPaso2(emailInput.value);
+            return;
+        }
+        if (paso2 && !validarPaso2()) return;
+
         if (submitBtn) submitBtn.disabled = true;
         if (labelEl) labelEl.textContent = 'Enviando…';
 
@@ -256,6 +326,14 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
         body.append('fields[email]', emailInput.value);
         body.append('ml-submit', '1');
         body.append('anticsrf', 'true');
+
+        /* Segmentación (paso 2): un campo custom por pregunta, con el slug
+           del name del radio (situacion, sector). Solo llegan aquí con todas
+           respondidas — validarPaso2 corta antes. */
+        preguntas.forEach((fs) => {
+            const marcado = fs.querySelector('input[type="radio"]:checked');
+            body.append(`fields[${fs.dataset.pregunta}]`, marcado.value);
+        });
 
         /* ultimo_optin: campo custom en MailerLite. Se deriva del pathname
            para que el mismo form-id en cualquier página etiquete su origen
