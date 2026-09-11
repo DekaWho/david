@@ -1,0 +1,108 @@
+---
+/* Landing de la oferta enlazada desde la card "Distínguete, no seas un loro"
+   de la home. Estructura de /youtube sin "Qué recibes en la llamada": hero con
+   CTA de agendar debajo, reseñas pegadas al banner, segundo CTA donde apunta
+   la flecha de "SUFICIENTE" y "Para quién es esto" por situaciones, no por
+   sectores. Sin menú: el recorrido es una sola bajada. */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FooterDisclaimer from "../components/FooterDisclaimer.astro";
+import Reviews from "../components/Reviews.astro";
+import CalendarioGoogle from "../components/CalendarioGoogle.astro";
+---
+
+<BaseLayout
+    titulo="Distínguete, no seas un loro"
+    canonical="/distinguirse"
+    ogTitle="Te posiciono por encima de tu competencia en un mercado saturado donde todos repiten discursos parecidos"
+    ogUrl="https://davidvarea.com/distinguirse"
+    favicon="parrot"
+    bodyClass="reviews-blanco distinguirse title-alerta"
+>
+    <div class="banner">
+        <section class="hero">
+            <div class="hero-photo-wrap">
+                <img
+                    class="hero-photo"
+                    src="/imgs/profile-pic.webp"
+                    alt="David Varea"
+                />
+            </div>
+
+            <h2>
+                <span class="banner-subline">
+                    <img class="emoji" src="/imgs/svg/handshake.svg" alt="🤝" />
+                    David Varea
+                </span>
+            </h2>
+
+            <h1 class="banner-h1--medium">
+                En 60 días te posiciono por encima de tu competencia{" "}
+                <span class="inciso-ligero">
+                    (incluso <u class="mark-amarillo">en un mercado saturado</u>{" "}
+                    donde todos repiten discursos parecidos)
+                </span>
+            </h1>
+            <h2>
+                <span class="inciso-hand">
+                    Sin bajar precios y sin subir ni 1€ la inversión en anuncios
+                </span>
+            </h2>
+        </section>
+        <CalendarioGoogle />
+    </div>
+
+    <Reviews id="opiniones" />
+
+    <div class="cuerpo">
+        <CalendarioGoogle />
+
+        <span class="buscando icono-solido" aria-hidden="true"></span>
+
+        <h2
+            id="para-quien"
+            style="font-family: var(--hand); margin-top: var(--gap-2xl);"
+        >
+            Para{" "}
+            <span class="ink-circle ink-circle--azul">
+                quién
+                <svg
+                    class="ink-circle-svg"
+                    viewBox="0 0 100 60"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                        stroke-linecap="round"
+                    ></path>
+                </svg>
+            </span>{" "}
+            es esto
+        </h2>
+        <p>
+            <strong>
+                Este servicio tiene sentido si te ves dentro de alguna de estas
+                situaciones:
+            </strong>
+        </p>
+        <ol type="A">
+            <li>
+                Te va bien, pero en tu sector todos prometen lo mismo y te
+                comparan por precio.
+            </li>
+            <li>
+                Estás cambiando tus anuncios y siguen sin funcionar tan bien
+                como esperabas.
+            </li>
+            <li>
+                Si pones tu contenido al lado del de tu competencia, cuesta
+                distinguir cuál es el tuyo.
+            </li>
+        </ol>
+    </div>
+
+    <FooterDisclaimer />
+</BaseLayout>
