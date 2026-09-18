@@ -7,8 +7,8 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
 ---
 
 <BaseLayout
-    titulo="Estrategia de YouTube llave en mano"
-    ogTitle="🎬 Posiciónate como líder de opinión con YouTube"
+    titulo="Auditoría para Youtube"
+    ogTitle="Auditoría de canales de Youtube para posicionarte como líder de opinión"
     canonical="/youtube"
     ogUrl="https://davidvarea.com/youtube"
     favicon="youtube"
@@ -16,6 +16,21 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
 >
     <div class="banner banner--presentacion">
         <section class="hero">
+            <img
+                class="hero-youtube"
+                src="/imgs/svg/youtube.svg"
+                alt="YouTube"
+            />
+
+            <h1>
+                Te doy soporte 1a1 sobre la{" "}
+                <u class="mark-amarillo">estrategia de contenido</u> de tu canal
+                de YouTube
+                <span class="inciso-ligero">(durante 90 días)</span> con la que
+                te posicionas como líder de opinión sin necesidad de
+                <span class="squiggle">plagiar virales ridículos</span>
+            </h1>
+
             <div class="hero-photo-wrap">
                 <img
                     class="hero-photo"
@@ -30,30 +45,14 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
                     David Varea
                 </span>
             </h2>
-
-            <h1>
-                En 21 días te diseño e instalo la estrategia de contenido de tu
-                canal de YouTube <span class="inciso-ligero">(llave en mano)</span>
-                con la que te posicionas como{" "}
-                <u class="mark-amarillo">líder de opinión</u> para tener{" "}
-                <span class="squiggle">un imán de oportunidades</span> sin
-                necesidad de gastar ni 1€ en anuncios{" "}
-                <span class="inciso-ligero">
-                    (y sin que tengas que pasarte más de 4h grabando al mes)
-                </span>
-            </h1>
-            <h2>
-                <span class="inciso-hand">
-                    Aumentando la reputación de tu marca personal, atrayendo
-                    clientes ideales y reduciendo las objeciones que tienen
-                    antes de pagarte
-                </span>
-            </h2>
         </section>
         <CalendarioGoogle />
     </div>
 
-    <Reviews id="opiniones" />
+    {/* Única página que se sale del orden por defecto: aquí la prueba que más
+    pesa es la placa de 100k, que habla de la plataforma de la que va la
+    landing, así que abre la franja y Pascual la cierra. */}
+    <Reviews id="opiniones" orden={["chuso", "rioboo", "gonzalo", "pascu"]} />
 
     <div class="cuerpo">
         <h2 id="agendar" style="font-family: var(--hand); color: var(--rojo)">
@@ -70,13 +69,13 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
         />
 
         <p style="margin-bottom: 1rem;">
-            <strong>Un diagnóstico de tu canal:</strong>
+            <strong>Un diagnóstico de tu canal para descubrir:</strong>
         </p>
 
         <ul>
             <li>
-                Si te interesa buscar la viralidad en tus vídeos o es más
-                rentable otro enfoque más simple.
+                Si te sale más rentable buscar visitas o hacer vídeos de nicho
+                para un público reducido.
             </li>
             <li>
                 <strong>
@@ -87,60 +86,13 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
             </li>
             <li>
                 Cuáles son los siguientes vídeos que tiene más sentido grabar
-                para atraer a tu cliente ideal.
+                para aumentar la reputación de tu marca personal.
             </li>
         </ul>
 
         <CalendarioGoogle />
 
-        <span class="buscando icono-solido" aria-hidden="true"></span>
-
-        <h2
-            id="para-quien"
-            style="font-family: var(--hand); margin-top: var(--gap-2xl);"
-        >
-            Para{" "}
-            <span class="ink-circle ink-circle--azul">
-                quién
-                <svg
-                    class="ink-circle-svg"
-                    viewBox="0 0 100 60"
-                    preserveAspectRatio="none"
-                    aria-hidden="true"
-                >
-                    <path
-                        d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                        stroke-linecap="round"
-                    ></path>
-                </svg>
-            </span>{" "}
-            es esto
-        </h2>
-        <p>
-            <strong>
-                Este servicio tiene sentido si te ves dentro de alguna de estas
-                situaciones:
-            </strong>
-        </p>
-        <ol type="A">
-            <li>
-                Captas clientes por ads pero te agota enfrentarte con las mismas
-                objeciones (en cada llamada) y un tráfico muy frío.
-            </li>
-            <li>
-                Tienes un canal de Youtube funcionando desde hace tiempo pero
-                tus views han bajado un 40% en los últimos 90 días y eso está
-                afectando a tus ingresos.
-            </li>
-            <li>
-                Ya has intentado abrir un canal de Youtube pero no te ayudó a
-                escalar el negocio (probablemente no tuviste en cuenta una cosa
-                muy concreta, te la cuento en la llamada).
-            </li>
-        </ol>
+        <div class="flecha flecha--up" aria-hidden="true"></div>
     </div>
 
     <FooterDisclaimer />

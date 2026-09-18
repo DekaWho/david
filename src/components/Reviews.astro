@@ -1,20 +1,26 @@
 ---
-/* Bloque de prueba social: titular breaker + franja de tinta con las tres
-   reviews en audio (Pascual Cabedo / Gonzalo Zahonero / Rioboo), la placa de
-   100k del canal de Chuso Montero entre la segunda y la tercera, + remate
-   "SUFICIENTE" y flecha a la oferta. Montado en /distinguirse, /servicios y
-   /youtube. Las reviews, textos y "SUFICIENTE" son markup fijo (no varían
-   entre páginas), así que editar un testimonio aquí lo cambia en todas.
-   El torcido de las cards lo aplica .seccion-tinta .review-card en styles.css;
-   la tercera lleva .review-card--chat para el doodle de chat al margen.
+/* Bloque de prueba social: titular breaker + franja de tinta con los cuatro
+   testimonios (la placa de 100k del canal de Chuso Montero y tres reviews en
+   audio — Pascual Cabedo, Gonzalo Zahonero, Rioboo), + remate "SUFICIENTE" y
+   flecha a la oferta. Montado en /sistemas, /servicios y /youtube. El texto
+   de cada testimonio es markup fijo, así que editarlo aquí lo cambia en todas
+   las páginas; lo que SÍ varía por página es el orden (prop "orden").
+   El torcido de las cards lo aplica .seccion-tinta .review-card en styles.css,
+   alterno por nth-of-type sobre el DOM: como el orden se decide al renderizar y
+   no por CSS, los ángulos alternan siempre con lo que se ve, y el orden de
+   tabulación de los reproductores coincide con el visual.
+   La card de Rioboo lleva .review-card--chat para el doodle de chat al margen,
+   que viaja con ella a la posición que ocupe.
 
    Props:
    - El titular es un slot "titulo": va aparte de lo sincronizado porque cada
      contexto lo enuncia distinto. Sin slot, cae al fallback "Pero no te fíes de
      mis palabras" (el de /servicios). /opinan-sobre-mi pasa el suyo.
    - flechaFinal (boolean, default true): la flecha tras "SUFICIENTE" apunta a la
-     oferta de abajo. En páginas sin oferta debajo (solo testimonios) se pasa
-     false para no señalar al vacío.
+     oferta de abajo. Se pasa false donde señalaría al vacío (páginas que cierran
+     con los testimonios) y donde el remate se lee mejor seco: /sistemas la
+     quita porque su cuerpo ya reparte tres CTA de agendar y la flecha añadía un
+     tercer gesto rojo seguido al "SUFICIENTE".
    - id (string, default "reviews"): ancla del titular fallback. El default es
      el histórico de /servicios (lleva tiempo en producción, no renombrar);
      las landings de consultoría pasan "opiniones". Solo aplica al fallback:
@@ -23,12 +29,25 @@
      el cierre "SUFICIENTE". Vacío por defecto (no renderiza nada), así que solo
      aparece donde se rellena. /opinan-sobre-mi mete ahí un testimonio extra
      (captura de email); /servicios lo deja vacío.
+   - orden (array de claves, default ORDEN_POR_DEFECTO): qué testimonio abre la
+     franja y en qué secuencia siguen los demás. Existe porque la prueba que
+     más pesa cambia con la oferta de la página. El default abre con Pascual —el
+     caso de negocio con cifras— y sirve a las páginas que venden trabajo con
+     el negocio (/sistemas, /servicios); solo /youtube lo cambia, para abrir
+     con la placa de 100k, que es la plataforma de la que va la página. Una
+     clave fuera de la lista se ignora y una que falte deja ese testimonio sin
+     renderizar, así que el array va completo.
 
    El titular por defecto se decide con Astro.slots.has, no con contenido
    fallback dentro del <slot>: rellenar un slot que lleva fallback markup hace
    que Astro descarte el markup hermano del componente (las reviews enteras).
    Con el ternario el titular es un hermano más y la sección siempre renderiza. */
-const { flechaFinal = true, id = "reviews" } = Astro.props;
+const ORDEN_POR_DEFECTO = ["pascu", "rioboo", "gonzalo", "chuso"];
+const {
+    flechaFinal = true,
+    id = "reviews",
+    orden = ORDEN_POR_DEFECTO,
+} = Astro.props;
 ---
 
 {
@@ -61,79 +80,129 @@ const { flechaFinal = true, id = "reviews" } = Astro.props;
 
 <section class="seccion-tinta seccion-tinta--separada">
     <div class="cuerpo">
-        <div class="player-container review-card">
-            <img class="avatar" src="/reviews/pascu.webp" />
+        {
+            orden.map((clave) => {
+                if (clave === "chuso")
+                    return (
+                        <Fragment>
+                            <div class="review-card review-card--placa">
+                                <img
+                                    src="/reviews/placa-100k.webp"
+                                    alt="Placa de los 100.000 suscriptores"
+                                    width="640"
+                                    height="699"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </div>
 
-            <audio controls controlslist="nodownload noplaybackrate">
-                <source src="/reviews/pascu.mp3" type="audio/mpeg" />
-                Tu navegador no soporta audio HTML5.
-            </audio>
-        </div>
+                            <p>
+                                Esta es la placa del canal de Chuso Montero.
+                                Estuve detrás de las cámaras desde la subida del
+                                primer vídeo con 0 suscriptores.
+                            </p>
+                        </Fragment>
+                    );
 
-        <p>
-            Esto es lo que dice
-            <span class="squiggle squiggle--alt"
-                >Pascual Cabedo, fundador de EAP.
-            </span>Uno de los ecommerce de alimentación más grandes de España.
-        </p>
+                if (clave === "rioboo")
+                    return (
+                        <Fragment>
+                            <div class="player-container review-card review-card--chat">
+                                <img class="avatar" src="/reviews/rioboo.webp" />
 
-        <p>
-            <strong>
-                +250.000 clientes con alta recurrencia, +10 millones de kilos de
-                alimento enviados y millones de visitas en redes sociales
-                (venden online producto de agricultores españoles, sin químicos
-                post-cosecha)
-            </strong>
-        </p>
+                                <audio
+                                    controls
+                                    controlslist="nodownload noplaybackrate"
+                                >
+                                    <source
+                                        src="/reviews/rioboo.mp3"
+                                        type="audio/mpeg"
+                                    />
+                                    Tu navegador no soporta audio HTML5.
+                                </audio>
+                            </div>
 
-        <div class="player-container review-card">
-            <img class="avatar" src="/reviews/gon.webp" />
+                            <p>
+                                Él es <span class="squiggle">Rioboo. </span> Puede
+                                sonarte por haberlo visto junto a Ibai en alguno
+                                de sus eventos o porque forma parte del equipo
+                                que apoya a Lamine Yamal con sus redes sociales.
+                            </p>
+                        </Fragment>
+                    );
 
-            <audio controls controlslist="nodownload noplaybackrate">
-                <source src="/reviews/gon.mp3" type="audio/mpeg" />
-                Tu navegador no soporta audio HTML5.
-            </audio>
-        </div>
+                if (clave === "gonzalo")
+                    return (
+                        <Fragment>
+                            <div class="player-container review-card">
+                                <img class="avatar" src="/reviews/gon.webp" />
 
-        <p>
-            <span class="squiggle squiggle--alt"
-                >Gonzalo Zahonero es asesor financiero.
-            </span>Hemos trabajado juntos en campañas sobre finanzas y trading.
-            Te contaría más al respecto pero tenemos acuerdos de
-            confidencialidad que nos impiden ████ █████ █████ ██ ████████ ████
-            ██ ██████████
-        </p>
+                                <audio
+                                    controls
+                                    controlslist="nodownload noplaybackrate"
+                                >
+                                    <source
+                                        src="/reviews/gon.mp3"
+                                        type="audio/mpeg"
+                                    />
+                                    Tu navegador no soporta audio HTML5.
+                                </audio>
+                            </div>
 
-        <div class="review-card review-card--placa">
-            <img
-                src="/reviews/placa-100k.webp"
-                alt="Placa de los 100.000 suscriptores"
-                width="640"
-                height="699"
-                loading="lazy"
-                decoding="async"
-            />
-        </div>
+                            <p>
+                                <span class="squiggle squiggle--alt">
+                                    Gonzalo Zahonero es asesor financiero.
+                                </span>
+                                Hemos trabajado juntos en campañas sobre finanzas
+                                y trading. Te contaría más al respecto pero
+                                tenemos acuerdos de confidencialidad que nos
+                                impiden ████ █████ █████ ██ ████████ ████ ██ ██████████
+                            </p>
+                        </Fragment>
+                    );
 
-        <p>
-            Esta es la placa del canal de Chuso Montero. Estuve detrás de las
-            cámaras desde la subida del primer vídeo con 0 suscriptores.
-        </p>
+                if (clave === "pascu")
+                    return (
+                        <Fragment>
+                            <div class="player-container review-card">
+                                <img class="avatar" src="/reviews/pascu.webp" />
 
-        <div class="player-container review-card review-card--chat">
-            <img class="avatar" src="/reviews/rioboo.webp" />
+                                <audio
+                                    controls
+                                    controlslist="nodownload noplaybackrate"
+                                >
+                                    <source
+                                        src="/reviews/pascu.mp3"
+                                        type="audio/mpeg"
+                                    />
+                                    Tu navegador no soporta audio HTML5.
+                                </audio>
+                            </div>
 
-            <audio controls controlslist="nodownload noplaybackrate">
-                <source src="/reviews/rioboo.mp3" type="audio/mpeg" />
-                Tu navegador no soporta audio HTML5.
-            </audio>
-        </div>
+                            <p>
+                                Esto es lo que dice
+                                <span class="squiggle squiggle--alt">
+                                    Pascual Cabedo, fundador de EAP.
+                                </span>
+                                Uno de los ecommerce de alimentación más grandes
+                                de España.
+                            </p>
 
-        <p>
-            Él es <span class="squiggle">Rioboo. </span> Puede sonarte por haberlo
-            visto junto a Ibai en alguno de sus eventos o porque forma parte del equipo
-            que apoya a Lamine Yamal con sus redes sociales.
-        </p>
+                            <p>
+                                <strong>
+                                    +250.000 clientes con alta recurrencia, +10
+                                    millones de kilos de alimento enviados y
+                                    millones de visitas en redes sociales (venden
+                                    online producto de agricultores españoles,
+                                    sin químicos post-cosecha)
+                                </strong>
+                            </p>
+                        </Fragment>
+                    );
+
+                return null;
+            })
+        }
     </div>
 </section>
 

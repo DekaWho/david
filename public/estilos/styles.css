@@ -768,10 +768,10 @@ li::marker {
    respiro de entradilla (--gap-4xl) del último párrafo — solo queda el
    colchón del banner base, y la réplica y su continuación se leen a un
    salto de párrafo, no de sección. */
-:is(.youtube, .recursos, .distinguirse) .banner .hero {
+:is(.youtube, .recursos, .sistemas) .banner .hero {
     margin-bottom: 0;
 }
-:is(.youtube, .recursos, .distinguirse) .banner .hero > :last-child {
+:is(.youtube, .recursos, .sistemas) .banner .hero > :last-child {
     margin-bottom: 0;
 }
 
@@ -780,7 +780,7 @@ li::marker {
    que sigue. Medio 3xl y no el 3xl entero: el CTA ya cierra el hero con su
    sombra y lo que viene debajo es el titular de las reseñas sobre el mismo
    blanco, no un cambio a papel que pida más colchón. */
-:is(.youtube, .recursos, .distinguirse) .banner {
+:is(.youtube, .recursos, .sistemas) .banner {
     padding-bottom: calc(var(--gap-3xl) / 2);
 }
 
@@ -825,15 +825,15 @@ li::marker {
 /* El titular de este hero es la oferta entera en una sola frase con incisos, no
    un claim corto: a escala de titular ocupa la pantalla y empuja el CTA fuera
    del fold, así que esta página renuncia al contraste por tamaño y baja muy por
-   debajo de la escala de titular del banner: en el extremo móvil queda a un pelo
-   del cuerpo del propio hero (--text-body) y lo que lo separa del párrafo es el
+   debajo de la escala de titular del banner: en el extremo móvil roza el cuerpo
+   del propio hero (--text-body) y lo que lo separa del párrafo es sobre todo el
    serif a peso 700, no el cuerpo de letra. El clamp cubre las dos anchuras él
    solo — el tramo vw solo despega por encima de ~950px de viewport, así que
    móvil y tablet estrecha se quedan en el mínimo sin override propio. La
    escala vive en --yt-h1 sobre el banner porque el subtítulo (más abajo) se
    calcula como fracción de ella, no con un tamaño propio. */
 :is(.youtube, .recursos) .banner {
-    --yt-h1: clamp(1.45rem, 2.4vw, 1.9rem);
+    --yt-h1: clamp(1.6rem, 2.65vw, 2.1rem);
 }
 
 :is(.youtube, .recursos) .banner h1 {
@@ -884,16 +884,16 @@ li::marker {
     text-wrap: balance;
 }
 
-/* Subtítulo manuscrito de /distinguirse: la apostilla del titular va fuera
+/* Subtítulo manuscrito de /sistemas: la apostilla del titular va fuera
    del h1, en el mismo rojo Kalam que el subtítulo de /youtube. Tamaño propio y
    no la fracción de --yt-h1: el titular de esta página va en
    .banner-h1--medium, no en la escala compacta de /youtube, y a 0.79 de ella
    el Kalam competiría con el h1. El h1 cede su hueco grande al subtítulo; el
    aire hasta el CTA de agendar lo pone el margin-top del propio botón. */
-.distinguirse .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
+.sistemas .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
     margin-bottom: var(--gap-lg);
 }
-.distinguirse .banner h2:has(> .inciso-hand) {
+.sistemas .banner h2:has(> .inciso-hand) {
     color: var(--rojo);
     font-size: clamp(1.2rem, 2vw, 1.6rem);
     line-height: 1.1;
@@ -908,11 +908,21 @@ li::marker {
    :last-child). El hueco por arriba lo pone su propio margin-top —el hero
    cierra a 0 y el subtítulo pierde el suyo como último hijo—, y va holgado: el
    subtítulo manuscrito remata el titular y el botón es otra pieza, la acción;
-   pegados se leían como un solo bloque. Abajo, margen propio que se suma al
-   padding-bottom del banner: la sombra dura del botón necesita aire debajo para
-   no leerse apoyada sobre el corte al titular de las reseñas. */
-:is(.youtube, .distinguirse) .banner > .block--calendario {
-    margin: clamp(2.2rem, 5.5vh, 3.2rem) auto 4.5rem;
+   pegados se leían como un solo bloque. Abajo va corto: el colchón hasta el
+   titular de las reseñas lo pone ya el padding-bottom del banner, y este margen
+   solo tiene que dejar respirar la sombra dura del botón. */
+:is(.youtube, .sistemas) .banner > .block--calendario {
+    margin: clamp(2.2rem, 5.5vh, 3.2rem) auto 0.5rem;
+}
+
+/* En /youtube lo que precede al CTA no es el subtítulo del titular sino la
+   firma del autor (foto + nombre manuscrito), que cierra el hero: firma y
+   acción se leen como el remate de la promesa, así que el hueco base de
+   titular→acción las separaba de más. Además el hero de esta página es el más
+   alto (logo, firma y un titular a escala mayor) y el CTA tiene que entrar en
+   el fold. */
+.youtube .banner > .block--calendario {
+    margin-top: clamp(1.3rem, 3vh, 1.9rem);
 }
 
 /* /recursos comparte con /youtube el hero de foto + nombre + titular-oferta
@@ -958,10 +968,10 @@ body.recursos {
    pone solo la lupa, corto: la figura se lee como continuación del CTA, y el
    corte de sección lo marca el titular que viene después con su propio
    margen. */
-:is(.youtube, .distinguirse) .cuerpo > .block--calendario {
+:is(.youtube, .sistemas) .cuerpo > .block--calendario {
     margin-bottom: 0;
 }
-:is(.youtube, .distinguirse) .cuerpo > .block--calendario + .buscando {
+:is(.youtube, .sistemas) .cuerpo > .block--calendario + .buscando {
     margin-top: 6rem;
 }
 
@@ -1027,7 +1037,7 @@ body.recursos {
     /* El cierre del banner crece con la pantalla (el doble del móvil): en
        escritorio hace falta más blanco para que la caída del hero al bloque de
        reseñas se lea como corte de sección y no como un salto de párrafo. */
-    :is(.youtube, .recursos, .distinguirse) .banner {
+    :is(.youtube, .recursos, .sistemas) .banner {
         padding-bottom: var(--gap-3xl);
     }
 }
@@ -1532,13 +1542,14 @@ p.pitch-titular .aside-hand {
     margin: 0 0 clamp(1rem, 3.2vh, 2rem);
 }
 
-/* Nombre manuscrito como pretitular (h2 cuyo único hijo es el subline, bajo la
-   foto: /servicios y /youtube). El hueco sobre el h1 lo pone el margen inferior
-   de este h2, no el titular (que va con margin-top 0). Nombre y titular se leen
+/* Nombre manuscrito del hero (h2 cuyo único hijo es el subline, siempre bajo la
+   foto). Como pretitular (/servicios) el hueco sobre el h1 lo pone este margen
+   inferior, no el titular (que va con margin-top 0): nombre y titular se leen
    como una sola entrada, así que el par va más junto que el h2 de banner
    estándar, pero con aire suficiente para que el manuscrito no se pegue a la
    primera línea del titular; el aire recuperado se devuelve debajo del h1 (ver
-   .banner-h1--medium). */
+   .banner-h1--medium). Donde la firma cierra el hero en vez de abrirlo
+   (/youtube), el margen lo anula la regla de último hijo del .hero. */
 .banner h2:has(> .banner-subline:only-child) {
     margin-bottom: clamp(0.9rem, 2.6vh, 1.4rem);
 }
@@ -3221,6 +3232,14 @@ p:has(+ .lista-compacta) {
     margin-bottom: 0;
 }
 
+/* La flecha que cierra las landings de llamada apunta de vuelta al CTA de
+   agendar que tiene justo encima. El margen inferior del propio botón la dejaba
+   pegada a su sombra dura, y como el .cuerpo es flujo normal los dos márgenes
+   colapsan: este valor es el hueco real que se ve, no un añadido al del botón. */
+:is(.youtube, .sistemas) .cuerpo > .flecha--up {
+    margin-top: 6rem;
+}
+
 /* Variante con otro asset de flecha. Solo sobrescribe mask-image: posición,
    size y no-repeat los hereda del shorthand de .flecha, y --down/--up siguen
    rotando igual porque este SVG comparte orientación base (apunta a la derecha). */
@@ -3375,7 +3394,7 @@ audio::-webkit-media-controls-panel {
    sin margen el salto deja el texto de destino bajo el menú y lo tapa. 4rem lo
    baja lo justo para librar el pill con aire. Solo escritorio — en móvil la
    barra va abajo y no hay nada que librar (regla en el @media de responsive).
-   Scopeado por la clase de <body>: /youtube y /distinguirse montan un #agendar
+   Scopeado por la clase de <body>: /youtube y /sistemas montan un #agendar
    propio sin menú y aterrizan con el margen estándar de anclas. Un destino
    nuevo en el menú se suma a las dos listas. */
 .servicios #portfolio,
