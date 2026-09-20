@@ -768,10 +768,10 @@ li::marker {
    respiro de entradilla (--gap-4xl) del último párrafo — solo queda el
    colchón del banner base, y la réplica y su continuación se leen a un
    salto de párrafo, no de sección. */
-:is(.youtube, .recursos, .sistemas) .banner .hero {
+:is(.youtube, .recursos, .conversion) .banner .hero {
     margin-bottom: 0;
 }
-:is(.youtube, .recursos, .sistemas) .banner .hero > :last-child {
+:is(.youtube, .recursos, .conversion) .banner .hero > :last-child {
     margin-bottom: 0;
 }
 
@@ -780,7 +780,7 @@ li::marker {
    que sigue. Medio 3xl y no el 3xl entero: el CTA ya cierra el hero con su
    sombra y lo que viene debajo es el titular de las reseñas sobre el mismo
    blanco, no un cambio a papel que pida más colchón. */
-:is(.youtube, .recursos, .sistemas) .banner {
+:is(.youtube, .recursos, .conversion) .banner {
     padding-bottom: calc(var(--gap-3xl) / 2);
 }
 
@@ -884,16 +884,16 @@ li::marker {
     text-wrap: balance;
 }
 
-/* Subtítulo manuscrito de /sistemas: la apostilla del titular va fuera
+/* Subtítulo manuscrito de /conversion: la apostilla del titular va fuera
    del h1, en el mismo rojo Kalam que el subtítulo de /youtube. Tamaño propio y
    no la fracción de --yt-h1: el titular de esta página va en
    .banner-h1--medium, no en la escala compacta de /youtube, y a 0.79 de ella
    el Kalam competiría con el h1. El h1 cede su hueco grande al subtítulo; el
    aire hasta el CTA de agendar lo pone el margin-top del propio botón. */
-.sistemas .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
+.conversion .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
     margin-bottom: var(--gap-lg);
 }
-.sistemas .banner h2:has(> .inciso-hand) {
+.conversion .banner h2:has(> .inciso-hand) {
     color: var(--rojo);
     font-size: clamp(1.2rem, 2vw, 1.6rem);
     line-height: 1.1;
@@ -911,7 +911,7 @@ li::marker {
    pegados se leían como un solo bloque. Abajo va corto: el colchón hasta el
    titular de las reseñas lo pone ya el padding-bottom del banner, y este margen
    solo tiene que dejar respirar la sombra dura del botón. */
-:is(.youtube, .sistemas) .banner > .block--calendario {
+:is(.youtube, .conversion) .banner > .block--calendario {
     margin: clamp(2.2rem, 5.5vh, 3.2rem) auto 0.5rem;
 }
 
@@ -968,10 +968,10 @@ body.recursos {
    pone solo la lupa, corto: la figura se lee como continuación del CTA, y el
    corte de sección lo marca el titular que viene después con su propio
    margen. */
-:is(.youtube, .sistemas) .cuerpo > .block--calendario {
+:is(.youtube, .conversion) .cuerpo > .block--calendario {
     margin-bottom: 0;
 }
-:is(.youtube, .sistemas) .cuerpo > .block--calendario + .buscando {
+:is(.youtube, .conversion) .cuerpo > .block--calendario + .buscando {
     margin-top: 6rem;
 }
 
@@ -1037,7 +1037,7 @@ body.recursos {
     /* El cierre del banner crece con la pantalla (el doble del móvil): en
        escritorio hace falta más blanco para que la caída del hero al bloque de
        reseñas se lea como corte de sección y no como un salto de párrafo. */
-    :is(.youtube, .recursos, .sistemas) .banner {
+    :is(.youtube, .recursos, .conversion) .banner {
         padding-bottom: var(--gap-3xl);
     }
 }
@@ -3236,7 +3236,7 @@ p:has(+ .lista-compacta) {
    agendar que tiene justo encima. El margen inferior del propio botón la dejaba
    pegada a su sombra dura, y como el .cuerpo es flujo normal los dos márgenes
    colapsan: este valor es el hueco real que se ve, no un añadido al del botón. */
-:is(.youtube, .sistemas) .cuerpo > .flecha--up {
+:is(.youtube, .conversion) .cuerpo > .flecha--up {
     margin-top: 6rem;
 }
 
@@ -3394,7 +3394,7 @@ audio::-webkit-media-controls-panel {
    sin margen el salto deja el texto de destino bajo el menú y lo tapa. 4rem lo
    baja lo justo para librar el pill con aire. Solo escritorio — en móvil la
    barra va abajo y no hay nada que librar (regla en el @media de responsive).
-   Scopeado por la clase de <body>: /youtube y /sistemas montan un #agendar
+   Scopeado por la clase de <body>: /youtube y /conversion montan un #agendar
    propio sin menú y aterrizan con el margen estándar de anclas. Un destino
    nuevo en el menú se suma a las dos listas. */
 .servicios #portfolio,

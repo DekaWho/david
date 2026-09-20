@@ -2,7 +2,7 @@
 /* Bloque de prueba social: titular breaker + franja de tinta con los cuatro
    testimonios (la placa de 100k del canal de Chuso Montero y tres reviews en
    audio — Pascual Cabedo, Gonzalo Zahonero, Rioboo), + remate "SUFICIENTE" y
-   flecha a la oferta. Montado en /sistemas, /servicios y /youtube. El texto
+   flecha a la oferta. Montado en /conversion, /servicios y /youtube. El texto
    de cada testimonio es markup fijo, así que editarlo aquí lo cambia en todas
    las páginas; lo que SÍ varía por página es el orden (prop "orden").
    El torcido de las cards lo aplica .seccion-tinta .review-card en styles.css,
@@ -18,7 +18,7 @@
      mis palabras" (el de /servicios). /opinan-sobre-mi pasa el suyo.
    - flechaFinal (boolean, default true): la flecha tras "SUFICIENTE" apunta a la
      oferta de abajo. Se pasa false donde señalaría al vacío (páginas que cierran
-     con los testimonios) y donde el remate se lee mejor seco: /sistemas la
+     con los testimonios) y donde el remate se lee mejor seco: /conversion la
      quita porque su cuerpo ya reparte tres CTA de agendar y la flecha añadía un
      tercer gesto rojo seguido al "SUFICIENTE".
    - id (string, default "reviews"): ancla del titular fallback. El default es
@@ -33,7 +33,7 @@
      franja y en qué secuencia siguen los demás. Existe porque la prueba que
      más pesa cambia con la oferta de la página. El default abre con Pascual —el
      caso de negocio con cifras— y sirve a las páginas que venden trabajo con
-     el negocio (/sistemas, /servicios); solo /youtube lo cambia, para abrir
+     el negocio (/conversion, /servicios); solo /youtube lo cambia, para abrir
      con la placa de 100k, que es la plataforma de la que va la página. Una
      clave fuera de la lista se ignora y una que falte deja ese testimonio sin
      renderizar, así que el array va completo.
