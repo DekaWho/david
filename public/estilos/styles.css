@@ -3758,7 +3758,7 @@ audio::-webkit-media-controls-panel {
    margen del heading no mueve nada. */
 .hero-card {
     position: relative;
-    margin: 0 14px clamp(148px, 20vh, 184px);
+    margin: 0 14px clamp(120px, 16vh, 150px);
     background: var(--blanco);
     padding: 0 12px 2rem;
 }
@@ -3771,7 +3771,7 @@ audio::-webkit-media-controls-panel {
 .hero-photo {
     width: clamp(96px, 14vh, 120px);
     height: clamp(96px, 14vh, 120px);
-    margin-top: 3px;
+    margin-top: 10px;
     border-radius: 50%;
     object-fit: cover;
     object-position: center;
@@ -3795,6 +3795,27 @@ audio::-webkit-media-controls-panel {
     font-weight: 800;
 }
 
+/* El inciso del nombre ("las dos con V") es un aparte hablado, no parte de la
+   promesa: baja del 800 del h1 para no competir con el nombre, pero se queda
+   en 600 y no en 400 — a peso normal contrastaba tanto con el nombre que la
+   línea parecía de otra tipografía. El 600 es real, no sintetizado: la variable
+   se carga en el rango 400..800. Gemelo de .banner h1 .inciso-ligero, que hace
+   lo propio en las landings; aquí va scopeado aparte porque la home no monta
+   .banner. */
+.home .hero-headline .inciso-ligero {
+    font-weight: 600;
+}
+
+/* El claim bajo el nombre sigue el eje centrado del hero (el h1 y el postit ya
+   lo están); sin esto heredaría la alineación a la izquierda global del <p>.
+   El 1.5rem recorta los --gap-3xl (5rem) del <p> global: ese margen, no el
+   padding de la .hero-card, era el hueco muerto entre el claim y el borde
+   inferior de la tarjeta. */
+.home .hero-claim {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
 /* Las dos opciones van en un <ol> de verdad, hermano del h1 (dentro del <h1> no
    cabe: solo admite contenido inline). Aire respecto al titular; los números
    heredan el rojo global de li::marker y el cuerpo de lista (menor que el h1). */
@@ -3809,7 +3830,7 @@ audio::-webkit-media-controls-panel {
 /* Menos aire bajo la lista: la .hero-card reserva 2rem de padding inferior; en
    la home basta menos (el postit cuelga aparte, en absolute). */
 .home .hero-card {
-    padding-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
 }
 
 .hl-squiggle {
