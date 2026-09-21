@@ -5,3 +5,28 @@ node_modules/
 dist/
 .astro/
 *.log
+
+# Estado local de hooks, trabajo y contexto privado
+/scripts/hooks/
+.hook-state/
+TEMP/
+__pycache__/
+AGENTS.md
+.codex/
+.claude/
+
+# Migracion Codex: secretos y entornos locales, nunca contenido de las skills.
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+.venv*/
+venv/
+.agents/skills/telegram/.state.json
+.agents/skills/telegram/.lock
+.agents/skills/telegram/audios/
+.agents/skills/**/.cache/
+
+# Contexto personal para agentes fuera del repositorio publico
+.agents/
+.env

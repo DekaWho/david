@@ -44,7 +44,7 @@ import { CALENDARIO_URL } from "../data/calendario.js";
                 <span class="inciso-ligero">(las dos con V)</span>
             </h1>
             <p class="hero-claim">
-                Estratega de contenido y conversión en procesos de venta.
+                Estratega en procesos de venta y contenido orgánico.
             </p>
 
             <div class="postit-wrap">
@@ -134,3 +134,21 @@ import { CALENDARIO_URL } from "../data/calendario.js";
         });
     </script>
 </BaseLayout>
+
+<style>
+    .hero-headline {
+        font-size: 2.4rem;
+    }
+
+    @media (max-width: 380px) {
+        .hero-headline {
+            font-size: 1.9rem;
+        }
+    }
+
+    @media (min-width: 700px) {
+        .hero-headline {
+            font-size: clamp(2.133rem, 4.92vh, 2.867rem);
+        }
+    }
+</style>

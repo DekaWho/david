@@ -941,10 +941,10 @@ li::marker {
 .recursos .banner {
     --yt-h1: clamp(1.25rem, 2vw, 1.6rem);
 }
-/* El paréntesis manuscrito del titular va en azul de marca: el cambio de
-   familia solo no lo despegaba lo bastante de la promesa en serif. */
+/* El inciso manuscrito usa el rojo de acento para distinguir los beneficios
+   de la promesa en serif. */
 .recursos .banner h1 .inciso-hand {
-    color: var(--azul);
+    color: var(--rojo);
 }
 
 /* La flecha de cierre vive dentro del banner (blanco), no en un .cuerpo: la
