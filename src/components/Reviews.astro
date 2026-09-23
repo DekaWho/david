@@ -50,159 +50,155 @@ const {
 } = Astro.props;
 ---
 
-{
-    Astro.slots.has("titulo") ? (
-        <slot name="titulo" />
-    ) : (
-        <h1 class="titulo-breaker titulo-breaker--bg-oscuro" id={id}>
-            Pero
-            <span class="ink-circle">
-                no
-                <svg
-                    class="ink-circle-svg"
-                    viewBox="0 0 100 60"
-                    preserveAspectRatio="none"
-                    aria-hidden="true"
-                >
-                    <path
-                        d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
-                        stroke="currentColor"
-                        stroke-width="3"
-                        fill="none"
-                        stroke-linecap="round"
-                    />
-                </svg>
-            </span>
-            te fíes de <span class="squiggle">mis&nbsp;palabras</span>
-        </h1>
-    )
-}
+{Astro.slots.has("titulo") ? (
+    <slot name="titulo" />
+) : (
+    <h1 class="titulo-breaker titulo-breaker--bg-oscuro" id={id}>
+        Pero
+        <span class="ink-circle">
+            no
+            <svg
+                class="ink-circle-svg"
+                viewBox="0 0 100 60"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+            >
+                <path
+                    d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    fill="none"
+                    stroke-linecap="round"
+                />
+            </svg>
+        </span>
+        te fíes de <span class="squiggle">mis&nbsp;palabras</span>
+    </h1>
+)}
 
 <section class="seccion-tinta seccion-tinta--separada">
     <div class="cuerpo">
-        {
-            orden.map((clave) => {
-                if (clave === "chuso")
-                    return (
-                        <Fragment>
-                            <div class="review-card review-card--placa">
-                                <img
-                                    src="/reviews/placa-100k.webp"
-                                    alt="Placa de los 100.000 suscriptores"
-                                    width="640"
-                                    height="699"
-                                    loading="lazy"
-                                    decoding="async"
+        {orden.map((clave) => {
+            if (clave === "chuso")
+                return (
+                    <Fragment>
+                        <div class="review-card review-card--placa">
+                            <img
+                                src="/reviews/placa-100k.webp"
+                                alt="Placa de los 100.000 suscriptores"
+                                width="640"
+                                height="699"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        </div>
+
+                        <p>
+                            Esta es la placa del canal de Chuso Montero. Estuve
+                            detrás de las cámaras desde la subida del primer
+                            vídeo con 0 suscriptores.
+                        </p>
+                    </Fragment>
+                );
+
+            if (clave === "rioboo")
+                return (
+                    <Fragment>
+                        <div class="player-container review-card review-card--chat">
+                            <img class="avatar" src="/reviews/rioboo.webp" />
+
+                            <audio
+                                controls
+                                controlslist="nodownload noplaybackrate"
+                            >
+                                <source
+                                    src="/reviews/rioboo.mp3"
+                                    type="audio/mpeg"
                                 />
-                            </div>
+                                Tu navegador no soporta audio HTML5.
+                            </audio>
+                        </div>
 
-                            <p>
-                                Esta es la placa del canal de Chuso Montero.
-                                Estuve detrás de las cámaras desde la subida del
-                                primer vídeo con 0 suscriptores.
-                            </p>
-                        </Fragment>
-                    );
+                        <p>
+                            Él es <span class="squiggle">Rioboo. </span> Puede
+                            sonarte por haberlo visto junto a Ibai en alguno de
+                            sus eventos o porque forma parte del equipo que
+                            apoya a Lamine Yamal con sus redes sociales.
+                        </p>
+                    </Fragment>
+                );
 
-                if (clave === "rioboo")
-                    return (
-                        <Fragment>
-                            <div class="player-container review-card review-card--chat">
-                                <img class="avatar" src="/reviews/rioboo.webp" />
+            if (clave === "gonzalo")
+                return (
+                    <Fragment>
+                        <div class="player-container review-card">
+                            <img class="avatar" src="/reviews/gon.webp" />
 
-                                <audio
-                                    controls
-                                    controlslist="nodownload noplaybackrate"
-                                >
-                                    <source
-                                        src="/reviews/rioboo.mp3"
-                                        type="audio/mpeg"
-                                    />
-                                    Tu navegador no soporta audio HTML5.
-                                </audio>
-                            </div>
+                            <audio
+                                controls
+                                controlslist="nodownload noplaybackrate"
+                            >
+                                <source
+                                    src="/reviews/gon.mp3"
+                                    type="audio/mpeg"
+                                />
+                                Tu navegador no soporta audio HTML5.
+                            </audio>
+                        </div>
 
-                            <p>
-                                Él es <span class="squiggle">Rioboo. </span> Puede
-                                sonarte por haberlo visto junto a Ibai en alguno
-                                de sus eventos o porque forma parte del equipo
-                                que apoya a Lamine Yamal con sus redes sociales.
-                            </p>
-                        </Fragment>
-                    );
+                        <p>
+                            <span class="squiggle squiggle--alt">
+                                Gonzalo Zahonero es asesor financiero.
+                            </span>
+                            Hemos trabajado juntos en campañas sobre finanzas y
+                            trading. Te contaría más al respecto pero tenemos
+                            acuerdos de confidencialidad que nos impiden ████
+                            █████ █████ ██ ████████ ████ ██ ██████████
+                        </p>
+                    </Fragment>
+                );
 
-                if (clave === "gonzalo")
-                    return (
-                        <Fragment>
-                            <div class="player-container review-card">
-                                <img class="avatar" src="/reviews/gon.webp" />
+            if (clave === "pascu")
+                return (
+                    <Fragment>
+                        <div class="player-container review-card">
+                            <img class="avatar" src="/reviews/pascu.webp" />
 
-                                <audio
-                                    controls
-                                    controlslist="nodownload noplaybackrate"
-                                >
-                                    <source
-                                        src="/reviews/gon.mp3"
-                                        type="audio/mpeg"
-                                    />
-                                    Tu navegador no soporta audio HTML5.
-                                </audio>
-                            </div>
+                            <audio
+                                controls
+                                controlslist="nodownload noplaybackrate"
+                            >
+                                <source
+                                    src="/reviews/pascu.mp3"
+                                    type="audio/mpeg"
+                                />
+                                Tu navegador no soporta audio HTML5.
+                            </audio>
+                        </div>
 
-                            <p>
-                                <span class="squiggle squiggle--alt">
-                                    Gonzalo Zahonero es asesor financiero.
-                                </span>
-                                Hemos trabajado juntos en campañas sobre finanzas
-                                y trading. Te contaría más al respecto pero
-                                tenemos acuerdos de confidencialidad que nos
-                                impiden ████ █████ █████ ██ ████████ ████ ██ ██████████
-                            </p>
-                        </Fragment>
-                    );
+                        <p>
+                            Esto es lo que dice
+                            <span class="squiggle squiggle--alt">
+                                Pascual Cabedo, máximo responsable de EAP.
+                            </span>
+                            Uno de los ecommerce de alimentación más grandes de
+                            España.
+                        </p>
 
-                if (clave === "pascu")
-                    return (
-                        <Fragment>
-                            <div class="player-container review-card">
-                                <img class="avatar" src="/reviews/pascu.webp" />
+                        <p>
+                            <strong>
+                                +280.000 familias han comprado en EAP, +10
+                                millones de kilos de alimento enviados y
+                                millones de visitas en redes sociales (venden
+                                online producto de agricultores españoles, sin
+                                químicos post-cosecha)
+                            </strong>
+                        </p>
+                    </Fragment>
+                );
 
-                                <audio
-                                    controls
-                                    controlslist="nodownload noplaybackrate"
-                                >
-                                    <source
-                                        src="/reviews/pascu.mp3"
-                                        type="audio/mpeg"
-                                    />
-                                    Tu navegador no soporta audio HTML5.
-                                </audio>
-                            </div>
-
-                            <p>
-                                Esto es lo que dice
-                                <span class="squiggle squiggle--alt">
-                                    Pascual Cabedo, fundador de EAP.
-                                </span>
-                                Uno de los ecommerce de alimentación más grandes
-                                de España.
-                            </p>
-
-                            <p>
-                                <strong>
-                                    +250.000 clientes con alta recurrencia, +10
-                                    millones de kilos de alimento enviados y
-                                    millones de visitas en redes sociales (venden
-                                    online producto de agricultores españoles,
-                                    sin químicos post-cosecha)
-                                </strong>
-                            </p>
-                        </Fragment>
-                    );
-
-                return null;
-            })
-        }
+            return null;
+        })}
     </div>
 </section>
 
@@ -213,11 +209,11 @@ const {
         Ahora podría abrumarte con más casos de éxito y testimonios positivos
         <span class="inciso-hand">(incluyendo los de mis padres)</span> pero...
     </p>
-    <h2 class="suficiente"><u>SUFICIENTE</u></h2>
+    <h2 class="suficiente">
+        <u>SUFICIENTE</u>
+    </h2>
 
-    {
-        flechaFinal && (
-            <div class="flecha flecha--down flecha--alt" aria-hidden="true" />
-        )
-    }
+    {flechaFinal && (
+        <div class="flecha flecha--down flecha--alt" aria-hidden="true" />
+    )}
 </div>
