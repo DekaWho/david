@@ -25,10 +25,15 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
 
             <h1>
                 Plagiar outliers es de{" "}
-                <span class="squiggle">pagafantas. </span>Si quieres
-                posicionarte como líder de opinión y no como una marca blanca
-                <u class="mark-amarillo">mejor llámame</u> para una
-                consultoría+auditoría
+                <span class="squiggle">pagafantas. </span>Si quieres exprimir
+                Youtube para que en tu sector{" "}
+                <u class="mark-amarillo">al fin te vean como líder</u> de
+                opinión{" "}
+                <span class="aside-hand">
+                    (sin necesidad de perseguir a referentes en eventos para
+                    hacerte ver)
+                </span>{" "}
+                mejor llámame
             </h1>
 
             <div class="hero-photo-wrap">
@@ -49,53 +54,65 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
         <CalendarioGoogle />
     </div>
 
+    <div class="cuerpo">
+        <h2 id="agendar" style="font-family: var(--hand); color: var(--rojo)">
+            Qué recibes en la&nbsp;llamada
+        </h2>
+
+        <div class="regalo" aria-hidden="true"></div>
+
+        <ul class="bold-odd">
+            <li>
+                La estrategia probada que puedes usar para que un vídeo con
+                menos de 900 visitas lo vea un referente concreto y se convierta
+                en tu contacto (incluso en tu cliente)
+            </li>
+            <li>
+                Si vendes por llamada: Cómo Youtube puede ser tu máquina de
+                cualificar leads para calentarlos y reducir las objeciones que
+                te ponen antes de comprar (aumentando la tasa de cierre)
+            </li>
+            <li>
+                Cuáles son los siguientes vídeos que tiene más sentido grabar
+                para aumentar tu reputación profesional.
+            </li>
+            <li>
+                Qué es más rentable para ti: Buscar viralidad o una
+                micro-audiencia cualificada.
+            </li>
+        </ul>
+
+        <h2
+            class="hand"
+            style="font-weight: 700; margin-top: var(--gap-2xl); font-size: clamp(2.1rem, 3.4vw, 3rem);"
+        >
+            Eso gratis <u class="mark-amarillo">por asistir</u> a la llamada
+        </h2>
+
+        <p>Después valoramos 3 opciones:</p>
+        <ol type="A">
+            <li>
+                Si con esa información tienes suficiente para conseguir tu
+                siguiente objetivo.
+            </li>
+            <li>
+                Si agendamos otra llamada para hacer una consultoría + auditoría
+                de 1h sobre tu canal de Youtube (obviamente esto ya no es
+                gratis)
+            </li>
+            <li>
+                Si encajas dentro del programa de acompañamiento 1a1 durante 90
+                días.
+            </li>
+        </ol>
+    </div>
+
     {/* Única página que se sale del orden por defecto: aquí la prueba que más
     pesa es la placa de 100k, que habla de la plataforma de la que va la
     landing, así que abre la franja y Pascual la cierra. */}
     <Reviews id="opiniones" orden={["chuso", "rioboo", "gonzalo", "pascu"]} />
 
     <div class="cuerpo">
-        <h2 id="agendar" style="font-family: var(--hand); color: var(--rojo)">
-            Qué recibes en la&nbsp;llamada
-        </h2>
-
-        <img
-            class="emoji-3d"
-            src="/imgs/pill-3d.webp"
-            width="256"
-            height="256"
-            alt=""
-            aria-hidden="true"
-        />
-
-        <p style="margin-bottom: 1rem;">
-            <strong>Un diagnóstico de tu canal para descubrir:</strong>
-        </p>
-
-        <ul>
-            <li>
-                Si te sale más rentable buscar visitas o hacer vídeos de nicho
-                para un público reducido.
-            </li>
-            <li>
-                <strong>
-                    Cómo Youtube puede ser tu máquina de cualificar leads para
-                    calentarlos y reducir las objeciones que te ponen antes de
-                    comprar (aumentando la tasa de cierre).
-                </strong>
-            </li>
-            <li>
-                Cuáles son los siguientes vídeos que tiene más sentido grabar
-                para aumentar la reputación de tu marca personal.
-            </li>
-            <!-- <li>
-                <strong>
-                    Si este programa de acompañamiento 1a1 durante 90 días puede
-                    ayudarte y cuál es el siguiente paso para trabajar juntos.
-                </strong>
-            </li> -->
-        </ul>
-
         <CalendarioGoogle />
 
         <div class="flecha flecha--up" aria-hidden="true"></div>

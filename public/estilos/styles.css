@@ -828,12 +828,12 @@ li::marker {
    debajo de la escala de titular del banner: en el extremo móvil roza el cuerpo
    del propio hero (--text-body) y lo que lo separa del párrafo es sobre todo el
    serif a peso 700, no el cuerpo de letra. El clamp cubre las dos anchuras él
-   solo — el tramo vw solo despega por encima de ~950px de viewport, así que
+   solo — el tramo vw solo despega por encima de ~1.100px de viewport, así que
    móvil y tablet estrecha se quedan en el mínimo sin override propio. La
    escala vive en --yt-h1 sobre el banner porque el subtítulo (más abajo) se
    calcula como fracción de ella, no con un tamaño propio. */
 :is(.youtube, .recursos) .banner {
-    --yt-h1: clamp(1.6rem, 2.65vw, 2.1rem);
+    --yt-h1: clamp(1.35rem, 2.2vw, 1.75rem);
 }
 
 :is(.youtube, .recursos) .banner h1 {
@@ -865,7 +865,7 @@ li::marker {
 /* Subtítulo del hero (el inciso Kalam bajo el titular): rojo y siempre un
    escalón por debajo del h1, calculado como fracción de su escala (0.79 es la
    proporción 1.5rem/1.9rem del extremo ancho). Un tamaño fijo no vale: el h1
-   de esta página baja hasta 1.45rem en móvil y un 1.5rem lo superaba, y Kalam
+   de esta página baja hasta 1.35rem en móvil y un 1.5rem lo superaba, y Kalam
    (ojo grande) ya parece más grande que Garamond a igual cuerpo. El
    .inciso-hand interior aplica su 0.9em sobre este tamaño. Columna más corta
    que la del titular por los dos lados e interlineado más prieto que el 1.2 de
@@ -2731,11 +2731,17 @@ h2:has(+ .diamond) {
    el titular pega el suyo (arriba y abajo), proyectando su propia banda blanca
    full-bleed a los lados con la técnica box-shadow + clip-path de .seccion-
    blanca; abajo topa con la franja .seccion-tinta, que pasa a ser el único corte
-   de color. El blanco queda continuo desde el bloque anterior hasta la tinta. */
+   de color. El blanco queda continuo desde el bloque anterior hasta la tinta.
+   La banda solo se proyecta si lo anterior es blanco (el banner o un .cuerpo
+   que cierra en .seccion-blanca): tras un .cuerpo sobre papel, una banda blanca
+   suelta alrededor del titular se leería como un corte de color sin motivo, así
+   que ahí el titular se queda sobre el papel como en cualquier otra página. */
 .reviews-blanco .cuerpo > .seccion-blanca:last-child {
     margin-bottom: 0;
 }
-.reviews-blanco .titulo-breaker--bg-oscuro:has(+ .seccion-tinta) {
+.reviews-blanco
+    :is(.banner, .cuerpo:has(> .seccion-blanca:last-child))
+    + .titulo-breaker--bg-oscuro:has(+ .seccion-tinta) {
     margin: 0 auto var(--gap-lg);
     box-shadow: 0 0 0 100vmax var(--blanco);
     /* El bottom del clip se abre hasta cubrir el margin-bottom, así el aire

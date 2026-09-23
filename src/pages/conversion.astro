@@ -41,6 +41,35 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
         <CalendarioGoogle />
     </div>
 
+    <div class="cuerpo">
+        <h2 id="agendar" style="font-family: var(--hand); color: var(--rojo)">
+            Qué recibes en la&nbsp;llamada
+        </h2>
+
+        <img
+            class="emoji-3d"
+            src="/imgs/pill-3d.webp"
+            width="256"
+            height="256"
+            alt=""
+            aria-hidden="true"
+        />
+
+        <p style="margin-bottom: 1rem;">
+            <strong>
+                Un diagnóstico en profundidad de tu procesos de venta durante
+                una llamada de 1h (si nos extendemos un poco más no te
+                preocupes, corre por mi cuenta)
+            </strong>
+        </p>
+
+        <p>
+            El precio son 300€ + iva. El pago ocurre después de elegir hueco en
+            el calendario y después de que haya escuchado en una breve
+            conversación prellamada tu contexto para ver si puedo ayudarte.
+        </p>
+    </div>
+
     <Reviews id="opiniones" flechaFinal={false} />
 
     <div class="cuerpo">
@@ -92,36 +121,6 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
                 que _________)
             </li>
         </ol>
-
-        <h2
-            id="agendar"
-            style="font-family: var(--hand); color: var(--rojo); margin-top: 6rem"
-        >
-            Qué recibes en la&nbsp;llamada
-        </h2>
-
-        <img
-            class="emoji-3d"
-            src="/imgs/pill-3d.webp"
-            width="256"
-            height="256"
-            alt=""
-            aria-hidden="true"
-        />
-
-        <p style="margin-bottom: 1rem;">
-            <strong>
-                Un diagnóstico en profundidad de tu procesos de venta durante
-                una llamada de 1h (si nos extendemos un poco más no te
-                preocupes, corre por mi cuenta)
-            </strong>
-        </p>
-
-        <p>
-            El precio son 300€ + iva. El pago ocurre después de elegir hueco en
-            el calendario y después de que haya escuchado en una breve
-            conversación prellamada tu contexto para ver si puedo ayudarte.
-        </p>
 
         <CalendarioGoogle />
 
