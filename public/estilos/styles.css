@@ -935,16 +935,34 @@ li::marker {
     margin: clamp(2.2rem, 5.5vh, 3.2rem) auto 0;
 }
 
-/* El titular de /recursos es aún más largo que el de /youtube (la oferta
-   entera con su paréntesis dentro del h1), así que baja un escalón más en la
-   misma variable —el resto de reglas compartidas la heredan. */
+/* El titular de /recursos es más corto que el de /youtube (los temas de la
+   carpeta van fuera, en la lista de debajo), así que aguanta un punto más de
+   cuerpo en la misma variable —el resto de reglas compartidas la heredan. */
 .recursos .banner {
-    --yt-h1: clamp(1.25rem, 2vw, 1.6rem);
+    --yt-h1: clamp(1.45rem, 2.3vw, 1.85rem);
 }
-/* El inciso manuscrito usa el rojo de acento para distinguir los beneficios
-   de la promesa en serif. */
-.recursos .banner h1 .inciso-hand {
-    color: var(--rojo);
+
+/* La firma baja un escalón respecto al h2 de banner (1.45rem móvil / 1.85rem
+   escritorio): encima de un titular compacto, el nombre a tamaño base competía
+   con él en vez de presentarlo. */
+.recursos .banner h2:has(> .banner-subline:only-child) {
+    font-size: clamp(1.25rem, 1.6vw, 1.55rem);
+}
+
+/* Los temas de la carpeta van en lista bajo el titular: el h1 anuncia la
+   carpeta y cierra en "sobre...", y la lista lo completa. Cuerpo por debajo
+   del h1 y atado a su escala: el --text-body global superaría a este titular
+   compacto en móvil y la lista se leería como la pieza principal. El hueco
+   entre items es el de una enumeración que se lee de un vistazo, no el de
+   párrafos de lectura (el --gap-xl del li global), para que el cajetín siga
+   entrando en el fold. */
+.recursos .banner .hero > ul {
+    text-align: left;
+}
+.recursos .banner .hero > ul > li {
+    font-size: calc(var(--yt-h1) * 0.8);
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
 }
 
 /* La flecha de cierre vive dentro del banner (blanco), no en un .cuerpo: la
@@ -1032,6 +1050,23 @@ body.recursos {
 @media (min-width: 801px) {
     :is(.youtube, .recursos) .banner .hero {
         max-width: 760px;
+    }
+
+    /* El titular de /recursos es más corto que el de /youtube (los temas van en
+       la lista de debajo): a 760px quedaba en líneas largas y pocas, y la
+       lista corta de debajo se leía descolgada de él. */
+    .recursos .banner .hero {
+        max-width: 680px;
+    }
+
+    /* La lista, más recogida que el titular: a su ancho, items de una línea
+       corta quedaban con un vacío enorme a la derecha y el bloque se leía
+       pegado a la izquierda de la columna. */
+    .recursos .banner .hero > ul {
+        max-width: 460px;
+    }
+    .recursos .banner .hero > ul > li {
+        font-size: calc(var(--yt-h1) * 0.72);
     }
 
     /* El cierre del banner crece con la pantalla (el doble del móvil): en
