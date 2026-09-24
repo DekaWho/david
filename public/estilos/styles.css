@@ -768,10 +768,10 @@ li::marker {
    respiro de entradilla (--gap-4xl) del último párrafo — solo queda el
    colchón del banner base, y la réplica y su continuación se leen a un
    salto de párrafo, no de sección. */
-:is(.youtube, .recursos, .conversion) .banner .hero {
+:is(.youtube, .recursos, .oferta) .banner .hero {
     margin-bottom: 0;
 }
-:is(.youtube, .recursos, .conversion) .banner .hero > :last-child {
+:is(.youtube, .recursos, .oferta) .banner .hero > :last-child {
     margin-bottom: 0;
 }
 
@@ -780,7 +780,7 @@ li::marker {
    que sigue. Medio 3xl y no el 3xl entero: el CTA ya cierra el hero con su
    sombra y lo que viene debajo es el titular de las reseñas sobre el mismo
    blanco, no un cambio a papel que pida más colchón. */
-:is(.youtube, .recursos, .conversion) .banner {
+:is(.youtube, .recursos, .oferta) .banner {
     padding-bottom: calc(var(--gap-3xl) / 2);
 }
 
@@ -884,16 +884,57 @@ li::marker {
     text-wrap: balance;
 }
 
-/* Subtítulo manuscrito de /conversion: la apostilla del titular va fuera
+/* Titular de /oferta un punto por encima de la escala compacta de /youtube
+   (--yt-h1): es también la oferta entera en una frase con inciso Kalam, y a
+   escala media ocupaba demasiadas líneas para que el CTA de agendar entrase
+   en el primer pantallazo. */
+.oferta .banner h1.banner-h1--medium {
+    font-size: clamp(1.45rem, 2.35vw, 1.9rem);
+}
+/* El squiggle cae dentro del inciso Kalam, cuya caja inline baja mucho más
+   que la de Garamond (descendentes largos): anclada al fondo de la caja, la
+   raya queda despegada del baseline. Se sube desde el borde inferior para
+   que muerda justo bajo las letras. */
+.oferta .banner h1 .inciso-hand .squiggle {
+    background-position: 0 calc(100% - 0.15em);
+}
+/* El h2 de credenciales que abre el cuerpo va en la escala compacta, casi al
+   calibre del h1: a igual peso los dos titulares empataban. Dos escalones menos
+   de grosor (Garamond variable) lo deja subordinado al titular del banner. */
+.oferta .cuerpo > h2.titulo-compacto {
+    font-weight: 500;
+    text-align: left;
+}
+/* En móvil el .cuerpo deja solo 5px de gutter: el titular alineado a la
+   izquierda arrancaba pegado al borde de la pantalla. */
+@media (max-width: 700px) {
+    .oferta .cuerpo > h2.titulo-compacto {
+        padding-left: 0.45rem;
+    }
+}
+/* En escritorio la columna de 36vw del .cuerpo parte este titular largo en
+   demasiadas líneas cortas: se ensancha por encima de la columna hasta la
+   caja del h1 del banner (el .hero de 720px menos su padding de 1rem por
+   lado), para que los dos titulares compartan medida. Centrado sobre la
+   columna con margin-left 50% + translate, sin márgenes negativos. */
+@media (min-width: 801px) {
+    .oferta .cuerpo > h2.titulo-compacto {
+        width: min(720px - 2rem, 100vw - 2rem);
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Subtítulo manuscrito de /oferta: la apostilla del titular va fuera
    del h1, en el mismo rojo Kalam que el subtítulo de /youtube. Tamaño propio y
    no la fracción de --yt-h1: el titular de esta página va en
    .banner-h1--medium, no en la escala compacta de /youtube, y a 0.79 de ella
    el Kalam competiría con el h1. El h1 cede su hueco grande al subtítulo; el
    aire hasta el CTA de agendar lo pone el margin-top del propio botón. */
-.conversion .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
+.oferta .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
     margin-bottom: var(--gap-lg);
 }
-.conversion .banner h2:has(> .inciso-hand) {
+.oferta .banner h2:has(> .inciso-hand) {
     color: var(--rojo);
     font-size: clamp(1.2rem, 2vw, 1.6rem);
     line-height: 1.1;
@@ -911,7 +952,7 @@ li::marker {
    pegados se leían como un solo bloque. Abajo va corto: el colchón hasta el
    titular de las reseñas lo pone ya el padding-bottom del banner, y este margen
    solo tiene que dejar respirar la sombra dura del botón. */
-:is(.youtube, .conversion) .banner > .block--calendario {
+:is(.youtube, .oferta) .banner > .block--calendario {
     margin: clamp(2.2rem, 5.5vh, 3.2rem) auto 0.5rem;
 }
 
@@ -986,10 +1027,10 @@ body.recursos {
    pone solo la lupa, corto: la figura se lee como continuación del CTA, y el
    corte de sección lo marca el titular que viene después con su propio
    margen. */
-:is(.youtube, .conversion) .cuerpo > .block--calendario {
+:is(.youtube, .oferta) .cuerpo > .block--calendario {
     margin-bottom: 0;
 }
-:is(.youtube, .conversion) .cuerpo > .block--calendario + .buscando {
+:is(.youtube, .oferta) .cuerpo > .block--calendario + .buscando {
     margin-top: 6rem;
 }
 
@@ -1072,7 +1113,7 @@ body.recursos {
     /* El cierre del banner crece con la pantalla (el doble del móvil): en
        escritorio hace falta más blanco para que la caída del hero al bloque de
        reseñas se lea como corte de sección y no como un salto de párrafo. */
-    :is(.youtube, .recursos, .conversion) .banner {
+    :is(.youtube, .recursos, .oferta) .banner {
         padding-bottom: var(--gap-3xl);
     }
 }
@@ -3277,7 +3318,7 @@ p:has(+ .lista-compacta) {
    agendar que tiene justo encima. El margen inferior del propio botón la dejaba
    pegada a su sombra dura, y como el .cuerpo es flujo normal los dos márgenes
    colapsan: este valor es el hueco real que se ve, no un añadido al del botón. */
-:is(.youtube, .conversion) .cuerpo > .flecha--up {
+:is(.youtube, .oferta) .cuerpo > .flecha--up {
     margin-top: 6rem;
 }
 
@@ -3435,7 +3476,7 @@ audio::-webkit-media-controls-panel {
    sin margen el salto deja el texto de destino bajo el menú y lo tapa. 4rem lo
    baja lo justo para librar el pill con aire. Solo escritorio — en móvil la
    barra va abajo y no hay nada que librar (regla en el @media de responsive).
-   Scopeado por la clase de <body>: /youtube y /conversion montan un #agendar
+   Scopeado por la clase de <body>: /youtube y /oferta montan un #agendar
    propio sin menú y aterrizan con el margen estándar de anclas. Un destino
    nuevo en el menú se suma a las dos listas. */
 .servicios #portfolio,
@@ -3799,7 +3840,7 @@ audio::-webkit-media-controls-panel {
    margen del heading no mueve nada. */
 .hero-card {
     position: relative;
-    margin: 0 14px clamp(120px, 16vh, 150px);
+    margin: 0 14px clamp(135px, 18vh, 168px);
     background: var(--blanco);
     padding: 0 12px 2rem;
 }
@@ -3978,10 +4019,10 @@ audio::-webkit-media-controls-panel {
     margin: 10px 22px 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 6px;
-    font-family: var(--serif);
-    font-weight: 700;
+    font-family: var(--hand);
+    font-weight: 400;
     font-size: 0.889rem;
     color: var(--negro);
 }
@@ -4524,7 +4565,7 @@ audio::-webkit-media-controls-panel {
     }
 
     .hero-card {
-        margin: 0 0 clamp(134px, 18vh, 190px);
+        margin: 0 0 clamp(152px, 20vh, 210px);
         padding: 0 22px 2rem;
     }
 

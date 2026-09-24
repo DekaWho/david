@@ -7,11 +7,11 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
 
 <BaseLayout
     titulo="Consultoría y auditoría de procesos de venta"
-    canonical="/conversion"
+    canonical="/oferta"
     ogTitle="Consultoría y auditoría de procesos de venta"
-    ogUrl="https://davidvarea.com/conversion"
+    ogUrl="https://davidvarea.com/oferta"
     favicon="diamond"
-    bodyClass="reviews-blanco conversion title-alerta"
+    bodyClass="reviews-blanco oferta title-alerta"
 >
     <div class="banner">
         <section class="hero">
@@ -31,48 +31,41 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
             </h2>
 
             <h1 class="banner-h1--medium">
-                Consultoría y auditoría de procesos de venta online
-                <span class="inciso-ligero">
-                    (incluso <u class="mark-amarillo">en un mercado saturado</u>{" "}
-                    donde todos repiten las mismas plantillas)
-                </span>
+                Para una<u class="mark-amarillo"> oferta incuestionable</u> con
+                una narrativa que venda
+                <span class="inciso-hand">
+                    (incluso en un{" "}
+                    <span class="squiggle">mercado saturado</span> donde todos
+                    repiten las mismas plantillas)
+                </span>{" "}
+                mejor llámame y te la diseño en 30 días
             </h1>
         </section>
         <CalendarioGoogle />
     </div>
 
     <div class="cuerpo">
-        <h2 id="agendar" style="font-family: var(--hand); color: var(--rojo)">
-            Qué recibes en la&nbsp;llamada
+        <h2 id="agendar" class="titulo-compacto">
+            Me he gastado 19.970€ en cursos y mentorías de marketing y ventas{" "}
+            <span class="aside-hand">
+                (además de mi experiencia dando servicios)
+            </span>
+            para que tú no tengas que hacerlo...
         </h2>
 
         <img
-            class="emoji-3d"
-            src="/imgs/pill-3d.webp"
-            width="256"
-            height="256"
-            alt=""
-            aria-hidden="true"
+            class="banner-proof"
+            src="/imgs/heads.webp"
+            alt="las caras de los referentes estudiados"
+            loading="lazy"
+            decoding="async"
         />
 
-        <p style="margin-bottom: 1rem;">
-            <strong>
-                Un diagnóstico en profundidad de tu procesos de venta durante
-                una llamada de 1h (si nos extendemos un poco más no te
-                preocupes, corre por mi cuenta)
-            </strong>
+        <p class="hand" style="color: var(--rojo);">
+            Y puedo acompañarte para diseñar una oferta incuestionable con una
+            narrativa que venda incluso en un mercado saturado.
         </p>
 
-        <p>
-            El precio son 300€ + iva. El pago ocurre después de elegir hueco en
-            el calendario y después de que haya escuchado en una breve
-            conversación prellamada tu contexto para ver si puedo ayudarte.
-        </p>
-    </div>
-
-    <Reviews id="opiniones" flechaFinal={false} />
-
-    <div class="cuerpo">
         <span class="buscando icono-solido" aria-hidden="true"></span>
 
         <h2
@@ -105,15 +98,14 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
                 situaciones:
             </strong>
         </p>
-        <ol type="A">
+        <ol type="A" style="margin-bottom: 5rem;">
             <li>
                 Tu contenido de venta no está funcionando tan bien como
                 esperabas (anuncios, VSLs, lanzamientos, skool evergreen, venta
                 por stories, páginas de venta o email marketing)
             </li>
             <li>
-                Tus leads tienen más objeciones de las que te gustaría y no
-                acaban convirtiendo.
+                Tus leads tienen demasiadas objeciones que dificultan cerrarlos.
             </li>
             <li>
                 Tu nicho está saturado (eso significa que hay muchos compradores
@@ -121,7 +113,11 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
                 que _________)
             </li>
         </ol>
+    </div>
 
+    <Reviews id="opiniones" />
+
+    <div class="cuerpo">
         <CalendarioGoogle />
 
         <div class="flecha flecha--up" aria-hidden="true"></div>
