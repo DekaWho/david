@@ -932,11 +932,11 @@ li::marker {
    el Kalam competiría con el h1. El h1 cede su hueco grande al subtítulo; el
    aire hasta el CTA de agendar lo pone el margin-top del propio botón. */
 .oferta .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
-    margin-bottom: var(--gap-lg);
+    margin-bottom: var(--gap-sm);
 }
 .oferta .banner h2:has(> .inciso-hand) {
     color: var(--rojo);
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: clamp(1.35rem, 2.2vw, 1.8rem);
     line-height: 1.1;
     max-width: 88%;
     margin-inline: auto;
@@ -954,6 +954,15 @@ li::marker {
    solo tiene que dejar respirar la sombra dura del botón. */
 :is(.youtube, .oferta) .banner > .block--calendario {
     margin: clamp(2.2rem, 5.5vh, 3.2rem) auto 0.5rem;
+}
+/* En escritorio el hero tiene alto de sobra para el fold y el subtítulo
+   necesita el aire completo por arriba para no leerse como parte del
+   titular; en móvil el hueco a la mitad ahorra la altura que el CTA necesita
+   para entrar en el primer pantallazo. */
+@media (min-width: 801px) {
+    .oferta .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
+        margin-bottom: var(--gap-lg);
+    }
 }
 
 /* En /youtube lo que precede al CTA no es el subtítulo del titular sino la
