@@ -4020,10 +4020,10 @@ audio::-webkit-media-controls-panel {
     mask: url("/imgs/svg/arrow-s-svgrepo-com.svg") no-repeat center / contain;
 }
 
-/* Puente entre el hero y los bloques. Hoy monta solo el caret: la pregunta que
-   lo acompañaba se mudó al postit, y el símbolo se queda como la marca que
-   baja la vista hacia los enlaces. Va centrado porque sin texto al lado
-   quedaría suelto contra el margen izquierdo. */
+/* Puente entre el hero y los bloques: la pregunta manuscrita que baja la vista
+   hacia los enlaces, alineada con el borde izquierdo de las cards. En rojo
+   como el resto de anotaciones Kalam del sitio — es el acento del bloque,
+   frente al azul y blanco de las cards que presenta. */
 .section-heading {
     margin: 10px 22px 0;
     display: flex;
@@ -4033,7 +4033,7 @@ audio::-webkit-media-controls-panel {
     font-family: var(--hand);
     font-weight: 400;
     font-size: 0.889rem;
-    color: var(--negro);
+    color: var(--rojo);
 }
 
 .section-heading .caret {
