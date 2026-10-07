@@ -589,3 +589,95 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
     window.addEventListener('focus', sincronizar);
     sincronizar();
 })();
+
+/* Amago de scroll en móvil: mientras el visitante siga arriba del todo sin
+   tocar nada, la página baja un poco y vuelve sola cada pocos segundos, para
+   delatar que hay más contenido bajo el primer pantallazo. El ritmo lo marca
+   ESPERAS: pausado al principio, para no pisar la lectura del titular, e
+   insistente después, cuando la quietud ya dice que no ha visto que sigue.
+   Se activa con la clase `amago-scroll` en el <body>.
+   Es scroll real (window.scrollTo cuadro a cuadro) y no un transform sobre el
+   contenido: un transform en un ancestro convierte a ese ancestro en el
+   contenedor de los `position: fixed`, y el banner de cookies se iría con él.
+   Cada paso va con `behavior: 'instant'` porque el `scroll-behavior: smooth`
+   de <html> interpolaría cada scrollTo por su cuenta y la curva se desharía.
+   Cualquier gesto del visitante (tocar, rueda, teclado, o un scroll que no sea
+   el del amago) lo desactiva para el resto de la visita y deja la página donde
+   esté: a partir de ahí manda él.
+   No consulta prefers-reduced-motion a propósito: es la única señal de que la
+   página sigue bajo el fold, y sin ella el visitante se queda en el hero. */
+(function () {
+    if (!document.body.classList.contains('amago-scroll')) return;
+    if (!window.matchMedia('(max-width: 800px)').matches) return;
+
+    /* Quietud (ms) antes de cada amago, en orden; agotada la lista, el
+       último valor se repite indefinidamente. */
+    const ESPERAS = [4500, 3000, 5000, 2000];
+    const DURACION = 1400;        // bajada + vuelta de cada amago
+    const DISTANCIA = 70;         // px que asoma el contenido de abajo
+
+    let hechos = 0;
+    let timer = null;
+    let frame = null;
+    let animando = false;
+
+    function irA(y) {
+        window.scrollTo({ top: y, behavior: 'instant' });
+    }
+
+    function desactivar() {
+        clearTimeout(timer);
+        cancelAnimationFrame(frame);
+        animando = false;
+        ['touchstart', 'wheel', 'keydown'].forEach((ev) =>
+            window.removeEventListener(ev, desactivar)
+        );
+        window.removeEventListener('scroll', alScrollear);
+    }
+
+    function alScrollear() {
+        if (!animando) desactivar();
+    }
+
+    function programar() {
+        const espera = ESPERAS[Math.min(hechos, ESPERAS.length - 1)];
+        timer = setTimeout(amagar, espera);
+    }
+
+    function amagar() {
+        if (window.scrollY > 0) return desactivar();
+        /* Pestaña en segundo plano: rAF está parado y el amago se quedaría a
+           medias con `animando` levantado. Se pospone sin contarlo. */
+        if (document.hidden) return programar();
+        hechos += 1;
+        animando = true;
+        const inicio = performance.now();
+
+        function paso(ahora) {
+            const t = Math.min((ahora - inicio) / DURACION, 1);
+            /* Coseno alzado: sale de 0 y vuelve a 0 con velocidad nula en los
+               dos extremos, como un dedo que tantea y suelta. */
+            irA(((1 - Math.cos(t * 2 * Math.PI)) / 2) * DISTANCIA);
+            if (t < 1) {
+                frame = requestAnimationFrame(paso);
+                return;
+            }
+            irA(0);
+            /* El evento scroll del último scrollTo llega en el cuadro
+               siguiente: soltar `animando` antes haría que alScrollear lo
+               tomase por un gesto del visitante. */
+            frame = requestAnimationFrame(() => {
+                animando = false;
+                programar();
+            });
+        }
+
+        frame = requestAnimationFrame(paso);
+    }
+
+    ['touchstart', 'wheel', 'keydown'].forEach((ev) =>
+        window.addEventListener(ev, desactivar, { passive: true })
+    );
+    window.addEventListener('scroll', alScrollear, { passive: true });
+    programar();
+})();

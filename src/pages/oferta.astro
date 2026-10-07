@@ -11,7 +11,7 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
     ogTitle="Cómo crear una oferta incuestionable"
     ogUrl="https://davidvarea.com/oferta"
     favicon="diamond"
-    bodyClass="reviews-blanco oferta title-alerta"
+    bodyClass="reviews-blanco oferta title-alerta amago-scroll"
 >
     <div class="banner">
         <section class="hero">
@@ -31,21 +31,17 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
             </h2>
 
             <h1 class="banner-h1--medium">
-                Te monto la infraestructura de una
-                <u class="mark-amarillo"> oferta incuestionable</u> con una
-                narrativa que venda a tráfico frío
-                <span class="inciso-hand">
-                    (incluso en un{" "}
-                    <span class="squiggle">mercado saturado</span> donde todos
-                    repiten las mismas plantillas)
-                </span>{" "}
-                en 29 días
+                ¿Tienes una
+                <u class="mark-amarillo"> oferta incuestionable</u> que
+                convierte (incluso el tráfico frío) en un{" "}
+                <span class="squiggle">mercado saturado</span>{" "}
+                <span class="inciso-ligero">
+                    donde todos repiten fórmulas y discursos?
+                </span>
             </h1>
 
             <h2>
-                <span class="inciso-hand">
-                    Solo si ya tienes clientes y vendes online
-                </span>
+                <span class="inciso-hand">Auditoria + Acompañamiento</span>
             </h2>
         </section>
         <CalendarioGoogle />
@@ -149,7 +145,7 @@ import CalendarioGoogle from "../components/CalendarioGoogle.astro";
         </ol>
     </div>
 
-    <Reviews id="opiniones" />
+    <Reviews id="opiniones" orden={["pascu", "rioboo", "gonzalo"]} />
 
     <div class="cuerpo">
         <CalendarioGoogle />

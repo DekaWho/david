@@ -889,7 +889,24 @@ li::marker {
    escala media ocupaba demasiadas líneas para que el CTA de agendar entrase
    en el primer pantallazo. */
 .oferta .banner h1.banner-h1--medium {
-    font-size: clamp(1.45rem, 2.35vw, 1.9rem);
+    font-size: 1.75rem;
+    /* Reactiva la partición que el h1 global anula: a este cuerpo, en la
+       columna del móvil caben dos o tres palabras por línea y una larga
+       ("incuestionable") salta entera a la siguiente, dejando líneas a medio
+       llenar y el titular en demasiados renglones para que el CTA entre en el
+       primer pantallazo. */
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+/* En escritorio la columna es ancha: el titular baja un punto de cuerpo (no
+   necesita imponerse a una pantalla estrecha) y vuelve a no partir palabras,
+   que ahí caben enteras. */
+@media (min-width: 801px) {
+    .oferta .banner h1.banner-h1--medium {
+        font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+        -webkit-hyphens: none;
+        hyphens: none;
+    }
 }
 /* El squiggle cae dentro del inciso Kalam, cuya caja inline baja mucho más
    que la de Garamond (descendentes largos): anclada al fondo de la caja, la
@@ -932,7 +949,13 @@ li::marker {
    el Kalam competiría con el h1. El h1 cede su hueco grande al subtítulo; el
    aire hasta el CTA de agendar lo pone el margin-top del propio botón. */
 .oferta .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
-    margin-bottom: var(--gap-sm);
+    margin-bottom: 2.8rem;
+}
+/* La firma sobre el titular va más despegada que el pretitular estándar del
+   banner: aquí el h1 es una pregunta larga de varias líneas y, pegada a él, la
+   firma se leía como su primera línea. */
+.oferta .banner h2:has(> .banner-subline:only-child) {
+    margin-bottom: clamp(1.3rem, 3.4vh, 1.9rem);
 }
 .oferta .banner h2:has(> .inciso-hand) {
     color: var(--rojo);
@@ -955,13 +978,21 @@ li::marker {
 :is(.youtube, .oferta) .banner > .block--calendario {
     margin: clamp(2.2rem, 5.5vh, 3.2rem) auto 0.5rem;
 }
+/* En /oferta el subtítulo es una etiqueta corta de lo que se agenda
+   («Auditoría + Acompañamiento»), no una apostilla del titular: va más cerca
+   del botón, que es su acción, y el aire que cede arriba se devuelve debajo
+   para que el botón no caiga pegado al cierre del banner. */
+.oferta .banner > .block--calendario {
+    margin-top: clamp(0.8rem, 2vh, 1.2rem);
+    margin-bottom: var(--gap-md);
+}
 /* En escritorio el hero tiene alto de sobra para el fold y el subtítulo
    necesita el aire completo por arriba para no leerse como parte del
    titular; en móvil el hueco a la mitad ahorra la altura que el CTA necesita
    para entrar en el primer pantallazo. */
 @media (min-width: 801px) {
     .oferta .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
-        margin-bottom: var(--gap-lg);
+        margin-bottom: 4rem;
     }
 }
 

@@ -30,11 +30,12 @@
    - orden (array de claves, default ORDEN_POR_DEFECTO): qué testimonio abre la
      franja y en qué secuencia siguen los demás. Existe porque la prueba que
      más pesa cambia con la oferta de la página. El default abre con Pascual —el
-     caso de negocio con cifras— y sirve a las páginas que venden trabajo con
-     el negocio (/oferta, /servicios); solo /youtube lo cambia, para abrir
-     con la placa de 100k, que es la plataforma de la que va la página. Una
-     clave fuera de la lista se ignora y una que falte deja ese testimonio sin
-     renderizar, así que el array va completo.
+     caso de negocio con cifras— y sirve a /servicios, que vende trabajo con el
+     negocio. /youtube lo cambia para abrir con la placa de 100k, que es la
+     plataforma de la que va la página. Una clave fuera de la lista se ignora
+     y una que falte deja ese testimonio sin renderizar: es la forma de
+     quitar uno de una página (/oferta omite "chuso", la prueba de un canal
+     de YouTube no apuntala una auditoría de sistemas de venta).
 
    El titular por defecto se decide con Astro.slots.has, no con contenido
    fallback dentro del <slot>: rellenar un slot que lleva fallback markup hace
