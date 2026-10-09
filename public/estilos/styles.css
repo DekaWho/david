@@ -214,7 +214,7 @@ h3.titulo-seccion {
 .titulo-mano--nota {
     color: var(--rojo);
     transform: rotate(-4deg);
-    margin-block: 2rem clamp(8px, 1.6vh, 16px);
+    margin-block: 4rem clamp(8px, 1.6vh, 16px);
     /* Techo más bajo que el de .titulo-mano: como remate no presenta nada, en
        escritorio al tamaño de aquella competía con los bloques que cierra. El
        mínimo se mantiene, así que en móvil no cambia. */

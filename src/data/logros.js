@@ -32,7 +32,12 @@ export const LOGROS = [
         texto: "Hice una campaña que redujo el coste de adquisición de clientes un 39.8% respecto a los meses anteriores. Mejoré la conversión de leads en clientes (incluso despertando leads que llevaban semanas dormidos sin haber comprado nunca)",
     },
     {
-        clase: "logro--flag",
-        texto: "He ayudado a mis clientes a facturar más de 2.4 millones de €",
+        texto: "Durante 3 semanas seguidas se han agotado existencias (en menos de 24h) de un nuevo consumible en ecommerce, mandando un solo email. Cada semana el stock aumentó al doble de kilos que la semana anterior.",
     },
+    /* Pendiente de actualizar cifra para publicarlo
+    {
+        clase: "logro--flag",
+        texto: "Estratega de conversión y retención del cliente en un ecommerce desde los 9M anuales (de facturación) hasta los XM",
+    },
+    */
 ];
