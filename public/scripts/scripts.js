@@ -250,6 +250,12 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
     const emailLabel = form.querySelector('.optin-email');
     const emailFijado = form.querySelector('.optin-email-fijado');
     const preguntas = [...form.querySelectorAll('.optin-pregunta')];
+    /* Campos de texto del paso 2 (prop `contacto`): nombre y teléfono. El
+       data-campo es el slug del campo en MailerLite. */
+    const campos = [...form.querySelectorAll('.optin-campo')];
+    /* data-ml-guardar-paso1: el paso 1 ya postea el email en vez de solo
+       validarlo, así quien abandona en el paso 2 queda en la lista. */
+    const guardarPaso1 = form.hasAttribute('data-ml-guardar-paso1');
     let enPaso2 = false;
 
     const mostrarPaso2 = (email) => {
@@ -259,9 +265,10 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
         emailFijado.hidden = false;
         paso2.hidden = false;
         if (labelEl) labelEl.textContent = form.dataset.mlPaso2;
-        /* El foco pasa al primer radio (oculto visualmente pero operable con
-           teclado) sin scroll brusco; el botón se trae a la vista suave. */
-        paso2.querySelector('input[type="radio"]')?.focus({ preventScroll: true });
+        /* El foco pasa al primer input del paso (un radio, oculto visualmente
+           pero operable con teclado, o el campo de nombre) sin scroll brusco;
+           el botón se trae a la vista suave. */
+        paso2.querySelector('input')?.focus({ preventScroll: true });
         submitBtn?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     };
 
@@ -274,8 +281,24 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
         form.querySelector('input[type="email"]')?.focus();
     };
 
-    /* Devuelve true si todas las preguntas tienen respuesta; marca en rojo
-       las que no, con su mensaje, y enfoca la primera fallida. */
+    /* Sin validar formato: basta con que el input principal no esté vacío.
+       En el teléfono el principal es el número; el prefijo viene relleno y
+       no cuenta. */
+    const inputPrincipal = (campo) => campo.querySelector('input:not(.optin-prefijo)');
+    const campoValido = (campo) => inputPrincipal(campo).value.trim() !== '';
+    /* Valor que viaja a MailerLite. En el teléfono, prefijo y número unidos
+       («+34 600112233»): del prefijo solo cuentan las cifras, así da igual
+       que escriban el "+" o no, y vacío es España. */
+    const valorCampo = (campo) => {
+        const numero = inputPrincipal(campo).value.trim();
+        const prefijo = campo.querySelector('.optin-prefijo');
+        if (!prefijo) return numero;
+        return `+${prefijo.value.replace(/\D/g, '') || '34'} ${numero}`;
+    };
+
+    /* Devuelve true si todas las preguntas tienen respuesta y todos los
+       campos son válidos; marca en rojo los que no, con su mensaje, y enfoca
+       el primero fallido. */
     const validarPaso2 = () => {
         let primeraFallida = null;
         preguntas.forEach((fs) => {
@@ -284,8 +307,14 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
             fs.querySelector('.optin-error').hidden = ok;
             if (!ok && !primeraFallida) primeraFallida = fs;
         });
+        campos.forEach((campo) => {
+            const ok = campoValido(campo);
+            campo.classList.toggle('optin-campo--error', !ok);
+            campo.querySelector('.optin-error').hidden = ok;
+            if (!ok && !primeraFallida) primeraFallida = campo;
+        });
         if (primeraFallida) {
-            primeraFallida.querySelector('input[type="radio"]')?.focus({ preventScroll: true });
+            primeraFallida.querySelector('input:not(.optin-prefijo)')?.focus({ preventScroll: true });
             primeraFallida.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
         }
         return !primeraFallida;
@@ -300,40 +329,36 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
                 fs.querySelector('.optin-error').hidden = true;
             });
         });
+        campos.forEach((campo) => {
+            campo.addEventListener('input', () => {
+                campo.classList.remove('optin-campo--error');
+                campo.querySelector('.optin-error').hidden = true;
+            });
+        });
     }
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const formId = form.dataset.mlFormId;
-        const successUrl = form.dataset.mlSuccess || '/';
-        const emailInput = form.querySelector('input[type="email"]');
-        if (!emailInput || !emailInput.value || !emailInput.checkValidity()) {
-            if (enPaso2) volverPaso1();
-            emailInput?.focus();
-            return;
-        }
-
-        if (paso2 && !enPaso2) {
-            mostrarPaso2(emailInput.value);
-            return;
-        }
-        if (paso2 && !validarPaso2()) return;
-
-        if (submitBtn) submitBtn.disabled = true;
-        if (labelEl) labelEl.textContent = 'Enviando…';
-
+    /* Cuerpo del subscribe. Las respuestas del paso 2 solo viajan en el
+       envío del paso 2: en el adelantado del paso 1 irían vacías y, para un
+       contacto que ya existe, MailerLite podría pisar su nombre o teléfono
+       con un valor en blanco. */
+    const construirBody = (conPaso2) => {
         const body = new FormData();
-        body.append('fields[email]', emailInput.value);
+        body.append('fields[email]', form.querySelector('input[type="email"]').value);
         body.append('ml-submit', '1');
         body.append('anticsrf', 'true');
 
-        /* Segmentación (paso 2): un campo custom por pregunta, con el slug
-           del name del radio (situacion, sector). Solo llegan aquí con todas
-           respondidas — validarPaso2 corta antes. */
-        preguntas.forEach((fs) => {
-            const marcado = fs.querySelector('input[type="radio"]:checked');
-            body.append(`fields[${fs.dataset.pregunta}]`, marcado.value);
-        });
+        if (conPaso2) {
+            /* Segmentación: un campo custom por pregunta, con el slug del
+               name del radio (situacion, sector). Solo llegan aquí con todas
+               respondidas — validarPaso2 corta antes. */
+            preguntas.forEach((fs) => {
+                const marcado = fs.querySelector('input[type="radio"]:checked');
+                body.append(`fields[${fs.dataset.pregunta}]`, marcado.value);
+            });
+            campos.forEach((campo) => {
+                body.append(`fields[${campo.dataset.campo}]`, valorCampo(campo));
+            });
+        }
 
         /* ultimo_optin: campo custom en MailerLite. Se deriva del pathname
            para que el mismo form-id en cualquier página etiquete su origen
@@ -363,20 +388,45 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
         body.append('fields[utm_medium]',  sessionStorage.getItem('utm_medium')  || '');
         body.append('fields[utm_content]', sessionStorage.getItem('utm_content') || '');
         body.append('fields[referrer]',    sessionStorage.getItem('referrer')    || '');
+        return body;
+    };
 
-        try {
-            /* mode: 'no-cors' → el POST llega a MailerLite, pero no podemos
-               leer la respuesta. Para este flujo basta: si el envío sale,
-               redirigimos al success URL pase lo que pase. */
-            await fetch(
-                `https://assets.mailerlite.com/jsonp/${ML_ACCOUNT_ID}/forms/${formId}/subscribe`,
-                { method: 'POST', mode: 'no-cors', body }
-            );
-        } catch (_) {
-            /* Errores de red caen aquí. Redirigimos igual: si el email no
-               llegó, el visitante volverá a probar al no recibir el lead
-               magnet. Mostrar error rompería más de lo que arregla. */
+    /* mode: 'no-cors' → el POST llega a MailerLite, pero no podemos leer la
+       respuesta. Errores de red se tragan: el flujo sigue igual, y mostrar
+       error rompería más de lo que arregla. */
+    const enviar = (body) =>
+        fetch(
+            `https://assets.mailerlite.com/jsonp/${ML_ACCOUNT_ID}/forms/${form.dataset.mlFormId}/subscribe`,
+            { method: 'POST', mode: 'no-cors', body }
+        ).catch(() => {});
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const successUrl = form.dataset.mlSuccess || '/';
+        const emailInput = form.querySelector('input[type="email"]');
+        if (!emailInput || !emailInput.value || !emailInput.checkValidity()) {
+            if (enPaso2) volverPaso1();
+            emailInput?.focus();
+            return;
         }
+
+        if (paso2 && !enPaso2) {
+            /* Sin await: el paso 2 aparece al instante y, si el visitante
+               completa antes de que este envío acabe, el del paso 2 lleva
+               también el email. */
+            if (guardarPaso1) enviar(construirBody(false));
+            mostrarPaso2(emailInput.value);
+            return;
+        }
+        if (paso2 && !validarPaso2()) return;
+
+        if (submitBtn) submitBtn.disabled = true;
+        if (labelEl) labelEl.textContent = 'Enviando…';
+
+        /* Si el envío sale, redirigimos al success URL pase lo que pase: si
+           el email no llegó, el visitante volverá a probar al no recibir lo
+           prometido. */
+        await enviar(construirBody(true));
 
         /* Marca "ya envió un optin" para que el popup exit-intent no vuelva
            a perseguir a un suscriptor en este navegador. Best effort: en
@@ -384,6 +434,38 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
         localStorage.setItem('optin-enviado', '1');
 
         window.location.href = successUrl;
+    });
+});
+
+/* Popup de agendar llamada (AgendarLlamada.astro): cada botón abre el
+   <dialog> que el componente monta justo delante de él, con el form de
+   contacto dentro. showModal() da gratis el foco atrapado, el Esc y el
+   ::backdrop; aquí solo se añade cerrar al pulsar fuera de la carta y el
+   bloqueo del scroll de la página mientras está abierto. Sin JS el botón no
+   hace nada: la página no tiene otra vía de agendar. */
+document.querySelectorAll('[data-abre-agenda]').forEach((boton) => {
+    const dialogo = boton.previousElementSibling;
+    if (!(dialogo instanceof HTMLDialogElement)) return;
+
+    boton.addEventListener('click', () => {
+        dialogo.showModal();
+        document.body.style.overflow = 'hidden';
+        /* showModal enfoca el primer control (la X); el email es lo que hay
+           que rellenar. */
+        dialogo.querySelector('input[type="email"]')?.focus();
+    });
+    dialogo.addEventListener('close', () => {
+        document.body.style.overflow = '';
+    });
+    /* El <dialog> es la propia carta: un click en el ::backdrop llega con
+       target el dialog y coordenadas fuera de su caja. Las dos condiciones
+       hacen falta: el Enter en un input dispara un click sintético en el
+       botón de submit con coordenadas 0,0, que también caen fuera. */
+    dialogo.addEventListener('click', (e) => {
+        if (e.target !== dialogo) return;
+        const r = dialogo.getBoundingClientRect();
+        const fuera = e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+        if (fuera) dialogo.close();
     });
 });
 

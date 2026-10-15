@@ -37,7 +37,15 @@ const {
     // preguntas. Los valores viajan como fields[situacion] y fields[sector];
     // los slugs deben existir tal cual como campos custom en MailerLite.
     segmentar = false,
-    // Texto del botón en el paso 2 (solo con `segmentar`).
+    // `contacto`: form en dos pasos que pide nombre y teléfono (ambos
+    // obligatorios) en el paso 2 en lugar de las preguntas de `segmentar`.
+    // A diferencia de aquel, el email se guarda en MailerLite ya en el paso 1
+    // (data-ml-guardar-paso1): quien deja el email y abandona queda en la
+    // lista. El paso 2 vuelve a postear al mismo form, que actualiza el
+    // contacto con fields[name] y fields[phone] (campos por defecto de
+    // MailerLite).
+    contacto = false,
+    // Texto del botón en el paso 2 (con `segmentar` o `contacto`).
     botonTextoPaso2 = "Enviar",
     // `cerrado`: estado "plazas cerradas". El cajetín se ve pero queda inerte
     // (sin data-ml-form-id, input y botón disabled) bajo la cinta de obras y
@@ -64,18 +72,14 @@ const preguntas = [
         name: "situacion",
         legend: "¿En qué punto estás?",
         opciones: [
-            { value: "1-asalariado", label: "Soy asalariado" },
+            { value: "asalariado", label: "Soy asalariado" },
             {
-                value: "2-empezando",
-                label: "Estoy empezando mi propio negocio",
+                value: "freelance",
+                label: "Soy freelance y ya he tenido clientes",
             },
             {
-                value: "3-estable",
-                label: "Vivo de mi negocio y tengo clientes estables",
-            },
-            {
-                value: "4-independiente",
-                label: "Mi negocio funciona aunque yo no esté",
+                value: "negocio",
+                label: "Tengo mi propio negocio con clientes recurrentes cada mes",
             },
         ],
     },
@@ -107,10 +111,15 @@ const preguntas = [
     data-ml-form-id={cerrado ? undefined : formId}
     data-ml-success={cerrado ? undefined : successUrl}
     data-ml-posicion={cerrado ? undefined : posicion}
-    data-ml-paso2={segmentar && !cerrado ? botonTextoPaso2 : undefined}
+    data-ml-paso2={(segmentar || contacto) && !cerrado ? botonTextoPaso2 : undefined}
+    data-ml-guardar-paso1={contacto && !cerrado ? "" : undefined}
 >
-    <label class="optin-email">
-        <span class="visually-hidden">Email</span>
+    {/* Con `contacto` el email lleva etiqueta a la vista, como los campos
+        del paso 2; el cajetín de los lead magnets la mantiene oculta. */}
+    <label class:list={["optin-email", { "optin-email--etiqueta": contacto }]}>
+        {contacto
+            ? <span class="optin-campo-label">Tu email</span>
+            : <span class="visually-hidden">Email</span>}
         <input
             type="email"
             name="email"
@@ -149,6 +158,74 @@ const preguntas = [
                         </p>
                     </fieldset>
                 ))}
+            </div>
+        </>
+    )}
+    {contacto && !cerrado && (
+        <>
+            <p class="optin-email-fijado" hidden>
+                <span class="optin-email-valor"></span>
+                <button type="button" class="optin-email-cambiar">
+                    cambiar
+                </button>
+            </p>
+            {/* Sin `required` por el mismo motivo que los radios: ocultos en
+                el paso 1, bloquearían su submit. Los valida scripts.js. */}
+            <div class="optin-paso2" hidden>
+                <label class="optin-campo" data-campo="name">
+                    <span class="optin-campo-label">
+                        Tu nombre<span class="optin-obligatorio" aria-hidden="true">*</span>
+                    </span>
+                    <input
+                        type="text"
+                        name="name"
+                        autocomplete="name"
+                        aria-required="true"
+                    />
+                    <span class="optin-error" hidden>
+                        Te falta poner tu nombre
+                    </span>
+                </label>
+                {/* Prefijo y número en dos cajas para que quien no es de
+                    España vea dónde va el suyo. El "+" va pintado delante
+                    del prefijo para que no haga falta escribirlo (si lo
+                    escriben, scripts.js lo limpia); vacío cuenta como +34.
+                    Sin validar formato: scripts.js los une en el campo
+                    phone. Cada caja va en su <label>, con la pista de
+                    debajo como nombre accesible. */}
+                <div class="optin-campo" data-campo="phone">
+                    <span class="optin-campo-label">
+                        Tu número<span class="optin-obligatorio" aria-hidden="true">*</span>
+                    </span>
+                    <div class="optin-telefono">
+                        <label class="optin-telefono-parte optin-telefono-parte--prefijo">
+                            <span class="optin-prefijo-caja">
+                                <span class="optin-prefijo-mas" aria-hidden="true">+</span>
+                                <input
+                                    class="optin-prefijo"
+                                    type="tel"
+                                    placeholder="34"
+                                    autocomplete="tel-country-code"
+                                    inputmode="tel"
+                                />
+                            </span>
+                            <span class="optin-telefono-pista">Prefijo de tu país</span>
+                        </label>
+                        <label class="optin-telefono-parte">
+                            <input
+                                type="tel"
+                                placeholder="777 777 777"
+                                autocomplete="tel-national"
+                                inputmode="tel"
+                                aria-required="true"
+                            />
+                            <span class="optin-telefono-pista">Número de teléfono</span>
+                        </label>
+                    </div>
+                    <span class="optin-error" hidden>
+                        Te falta poner tu teléfono
+                    </span>
+                </div>
             </div>
         </>
     )}

@@ -12,4 +12,10 @@ export default defineConfig({
   // quedaban palabras pegadas. `true` restaura la compresión HTML-aware
   // lossless de Astro 6, que preserva ese whitespace significativo.
   compressHTML: true,
+  // GitHub Pages no admite redirecciones de servidor: en build estático Astro
+  // genera por cada entrada un HTML con meta refresh + canonical al destino,
+  // que Google trata como redirección permanente.
+  redirects: {
+    '/agendar': '/agenda',
+  },
 });

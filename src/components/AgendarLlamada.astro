@@ -1,0 +1,29 @@
+---
+/* CTA de agendar llamada: botón con el patrón de tarjeta del sitio (.block
+   block--calendario: blanco, acento azul, icono + título + flecha) que abre
+   un popup con el form de contacto en dos pasos (OptinAgendarLlamada: email,
+   y después nombre + teléfono). El JS que lo abre vive en scripts.js.
+   El <dialog> va DELANTE del botón y como hermano, no envolviéndolo: las
+   reglas de styles.css que colocan el CTA (`.banner > .block--calendario`,
+   `.cuerpo > .block--calendario + .buscando`) y el CTA flotante de
+   scripts.js cuentan con que el botón sea hijo directo del contenedor y
+   hermano anterior de lo que le sigue; cerrado, el dialog no ocupa caja.
+   Cada instancia monta su propio popup, así que el posicion_optin que llega
+   a MailerLite dice desde qué CTA de la página se pidió la llamada. */
+import OptinAgendarLlamada from "./OptinAgendarLlamada.astro";
+const { texto = "Agendar llamada en Meet" } = Astro.props;
+---
+
+<dialog class="agenda-popup" aria-label="Agendar llamada">
+    <form method="dialog">
+        <button class="agenda-popup-close" aria-label="Cerrar">×</button>
+    </form>
+    <OptinAgendarLlamada />
+</dialog>
+<button type="button" class="block block--calendario" data-abre-agenda>
+    <img class="icon" src="/imgs/svg/google-calendar.svg" alt="" />
+    <span class="body">
+        <span class="title">{texto}</span>
+    </span>
+    <span class="arrow" aria-hidden="true">→</span>
+</button>

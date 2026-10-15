@@ -1,0 +1,39 @@
+---
+import OptinBase from "./OptinBase.astro";
+
+/* Wrapper del form de agendar llamada (popup de AgendarLlamada.astro, en
+   /agenda, /oferta y /youtube). Form propio en MailerLite para que su
+   automatización solo dispare para quien pide llamada, nunca para quien se
+   suscribe a un lead magnet. Un solo form para los dos pasos: el paso 1 crea
+   el contacto con el email y el paso 2 lo actualiza con nombre y teléfono,
+   así que la automatización que cuelgue de él salta ya en el paso 1, solo
+   con el email. Va sin doble opt-in: el paso 1 postea al instante y un email
+   de confirmación llegaría antes de que el visitante termine el paso 2. */
+const AGENDA_FORM_ID = "201436164081583360";
+
+/* Tras el paso 2 redirige a /llamada-confirmada, que dispara el evento
+   Schedule del pixel en el mismo navegador del anuncio. El form-id se fija
+   después del spread para que la página no pueda pisarlo. */
+const {
+    botonTexto = "Continuar para agendar",
+    // El calendario anticipa el paso siguiente (elegir fecha) y repite el
+    // icono del CTA que abre el popup.
+    botonIcono = "/imgs/svg/google-calendar.svg",
+    flecha = true,
+    contacto = true,
+    botonTextoPaso2 = "Continuar",
+    successUrl = "/llamada-confirmada",
+    ...rest
+} = Astro.props;
+---
+
+<OptinBase
+    {...rest}
+    botonTexto={botonTexto}
+    botonIcono={botonIcono}
+    flecha={flecha}
+    contacto={contacto}
+    botonTextoPaso2={botonTextoPaso2}
+    successUrl={successUrl}
+    formId={AGENDA_FORM_ID}
+/>

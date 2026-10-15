@@ -1,0 +1,157 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import FooterDisclaimer from "../components/FooterDisclaimer.astro";
+import Reviews from "../components/Reviews.astro";
+import AgendarLlamada from "../components/AgendarLlamada.astro";
+---
+
+<BaseLayout
+    titulo="¿Necesitas acompañamiento?"
+    canonical="/agenda"
+    ogTitle="¿Necesitas acompañamiento?"
+    ogUrl="https://davidvarea.com/agenda"
+    favicon="diamond"
+    bodyClass="reviews-blanco oferta agenda title-alerta amago-scroll"
+>
+    <div class="banner">
+        <section class="hero">
+            <div class="hero-photo-wrap">
+                <img
+                    class="hero-photo"
+                    src="/imgs/profile-pic.webp"
+                    alt="David Varea"
+                />
+            </div>
+
+            <h2>
+                <span class="banner-subline">
+                    <img class="emoji" src="/imgs/svg/handshake.svg" alt="🤝" />
+                    David Varea
+                </span>
+            </h2>
+            <AgendarLlamada />
+
+            <h1 class="banner-h1--medium">
+                Esta es <u class="mark-amarillo">la peor landing</u> que vas a
+                ver en cuanto a optimizar la conversión pero...
+            </h1>
+
+            <h2>
+                <span class="inciso-hand">
+                    Es tu landing si algo te falla y necesitas una Consultoría +
+                    Auditoria
+                </span>
+            </h2>
+        </section>
+    </div>
+
+    <div class="cuerpo">
+        <h2 style="font-family: var(--hand)">Qué recibes en la&nbsp;llamada</h2>
+
+        <div class="regalo" aria-hidden="true"></div>
+
+        <ul class="bold-odd">
+            <li>
+                Si cumples los requisitos para subir (YA mismo) el precio de lo
+                que vendes.
+            </li>
+            <li>
+                El diagnóstico en tu oferta actual para ver si es incuestionable
+                o es una marca blanca ignorable.
+            </li>
+            <li>
+                La garantía que puedes dar en tu caso concreto (sin arriesgar
+                dinero) para quitarle objeciones a tu cliente.
+            </li>
+        </ul>
+
+        <p>
+            Esto te lo llevas en la llamada aunque después no trabajemos juntos.
+        </p>
+
+        <h2 id="agendar" class="titulo-compacto">
+            Me he gastado 19.970€ en cursos y mentorías de marketing y ventas{" "}
+            <span class="aside-hand">
+                (además de mi experiencia dando servicios)
+            </span>
+            para que tú no tengas que hacerlo...
+        </h2>
+
+        <img
+            class="banner-proof"
+            src="/imgs/heads.webp"
+            alt="las caras de los referentes estudiados"
+            loading="lazy"
+            decoding="async"
+        />
+
+        <p class="hand" style="color: var(--rojo);">
+            Y puedo contarte más sobre mí pero si no te suena mi cara, mejor
+            vete a mis vídeos de Youtube.
+        </p>
+
+        <AgendarLlamada />
+
+        <span class="buscando icono-solido" aria-hidden="true"></span>
+
+        <h2
+            id="para-quien"
+            style="font-family: var(--hand); margin-top: var(--gap-2xl);"
+        >
+            Para{" "}
+            <span class="ink-circle ink-circle--azul">
+                quién
+                <svg
+                    class="ink-circle-svg"
+                    viewBox="0 0 100 60"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                        stroke-linecap="round"
+                    ></path>
+                </svg>
+            </span>{" "}
+            es esto
+        </h2>
+        <p>
+            <strong>
+                Este servicio tiene sentido si te ves dentro de alguna de estas
+                situaciones:
+            </strong>
+        </p>
+        <ol type="A" style="margin-bottom: 5rem;">
+            <li>
+                Tu contenido de venta no está funcionando tan bien como
+                esperabas (anuncios, VSLs, lanzamientos, skool evergreen, venta
+                por stories, páginas de venta o email marketing)
+            </li>
+            <li>
+                Tus leads tienen demasiadas objeciones que dificultan cerrarlos.
+            </li>
+            <li>
+                Tu nicho está saturado (eso significa que hay muchos compradores
+                saturados de ver lo mismo pero con ganas de comprar. Solo tienes
+                que _________)
+            </li>
+            <li>
+                Quieres explicarme otro problema concreto sobre la conversión y
+                retención de los clientes.
+            </li>
+        </ol>
+    </div>
+
+    <Reviews id="opiniones" orden={["pascu", "rioboo", "gonzalo"]} />
+
+    <div class="cuerpo">
+        <AgendarLlamada />
+
+        <div class="flecha flecha--up" aria-hidden="true"></div>
+    </div>
+
+    <FooterDisclaimer />
+</BaseLayout>

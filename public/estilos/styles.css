@@ -996,6 +996,58 @@ li::marker {
     }
 }
 
+/* /agenda hereda el hero de /oferta pero lo ordena distinto: firma → CTA →
+   titular → subtítulo, todo dentro del .hero. La firma y el botón se leen
+   como una pieza (quién y qué se agenda), así que el hueco entre ellos se
+   recoge; el botón cede su margin-top base porque en el flex del .hero los
+   márgenes no colapsan y se sumaría al de la firma. El subtítulo cierra el
+   hero como apostilla del titular, sin CTA debajo que reclame el aire que
+   /oferta le da, y va pegado a él en las dos anchuras. Estas reglas van tras
+   el @media de escritorio de /oferta: empatan en especificidad y ganan por
+   orden. */
+.agenda .banner h2:has(> .banner-subline:only-child) {
+    margin-bottom: var(--gap-md);
+}
+.agenda .hero > .block--calendario {
+    margin-top: 0;
+}
+.agenda .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
+    margin-bottom: var(--gap-md);
+}
+/* Titular y subtítulo más cerca de calibre que en /oferta: el h1 es un
+   arranque de frase que el subtítulo remata («pero...» → «Es tu landing
+   si...»), así que el h1 baja un punto para que el subtítulo se lea como su
+   segunda mitad. Sigue un escalón por debajo: el .inciso-hand aplica
+   su 0.9em sobre este tamaño y es Kalam regular frente al Garamond bold. */
+.agenda .banner h1.banner-h1--medium {
+    font-size: 1.6rem;
+    margin-top: 1rem;
+}
+/* A este cuerpo, la columna recortada al 88% de /oferta parte el subtítulo en
+   tres líneas en móvil: va a todo el ancho del .hero para quedarse en dos.
+   Cierra el hero, así que el margin-bottom se suma al padding del .banner y
+   lo despega del cuerpo que sigue. El `.hero >` del selector es para ganar
+   en especificidad al `.banner .hero > :last-child { margin-bottom: 0 }`
+   que /oferta comparte con /youtube y /recursos. */
+.agenda .banner .hero > h2:has(> .inciso-hand) {
+    font-size: clamp(1.35rem, 2.1vw, 1.75rem);
+    max-width: 100%;
+    margin-bottom: var(--gap-xl);
+}
+/* El tracking de .banner h2 (0.02em) está pensado para la firma en serif; en
+   la frase Kalam suma ancho sin aportar nada, y en la columna del móvil es lo
+   que la empuja a tres líneas. Mismo criterio que .banner h2.hand. */
+@media (max-width: 800px) {
+    .agenda .banner h2:has(> .inciso-hand) {
+        letter-spacing: 0;
+    }
+}
+@media (min-width: 801px) {
+    .agenda .banner h1.banner-h1--medium {
+        font-size: clamp(1.45rem, 2.3vw, 1.9rem);
+    }
+}
+
 /* En /youtube lo que precede al CTA no es el subtítulo del titular sino la
    firma del autor (foto + nombre manuscrito), que cierra el hero: firma y
    acción se leen como el remate de la promesa, así que el hueco base de
@@ -4260,6 +4312,15 @@ audio::-webkit-media-controls-panel {
 .block--solo-titulo .title {
     font-size: 1.056rem;
 }
+/* En móvil el título vuelve al cuerpo base de .block .title: a 1.056rem un
+   titular largo apura el ancho del .body (~250px a 375) y salta a tres líneas
+   en los móviles más estrechos. Baja en todas las cards a la vez para que
+   ninguna se lea con menos peso que sus hermanas. */
+@media (max-width: 699px) {
+    .block--solo-titulo .title {
+        font-size: 1rem;
+    }
+}
 
 /* CTA al calendario (CalendarioGoogle.astro): botón blanco con acento azul. El
    logo de Google Calendar es azul y sobre un .block--primary (fondo azul) se
@@ -4283,6 +4344,12 @@ audio::-webkit-media-controls-panel {
 }
 .block--calendario .title {
     color: var(--azul);
+}
+/* El CTA es un <button> (abre el popup de AgendarLlamada): sin esto trae la
+   fuente y el cursor del sistema. */
+button.block--calendario {
+    font: inherit;
+    cursor: pointer;
 }
 /* La flecha, al cuerpo heredado y en peso normal, se lee más clara que el
    título bold pese a ser el mismo azul; se le sube cuerpo y peso para que el
@@ -4491,17 +4558,23 @@ audio::-webkit-media-controls-panel {
     right: 28px;
     bottom: -24px;
 }
-/* En un bloque de una sola línea la pegatina va centrada en vertical dentro
-   de la card, no colgando por un borde: sin subtitle que proteger, y con las
-   cards apiladas a 8px, por abajo caería sobre el título de la siguiente y por
-   arriba sobresale de la caja. Más separada del borde derecho que la base
-   para que no se pegue a la flecha. El rotate se repite porque el transform
-   del centrado pisaría el -4deg de .badge. */
+/* En un bloque sin subtitle la pegatina va a caballo del borde inferior
+   (mitad dentro, mitad fuera): centrada en vertical tapaba el título en
+   cuanto este parte a dos líneas, y colgando entera por debajo caería sobre
+   la card siguiente. La mitad que sale la absorbe el margin-bottom de la card
+   que la lleva, sumado al gap del .blocks; va en la card y no en el
+   contenedor para que el hueco viaje con ella al reordenar con SortableJS.
+   Arrimada al borde derecho: la flecha va centrada en vertical, así que la
+   esquina inferior queda libre y la pegatina se aleja del título. El rotate
+   se repite porque el translateY pisaría el -4deg de .badge. */
 .block--solo-titulo .badge {
     bottom: auto;
-    top: 50%;
-    right: 56px;
+    top: 100%;
+    right: 28px;
     transform: translateY(-50%) rotate(-4deg);
+}
+.block--solo-titulo:has(.badge) {
+    margin-bottom: 0.5rem;
 }
 
 /* ---- Bloque-acordeón (.block-group) ----
@@ -4773,7 +4846,7 @@ audio::-webkit-media-controls-panel {
    monte un .optin (.banner, .optin-bloque, .cuerpo…) tendría
    que duplicar el override. border-box para que el border de 2px no se
    sume al 100% y lo deje más estrecho que el botón vecino. */
-.optin input[type="email"] {
+.optin input:is([type="email"], [type="text"], [type="tel"]) {
     width: 100%;
     box-sizing: border-box;
     min-width: 0;
@@ -4787,7 +4860,7 @@ audio::-webkit-media-controls-panel {
     outline: none;
 }
 
-.optin input[type="email"]:focus {
+.optin input:is([type="email"], [type="text"], [type="tel"]):focus {
     border-color: var(--azul);
     box-shadow: 0 0 0 3px var(--azul-10);
 }
@@ -4924,6 +4997,98 @@ audio::-webkit-media-controls-panel {
     border-color: var(--rojo);
 }
 
+/* Campos de texto del paso 2 (prop `contacto` de OptinBase): etiqueta a la
+   vista encima del input —con dos campos seguidos, un placeholder solo
+   desaparece al escribir y el visitante pierde qué le pedía cada uno—, con
+   el mismo calibre que el legend de las preguntas de `segmentar`. */
+.optin-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.optin-campo-label {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(1rem, 1.6vw, 1.111rem);
+    line-height: 1.3;
+    color: var(--negro);
+}
+
+/* Asterisco de campo obligatorio, en el rojo señalético de los avisos de
+   error. aria-hidden en el HTML: la obligatoriedad la anuncia el
+   aria-required del input. */
+.optin-obligatorio {
+    margin-left: 0.15em;
+    color: var(--rojo);
+}
+
+/* El label del email con etiqueta visible apila como .optin-campo. Clase
+   simple a propósito: con más especificidad pisaría el display:none de
+   .optin-email[hidden] y el email no se ocultaría en el paso 2. */
+.optin-email--etiqueta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    text-align: left;
+}
+
+.optin .optin-campo--error input:not(.optin-prefijo) {
+    border-color: var(--rojo);
+}
+
+/* Teléfono partido en prefijo + número, cada caja con su pista debajo. La
+   columna del prefijo es estrecha para que se lea como apéndice del número;
+   su ancho lo marca la pista («Prefijo de tu país» en una línea), que es
+   más larga que cualquier prefijo. */
+.optin-telefono {
+    display: flex;
+    gap: 0.5rem;
+}
+.optin-telefono-parte {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+    min-width: 0;
+}
+.optin-telefono-parte--prefijo {
+    flex: 0 0 7.5rem;
+}
+/* Mismo calibre y gris que .privacy-note: es texto de apoyo, no etiqueta. */
+.optin-telefono-pista {
+    font-size: clamp(0.7rem, 0.75vw, 0.8rem);
+    line-height: 1.4;
+    color: color-mix(in srgb, var(--negro) 55%, transparent);
+    white-space: nowrap;
+}
+/* El "+" va pintado dentro de la caja, delante del texto, para que se lea
+   como parte fija del prefijo y nadie lo escriba. Mismo cuerpo y familia
+   que el input; el padding izquierdo del prefijo le deja su hueco. */
+.optin-prefijo-caja {
+    position: relative;
+    display: block;
+}
+.optin-prefijo-mas {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--serif);
+    font-size: clamp(0.889rem, 1.3vw, 1rem);
+    color: var(--negro);
+    pointer-events: none;
+}
+.optin .optin-telefono .optin-prefijo {
+    padding-left: calc(14px + 0.8em);
+}
+
+/* En el paso 2 del form de agendar la nota de privacidad sobra: el
+   visitante ya la vio junto al email del paso 1. */
+.optin[data-ml-guardar-paso1]:has(.optin-paso2:not([hidden])) .privacy-note {
+    display: none;
+}
+
 .optin-error {
     margin: 0.3rem 0 0;
     font-family: var(--hand);
@@ -4945,6 +5110,34 @@ audio::-webkit-media-controls-panel {
    misma flecha. */
 .recursos .optin .block--primary {
     box-shadow: 4px 4px 0 color-mix(in srgb, var(--negro) 35%, transparent);
+}
+/* Botón del popup de agendar: repite el CTA que lo abre (.block--calendario,
+   blanco con borde, texto y sombra en azul), así el visitante lee el form
+   como continuación del botón que acaba de pulsar. Además el logo de Google
+   Calendar es azul y sobre el primary se fundiría. */
+/* Padding y flecha se fijan aquí porque el popup del CTA del hero cuelga del
+   .banner y heredaría los de .banner .block--primary: sin esto, el mismo
+   botón cambiaría de tamaño según desde qué CTA se abriera. */
+.agenda-popup .optin .block--primary {
+    margin-top: var(--gap-sm);
+    padding: clamp(11px, 1.9vh, 18px) 12px;
+    background: var(--blanco);
+    border: 1px solid var(--azul);
+    box-shadow: 4px 4px 0 var(--azul);
+}
+.agenda-popup .optin .block--primary :is(.title, .arrow) {
+    color: var(--azul);
+}
+.agenda-popup .optin .block--primary .arrow {
+    font-size: 1.111rem;
+    font-weight: 700;
+    opacity: 1;
+}
+/* Repite el apagado del hover de .block, al que las reglas de arriba ganan
+   en especificidad: sin esto el botón se desplaza con la sombra detrás. */
+.recursos .optin .block--primary:is(:hover, :active),
+.agenda-popup .optin .block--primary:is(:hover, :active) {
+    box-shadow: none;
 }
 
 /* Override del .banner .block--primary .title (sección 4): el CTA del
@@ -6310,7 +6503,8 @@ body.blog-hub .banner-subline {
 }
 /* Misma firma que la X del banner de cookies: área de click 3rem, glyph
    2rem pegado arriba, gris derivado de tinta, rojo al hover. */
-.exit-popup-close {
+.exit-popup-close,
+.agenda-popup-close {
     position: absolute;
     top: 1px;
     right: 0.25rem;
@@ -6328,7 +6522,8 @@ body.blog-hub .banner-subline {
     justify-content: center;
     transition: color 0.2s;
 }
-.exit-popup-close:hover {
+.exit-popup-close:hover,
+.agenda-popup-close:hover {
     color: var(--rojo);
 }
 @keyframes exit-popup-in {
@@ -6342,6 +6537,44 @@ body.blog-hub .banner-subline {
 @media (prefers-reduced-motion: reduce) {
     .exit-popup,
     .exit-popup-card {
+        animation: none;
+    }
+}
+
+/* ---------- Popup de agendar llamada (AgendarLlamada.astro) ---------- */
+
+/* <dialog> nativo abierto con showModal(): va en la top layer, así que no
+   necesita z-index para quedar sobre el menú y el banner de cookies. El
+   propio dialog es la carta, con el contrato de .exit-popup-card (fondo
+   --blanco, borde tinta 1px, sin sombra ni curva) y el velo del sistema en
+   ::backdrop. Ancho del .optin (480px) más el padding, para que el form
+   llene la carta sin estirarse. El max-height deja ver el velo arriba y
+   abajo; si el teclado del móvil encoge el viewport, la carta scrollea. */
+.agenda-popup {
+    box-sizing: border-box;
+    width: min(calc(480px + 2 * var(--gap-md)), calc(100% - 2 * var(--gap-sm)));
+    max-width: none;
+    max-height: calc(100vh - 2 * var(--gap-md));
+    padding: var(--gap-lg) var(--gap-md) var(--gap-md);
+    overflow-y: auto;
+    color: var(--negro);
+    background-color: var(--blanco);
+    border: 1px solid var(--negro);
+}
+.agenda-popup[open] {
+    animation: exit-popup-card-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.agenda-popup::backdrop {
+    background-color: color-mix(in srgb, var(--negro) 55%, transparent);
+}
+/* El .optin trae el 95% de ancho y el margen inferior pensados para el
+   flujo de la página; dentro de la carta el aire lo pone su padding. */
+.agenda-popup .optin {
+    width: 100%;
+    margin: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+    .agenda-popup[open] {
         animation: none;
     }
 }
