@@ -1060,12 +1060,13 @@ li::marker {
 
 /* /recursos comparte con /youtube el hero de foto + nombre + titular-oferta
    (las reglas :is(.youtube, .recursos) de este bloque) y cierra el banner con
-   el cajetín del checklist en el sitio del CTA de agendar: mismo hueco por
-   arriba que el botón de /youtube, por el mismo motivo (el titular y la acción
-   son piezas distintas). Abajo cede su margen base porque lo que sigue es la
+   el cajetín del checklist en el sitio del CTA de agendar. Hueco por arriba
+   más corto que el del botón de /youtube: aquí lo precede la lista de temas,
+   que ya cierra el titular, y con más aire el cajetín se descolgaba de ella.
+   Abajo cede su margen base porque lo que sigue es la
    flecha, que trae el suyo (--gap-3xl) y cierra la página. */
 .recursos .banner > .optin {
-    margin: clamp(2.2rem, 5.5vh, 3.2rem) auto 0;
+    margin: clamp(1rem, 2.5vh, 1.6rem) auto 0;
 }
 
 /* El titular de /recursos es más corto que el de /youtube (los temas de la
@@ -1073,6 +1074,21 @@ li::marker {
    cuerpo en la misma variable —el resto de reglas compartidas la heredan. */
 .recursos .banner {
     --yt-h1: clamp(1.45rem, 2.3vw, 1.85rem);
+}
+
+/* Aire sobre la foto a la mitad del banner base (padding del banner + margen
+   de la foto): la página es solo el hero y el cajetín, y cada píxel que se
+   ahorra arriba es el que deja entrar el botón en el fold del móvil. */
+.recursos .banner {
+    padding-top: clamp(0.25rem, 1vh, 0.65rem);
+}
+.recursos .banner .hero-photo {
+    margin-top: 5px;
+}
+@media (max-width: 800px) {
+    .recursos .banner {
+        padding-top: 0.2rem;
+    }
 }
 
 /* La firma baja un escalón respecto al h2 de banner (1.45rem móvil / 1.85rem
@@ -1096,6 +1112,13 @@ li::marker {
     font-size: calc(var(--yt-h1) * 0.8);
     line-height: 1.3;
     margin-bottom: 0.3rem;
+}
+/* La alternancia de .bold-even por debajo del bold pleno: a este cuerpo y con
+   items tan cortos, el 700 convertía cada item marcado en un titular que
+   competía con el h1. La variable se carga en 400..800, así que el peso
+   intermedio es real, no sintetizado. */
+.recursos .banner .hero > ul.bold-even > li:nth-child(even) {
+    font-weight: 600;
 }
 
 /* La flecha de cierre vive dentro del banner (blanco), no en un .cuerpo: la
