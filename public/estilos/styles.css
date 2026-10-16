@@ -3932,7 +3932,7 @@ audio::-webkit-media-controls-panel {
    margen del heading no mueve nada. */
 .hero-card {
     position: relative;
-    margin: 0 14px clamp(135px, 18vh, 168px);
+    margin: 0 14px clamp(148px, 19.5vh, 182px);
     background: var(--blanco);
     padding: 0 12px 2rem;
 }
@@ -4558,11 +4558,11 @@ button.block--calendario {
     right: 28px;
     bottom: -24px;
 }
-/* En un bloque sin subtitle la pegatina va a caballo del borde inferior
-   (mitad dentro, mitad fuera): centrada en vertical tapaba el título en
-   cuanto este parte a dos líneas, y colgando entera por debajo caería sobre
-   la card siguiente. La mitad que sale la absorbe el margin-bottom de la card
-   que la lleva, sumado al gap del .blocks; va en la card y no en el
+/* En un bloque sin subtitle la pegatina va a caballo del borde inferior, con
+   solo una franja dentro de la card: con más dentro tapaba la última línea
+   del título en cuanto este parte a dos líneas, y colgando entera por debajo
+   caería sobre la card siguiente. Lo que sale lo absorbe el margin-bottom de
+   la card que la lleva, sumado al gap del .blocks; va en la card y no en el
    contenedor para que el hueco viaje con ella al reordenar con SortableJS.
    Arrimada al borde derecho: la flecha va centrada en vertical, así que la
    esquina inferior queda libre y la pegatina se aleja del título. El rotate
@@ -4571,10 +4571,10 @@ button.block--calendario {
     bottom: auto;
     top: 100%;
     right: 28px;
-    transform: translateY(-50%) rotate(-4deg);
+    transform: translateY(-20%) rotate(-4deg);
 }
 .block--solo-titulo:has(.badge) {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 /* ---- Bloque-acordeón (.block-group) ----
@@ -4678,7 +4678,7 @@ button.block--calendario {
     }
 
     .hero-card {
-        margin: 0 0 clamp(152px, 20vh, 210px);
+        margin: 0 0 clamp(164px, 21.5vh, 224px);
         padding: 0 22px 2rem;
     }
 
