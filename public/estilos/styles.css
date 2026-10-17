@@ -916,10 +916,11 @@ li::marker {
     background-position: 0 calc(100% - 0.15em);
 }
 /* El h2 de credenciales que abre el cuerpo va en la escala compacta, casi al
-   calibre del h1: a igual peso los dos titulares empataban. Dos escalones menos
-   de grosor (Garamond variable) lo deja subordinado al titular del banner. */
+   calibre del h1: a igual peso los dos titulares empataban. Un escalón menos
+   de grosor (Garamond variable) lo deja subordinado al titular del banner sin
+   que se lea fino; con dos se quedaba en peso de cuerpo. */
 .oferta .cuerpo > h2.titulo-compacto {
-    font-weight: 500;
+    font-weight: 600;
     text-align: left;
 }
 /* En móvil el .cuerpo deja solo 5px de gutter: el titular alineado a la
@@ -1028,8 +1029,11 @@ li::marker {
    Cierra el hero, así que el margin-bottom se suma al padding del .banner y
    lo despega del cuerpo que sigue. El `.hero >` del selector es para ganar
    en especificidad al `.banner .hero > :last-child { margin-bottom: 0 }`
-   que /oferta comparte con /youtube y /recursos. */
+   que /oferta comparte con /youtube y /recursos.
+   En tinta y no en el rojo de /oferta: a dos líneas de Kalam, todo en rojo
+   satura el hero; el rojo queda para el nombre del servicio (.text-rojo). */
 .agenda .banner .hero > h2:has(> .inciso-hand) {
+    color: var(--negro);
     font-size: clamp(1.35rem, 2.1vw, 1.75rem);
     max-width: 100%;
     margin-bottom: var(--gap-xl);
@@ -3955,7 +3959,7 @@ audio::-webkit-media-controls-panel {
    margen del heading no mueve nada. */
 .hero-card {
     position: relative;
-    margin: 0 14px clamp(148px, 19.5vh, 182px);
+    margin: 0 14px clamp(180px, 23.5vh, 214px);
     background: var(--blanco);
     padding: 0 12px 2rem;
 }
@@ -4701,7 +4705,7 @@ button.block--calendario {
     }
 
     .hero-card {
-        margin: 0 0 clamp(164px, 21.5vh, 224px);
+        margin: 0 0 clamp(196px, 25.5vh, 256px);
         padding: 0 22px 2rem;
     }
 

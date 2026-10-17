@@ -1,12 +1,14 @@
 ---
 /* Versión CV de la oferta: la página que se manda suelta (email, DM) a un dueño
    de negocio que ya está hablando con David. Titular del marrón, portfolio
-   dentro y un cierre que no pide agendar llamada: quien la lee contesta por el
-   canal por el que le llegó el enlace. */
+   dentro y un cierre con el mismo CTA de agendar que /agenda, para quien
+   prefiera pedir la llamada en vez de contestar por el canal por el que le
+   llegó el enlace. */
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Menu from "../components/Menu.astro";
 import Logros from "../components/Logros.astro";
 import Reviews from "../components/Reviews.astro";
+import AgendarLlamada from "../components/AgendarLlamada.astro";
 
 /* Los mismos destinos en las dos instancias del menú: la fila del banner
    (enFlujo) y la barra fija que la releva al scrollear. Tres etiquetas, que es
@@ -48,9 +50,9 @@ const SECCIONES = [
             </h2>
 
             <h1>
-                Pásame tu mayor dolor de cabeza <span class="aside-hand"
-                    >(en marketing y ventas)</span
-                > y <u class="mark-amarillo">duerme tranquilo</u>
+                Pásame tu mayor dolor de cabeza{" "}
+                <span class="aside-hand">(en marketing y ventas)</span> y{" "}
+                <u class="mark-amarillo">duerme tranquilo</u>
             </h1>
             <!--
             <ul class="banner-badges" aria-label="Lo que entrego">
@@ -170,18 +172,17 @@ const SECCIONES = [
         <p>
             <strong>
                 El primero es fácil apagarlo. Das el aviso y delegas a alguien
-                el uso de la manguera. <u class="mark-amarillo"
-                    >El segundo es otra historia.
-                </u>
+                el uso de la manguera.{" "}
+                <u class="mark-amarillo">El segundo es otra historia.</u>
             </strong>
         </p>
 
         <p>
             Ahí no hace falta más agua, necesitas alguien que sepa dónde
-            tirarla. El humo asoma en <span class="squiggle squiggle--azul"
-                >el coste de adquisición</span
-            > pero las llamas pueden venir de la propuesta, el ángulo de los anuncios,
-            las llamadas de ventas o incluso el LTGP.
+            tirarla. El humo asoma en{" "}
+            <span class="squiggle squiggle--azul">el coste de adquisición</span>{" "}
+            pero las llamas pueden venir de la propuesta, el ángulo de los
+            anuncios, las llamadas de ventas o incluso el LTGP.
         </p>
 
         <p>
@@ -224,8 +225,9 @@ const SECCIONES = [
 
         <p>
             Mi gran objetivo en cada proyecto es aumentar el ratio
-            <span class="ink-circle ink-circle--azul"
-                >LTGP:CAC<svg
+            <span class="ink-circle ink-circle--azul">
+                LTGP:CAC
+                <svg
                     class="ink-circle-svg"
                     viewBox="0 0 100 60"
                     preserveAspectRatio="none"
@@ -236,17 +238,16 @@ const SECCIONES = [
                         stroke="currentColor"
                         stroke-width="1.5"
                         fill="none"
-                        stroke-linecap="round"></path></svg
-                ></span
-            ><span class="azul"> →</span>&nbsp;Porque... ¿Quién quiere facturar
+                        stroke-linecap="round"
+                    ></path>
+                </svg>
+            </span>
+            <span class="azul"> →</span>&nbsp;Porque... ¿Quién quiere facturar
             millones si el margen es minúsculo?
         </p>
 
-        <p>
-            No busco encargos sueltos. Quiero meterme a fondo en un negocio y
-            construir algo que dure.
-        </p>
-
         <p class="titulo-mano">¿Cuál es tu mayor dolor de cabeza? Cuéntame.</p>
+
+        <AgendarLlamada />
     </div>
 </BaseLayout>
