@@ -919,14 +919,14 @@ li::marker {
    calibre del h1: a igual peso los dos titulares empataban. Un escalón menos
    de grosor (Garamond variable) lo deja subordinado al titular del banner sin
    que se lea fino; con dos se quedaba en peso de cuerpo. */
-.oferta .cuerpo > h2.titulo-compacto {
+.oferta .cuerpo h2.titulo-compacto {
     font-weight: 600;
     text-align: left;
 }
 /* En móvil el .cuerpo deja solo 5px de gutter: el titular alineado a la
    izquierda arrancaba pegado al borde de la pantalla. */
 @media (max-width: 700px) {
-    .oferta .cuerpo > h2.titulo-compacto {
+    .oferta .cuerpo h2.titulo-compacto {
         padding-left: 0.45rem;
     }
 }
@@ -936,7 +936,7 @@ li::marker {
    lado), para que los dos titulares compartan medida. Centrado sobre la
    columna con margin-left 50% + translate, sin márgenes negativos. */
 @media (min-width: 801px) {
-    .oferta .cuerpo > h2.titulo-compacto {
+    .oferta .cuerpo h2.titulo-compacto {
         width: min(720px - 2rem, 100vw - 2rem);
         margin-left: 50%;
         transform: translateX(-50%);
@@ -1149,7 +1149,7 @@ body.recursos {
 :is(.youtube, .oferta) .cuerpo > .block--calendario {
     margin-bottom: 0;
 }
-:is(.youtube, .oferta) .cuerpo > .block--calendario + .buscando {
+:is(.youtube, .oferta) .cuerpo > :is(.block--calendario, .seccion-blanca) + .buscando {
     margin-top: 6rem;
 }
 
