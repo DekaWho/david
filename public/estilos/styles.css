@@ -1114,6 +1114,7 @@ li::marker {
     color: var(--rojo);
     font-size: calc(var(--yt-h1) * 0.75);
     line-height: 1.2;
+    text-align: center;
     margin: 0.4rem auto var(--gap-md);
 }
 
