@@ -129,13 +129,14 @@ import AgendarLlamada from "../components/AgendarLlamada.astro";
 
             <p class="hand">
                 Y podría contarte más sobre mí pero para eso están los vídeos de
-                Youtube. Si quieres la
-                <strong class="text-rojo">Consultoría + Auditoría</strong> sobre
-                generar demanda, <strong>convertir y retener</strong> al cliente
-                sí es aquí:
+                Youtube.
             </p>
-
-            <AgendarLlamada />
+            <p class="hand">
+                Si quieres la
+                <strong class="text-rojo">Consultoría + Auditoría</strong> sobre
+                generar demanda, <strong>convertir y retener</strong> al
+                cliente... Pulsa el botón de agendar.
+            </p>
         </section>
 
         <span class="buscando icono-solido" aria-hidden="true"></span>
@@ -198,6 +199,10 @@ import AgendarLlamada from "../components/AgendarLlamada.astro";
         <AgendarLlamada />
 
         <div class="flecha flecha--up" aria-hidden="true"></div>
+    </div>
+
+    <div class="cta-sticky">
+        <AgendarLlamada posicion="99" />
     </div>
 
     <FooterDisclaimer />

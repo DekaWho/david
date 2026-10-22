@@ -9,16 +9,18 @@
    scripts.js cuentan con que el botón sea hijo directo del contenedor y
    hermano anterior de lo que le sigue; cerrado, el dialog no ocupa caja.
    Cada instancia monta su propio popup, así que el posicion_optin que llega
-   a MailerLite dice desde qué CTA de la página se pidió la llamada. */
+   a MailerLite dice desde qué CTA de la página se pidió la llamada.
+   `posicion` sustituye ese ordinal por un código 9x en las instancias fuera
+   del flujo de la página (el CTA flotante .cta-sticky). */
 import OptinAgendarLlamada from "./OptinAgendarLlamada.astro";
-const { texto = "Agendar llamada en Meet" } = Astro.props;
+const { texto = "Agendar llamada en Meet", posicion } = Astro.props;
 ---
 
 <dialog class="agenda-popup" aria-label="Agendar llamada">
     <form method="dialog">
         <button class="agenda-popup-close" aria-label="Cerrar">×</button>
     </form>
-    <OptinAgendarLlamada />
+    <OptinAgendarLlamada posicion={posicion} />
 </dialog>
 <button type="button" class="block block--calendario" data-abre-agenda>
     <img class="icon" src="/imgs/svg/google-calendar.svg" alt="" />

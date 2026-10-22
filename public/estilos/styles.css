@@ -1102,6 +1102,21 @@ li::marker {
     font-size: clamp(1.25rem, 1.6vw, 1.55rem);
 }
 
+/* Condición de entrada bajo el titular, como apunte a mano: pegada al h1 (que
+   le cede su hueco) para leerse como anotación suya y no como un párrafo más,
+   en el rojo con que el sitio acota a quién va la oferta. Recta: bajo un
+   titular centrado, el tilt la descolgaba del eje. Cuerpo por debajo de la
+   lista de temas, atado a la misma escala: es una acotación, no contenido. */
+.recursos .banner h1:has(+ p.inciso-hand) {
+    margin-bottom: 0;
+}
+.recursos .banner .hero > p.inciso-hand {
+    color: var(--rojo);
+    font-size: calc(var(--yt-h1) * 0.75);
+    line-height: 1.2;
+    margin: 0.4rem auto var(--gap-md);
+}
+
 /* Los temas de la carpeta van en lista bajo el titular: el h1 anuncia la
    carpeta y cierra en "sobre...", y la lista lo completa. Cuerpo por debajo
    del h1 y atado a su escala: el --text-body global superaría a este titular
@@ -1150,7 +1165,7 @@ body.recursos {
     margin-bottom: 0;
 }
 :is(.youtube, .oferta) .cuerpo > :is(.block--calendario, .seccion-blanca) + .buscando {
-    margin-top: 6rem;
+    margin-top: 3rem;
 }
 
 .youtube .hero > p.hero-spoiler,
@@ -4387,21 +4402,22 @@ button.block--calendario {
     font-weight: 700;
 }
 
-/* CTA al calendario flotando fijo arriba (.cta-sticky). Variante del estándar
-   de menús fijos del sitio: arranca oculto, lo alterna scripts.js y sin JS
-   queda visible (degrada a lo seguro). El umbral sí cambia — es el
-   .block--calendario del hero, no el H1: mientras el botón original está en
-   pantalla el flotante sobra, y aparecer antes pondría dos CTA idénticos a la
-   vez.
+/* CTA al calendario flotando fijo abajo (.cta-sticky), en la zona del pulgar
+   en móvil. Es el suplente de los .block--calendario del flujo: entra cuando
+   el del hero queda por arriba y scripts.js lo esconde mientras cualquiera de
+   ellos está en pantalla, así que al llegar al CTA de cierre se retira antes
+   del pie y nunca hay dos botones idénticos a la vez. Sin JS queda visible
+   (degrada a lo seguro).
    El contenedor es una franja de ancho completo solo para centrar; va sin
    fondo, así que el copy sigue viéndose correr por debajo y a los costados del
    botón. Por eso también pointer-events: none — una franja transparente a todo
    lo ancho se tragaría los clicks del texto que cruza por debajo — y el botón
-   los reactiva.
-   z-index por debajo del .menu (1000) para que el burger flote sobre él. */
+   los reactiva. El padding inferior respeta la barra de gestos de iOS.
+   z-index por debajo del banner de cookies (1000), que también va abajo: hasta
+   que se acepta, el aviso tapa el botón en vez de quedar los dos montados. */
 .cta-sticky {
     position: fixed;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
     z-index: 900;
@@ -4409,7 +4425,7 @@ button.block--calendario {
 
     display: flex;
     justify-content: center;
-    padding: 10px 12px;
+    padding: 10px 12px max(1.5rem, env(safe-area-inset-bottom));
 
     transition:
         opacity 200ms ease,
@@ -4419,11 +4435,17 @@ button.block--calendario {
 .cta-sticky .block--calendario {
     pointer-events: auto;
 }
+/* El popup del flotante sube a la top layer con showModal(), pero el
+   pointer-events: none del contenedor se sigue heredando por el DOM: sin
+   reactivarlo, el form del popup no recibiría ni un click. */
+.cta-sticky .agenda-popup {
+    pointer-events: auto;
+}
 
 .cta-sticky--hidden {
     opacity: 0;
     pointer-events: none;
-    transform: translateY(-100%);
+    transform: translateY(100%);
 }
 
 /* Mismo tamaño que el CTA del flujo — solo cae su margen de bloque de página,
@@ -4437,12 +4459,6 @@ button.block--calendario {
         transition: none;
     }
 }
-
-/* Sin página que monte .cta-sticky hoy. Una landing que lo recupere necesita
-   además, en móvil, retirar su menú (el CTA flotante ocupa la franja superior
-   entera y el burger aterrizaría encima) y compensar el scroll-margin-top de
-   sus anclas con el alto del flotante: dos reglas scopeadas por su clase de
-   <body>, en un @media (max-width: 800px). */
 
 /* En evaluación — en la home (.blocks) el primary se diferencia SOLO por
    color: igualamos título, flecha y padding al resto de bloques. Scopeado a
