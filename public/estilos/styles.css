@@ -4991,7 +4991,7 @@ button.block--calendario {
     pointer-events: none;
 }
 
-.optin-opcion span {
+.optin-opcion > span {
     display: flex;
     align-items: center;
     gap: 0.6em;
@@ -5004,7 +5004,7 @@ button.block--calendario {
 }
 
 /* La casilla: cuadrado con el mismo borde de 2px del input de email. */
-.optin-opcion span::before {
+.optin-opcion > span::before {
     content: "";
     flex: 0 0 auto;
     width: 1.1em;
@@ -5016,7 +5016,7 @@ button.block--calendario {
     transition: background-color 0.12s, border-color 0.12s;
 }
 
-.optin-opcion:hover span::before {
+.optin-opcion:hover > span::before {
     border-color: var(--azul);
 }
 
@@ -5037,7 +5037,7 @@ button.block--calendario {
 
 /* Pregunta sin responder al enviar: casillas en rojo y aviso manuscrito
    debajo, en el rojo señalético. */
-.optin-pregunta--error .optin-opcion span::before {
+.optin-pregunta--error .optin-opcion > span::before {
     border-color: var(--rojo);
 }
 
@@ -5056,6 +5056,17 @@ button.block--calendario {
     font-weight: 600;
     font-size: clamp(1rem, 1.6vw, 1.111rem);
     line-height: 1.3;
+    color: var(--negro);
+}
+
+/* Nota bajo la etiqueta de un campo (prop `telefonoNota`): mismo calibre
+   que .optin-telefono-pista pero en tinta plena, no en gris: responde a la
+   duda que frena el campo (para qué quieren mi número), así que tiene que
+   leerse antes que las pistas de debajo de las cajas. Sin nowrap: es una
+   frase y en móvil tiene que partir. */
+.optin-campo-nota {
+    font-size: clamp(0.7rem, 0.75vw, 0.8rem);
+    line-height: 1.4;
     color: var(--negro);
 }
 
@@ -5130,6 +5141,27 @@ button.block--calendario {
 /* En el paso 2 del form de agendar la nota de privacidad sobra: el
    visitante ya la vio junto al email del paso 1. */
 .optin[data-ml-guardar-paso1]:has(.optin-paso2:not([hidden])) .privacy-note {
+    display: none;
+}
+
+/* Casilla de consentimiento (prop `consentimiento` de OptinBase): reutiliza
+   la casilla de .optin-opcion, al calibre de la nota de privacidad a la que
+   sustituye para no competir con el email ni con el botón. En el paso 2
+   sobra por lo mismo que la nota: ya se marcó junto al email. */
+.optin-consentimiento {
+    text-align: left;
+}
+.optin-consentimiento .optin-opcion > span {
+    font-size: clamp(0.7rem, 0.75vw, 0.8rem);
+}
+.optin-consentimiento a {
+    color: inherit;
+    text-decoration: underline;
+}
+.optin-consentimiento--error .optin-opcion > span::before {
+    border-color: var(--rojo);
+}
+.optin:has(.optin-paso2:not([hidden])) .optin-consentimiento {
     display: none;
 }
 

@@ -21,16 +21,24 @@ const {
     botonTexto = "Acceder a los recursos gratuitos",
     botonIcono = "/imgs/svg/fire.svg",
     flecha = true,
-    // Form en dos pasos: tras el email, dos preguntas de segmentación
-    // obligatorias (ver `segmentar` en OptinBase). El POST solo sale con
-    // las dos respondidas.
-    segmentar = true,
+    // Form en dos pasos (ver `contacto` en OptinBase): el paso 1 ya guarda
+    // el email en MailerLite y dispara la automatización de bienvenida; el
+    // paso 2 pide nombre y WhatsApp y actualiza el contacto. Quien abandona
+    // en el paso 2 queda en la lista igual.
+    contacto = true,
+    // El paso 1 sigue siendo el cajetín de siempre, sin etiqueta a la vista,
+    // más la casilla obligatoria que filtra las suscripciones accidentales.
+    etiquetaEmail = false,
+    consentimiento = "Acepto que me contactéis y las burocráticas",
+    telefonoLabel = "Número con Whatsapp",
+    telefonoNota = "<strong>No te llamaremos,</strong> pero podemos enviarte los recursos por aquí si te es más cómodo",
     botonTextoPaso2 = "Recibir los recursos gratuitos",
     // Este form va SIN doble opt-in en MailerLite (desactivado en el panel):
-    // el paso 2 ya filtra las suscripciones accidentales. Por eso el
-    // redirect va directo a /done («ya te llega») y no a /not-done
-    // («confirma tu email»), y el evento Lead del pixel salta aquí mismo,
-    // en el navegador del anuncio — mejor atribución que desde el email.
+    // el paso 1 postea al instante y un email de confirmación llegaría antes
+    // de terminar el paso 2. Por eso el redirect va directo a /done («ya te
+    // llega») y no a /not-done («confirma tu email»), y el evento Lead del
+    // pixel salta aquí mismo, en el navegador del anuncio — mejor
+    // atribución que desde el email.
     successUrl = "/done",
     ...rest
 } = Astro.props;
@@ -41,7 +49,11 @@ const {
     botonTexto={botonTexto}
     botonIcono={botonIcono}
     flecha={flecha}
-    segmentar={segmentar}
+    contacto={contacto}
+    etiquetaEmail={etiquetaEmail}
+    consentimiento={consentimiento}
+    telefonoLabel={telefonoLabel}
+    telefonoNota={telefonoNota}
     botonTextoPaso2={botonTextoPaso2}
     successUrl={successUrl}
     formId={CHECKLIST_FORM_ID}

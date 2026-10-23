@@ -45,6 +45,24 @@ const {
     // contacto con fields[name] y fields[phone] (campos por defecto de
     // MailerLite).
     contacto = false,
+    // `etiquetaEmail`: etiqueta «Tu email» a la vista sobre el input. Por
+    // defecto acompaña a `contacto` (en el popup de agendar los tres campos
+    // se leen como un formulario); un cajetín de lead magnet con `contacto`
+    // la apaga para que el paso 1 siga siendo el cajetín de siempre.
+    etiquetaEmail = contacto,
+    // Etiqueta del teléfono en el paso 2 de `contacto` y, opcional, una
+    // nota de apoyo debajo del campo (p.ej. para qué se usará el número).
+    // La nota admite HTML inline (<strong>…) y se inyecta tal cual: solo
+    // pasarle copy escrito en el repo, nunca nada que venga de la URL.
+    telefonoLabel = "Tu número",
+    telefonoNota,
+    // `consentimiento`: casilla obligatoria junto al email, sin marcar de
+    // inicio, que sustituye a la nota de privacidad. El valor es el texto
+    // de la casilla; detrás se añade el enlace «políticas de privacidad». Sin marcarla, scripts.js no deja pasar del paso 1 ni
+    // postea nada: el autocompletado del navegador de Instagram rellena el
+    // email pero no marca casillas, así que solo entra quien sabe lo que
+    // pide.
+    consentimiento,
     // Texto del botón en el paso 2 (con `segmentar` o `contacto`).
     botonTextoPaso2 = "Enviar",
     // `cerrado`: estado "plazas cerradas". El cajetín se ve pero queda inerte
@@ -114,10 +132,8 @@ const preguntas = [
     data-ml-paso2={(segmentar || contacto) && !cerrado ? botonTextoPaso2 : undefined}
     data-ml-guardar-paso1={contacto && !cerrado ? "" : undefined}
 >
-    {/* Con `contacto` el email lleva etiqueta a la vista, como los campos
-        del paso 2; el cajetín de los lead magnets la mantiene oculta. */}
-    <label class:list={["optin-email", { "optin-email--etiqueta": contacto }]}>
-        {contacto
+    <label class:list={["optin-email", { "optin-email--etiqueta": etiquetaEmail }]}>
+        {etiquetaEmail
             ? <span class="optin-campo-label">Tu email</span>
             : <span class="visually-hidden">Email</span>}
         <input
@@ -195,8 +211,9 @@ const preguntas = [
                     debajo como nombre accesible. */}
                 <div class="optin-campo" data-campo="phone">
                     <span class="optin-campo-label">
-                        Tu número<span class="optin-obligatorio" aria-hidden="true">*</span>
+                        {telefonoLabel}<span class="optin-obligatorio" aria-hidden="true">*</span>
                     </span>
+                    {telefonoNota && <span class="optin-campo-nota" set:html={telefonoNota} />}
                     <div class="optin-telefono">
                         <label class="optin-telefono-parte optin-telefono-parte--prefijo">
                             <span class="optin-prefijo-caja">
@@ -229,7 +246,26 @@ const preguntas = [
             </div>
         </>
     )}
-    {mostrarPrivacyNote && !cerrado && (
+    {consentimiento && !cerrado && (
+        <div class="optin-consentimiento">
+            <label class="optin-opcion">
+                <input type="checkbox" name="consentimiento" />
+                {/* El texto va en un solo <span> para que el flex de la
+                    casilla lo trate como una pieza y el enlace fluya dentro
+                    de la frase. */}
+                <span><span>
+                    {consentimiento}
+                    <a href="/privacidad" target="_blank" rel="noopener">
+                        políticas de privacidad
+                    </a>
+                </span></span>
+            </label>
+            <p class="optin-error" hidden>
+                Marca la casilla para recibir los recursos
+            </p>
+        </div>
+    )}
+    {mostrarPrivacyNote && !consentimiento && !cerrado && (
         <p class="privacy-note">
             Puedes leer las burocráticas políticas de privacidad
             <a href="/privacidad" target="_blank" rel="noopener">

@@ -337,6 +337,12 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
         });
     }
 
+    /* Al marcar la casilla de consentimiento, su aviso desaparece. */
+    form.querySelector('.optin-consentimiento')?.addEventListener('change', (e) => {
+        e.currentTarget.classList.remove('optin-consentimiento--error');
+        e.currentTarget.querySelector('.optin-error').hidden = true;
+    });
+
     /* Cuerpo del subscribe. Las respuestas del paso 2 solo viajan en el
        envío del paso 2: en el adelantado del paso 1 irían vacías y, para un
        contacto que ya existe, MailerLite podría pisar su nombre o teléfono
@@ -408,6 +414,20 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
             if (enPaso2) volverPaso1();
             emailInput?.focus();
             return;
+        }
+
+        /* Casilla de consentimiento (prop `consentimiento` de OptinBase):
+           sin marcar no sale ningún envío, ni el adelantado del paso 1. */
+        const consentimiento = form.querySelector('.optin-consentimiento');
+        if (consentimiento && !enPaso2) {
+            const casilla = consentimiento.querySelector('input[type="checkbox"]');
+            const ok = casilla.checked;
+            consentimiento.classList.toggle('optin-consentimiento--error', !ok);
+            consentimiento.querySelector('.optin-error').hidden = ok;
+            if (!ok) {
+                casilla.focus({ preventScroll: true });
+                return;
+            }
         }
 
         if (paso2 && !enPaso2) {
