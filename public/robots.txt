@@ -1,8 +1,8 @@
 User-agent: *
 Allow: /
-Disallow: /done
+Disallow: /entrega-recursos
 Disallow: /not-done
-Disallow: /llamada-confirmada
+Disallow: /llamada-recibida
 
 User-agent: GPTBot
 Allow: /

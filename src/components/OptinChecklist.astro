@@ -33,11 +33,12 @@ const {
     botonTextoPaso2 = "Recibir los recursos gratuitos",
     // Este form va SIN doble opt-in en MailerLite (desactivado en el panel):
     // el paso 1 postea al instante y un email de confirmación llegaría antes
-    // de terminar el paso 2. Por eso el redirect va directo a /done («ya te
-    // llega») y no a /not-done («confirma tu email»), y el evento Lead del
+    // de terminar el paso 2. Por eso el redirect va directo a
+    // /entrega-recursos («ya te llega») y no a /not-done («confirma tu
+    // email»), y el evento Lead del
     // pixel salta aquí mismo, en el navegador del anuncio — mejor
     // atribución que desde el email.
-    successUrl = "/done",
+    successUrl = "/entrega-recursos",
     ...rest
 } = Astro.props;
 ---

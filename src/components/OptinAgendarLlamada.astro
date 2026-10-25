@@ -11,7 +11,7 @@ import OptinBase from "./OptinBase.astro";
    de confirmación llegaría antes de que el visitante termine el paso 2. */
 const AGENDA_FORM_ID = "201436164081583360";
 
-/* Tras el paso 2 redirige a /llamada-confirmada, que dispara el evento
+/* Tras el paso 2 redirige a /llamada-recibida, que dispara el evento
    Schedule del pixel en el mismo navegador del anuncio. El form-id se fija
    después del spread para que la página no pueda pisarlo. */
 const {
@@ -22,7 +22,7 @@ const {
     flecha = true,
     contacto = true,
     botonTextoPaso2 = "Continuar",
-    successUrl = "/llamada-confirmada",
+    successUrl = "/llamada-recibida",
     ...rest
 } = Astro.props;
 ---
