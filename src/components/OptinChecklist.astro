@@ -13,13 +13,13 @@ const CHECKLIST_FORM_ID = "192892264186381923";
 
 /* Defaults del botón para este lead magnet: el CTA entrega un recurso
    concreto (el checklist), no una suscripción a emails, así que el texto
-   nombra lo que llega; el fuego es el icono de su card en la home y el
+   nombra lo que llega; el diamante es el icono de su card en la home y el
    favicon de la landing, y la flecha → repite la de esas cards. La página
    puede overridearlos; el form-id se fija siempre después del spread para
    que la página no pueda pisarlo. */
 const {
     botonTexto = "Acceder a los recursos gratuitos",
-    botonIcono = "/imgs/svg/fire.svg",
+    botonIcono = "/imgs/svg/diamond.svg",
     flecha = true,
     // Form en dos pasos (ver `contacto` en OptinBase): el paso 1 ya guarda
     // el email en MailerLite y dispara la automatización de bienvenida; el
@@ -30,8 +30,6 @@ const {
     // más la casilla obligatoria que filtra las suscripciones accidentales.
     etiquetaEmail = false,
     consentimiento = "Acepto que me contactéis y las burocráticas",
-    telefonoLabel = "Número con Whatsapp",
-    telefonoNota = "<strong>No te llamaremos,</strong> pero podemos enviarte los recursos por aquí si te es más cómodo",
     botonTextoPaso2 = "Recibir los recursos gratuitos",
     // Este form va SIN doble opt-in en MailerLite (desactivado en el panel):
     // el paso 1 postea al instante y un email de confirmación llegaría antes
@@ -52,8 +50,6 @@ const {
     contacto={contacto}
     etiquetaEmail={etiquetaEmail}
     consentimiento={consentimiento}
-    telefonoLabel={telefonoLabel}
-    telefonoNota={telefonoNota}
     botonTextoPaso2={botonTextoPaso2}
     successUrl={successUrl}
     formId={CHECKLIST_FORM_ID}

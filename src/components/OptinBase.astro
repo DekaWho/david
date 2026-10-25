@@ -52,9 +52,13 @@ const {
     etiquetaEmail = contacto,
     // Etiqueta del teléfono en el paso 2 de `contacto` y, opcional, una
     // nota de apoyo debajo del campo (p.ej. para qué se usará el número).
+    // La etiqueta por defecto es el copy común de todos los forms que piden
+    // nombre + WhatsApp (popup de agendar, cajetín de /recursos): justifica
+    // pedir el número sin prometer llamada. Un form nuevo con `contacto` la
+    // hereda; sobrescribirla solo si el número se pide para otra cosa.
     // La nota admite HTML inline (<strong>…) y se inyecta tal cual: solo
     // pasarle copy escrito en el repo, nunca nada que venga de la URL.
-    telefonoLabel = "Tu número",
+    telefonoLabel = "Tu whatsapp para saber que no eres un bot",
     telefonoNota,
     // `consentimiento`: casilla obligatoria junto al email, sin marcar de
     // inicio, que sustituye a la nota de privacidad. El valor es el texto

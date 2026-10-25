@@ -1,0 +1,83 @@
+---
+/* Carrusel de vídeos de YouTube: miniaturas en fila con scroll horizontal y
+   flechas arriba a la derecha; cada miniatura abre el reproductor en un
+   <dialog> de la propia web, así el visitante ve el vídeo sin salir de la
+   landing. El JS (flechas + popup) vive en scripts.js, enganchado por
+   [data-carrusel-videos].
+   El iframe no se monta hasta pulsar: con un embed por vídeo la página
+   cargaría el reproductor entero de YouTube (y sus cookies) aunque nadie lo
+   abra. La miniatura sale del CDN de imágenes de YouTube, que no pone
+   cookies, y el reproductor va por youtube-nocookie.com por lo mismo.
+   `videos`: array de { id, titulo } — `id` es el código del vídeo (lo que
+   va tras youtu.be/ o ?v=). El orden del array es el del carrusel. */
+const { videos = [], ariaLabel = "Vídeos" } = Astro.props;
+---
+
+<div class="carrusel-videos" data-carrusel-videos>
+    <div class="carrusel-videos__flechas">
+        <!-- Chevron en SVG y no un glifo de texto: la flecha de Garamond
+             no cae centrada en su caja y dentro del círculo se notaba. -->
+        <button
+            type="button"
+            class="carrusel-videos__flecha"
+            data-carrusel-prev
+            aria-label="Vídeo anterior"
+        >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 5l-7 7 7 7"></path>
+            </svg>
+        </button>
+        <button
+            type="button"
+            class="carrusel-videos__flecha"
+            data-carrusel-next
+            aria-label="Vídeo siguiente"
+        >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
+    </div>
+
+    <ul class="carrusel-videos__pista" aria-label={ariaLabel}>
+        {
+            videos.map(({ id, titulo }) => (
+                <li class="carrusel-videos__item">
+                    <button
+                        type="button"
+                        class="carrusel-videos__card"
+                        data-video-id={id}
+                        data-video-titulo={titulo}
+                    >
+                        <span class="carrusel-videos__miniatura">
+                            <img
+                                src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+                                alt=""
+                                loading="lazy"
+                                decoding="async"
+                            />
+                            <img
+                                class="carrusel-videos__play"
+                                src="/imgs/svg/youtube.svg"
+                                alt=""
+                            />
+                        </span>
+                        <span class="carrusel-videos__titulo">{titulo}</span>
+                    </button>
+                </li>
+            ))
+        }
+    </ul>
+
+    <dialog class="video-popup" aria-label="Reproductor de vídeo">
+        <form method="dialog">
+            <button class="video-popup-close" aria-label="Cerrar">×</button>
+        </form>
+        <div class="video-popup__marco">
+            <iframe
+                title=""
+                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                allowfullscreen></iframe>
+        </div>
+    </dialog>
+</div>

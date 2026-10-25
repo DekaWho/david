@@ -489,6 +489,61 @@ document.querySelectorAll('[data-abre-agenda]').forEach((boton) => {
     });
 });
 
+/* Carrusel de vídeos (CarruselVideos.astro): las flechas desplazan la pista
+   una tarjeta y se desactivan en los extremos — con un solo vídeo quedan las
+   dos apagadas, a la espera del siguiente. Cada miniatura abre el <dialog>
+   del carrusel y carga el vídeo en el iframe solo entonces; al cerrar el src
+   pasa a about:blank, que es lo único que para el audio (cerrar el dialog solo lo
+   oculta y el reproductor seguiría sonando). Mismo cierre por backdrop y
+   bloqueo de scroll que el popup de agendar. */
+document.querySelectorAll('[data-carrusel-videos]').forEach((carrusel) => {
+    const pista = carrusel.querySelector('.carrusel-videos__pista');
+    const prev = carrusel.querySelector('[data-carrusel-prev]');
+    const next = carrusel.querySelector('[data-carrusel-next]');
+    const dialogo = carrusel.querySelector('.video-popup');
+    const iframe = dialogo.querySelector('iframe');
+
+    /* El paso es el ancho de una tarjeta más el gap de la pista, así cada
+       click deja la siguiente alineada al borde (el scroll-snap remata). */
+    const paso = () => {
+        const item = pista.querySelector('.carrusel-videos__item');
+        if (!item) return pista.clientWidth;
+        const gap = parseFloat(getComputedStyle(pista).columnGap) || 0;
+        return item.getBoundingClientRect().width + gap;
+    };
+    /* Tolerancia de 1px: con anchos fraccionarios scrollLeft nunca llega
+       exacto al máximo y la flecha quedaría encendida en el último. */
+    const actualizarFlechas = () => {
+        const max = pista.scrollWidth - pista.clientWidth;
+        prev.disabled = pista.scrollLeft <= 1;
+        next.disabled = pista.scrollLeft >= max - 1;
+    };
+    prev.addEventListener('click', () => pista.scrollBy({ left: -paso(), behavior: 'smooth' }));
+    next.addEventListener('click', () => pista.scrollBy({ left: paso(), behavior: 'smooth' }));
+    pista.addEventListener('scroll', actualizarFlechas, { passive: true });
+    window.addEventListener('resize', actualizarFlechas);
+    actualizarFlechas();
+
+    carrusel.querySelectorAll('[data-video-id]').forEach((card) => {
+        card.addEventListener('click', () => {
+            iframe.src = `https://www.youtube-nocookie.com/embed/${card.dataset.videoId}?autoplay=1&rel=0`;
+            iframe.title = card.dataset.videoTitulo || '';
+            dialogo.showModal();
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    dialogo.addEventListener('close', () => {
+        iframe.src = 'about:blank';
+        document.body.style.overflow = '';
+    });
+    dialogo.addEventListener('click', (e) => {
+        if (e.target !== dialogo) return;
+        const r = dialogo.getBoundingClientRect();
+        const fuera = e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+        if (fuera) dialogo.close();
+    });
+});
+
 /* Banner de cookies — aviso informativo único, dismissed via localStorage.
    Solo aparece en páginas que cargan scripts.js (landings comerciales +
    posts del blog); transaccionales nunca lo ven.*/

@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 import Reviews from "../components/Reviews.astro";
 import AgendarLlamada from "../components/AgendarLlamada.astro";
+import CarruselVideos from "../components/CarruselVideos.astro";
 ---
 
 <BaseLayout
@@ -10,7 +11,7 @@ import AgendarLlamada from "../components/AgendarLlamada.astro";
     canonical="/agenda"
     ogTitle="¿Necesitas una auditoría?"
     ogUrl="https://davidvarea.com/agenda"
-    favicon="diamond"
+    favicon="fire"
     bodyClass="reviews-blanco oferta agenda title-alerta amago-scroll"
 >
     <div class="banner">
@@ -23,98 +24,51 @@ import AgendarLlamada from "../components/AgendarLlamada.astro";
                 />
             </div>
 
-            <h2>
+            <!-- <h2>
                 <span class="banner-subline">
                     <img class="emoji" src="/imgs/svg/handshake.svg" alt="🤝" />
                     David Varea
                 </span>
-            </h2>
-            <AgendarLlamada />
+            </h2> -->
 
             <h1 class="banner-h1--medium">
-                Esta es <u class="mark-amarillo">la peor landing</u> que verás
-                si tienes deficit de atención gracias a tiktok...
+                Audito y mejoro la oferta de
+                <u class="mark-amarillo">quien da servicios</u>{" "}
+                <span class="inciso-ligero">(en mercados saturados)</span> para
+                posicionarte como irremplazable
             </h1>
+            <AgendarLlamada />
+            <p class="inciso-hand">
+                El 83% de los servicios se han convertido en una commodity
+                <span class="text-rojo">sustituible por la IA</span> (y aunque
+                el tuyo no lo sea, tus clientes{" "}
+                <span class="squiggle">pueden sentir que sí)</span>
+            </p>
 
-            <h2>
-                <span class="inciso-hand">
-                    Pero es tu landing si te interesa una
-                    <strong class="text-rojo">
-                        Consultoría + Auditoría
-                    </strong>{" "}
-                    sobre generar demanda, <strong>convertir y retener</strong>{" "}
-                    al cliente.
-                </span>
-            </h2>
+            <p>
+                <u class="mark-amarillo">Si agendas llamada</u> para{" "}
+                <strong>el diagnóstico gratis</strong> te contaré el pequeño
+                ajuste que tienes que hacer en la comunicación para aumentar la
+                conversión y la retención de tus clientes.
+            </p>
         </section>
     </div>
 
     <div class="cuerpo">
-        <h2 style="font-family: var(--hand); color: var(--rojo)">
-            Qué recibes en la&nbsp;llamada
-        </h2>
-
-        <div class="regalo" aria-hidden="true"></div>
-
-        <p>
-            En esta llamada de media horita me cuentas{" "}
-            <u class="mark-amarillo">tu mayor dolor de cabeza</u> (en marketing
-            o ventas) y te cuento ahí mismo lo que yo estaría haciendo en tu
-            lugar.
-        </p>
-
-        <p>
-            <strong>
-                Si además de eso veo que tu perfil encaja (para seguir
-                ayudándote con mi acompañamiento) te ofreceré algo especial
-                porque soy todo un caballero...
-            </strong>
-        </p>
-
-        <p>
-            Si no es el caso, la idea igualmente es que{" "}
-            <span class="squiggle">salgas de la llamada mejor</span> de lo que
-            entraste.
-        </p>
-
-        <p>
-            <strong>
-                Esto son algunos ejemplos de lo que{" "}
-                <u class="mark-amarillo">puedo resolverte</u> durante la llamada
-                gratuita de media horita:
-            </strong>
-        </p>
-
-        <ul class="bold-even">
-            <li>
-                Si cumples los requisitos para subir (YA mismo) el precio de lo
-                que vendes.
-            </li>
-            <li>
-                El diagnóstico en tu oferta actual para ver si es incuestionable
-                o es una marca blanca ignorable.
-            </li>
-            <li>
-                La mejor forma para escalar sin acabar encarcelado en más equipo
-                y nuevos costes.
-            </li>
-            <li>
-                El peor error de copiar cómo lo está haciendo un referente en tu
-                sector y que es lo que sí puedes plagiar para que a ti te
-                resulte efectivo.
-            </li>
-        </ul>
-
-        <p>
-            Esto te lo llevas gratis en la llamada aunque después no trabajemos
-            juntos.
-        </p>
+        <CarruselVideos
+            videos={[
+                {
+                    id: "wZNt7pcrt3I",
+                    titulo: "Día 1 mejorando la oferta de un Media Buyer",
+                },
+            ]}
+        />
 
         <section class="seccion-blanca">
             <h2 class="titulo-compacto">
                 Me he gastado 19.970€ en cursos y mentorías de marketing y
                 ventas{" "}
-                <span class="aside-hand">
+                <span class="inciso-ligero">
                     (además de mi experiencia dando servicios)
                 </span>
                 para que tú no tengas que hacerlo...
@@ -127,71 +81,7 @@ import AgendarLlamada from "../components/AgendarLlamada.astro";
                 loading="lazy"
                 decoding="async"
             />
-
-            <p class="hand">
-                Y podría contarte más sobre mí pero para eso están los vídeos de
-                Youtube.
-            </p>
-            <p class="hand">
-                Si quieres la
-                <strong class="text-rojo">Consultoría + Auditoría</strong> sobre
-                generar demanda, <strong>convertir y retener</strong> al
-                cliente... Pulsa el botón de agendar.
-            </p>
         </section>
-
-        <span class="buscando icono-solido" aria-hidden="true"></span>
-
-        <h2
-            id="para-quien"
-            style="font-family: var(--hand); margin-top: var(--gap-2xl);"
-        >
-            Para{" "}
-            <span class="ink-circle ink-circle--azul">
-                quién
-                <svg
-                    class="ink-circle-svg"
-                    viewBox="0 0 100 60"
-                    preserveAspectRatio="none"
-                    aria-hidden="true"
-                >
-                    <path
-                        d="M 52 6 C 80 7 96 19 94 33 C 93 49 76 55 50 56 C 23 56 6 48 6 30 C 7 14 25 5 52 6"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        fill="none"
-                        stroke-linecap="round"
-                    ></path>
-                </svg>
-            </span>{" "}
-            es esto
-        </h2>
-        <p>
-            <strong>
-                Este servicio tiene sentido si te ves dentro de alguna de estas
-                situaciones:
-            </strong>
-        </p>
-        <ol type="A" style="margin-bottom: 5rem;">
-            <li>
-                Tu contenido de venta no está funcionando tan bien como
-                esperabas (anuncios, VSLs, lanzamientos, skool evergreen, venta
-                por stories, páginas de venta o email marketing)
-            </li>
-            <li>
-                Tus leads tienen demasiadas objeciones que dificultan cerrarlos.
-            </li>
-            <li>
-                Tu nicho está saturado (eso significa que hay muchos compradores
-                saturados de ver lo mismo pero con ganas de comprar. Solo tienes
-                que _________)
-            </li>
-            <li>
-                Quieres explicarme otro problema concreto sobre la conversión y
-                retención de los clientes.
-            </li>
-            <li>Ya vendes pero quieres reenfocarlo para vender high-ticket.</li>
-        </ol>
     </div>
 
     <Reviews id="opiniones" orden={["pascu", "rioboo", "gonzalo", "chuso"]} />

@@ -997,20 +997,36 @@ li::marker {
     }
 }
 
-/* /agenda hereda el hero de /oferta pero lo ordena distinto: firma → CTA →
-   titular → subtítulo, todo dentro del .hero. La firma y el botón se leen
-   como una pieza (quién y qué se agenda), así que el hueco entre ellos se
-   recoge; el botón cede su margin-top base porque en el flex del .hero los
-   márgenes no colapsan y se sumaría al de la firma. El subtítulo cierra el
-   hero como apostilla del titular, sin CTA debajo que reclame el aire que
-   /oferta le da, y va pegado a él en las dos anchuras. Estas reglas van tras
-   el @media de escritorio de /oferta: empatan en especificidad y ganan por
-   orden. */
+/* /agenda hereda el hero de /oferta pero lo ordena distinto, todo dentro del
+   .hero: foto → titular → apunte manuscrito → CTA → párrafo que lo explica.
+   Estas reglas van tras el @media de escritorio de /oferta: empatan en
+   especificidad y ganan por orden. */
 .agenda .banner h2:has(> .banner-subline:only-child) {
-    margin-bottom: var(--gap-md);
+    margin-bottom: var(--gap-sm);
 }
+/* Aire sobre la foto recortado como en /recursos: el hero carga titular,
+   apunte, párrafo y CTA, y lo que se ahorra arriba es lo que deja entrar el
+   botón en el primer pantallazo del móvil. */
+.agenda .banner {
+    padding-top: clamp(0.25rem, 1vh, 0.65rem);
+}
+.agenda .banner .hero-photo {
+    margin-top: 5px;
+}
+/* Sin la firma entre foto y titular, el hueco base de la foto lo dejaba
+   pegado a la primera línea del h1: se dobla para que la foto se lea como
+   pieza propia y no como parte del titular. */
+.agenda .banner .hero-photo-wrap {
+    margin-bottom: var(--gap-sm);
+}
+/* El CTA va justo bajo el titular, que es la promesa que el botón resuelve:
+   hueco corto por arriba para que se lean como una pieza. Por abajo lo
+   separa del apunte manuscrito, que remata el titular desde debajo del
+   botón; el margin-bottom base (4rem) lo descolgaba. En el flex del .hero
+   los márgenes no colapsan: cada hueco es la suma de los dos márgenes. */
 .agenda .hero > .block--calendario {
-    margin-top: 0;
+    margin-top: var(--gap-sm);
+    margin-bottom: var(--gap-lg);
 }
 .agenda .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
     margin-bottom: var(--gap-md);
@@ -1019,10 +1035,14 @@ li::marker {
    arranque de frase que el subtítulo remata («pero...» → «Es tu landing
    si...»), así que el h1 baja un punto para que el subtítulo se lea como su
    segunda mitad. Sigue un escalón por debajo: el .inciso-hand aplica
-   su 0.9em sobre este tamaño y es Kalam regular frente al Garamond bold. */
+   su 0.9em sobre este tamaño y es Kalam regular frente al Garamond bold.
+   El aire de arriba lo pone solo la firma; el de abajo baja del clamp en vh
+   de .banner-h1--medium a un hueco fijo porque los párrafos que siguen
+   desarrollan el titular y, despegados, se leían como otro bloque. */
 .agenda .banner h1.banner-h1--medium {
     font-size: 1.6rem;
-    margin-top: 1rem;
+    margin-top: 0;
+    margin-bottom: var(--gap-sm);
 }
 /* A este cuerpo, la columna recortada al 88% de /oferta parte el subtítulo en
    tres líneas en móvil: va a todo el ancho del .hero para quedarse en dos.
@@ -1049,6 +1069,47 @@ li::marker {
 @media (min-width: 801px) {
     .agenda .banner h1.banner-h1--medium {
         font-size: clamp(1.45rem, 2.3vw, 1.9rem);
+    }
+}
+/* Apunte a mano bajo el titular, el mismo de /recursos: pegado al h1 para
+   leerse como anotación suya, recto. En tinta y no en rojo: el rojo queda
+   para el tramo que nombra el problema (.text-rojo), que a frase entera
+   quedaría diluido. El cuerpo va a 0.75 del h1 de
+   esta página en cada anchura (no del --yt-h1 de /recursos), así que conserva
+   la misma proporción con su titular. */
+.agenda .banner h1:has(+ p.inciso-hand) {
+    margin-bottom: 0;
+}
+.agenda .banner .hero > p.inciso-hand {
+    color: var(--negro);
+    font-size: 1.2rem;
+    line-height: 1.2;
+    text-align: center;
+    margin: 1.4rem auto var(--gap-sm);
+}
+@media (min-width: 801px) {
+    .agenda .banner .hero > p.inciso-hand {
+        font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+    }
+    /* Los párrafos del hero, más estrechos que el titular: al ancho entero de
+       la columna quedaban en líneas largas que pesaban tanto como el h1. */
+    .agenda .banner .hero > p {
+        max-width: 32rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    /* Los huecos del hero están ajustados para que el CTA entre en el primer
+       pantallazo del móvil; en escritorio sobra alto y a esas medidas las
+       piezas se leían amontonadas, así que cada hueco sube un escalón. */
+    .agenda .banner .hero-photo-wrap {
+        margin-bottom: var(--gap-md);
+    }
+    .agenda .banner .hero > p.inciso-hand {
+        margin-top: var(--gap-lg);
+    }
+    .agenda .hero > .block--calendario {
+        margin-top: var(--gap-md);
+        margin-bottom: var(--gap-xl);
     }
 }
 
@@ -1102,20 +1163,46 @@ li::marker {
     font-size: clamp(1.25rem, 1.6vw, 1.55rem);
 }
 
-/* Condición de entrada bajo el titular, como apunte a mano: pegada al h1 (que
-   le cede su hueco) para leerse como anotación suya y no como un párrafo más,
-   en el rojo con que el sitio acota a quién va la oferta. Recta: bajo un
-   titular centrado, el tilt la descolgaba del eje. Cuerpo por debajo de la
+/* Apunte bajo el titular: pegado al h1 (que le cede su hueco) para leerse
+   como anotación suya y no como un párrafo más. La frase va en serif y solo
+   el paréntesis en Kalam (.inciso-hand), con el rojo en el tramo que remata
+   el problema (.text-rojo). Centrado con el titular. Cuerpo por debajo de la
    lista de temas, atado a la misma escala: es una acotación, no contenido. */
-.recursos .banner h1:has(+ p.inciso-hand) {
-    margin-bottom: 0;
+/* A este cuerpo de titular, el apunte pegado se leía como su última línea:
+   el hueco es este margen más el margin-top del apunte. */
+.recursos .banner h1:has(+ p.hero-apunte) {
+    margin-bottom: var(--gap-sm);
 }
-.recursos .banner .hero > p.inciso-hand {
-    color: var(--rojo);
-    font-size: calc(var(--yt-h1) * 0.75);
-    line-height: 1.2;
+/* El titular sale de la escala compacta (--yt-h1) que heredó de /youtube:
+   aquella era para un H1 de frase larga y este cabe en dos o tres líneas, así
+   que a ese cuerpo se quedaba pequeño frente al apunte. --yt-h1 se mantiene
+   para el apunte y lo demás que cuelga de ella, que no deben crecer. El
+   cuerpo está medido para que el texto llene la columna: en móvil (360px)
+   tres líneas casi de borde a borde, y en escritorio (1280px) dos. Por
+   debajo quedaba aire muerto a los lados; por encima, una línea más.
+   Cambiar el texto del h1 obliga a volver a medirlo. */
+.recursos .banner h1 {
+    font-size: clamp(2rem, 3.5vw, 2.6rem);
+}
+.recursos .banner .hero > p.hero-apunte {
+    color: var(--negro);
+    font-size: calc(var(--yt-h1) * 0.85);
+    line-height: 1.25;
     text-align: center;
-    margin: 0.4rem auto var(--gap-md);
+    margin: var(--gap-sm) auto var(--gap-md);
+}
+/* Squiggle más fino que el de cuerpo en el apunte bajo el titular (aquí y en
+   /agenda): a un cuerpo menor, el trazo base pesaba tanto como el subrayado
+   amarillo del titular y le disputaba el foco. Color hardcodeado: data URIs no soportan currentColor. */
+.recursos .hero-apunte .squiggle,
+.agenda .banner .hero > p.inciso-hand .squiggle {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='1.6' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+}
+@media (max-width: 800px) {
+    .recursos .hero-apunte .squiggle,
+    .agenda .banner .hero > p.inciso-hand .squiggle {
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='2.6' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
+    }
 }
 
 /* Los temas de la carpeta van en lista bajo el titular: el h1 anuncia la
@@ -1667,6 +1754,12 @@ h2:has(+ .figura-apreton) {
    sintetizado. */
 .banner h1 .inciso-ligero {
     font-weight: 500;
+}
+/* Mismo inciso en un h2 de sección: sin regla propia heredaba el peso del
+   titular y no se distinguía. Baja dos escalones como en el h1 (700 → 500),
+   aquí desde el 600 de .titulo-compacto en /agenda. */
+.titulo-compacto .inciso-ligero {
+    font-weight: 400;
 }
 
 /* Aside inline en Kalam: cambia la familia tipográfica para marcar registro
@@ -3975,7 +4068,7 @@ audio::-webkit-media-controls-panel {
    margen del heading no mueve nada. */
 .hero-card {
     position: relative;
-    margin: 0 14px clamp(180px, 23.5vh, 214px);
+    margin: 0 14px clamp(150px, 20vh, 184px);
     background: var(--blanco);
     padding: 0 12px 2rem;
 }
@@ -4722,7 +4815,7 @@ button.block--calendario {
     }
 
     .hero-card {
-        margin: 0 0 clamp(196px, 25.5vh, 256px);
+        margin: 0 0 clamp(166px, 22vh, 226px);
         padding: 0 22px 2rem;
     }
 
@@ -5179,13 +5272,17 @@ button.block--calendario {
     font-family: inherit;
 }
 
-/* Botón del cajetín de /recursos: el primary azul de la home con su misma
-   sombra (la tinta al 35% de .home .block) — la dura azul de .block se
-   fundiría con el fondo del botón y la tinta plena pesa más que el botón.
-   Es la card de la home continuada en la landing: mismo azul, mismo icono y
-   misma flecha. */
+/* Botón del cajetín de /recursos: los colores del CTA de agendar
+   (.block--calendario, blanco con borde, texto y sombra en azul) y no el
+   primary azul, porque el diamante del icono, azul y blanco, se perdía sobre
+   el fondo azul. Conserva el icono y la flecha de su card en la home. */
 .recursos .optin .block--primary {
-    box-shadow: 4px 4px 0 color-mix(in srgb, var(--negro) 35%, transparent);
+    background: var(--blanco);
+    border: 1px solid var(--azul);
+    box-shadow: 4px 4px 0 var(--azul);
+}
+.recursos .optin .block--primary :is(.title, .arrow) {
+    color: var(--azul);
 }
 /* Botón del popup de agendar: repite el CTA que lo abre (.block--calendario,
    blanco con borde, texto y sombra en azul), así el visitante lee el form
@@ -6651,6 +6748,214 @@ body.blog-hub .banner-subline {
 }
 @media (prefers-reduced-motion: reduce) {
     .agenda-popup[open] {
+        animation: none;
+    }
+}
+
+/* ---------- Carrusel de vídeos (CarruselVideos.astro) ---------- */
+
+/* Pista con scroll horizontal nativo + scroll-snap: en móvil se arrastra con
+   el dedo sin JS y las flechas son el atajo de escritorio. En móvil se ven
+   tarjeta y media y en escritorio dos y media: la tarjeta cortada al borde
+   es la señal de que hay más. */
+.carrusel-videos {
+    margin: 0 0 var(--gap-xl);
+}
+.carrusel-videos__flechas {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+/* Círculo y no el rectángulo de los controles del sitio: son controles de
+   navegación sueltos, y en cuadrado se leían como dos casillas vacías. Sin
+   borde: el blanco ya los recorta sobre el papel del cuerpo. */
+.carrusel-videos__flecha {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0;
+    color: var(--negro);
+    background-color: var(--blanco);
+    border: 0;
+    border-radius: var(--radius-circle);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.carrusel-videos__flecha svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.carrusel-videos__flecha:hover:not(:disabled) {
+    color: var(--azul);
+}
+.carrusel-videos__flecha:disabled {
+    opacity: 0.3;
+    cursor: default;
+}
+.carrusel-videos__pista {
+    display: flex;
+    gap: var(--gap-sm);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+.carrusel-videos__pista::-webkit-scrollbar {
+    display: none;
+}
+.carrusel-videos__item {
+    flex: 0 0 calc((100% - var(--gap-sm)) / 1.5);
+    margin: 0;
+    scroll-snap-align: start;
+}
+.carrusel-videos__card {
+    display: block;
+    width: 100%;
+    padding: 0;
+    font: inherit;
+    color: var(--negro);
+    text-align: left;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+/* La hqdefault de YouTube es 4:3 con franjas negras arriba y abajo en los
+   vídeos 16:9: la caja en 16:9 con object-fit: cover las recorta. */
+.carrusel-videos__miniatura {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+.carrusel-videos__miniatura img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.carrusel-videos__miniatura .carrusel-videos__play {
+    position: absolute;
+    inset: 0;
+    width: 2.4rem;
+    height: auto;
+    margin: auto;
+    object-fit: contain;
+    /* Semitransparente para que no tape la miniatura, que es lo que vende el
+       click; al hover vuelve opaco como confirmación de que es pulsable. */
+    opacity: 0.6;
+    transition:
+        opacity 0.2s,
+        transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.carrusel-videos__card:hover .carrusel-videos__play {
+    opacity: 1;
+    transform: scale(1.1) rotate(-3deg);
+}
+/* El pie va en una banda blanca pegada a la miniatura: sobre el papel suelto
+   el título flotaba y no se leía como parte de la tarjeta. */
+/* Dos líneas como máximo: a tarjeta y media por pantalla el pie es estrecho
+   en móvil, y con tres el título pesaba más que la miniatura. El cuerpo y
+   el padding van ajustados para que un título de YouTube típico (~60
+   caracteres) quepa en dos; el line-clamp es el tope para uno más largo,
+   que se corta con puntos suspensivos en vez de abrir una tercera. */
+.carrusel-videos__titulo {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    padding: 0.4rem 0.4rem;
+    text-align: center;
+    background-color: var(--blanco);
+    font-family: var(--serif);
+    font-size: 0.8rem;
+    font-weight: 500;
+    /* Sin partición: el `hyphens: auto` del html cortaba palabras con guion
+       en un pie de dos líneas, donde la palabra partida se lee peor que una
+       línea más corta. */
+    -webkit-hyphens: none;
+    hyphens: none;
+    line-height: 1.25;
+}
+@media (min-width: 801px) {
+    .carrusel-videos__item {
+        flex-basis: calc((100% - 2 * var(--gap-sm)) / 2.5);
+    }
+    .carrusel-videos__titulo {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.95rem;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .carrusel-videos__play {
+        transition: opacity 0.2s;
+    }
+}
+
+/* Popup del reproductor: mismo contrato que .agenda-popup (dialog nativo en
+   la top layer, borde tinta, velo del sistema) pero sin padding de carta —
+   el vídeo llena la caja y la X va por encima, fuera del iframe, porque
+   dentro taparía los controles del reproductor. */
+.video-popup {
+    box-sizing: border-box;
+    width: min(56rem, calc(100% - 2 * var(--gap-sm)));
+    max-width: none;
+    padding: 3rem 0 0;
+    overflow: visible;
+    background-color: var(--negro);
+    border: 1px solid var(--negro);
+}
+.video-popup[open] {
+    animation: exit-popup-card-in 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.video-popup::backdrop {
+    background-color: color-mix(in srgb, var(--negro) 75%, transparent);
+}
+.video-popup__marco {
+    aspect-ratio: 16 / 9;
+}
+.video-popup__marco iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+/* La X de .agenda-popup-close, aclarada: va sobre la franja negra del
+   popup y el gris derivado de tinta no se vería. */
+.video-popup-close {
+    position: absolute;
+    top: 1px;
+    right: 0.25rem;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    font-size: 2rem;
+    line-height: 0.9;
+    color: color-mix(in srgb, var(--blanco) 75%, transparent);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    transition: color 0.2s;
+}
+.video-popup-close:hover {
+    color: var(--rojo);
+}
+@media (prefers-reduced-motion: reduce) {
+    .video-popup[open] {
         animation: none;
     }
 }
