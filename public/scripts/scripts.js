@@ -769,7 +769,7 @@ document.querySelectorAll('[data-carrusel-videos]').forEach((carrusel) => {
 
     /* Quietud (ms) antes de cada amago, en orden; agotada la lista, el
        último valor se repite indefinidamente. */
-    const ESPERAS = [4500, 3000, 5000, 2000];
+    const ESPERAS = [5000, 5000, 5000, 2000];
     const DURACION = 1400;        // bajada + vuelta de cada amago
     const DISTANCIA = 70;         // px que asoma el contenido de abajo
 
