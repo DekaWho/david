@@ -1177,12 +1177,17 @@ li::marker {
    aquella era para un H1 de frase larga y este cabe en dos o tres líneas, así
    que a ese cuerpo se quedaba pequeño frente al apunte. --yt-h1 se mantiene
    para el apunte y lo demás que cuelga de ella, que no deben crecer. El
-   cuerpo está medido para que el texto llene la columna: en móvil (360px)
-   tres líneas casi de borde a borde, y en escritorio (1280px) dos. Por
-   debajo quedaba aire muerto a los lados; por encima, una línea más.
+   cuerpo va un escalón por debajo del que llenaba la columna de borde a
+   borde, para que el titular no se coma el fold antes del cajetín.
    Cambiar el texto del h1 obliga a volver a medirlo. */
 .recursos .banner h1 {
-    font-size: clamp(2rem, 3.5vw, 2.6rem);
+    font-size: clamp(1.75rem, 3.1vw, 2.3rem);
+}
+/* Hueco propio entre titular y cajetín. El h1 es el último hijo del hero y
+   la regla compartida de .hero > :last-child le anula el margen: el selector
+   repite el :last-child para ganarle en especificidad. */
+.recursos .banner .hero > h1:last-child {
+    margin-bottom: var(--gap-xl);
 }
 .recursos .banner .hero > p.hero-apunte {
     color: var(--negro);
