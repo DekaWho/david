@@ -6,6 +6,7 @@ const {
     canonical = null,
     ogTitle = null,
     ogDescription = "Pulsa el enlace para descubrirlo",
+    description = null,
     ogImage = "https://davidvarea.com/imgs/profile-pic.webp",
     ogUrl = null,
     ogType = "website",
@@ -36,8 +37,19 @@ const siteSchema = {
             url: "https://davidvarea.com/",
             image: "https://davidvarea.com/imgs/profile-pic.webp",
             jobTitle:
-                "Estratega de Growth: Generación de demanda, conversión y retención de clientes",
+                "Consultor de performance: conversión y retención del cliente",
             description: BIO_PERSON,
+            /* Temas que la web respalda con texto visible: un tema sin página
+               que lo sostenga diluye la entidad en vez de reforzarla. */
+            knowsAbout: [
+                "Optimización de la conversión",
+                "Retención de clientes",
+                "Auditoría de ofertas",
+                "Posicionamiento de servicios en mercados saturados",
+                "Reducción del coste de adquisición (CAC)",
+                "Aumento del valor de vida del cliente (LTV)",
+                "Marketing para empresas de servicios",
+            ],
             sameAs: [
                 "https://www.linkedin.com/in/varea/",
                 "https://www.instagram.com/david_varea/",
@@ -94,6 +106,10 @@ const faviconHref = (size) => `${faviconPrefix}${size}.png`;
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 <title>{titulo}</title>
+{/* Solo se emite cuando la página pasa la suya: con un texto genérico Google
+   la reescribiría igual, así que sin ella el snippet lo redacta Google desde
+   el contenido. */}
+{description && <meta name="description" content={description} />}
 {
     canonical && (
         <link rel="canonical" href={`https://davidvarea.com${canonical}`} />
