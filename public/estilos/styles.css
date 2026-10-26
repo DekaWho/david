@@ -5280,7 +5280,10 @@ button.block--calendario {
 /* Botón del cajetín de /recursos: los colores del CTA de agendar
    (.block--calendario, blanco con borde, texto y sombra en azul) y no el
    primary azul, porque el diamante del icono, azul y blanco, se perdía sobre
-   el fondo azul. Conserva el icono y la flecha de su card en la home. */
+   el fondo azul. Conserva el icono y la flecha de su card en la home. El
+   peso 700 deshace el 500 de .optin .block--primary .title: es el peso de
+   .block--calendario, y con el 500 el azul sobre blanco se lee desvaído
+   al lado del CTA al que imita. */
 .recursos .optin .block--primary {
     background: var(--blanco);
     border: 1px solid var(--azul);
@@ -5288,6 +5291,14 @@ button.block--calendario {
 }
 .recursos .optin .block--primary :is(.title, .arrow) {
     color: var(--azul);
+    font-weight: 700;
+}
+/* Flecha igual que la de .block--calendario: deshace el cuerpo y la opacidad
+   plena de .banner .block--primary .arrow, pensados para la flecha blanca
+   sobre el primary azul. */
+.recursos .optin .block--primary .arrow {
+    font-size: 1.111rem;
+    opacity: 0.5;
 }
 /* Botón del popup de agendar: repite el CTA que lo abre (.block--calendario,
    blanco con borde, texto y sombra en azul), así el visitante lee el form
@@ -5305,11 +5316,14 @@ button.block--calendario {
 }
 .agenda-popup .optin .block--primary :is(.title, .arrow) {
     color: var(--azul);
+    font-weight: 700;
 }
+/* Título en 700 y flecha a media opacidad: los de .block--calendario, que
+   el 500 de .optin .block--primary .title y la opacidad plena de
+   .banner .block--primary .arrow pisarían. */
 .agenda-popup .optin .block--primary .arrow {
     font-size: 1.111rem;
-    font-weight: 700;
-    opacity: 1;
+    opacity: 0.5;
 }
 /* Repite el apagado del hover de .block, al que las reglas de arriba ganan
    en especificidad: sin esto el botón se desplaza con la sombra detrás. */
