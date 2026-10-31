@@ -94,6 +94,11 @@
        existentes (var(--shadow-soft), var(--shadow-press)) en componentes. */
     --shadow-soft: none;
     --shadow-press: none;
+
+    /* Excepción a lo anterior: no contornea un objeto, hunde un hueco. Sombra
+       interior de los campos de formulario, para que se lean como una caja
+       rebajada en el papel y no como un rectángulo plano. */
+    --shadow-hueco: inset 0 2px 4px color-mix(in srgb, var(--negro) 20%, transparent);
 }
 
 /* Estos 18px son la unidad de medida de todo el sitio, así que TODO font-size
@@ -5000,11 +5005,14 @@ button.block--calendario {
     border: 2px solid var(--negro);
     border-radius: var(--radius-control);
     outline: none;
+    box-shadow: var(--shadow-hueco);
 }
 
+/* box-shadow no se acumula entre reglas: el halo de foco repite el hueco para
+   que la caja no se aplane al entrar en ella. */
 .optin input:is([type="email"], [type="text"], [type="tel"]):focus {
     border-color: var(--azul);
-    box-shadow: 0 0 0 3px var(--azul-10);
+    box-shadow: var(--shadow-hueco), 0 0 0 3px var(--azul-10);
 }
 
 /* ---- Paso 2 del optin: preguntas de segmentación (prop `segmentar` de
