@@ -53,12 +53,14 @@ const {
     // Etiqueta del teléfono en el paso 2 de `contacto` y, opcional, una
     // nota de apoyo debajo del campo (p.ej. para qué se usará el número).
     // La etiqueta por defecto es el copy común de todos los forms que piden
-    // nombre + WhatsApp (popup de agendar, cajetín de /recursos): justifica
-    // pedir el número sin prometer llamada. Un form nuevo con `contacto` la
-    // hereda; sobrescribirla solo si el número se pide para otra cosa.
+    // nombre + WhatsApp (popup de agendar, cajetín de /recursos), y va
+    // precedida del logo de WhatsApp: el logo dice por qué canal llegará el
+    // contacto, así que la palabra basta. Un form nuevo con `contacto` la
+    // hereda; sobrescribirla solo si el número se pide para otra cosa
+    // (el logo sale igual, así que en ese caso habría que condicionarlo).
     // La nota admite HTML inline (<strong>…) y se inyecta tal cual: solo
     // pasarle copy escrito en el repo, nunca nada que venga de la URL.
-    telefonoLabel = "Tu whatsapp para saber que no eres un bot",
+    telefonoLabel = "Whatsapp",
     telefonoNota,
     // `consentimiento`: casilla obligatoria junto al email, sin marcar de
     // inicio, que sustituye a la nota de privacidad. El valor es el texto
@@ -194,7 +196,7 @@ const preguntas = [
             <div class="optin-paso2" hidden>
                 <label class="optin-campo" data-campo="name">
                     <span class="optin-campo-label">
-                        Tu nombre (no hace falta apellidos)<span class="optin-obligatorio" aria-hidden="true">*</span>
+                        Tu nombre<span class="optin-obligatorio" aria-hidden="true">*</span>
                     </span>
                     <input
                         type="text"
@@ -214,8 +216,8 @@ const preguntas = [
                     phone. Cada caja va en su <label>, con la pista de
                     debajo como nombre accesible. */}
                 <div class="optin-campo" data-campo="phone">
-                    <span class="optin-campo-label">
-                        {telefonoLabel}<span class="optin-obligatorio" aria-hidden="true">*</span>
+                    <span class="optin-campo-label optin-campo-label--whatsapp">
+                        <img class="optin-whatsapp-logo" src="/imgs/svg/whatsapp.svg" alt="" width="20" height="20" /><span>{telefonoLabel}<span class="optin-obligatorio" aria-hidden="true">*</span></span>
                     </span>
                     {telefonoNota && <span class="optin-campo-nota" set:html={telefonoNota} />}
                     <div class="optin-telefono">

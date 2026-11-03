@@ -5161,6 +5161,21 @@ button.block--calendario {
     color: var(--negro);
 }
 
+/* Logo de WhatsApp delante de la etiqueta del teléfono. Es logo de marca,
+   no figura del set monocromo: trae su verde propio en el SVG y queda fuera
+   de la técnica de máscara. Mide 1.1em para casar con la altura de la
+   etiqueta y escalar con ella. */
+.optin-campo-label--whatsapp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+}
+.optin-whatsapp-logo {
+    width: 1.1em;
+    height: 1.1em;
+    flex-shrink: 0;
+}
+
 /* Nota bajo la etiqueta de un campo (prop `telefonoNota`): mismo calibre
    que .optin-telefono-pista pero en tinta plena, no en gris: responde a la
    duda que frena el campo (para qué quieren mi número), así que tiene que
