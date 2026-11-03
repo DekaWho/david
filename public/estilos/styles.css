@@ -926,13 +926,17 @@ li::marker {
    que se lea fino; con dos se quedaba en peso de cuerpo. */
 .oferta .cuerpo h2.titulo-compacto {
     font-weight: 600;
-    text-align: left;
+    text-align: center;
+    /* Abre el .cuerpo, que ya hereda el margen del banner y el suyo propio:
+       el 2.5em base de .titulo-compacto separa secciones dentro de un flujo. */
+    margin-top: var(--gap-sm);
 }
-/* En móvil el .cuerpo deja solo 5px de gutter: el titular alineado a la
-   izquierda arrancaba pegado al borde de la pantalla. */
+/* En móvil el .cuerpo deja solo 5px de gutter: sin este aire, las líneas
+   largas del titular tocarían los bordes de la pantalla. Simétrico para no
+   descentrarlo. */
 @media (max-width: 700px) {
     .oferta .cuerpo h2.titulo-compacto {
-        padding-left: 0.45rem;
+        padding-inline: 0.45rem;
     }
 }
 /* En escritorio la columna de 36vw del .cuerpo parte este titular largo en
@@ -1018,20 +1022,15 @@ li::marker {
 .agenda .banner .hero-photo {
     margin-top: 5px;
 }
-/* Sin la firma entre foto y titular, el hueco base de la foto lo dejaba
-   pegado a la primera línea del h1: se dobla para que la foto se lea como
-   pieza propia y no como parte del titular. */
-.agenda .banner .hero-photo-wrap {
-    margin-bottom: var(--gap-sm);
-}
 /* El CTA va justo bajo el titular, que es la promesa que el botón resuelve:
-   hueco corto por arriba para que se lean como una pieza. Por abajo lo
-   separa del apunte manuscrito, que remata el titular desde debajo del
-   botón; el margin-bottom base (4rem) lo descolgaba. En el flex del .hero
-   los márgenes no colapsan: cada hueco es la suma de los dos márgenes. */
-.agenda .hero > .block--calendario {
-    margin-top: var(--gap-sm);
-    margin-bottom: var(--gap-lg);
+   hueco corto por arriba para que se lean como una pieza. En el flex del
+   .hero los márgenes no colapsan: cada hueco es la suma de los dos márgenes.
+   Cierra el hero, así que el margin-bottom se suma al padding-bottom del
+   .banner. El `.banner` del selector gana en especificidad al
+   `.banner .hero > :last-child { margin-bottom: 0 }` compartido. */
+.agenda .banner .hero > .block--calendario {
+    margin-top: var(--gap-md);
+    margin-bottom: var(--gap-2xl);
 }
 .agenda .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
     margin-bottom: var(--gap-md);
@@ -1041,13 +1040,13 @@ li::marker {
    si...»), así que el h1 baja un punto para que el subtítulo se lea como su
    segunda mitad. Sigue un escalón por debajo: el .inciso-hand aplica
    su 0.9em sobre este tamaño y es Kalam regular frente al Garamond bold.
-   El aire de arriba lo pone solo la firma; el de abajo baja del clamp en vh
-   de .banner-h1--medium a un hueco fijo porque los párrafos que siguen
-   desarrollan el titular y, despegados, se leían como otro bloque. */
+   Huecos fijos en vez del clamp en vh de .banner-h1--medium, para que el
+   titular respire igual en cualquier alto de pantalla. El .hero es flex: se
+   suman al margen inferior de la firma y al superior del CTA. */
 .agenda .banner h1.banner-h1--medium {
     font-size: 1.6rem;
-    margin-top: 0;
-    margin-bottom: var(--gap-sm);
+    margin-top: var(--gap-md);
+    margin-bottom: var(--gap-md);
 }
 /* A este cuerpo, la columna recortada al 88% de /oferta parte el subtítulo en
    tres líneas en móvil: va a todo el ancho del .hero para quedarse en dos.
@@ -1106,15 +1105,12 @@ li::marker {
     /* Los huecos del hero están ajustados para que el CTA entre en el primer
        pantallazo del móvil; en escritorio sobra alto y a esas medidas las
        piezas se leían amontonadas, así que cada hueco sube un escalón. */
-    .agenda .banner .hero-photo-wrap {
-        margin-bottom: var(--gap-md);
-    }
     .agenda .banner .hero > p.inciso-hand {
         margin-top: var(--gap-lg);
     }
-    .agenda .hero > .block--calendario {
-        margin-top: var(--gap-md);
-        margin-bottom: var(--gap-xl);
+    .agenda .banner .hero > .block--calendario {
+        margin-top: var(--gap-lg);
+        margin-bottom: var(--gap-4xl);
     }
 }
 

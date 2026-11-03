@@ -4,17 +4,21 @@ import FooterDisclaimer from "../components/FooterDisclaimer.astro";
 import Reviews from "../components/Reviews.astro";
 import AgendarLlamada from "../components/AgendarLlamada.astro";
 import CarruselVideos from "../components/CarruselVideos.astro";
+
+// Amago de scroll en pausa. Para reactivarlo, cambiar la línea activa por esta:
+// const bodyClass = "reviews-blanco oferta agenda title-alerta amago-scroll";
+const bodyClass = "reviews-blanco oferta agenda title-alerta";
 ---
 
 <BaseLayout
-    titulo="¿Das servicios en un mercado saturado?"
+    titulo="¿Tu comisión del 10% te sabe a poco?"
     canonical="/agenda"
-    ogTitle="¿Das servicios en un mercado saturado?"
+    ogTitle="¿Tu comisión del 10% te sabe a poco?"
     ogDescription="Cuidado con..."
-    description="¿Das servicios en un mercado saturado? Audito tu oferta para posicionarte como imprescindible y no como una commodity. Agenda llamada para tu diagnóstico."
+    description="¿Tu comisión del 10% te sabe a poco? Instalo nuevas ofertas para closers que quieren crear su propio servicio."
     ogUrl="https://davidvarea.com/agenda"
     favicon="fire"
-    bodyClass="reviews-blanco oferta agenda title-alerta amago-scroll"
+    bodyClass={bodyClass}
 >
     <div class="banner">
         <section class="hero">
@@ -26,69 +30,45 @@ import CarruselVideos from "../components/CarruselVideos.astro";
                 />
             </div>
 
-            <!-- <h2>
+            <h2>
                 <span class="banner-subline">
                     <img class="emoji" src="/imgs/svg/handshake.svg" alt="🤝" />
                     David Varea
                 </span>
-            </h2> -->
+            </h2>
 
             <h1 class="banner-h1--medium">
-                Audito y mejoro la oferta de
-                <u class="mark-amarillo">quien da servicios</u>{" "}
-                <span class="inciso-ligero">(en mercados saturados)</span> para
-                posicionarte como imprescindible{" "}
+                Instalo ofertas singulares{" "}
+                <u class="mark-amarillo">para closers</u> que la comisión del{" "}
+                <span class="squiggle">10% les sabe a poco</span> y quieren
+                crear su propio servicio
                 <span class="inciso-hand">
-                    y no como una{" "}
-                    <span class="squiggle">commodity reemplazable</span>
+                    (incluso en un mercado saturado)
                 </span>
             </h1>
             <AgendarLlamada />
-
-            <p>
-                <u class="mark-amarillo">Si agendas llamada</u> para{" "}
-                <strong>el diagnóstico gratis</strong> te contaré el pequeño
-                ajuste que tienes que hacer en tu comunicación para aumentar la
-                conversión y la retención de tus clientes.
-            </p>
         </section>
     </div>
 
     <div class="cuerpo">
-        <CarruselVideos
-            videos={[
-                {
-                    id: "wZNt7pcrt3I",
-                    titulo: "Un cliente LE SUSTITUYE por LA IA y se lo dice a la cara",
-                },
-                {
-                    id: "Fok2TZ5P37E",
-                    titulo: "Estuve en los Juegos de Abreu sin haber sido closer antes",
-                },
-            ]}
+        <h2 class="titulo-compacto">
+            Me he gastado 19.970€ en mentorías para diseñar y posicionar ofertas{" "}
+            <span class="inciso-ligero">
+                (además de mi experiencia dando servicios)
+            </span>
+            para que tú no tengas que hacerlo...
+        </h2>
+
+        <img
+            class="banner-proof"
+            src="/imgs/heads.webp"
+            alt="las caras de los referentes estudiados"
+            loading="lazy"
+            decoding="async"
         />
-
-        <section class="seccion-blanca">
-            <h2 class="titulo-compacto">
-                Me he gastado 19.970€ en cursos y mentorías de marketing y
-                ventas{" "}
-                <span class="inciso-ligero">
-                    (además de mi experiencia dando servicios)
-                </span>
-                para que tú no tengas que hacerlo...
-            </h2>
-
-            <img
-                class="banner-proof"
-                src="/imgs/heads.webp"
-                alt="las caras de los referentes estudiados"
-                loading="lazy"
-                decoding="async"
-            />
-        </section>
     </div>
 
-    <Reviews id="opiniones" orden={["pascu", "rioboo", "gonzalo", "chuso"]} />
+    <Reviews id="opiniones" orden={["pascu", "rioboo", "gonzalo"]} />
 
     <div class="cuerpo">
         <AgendarLlamada />
