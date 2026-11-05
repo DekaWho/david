@@ -1,7 +1,7 @@
 ---
-/* Bloque de prueba social: titular breaker + franja de tinta con los cuatro
-   testimonios (la placa de 100k del canal de Chuso Montero y tres reviews en
-   audio — Pascual Cabedo, Gonzalo Zahonero, Rioboo), + remate "SUFICIENTE" y
+/* Bloque de prueba social: titular breaker + franja de tinta con los cinco
+   testimonios (la placa de 100k del canal de Chuso Montero y cuatro reviews en
+   audio — Pascual Cabedo, Gonzalo Zahonero, Rioboo, Cristina Dayz), + remate "SUFICIENTE" y
    flecha a la oferta. Montado en /agenda y /servicios. El texto
    de cada testimonio es markup fijo, así que editarlo aquí lo cambia en todas
    las páginas; lo que SÍ varía por página es el orden (prop "orden").
@@ -35,12 +35,11 @@
      Una clave fuera de la lista se ignora
      y una que falte deja ese testimonio sin renderizar: es la forma de
      quitar uno de una página.
-
    El titular por defecto se decide con Astro.slots.has, no con contenido
    fallback dentro del <slot>: rellenar un slot que lleva fallback markup hace
    que Astro descarte el markup hermano del componente (las reviews enteras).
    Con el ternario el titular es un hermano más y la sección siempre renderiza. */
-const ORDEN_POR_DEFECTO = ["pascu", "rioboo", "gonzalo", "chuso"];
+const ORDEN_POR_DEFECTO = ["pascu", "rioboo", "gonzalo", "chuso", "cristina"];
 const {
     flechaFinal = true,
     id = "reviews",
@@ -152,6 +151,35 @@ const {
                             trading. Te contaría más al respecto pero tenemos
                             acuerdos de confidencialidad que nos impiden ████
                             █████ █████ ██ ████████ ████ ██ ██████████
+                        </p>
+                    </Fragment>
+                );
+
+            if (clave === "cristina")
+                return (
+                    <Fragment>
+                        <div class="player-container review-card">
+                            <img class="avatar" src="/reviews/cristina.webp" />
+
+                            <audio
+                                controls
+                                controlslist="nodownload noplaybackrate"
+                            >
+                                <source
+                                    src="/reviews/cristina.mp3"
+                                    type="audio/mpeg"
+                                />
+                                Tu navegador no soporta audio HTML5.
+                            </audio>
+                        </div>
+
+                        <p>
+                            <span class="squiggle squiggle--alt">
+                                Cristina Dayz
+                            </span>
+                            tiene más de 81k suscriptores en YouTube y 7M de
+                            visitas en total con sus vídeos sobre finanzas.
+                            Esto es lo que dijo de mí.
                         </p>
                     </Fragment>
                 );
