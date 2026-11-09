@@ -23,6 +23,10 @@
      el histórico de /servicios (lleva tiempo en producción, no renombrar);
      las landings de consultoría pasan "opiniones". Solo aplica al fallback:
      una página que rellena el slot "titulo" pone el ancla en su propio markup.
+   - slot "antes-audios": entradilla opcional dentro de la franja de tinta,
+     antes del primer testimonio. Vacío por defecto; /agenda mete ahí un <p>
+     que presenta la prueba. No altera el torcido alterno: las reglas van por
+     nth-of-type sobre las .review-card (div), y un <p> no cuenta.
    - slot "tras-audios": punto de inserción opcional entre la franja de audios y
      el cierre "SUFICIENTE". Vacío por defecto (no renderiza nada), así que solo
      aparece donde se rellena. /opinan-sobre-mi mete ahí un testimonio extra
@@ -75,6 +79,8 @@ const {
 
 <section class="seccion-tinta seccion-tinta--separada">
     <div class="cuerpo">
+        <slot name="antes-audios" />
+
         {orden.map((clave) => {
             if (clave === "chuso")
                 return (
@@ -178,8 +184,8 @@ const {
                                 Cristina Dayz
                             </span>
                             tiene más de 81k suscriptores en YouTube y 7M de
-                            visitas en total con sus vídeos sobre finanzas.
-                            Esto es lo que dijo de mí.
+                            visitas en total con sus vídeos sobre finanzas. Esto
+                            es lo que dijo de mí.
                         </p>
                     </Fragment>
                 );
@@ -205,19 +211,17 @@ const {
                         <p>
                             Esto es lo que dice
                             <span class="squiggle squiggle--alt">
-                                Pascual Cabedo, máximo responsable de EAP.
+                                Pascual Cabedo. Máximo responsable de EAP,
                             </span>
-                            Uno de los ecommerce de alimentación más grandes de
+                            uno de los ecommerce de alimentación más grandes de
                             España.
                         </p>
 
                         <p>
                             <strong>
-                                +280.000 familias han comprado en EAP, +10
-                                millones de kilos de alimento enviados y
-                                millones de visitas en redes sociales (venden
-                                online producto de agricultores españoles, sin
-                                químicos post-cosecha)
+                                +300.000 familias han comprado en su ecommerce y
+                                tienen millones de visitas en instagram y
+                                tiktok.
                             </strong>
                         </p>
                     </Fragment>

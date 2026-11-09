@@ -927,13 +927,17 @@ li::marker {
 .oferta .cuerpo h2.titulo-compacto {
     font-weight: 600;
     text-align: center;
+    /* Centrado, las palabras largas que no caben saltan enteras y dejan
+       líneas muy desiguales; partirlas con guion empareja el contorno. El
+       diccionario de guionado lo elige el navegador por el lang="es" del
+       <html>. */
+    hyphens: auto;
     /* Abre el .cuerpo, que ya hereda el margen del banner y el suyo propio:
        el 2.5em base de .titulo-compacto separa secciones dentro de un flujo. */
     margin-top: var(--gap-sm);
 }
 /* En móvil el .cuerpo deja solo 5px de gutter: sin este aire, las líneas
-   largas del titular tocarían los bordes de la pantalla. Simétrico para no
-   descentrarlo. */
+   largas del titular tocarían los bordes de la pantalla. */
 @media (max-width: 700px) {
     .oferta .cuerpo h2.titulo-compacto {
         padding-inline: 0.45rem;
@@ -3172,6 +3176,13 @@ h2:has(+ .diamond) {
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'><path d='M1 4 Q 50 5.2 99 6' stroke='%23f40600' stroke-width='4.5' fill='none' stroke-linecap='round' vector-effect='non-scaling-stroke'/></svg>");
     background-size: 100% 0.5em;
     padding-bottom: 0.22em;
+}
+/* En /agenda el trazo rojo pasa a la entradilla de la franja («ha trabajado
+   conmigo»): dos subrayados seguidos se restarían fuerza, y el titular ya
+   conserva el círculo de tinta sobre «no». */
+.agenda .titulo-breaker--bg-oscuro .squiggle {
+    background-image: none;
+    padding-bottom: 0;
 }
 
 /* Breaker editorial papel — variante clara con fondo blanco + tinta oscura.

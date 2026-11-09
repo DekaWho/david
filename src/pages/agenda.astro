@@ -5,9 +5,9 @@ import Reviews from "../components/Reviews.astro";
 import AgendarLlamada from "../components/AgendarLlamada.astro";
 import CarruselVideos from "../components/CarruselVideos.astro";
 
-// Amago de scroll en pausa. Para reactivarlo, cambiar la línea activa por esta:
-// const bodyClass = "reviews-blanco oferta agenda title-alerta amago-scroll";
-const bodyClass = "reviews-blanco oferta agenda title-alerta";
+// Para pausar el amago de scroll, cambiar la línea activa por esta:
+// const bodyClass = "reviews-blanco oferta agenda title-alerta";
+const bodyClass = "reviews-blanco oferta agenda title-alerta amago-scroll";
 ---
 
 <BaseLayout
@@ -53,22 +53,34 @@ const bodyClass = "reviews-blanco oferta agenda title-alerta";
     <div class="cuerpo">
         <h2 class="titulo-compacto">
             Me he gastado 19.970€ en mentorías para diseñar y posicionar ofertas{" "}
-            <span class="inciso-ligero">
-                (además de mi experiencia dando servicios)
+            <span class="inciso-hand">
+                (además de mi experiencia dando servicios y consumir 952 horas
+                de contenido)
             </span>
             para que tú no tengas que hacerlo...
         </h2>
 
         <img
             class="banner-proof"
-            src="/imgs/heads.webp"
+            src="/imgs/referentes.webp"
             alt="las caras de los referentes estudiados"
             loading="lazy"
             decoding="async"
         />
     </div>
 
-    <Reviews id="opiniones" orden={["pascu", "rioboo", "gonzalo", "cristina"]} />
+    <Reviews id="opiniones" orden={["pascu", "gonzalo", "cristina", "rioboo"]}>
+        <p slot="antes-audios">
+            <strong>
+                Esto dice quien
+                <span class="squiggle">ha trabajado conmigo.</span>
+            </strong>
+        </p>
+        <p slot="antes-audios">
+            He dado servicios en distintos nichos hasta encontrar la mejor
+            fórmula para diferenciar tu servicio incluso en un mercado saturado.
+        </p>
+    </Reviews>
 
     <div class="cuerpo">
         <AgendarLlamada />
