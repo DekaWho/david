@@ -1017,6 +1017,12 @@ li::marker {
 .agenda .banner h2:has(> .banner-subline:only-child) {
     margin-bottom: var(--gap-sm);
 }
+/* En las dos landings para closers el subline no es la firma del autor sino el
+   filtro de audiencia («solo para…»): va en rojo, el color de aviso del sitio,
+   y hace pareja con el squiggle rojo del titular. */
+:is(.agenda, .recursos) .banner .banner-subline {
+    color: var(--rojo);
+}
 /* Aire sobre la foto recortado como en /recursos: el hero carga titular,
    apunte, párrafo y CTA, y lo que se ahorra arriba es lo que deja entrar el
    botón en el primer pantallazo del móvil. */
@@ -1046,7 +1052,7 @@ li::marker {
    su 0.9em sobre este tamaño y es Kalam regular frente al Garamond bold.
    Huecos fijos en vez del clamp en vh de .banner-h1--medium, para que el
    titular respire igual en cualquier alto de pantalla. El .hero es flex: se
-   suman al margen inferior de la firma y al superior del CTA. */
+   suman al margen inferior del pretitular y al superior del CTA. */
 .agenda .banner h1.banner-h1--medium {
     font-size: 1.6rem;
     margin-top: var(--gap-md);
@@ -1161,8 +1167,8 @@ li::marker {
     }
 }
 
-/* La firma baja un escalón respecto al h2 de banner (1.45rem móvil / 1.85rem
-   escritorio): encima de un titular compacto, el nombre a tamaño base competía
+/* El pretitular baja un escalón respecto al h2 de banner (1.45rem móvil /
+   1.85rem escritorio): encima de un titular compacto, a tamaño base competía
    con él en vez de presentarlo. */
 .recursos .banner h2:has(> .banner-subline:only-child) {
     font-size: clamp(1.25rem, 1.6vw, 1.55rem);
@@ -1178,15 +1184,13 @@ li::marker {
 .recursos .banner h1:has(+ p.hero-apunte) {
     margin-bottom: var(--gap-sm);
 }
-/* El titular sale de la escala compacta (--yt-h1) que heredó de /youtube:
-   aquella era para un H1 de frase larga y este cabe en dos o tres líneas, así
-   que a ese cuerpo se quedaba pequeño frente al apunte. --yt-h1 se mantiene
-   para el apunte y lo demás que cuelga de ella, que no deben crecer. El
-   cuerpo va un escalón por debajo del que llenaba la columna de borde a
-   borde, para que el titular no se coma el fold antes del cajetín.
-   Cambiar el texto del h1 obliga a volver a medirlo. */
+/* El titular va con cuerpo propio, fuera de la escala compacta (--yt-h1) que
+   heredó de /youtube; --yt-h1 se mantiene para la lista y lo demás que cuelga
+   de ella. Misma escala que el h1 de /agenda, para que las dos landings de
+   closers se lean con el mismo peso y el titular no se coma el fold antes de
+   la lista. Cambiar el texto del h1 obliga a volver a medirlo. */
 .recursos .banner h1 {
-    font-size: clamp(1.75rem, 3.1vw, 2.3rem);
+    font-size: clamp(1.6rem, 2.3vw, 1.9rem);
 }
 /* Hueco propio entre titular y cajetín. El h1 es el último hijo del hero y
    la regla compartida de .hero > :last-child le anula el margen: el selector

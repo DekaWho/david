@@ -2,7 +2,7 @@
 /* Bloque de prueba social: titular breaker + franja de tinta con los cinco
    testimonios (la placa de 100k del canal de Chuso Montero y cuatro reviews en
    audio — Pascual Cabedo, Gonzalo Zahonero, Rioboo, Cristina Dayz), + remate "SUFICIENTE" y
-   flecha a la oferta. Montado en /agenda y /servicios. El texto
+   flecha a la oferta. Montado en /agenda. El texto
    de cada testimonio es markup fijo, así que editarlo aquí lo cambia en todas
    las páginas; lo que SÍ varía por página es el orden (prop "orden").
    El torcido de las cards lo aplica .seccion-tinta .review-card en styles.css,
@@ -15,13 +15,12 @@
    Props:
    - El titular es un slot "titulo": va aparte de lo sincronizado porque cada
      contexto lo enuncia distinto. Sin slot, cae al fallback "Pero no te fíes de
-     mis palabras" (el de /servicios). /opinan-sobre-mi pasa el suyo.
+     mis palabras", que es el que usa /agenda.
    - flechaFinal (boolean, default true): la flecha tras "SUFICIENTE" apunta a la
      oferta de abajo. Se pasa false donde señalaría al vacío (páginas que cierran
      con los testimonios).
-   - id (string, default "reviews"): ancla del titular fallback. El default es
-     el histórico de /servicios (lleva tiempo en producción, no renombrar);
-     las landings de consultoría pasan "opiniones". Solo aplica al fallback:
+   - id (string, default "reviews"): ancla del titular fallback. Las landings
+     de consultoría pasan "opiniones". Solo aplica al fallback:
      una página que rellena el slot "titulo" pone el ancla en su propio markup.
    - slot "antes-audios": entradilla opcional dentro de la franja de tinta,
      antes del primer testimonio. Vacío por defecto; /agenda mete ahí un <p>
@@ -29,13 +28,12 @@
      nth-of-type sobre las .review-card (div), y un <p> no cuenta.
    - slot "tras-audios": punto de inserción opcional entre la franja de audios y
      el cierre "SUFICIENTE". Vacío por defecto (no renderiza nada), así que solo
-     aparece donde se rellena. /opinan-sobre-mi mete ahí un testimonio extra
-     (captura de email); /servicios lo deja vacío.
+     aparece donde se rellena: sirve para meter un testimonio extra (una
+     captura de email, por ejemplo).
    - orden (array de claves, default ORDEN_POR_DEFECTO): qué testimonio abre la
      franja y en qué secuencia siguen los demás. Existe porque la prueba que
      más pesa cambia con la oferta de la página. El default abre con Pascual —el
-     caso de negocio con cifras— y sirve a /servicios, que vende trabajo con el
-     negocio. Una página centrada en YouTube abriría con la placa de 100k.
+     caso de negocio con cifras—. Una página centrada en YouTube abriría con la placa de 100k.
      Una clave fuera de la lista se ignora
      y una que falte deja ese testimonio sin renderizar: es la forma de
      quitar uno de una página.
