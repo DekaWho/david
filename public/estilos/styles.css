@@ -1169,9 +1169,12 @@ li::marker {
 
 /* El pretitular baja un escalón respecto al h2 de banner (1.45rem móvil /
    1.85rem escritorio): encima de un titular compacto, a tamaño base competía
-   con él en vez de presentarlo. */
+   con él en vez de presentarlo. Margen corto por abajo: aquí el subline es el
+   filtro de audiencia que encabeza el h1, y con el hueco de firma (el de
+   .banner h2) se leía como pie de la foto, suelto del titular. */
 .recursos .banner h2:has(> .banner-subline:only-child) {
     font-size: clamp(1.25rem, 1.6vw, 1.55rem);
+    margin-bottom: 0.5rem;
 }
 
 /* Apunte bajo el titular: pegado al h1 (que le cede su hueco) para leerse
