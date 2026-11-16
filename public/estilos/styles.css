@@ -4094,7 +4094,7 @@ audio::-webkit-media-controls-panel {
    margen del heading no mueve nada. */
 .hero-card {
     position: relative;
-    margin: 0 14px clamp(150px, 20vh, 184px);
+    margin: 0 14px clamp(172px, 23vh, 208px);
     background: var(--blanco);
     padding: 0 12px 2rem;
 }
@@ -4679,7 +4679,7 @@ button.block--calendario {
 .badge {
     position: relative;
     background: var(--amarillo);
-    color: var(--negro);
+    color: var(--rojo);
     font-family: var(--hand);
     font-size: 0.722rem;
     font-weight: 700;
@@ -4841,7 +4841,7 @@ button.block--calendario {
     }
 
     .hero-card {
-        margin: 0 0 clamp(166px, 22vh, 226px);
+        margin: 0 0 clamp(188px, 25vh, 250px);
         padding: 0 22px 2rem;
     }
 
