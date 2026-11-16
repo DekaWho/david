@@ -3,6 +3,7 @@ Allow: /
 Disallow: /entrega-recursos
 Disallow: /not-done
 Disallow: /llamada-recibida
+Disallow: /elegir-hora
 
 User-agent: GPTBot
 Allow: /

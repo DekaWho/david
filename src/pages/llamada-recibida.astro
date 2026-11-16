@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
-    titulo="Ya casi está"
+    titulo="Llamada agendada"
     noindex={true}
     scripts={false}
     trackEvento="Schedule"
@@ -12,13 +12,48 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         class="titulo-breaker titulo-breaker--bg-claro"
         style="color:var(--rojo)"
     >
-        Ya casi está
+        Llamada agendada
     </h1>
 
     <div class="cuerpo">
+        {/* El script de abajo cambia «el día y a la hora que has elegido»
+            por la cita concreta; sin dato guardado (enlace directo) la frase
+            genérica se queda. */}
         <p>
-            Te contacto por teléfono lo antes posible para concretar cuándo
-            agendamos llamada. Gracias por tu confianza.
+            Nos vemos{" "}
+            <strong data-cita>el día y a la hora que has elegido</strong>.
+        </p>
+        <p>
+            Te acabo de mandar la invitación. Revisa que NO esté en tu bandeja
+            de SPAM y acéptala para guardarla en tu calendario.
+        </p>
+        <p>
+            Es una videollamada: el enlace de Google Meet va dentro de esa
+            invitación.
         </p>
     </div>
+
+    <script is:inline>
+        (() => {
+            let cita = "";
+            try {
+                cita = sessionStorage.getItem("lead_cita") || "";
+            } catch (_) {}
+            const partes = cita.match(
+                /^(\d{4})-(\d{2})-(\d{2}) (\d{1,2}:\d{2})$/,
+            );
+            if (!partes) return;
+            const [, anio, mes, dia, hora] = partes;
+            const fecha = new Date(anio, mes - 1, dia).toLocaleDateString(
+                "es-ES",
+                {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                },
+            );
+            document.querySelector("[data-cita]").textContent =
+                `el ${fecha} a las ${hora} (hora de España peninsular)`;
+        })();
+    </script>
 </BaseLayout>

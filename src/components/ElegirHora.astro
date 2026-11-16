@@ -1,0 +1,359 @@
+---
+/* Selector de día y hora para la llamada: el último paso de quien ya dejó
+   email, nombre y WhatsApp en un optin con `contacto`. Esos datos los guarda
+   scripts.js en sessionStorage al enviar el form (claves lead_*), así que
+   aquí solo se elige el hueco.
+
+   No consulta disponibilidad a propósito: se ofrece cualquier hueco y, si
+   dos llamadas coinciden, David mueve una a mano. Es preferible a que
+   alguien no agende por no ver la hora que quería.
+
+   Al confirmar salen dos envíos y después el redirect a `successUrl`
+   (/llamada-recibida, que dispara el evento Schedule del pixel):
+   - MailerLite: el mismo form del optin de origen, con el campo custom
+     `hora_llamada` («2026-11-18 17:00»). El slug debe existir en MailerLite.
+   - Google Calendar: un Apps Script publicado como web app en la cuenta de
+     David que crea la cita e invita al lead. Su código y cómo publicarlo
+     están en snippets/apps-script-agenda.md. Con CALENDARIO_URL vacío este
+     envío se omite y la hora queda solo en MailerLite. */
+const CALENDARIO_URL =
+    "https://script.google.com/macros/s/AKfycbyRKF1b6Sb2k1NQ0wP1DLzK6v8i2GSLdmDl036JrxpCMAyVTIlmu5a4oXWvUcOVWvgd/exec";
+const ML_ACCOUNT_ID = "1628594";
+
+/* Huecos ofrecidos, en hora peninsular española: solo horas en punto, desde
+   HORA_INICIO hasta HORA_FIN, ambas incluidas (HORA_FIN es la última hora a
+   la que puede empezar una llamada). Los días los pinta el script, porque
+   dependen del momento de la visita: los DIAS primeros con hueco contando
+   desde hoy, sin domingos, y dejando fuera las horas a menos de
+   ANTELACION_H horas vista (a las 10:00 lo primero que se ofrece son las
+   15:00 de ese mismo día). */
+const HORA_INICIO = 10;
+const HORA_FIN = 20;
+const DIAS = 3;
+const ANTELACION_H = 5;
+
+const horas = [];
+for (let h = HORA_INICIO; h <= HORA_FIN; h++) {
+    horas.push(`${h}:00`);
+}
+
+const {
+    successUrl = "/llamada-recibida",
+    botonTexto = "Confirmar la llamada",
+} = Astro.props;
+---
+
+<form
+    class="optin elegir-hora"
+    data-success={successUrl}
+    data-calendario={CALENDARIO_URL}
+    data-ml-account={ML_ACCOUNT_ID}
+    data-dias={DIAS}
+    data-antelacion={ANTELACION_H}
+>
+    {/* Solo visible para quien llega sin datos guardados (enlace directo,
+        otra pestaña): sin email no hay a quién apuntar la cita. */}
+    <label class="optin-campo elegir-hora-email" hidden>
+        <span class="optin-campo-label">Tu email</span>
+        <input
+            type="email"
+            name="email"
+            placeholder="tucorreo@email.com"
+            autocomplete="email"
+        />
+        <span class="optin-error" hidden>
+            Te falta poner tu email
+        </span>
+    </label>
+
+    <fieldset class="optin-pregunta" data-grupo="fecha">
+        <legend>Elige fecha</legend>
+        <div class="calendario">
+            <div class="calendario-mes"></div>
+            <div class="calendario-rejilla">
+                {["L", "M", "X", "J", "V", "S", "D"].map((d) => (
+                    <span class="calendario-semana" aria-hidden="true">
+                        {d}
+                    </span>
+                ))}
+            </div>
+        </div>
+        <p class="optin-error" hidden>
+            Te falta elegir el día
+        </p>
+    </fieldset>
+
+    <fieldset class="optin-pregunta" data-grupo="hora">
+        <legend>
+            ¿A qué hora?
+            <span class="elegir-hora-zona">(hora de España peninsular)</span>
+        </legend>
+        <div class="elegir-hora-chips">
+            {horas.map((h) => (
+                <label class="elegir-hora-chip">
+                    <input type="radio" name="hora" value={h} />
+                    <span>{h}</span>
+                </label>
+            ))}
+        </div>
+        <p class="optin-error" hidden>
+            Te falta elegir la hora
+        </p>
+    </fieldset>
+
+    <button type="submit" class="block block--primary">
+        <img class="icon" src="/imgs/svg/google-calendar.svg" alt="" />
+        <span class="body">
+            <span class="title">{botonTexto}</span>
+        </span>
+        <span class="arrow" aria-hidden="true">
+            →
+        </span>
+    </button>
+</form>
+
+<script is:inline>
+    document.querySelectorAll("form.elegir-hora").forEach((form) => {
+        const leer = (clave) => {
+            try {
+                return sessionStorage.getItem(clave) || "";
+            } catch (_) {
+                return "";
+            }
+        };
+        const lead = {
+            email: leer("lead_email"),
+            nombre: leer("lead_name"),
+            telefono: leer("lead_phone"),
+            formId: leer("lead_form"),
+        };
+
+        const campoEmail = form.querySelector(".elegir-hora-email");
+        if (!lead.email) campoEmail.hidden = false;
+
+        /* El reloj de referencia es el de Madrid, no el del visitante: las
+           horas ofrecidas son peninsulares, así que «hoy» y la antelación
+           mínima se miden allí. El formato sueco da «AAAA-MM-DD HH:MM:SS»,
+           que se trocea sin depender del idioma del navegador; `dia` es una
+           fecha local falsa con esas cifras, solo para hacer cuentas de
+           calendario. */
+        const [fechaMadrid, relojMadrid] = new Date()
+            .toLocaleString("sv-SE", { timeZone: "Europe/Madrid" })
+            .split(" ");
+        const [anio, mes, diaMes] = fechaMadrid.split("-").map(Number);
+        const [horaAhora, minutoAhora] = relojMadrid.split(":").map(Number);
+        /* Primer minuto del día reservable hoy. */
+        const corteHoy =
+            horaAhora * 60 + minutoAhora + Number(form.dataset.antelacion) * 60;
+
+        const chipsHora = [...form.querySelectorAll('input[name="hora"]')].map(
+            (radio) => {
+                const [h, m] = radio.value.split(":").map(Number);
+                return {
+                    radio,
+                    chip: radio.closest(".elegir-hora-chip"),
+                    minutos: h * 60 + m,
+                };
+            },
+        );
+        const ultimaHora = Math.max(...chipsHora.map((c) => c.minutos));
+
+        /* Días: los primeros con hueco contando desde hoy, sin domingos. Hoy
+           entra solo si aún queda alguna hora más allá del corte. El value
+           es la fecha del calendario (AAAA-MM-DD), sin zona: junto a la hora
+           elegida se interpreta siempre como hora peninsular. */
+        const MESES = [
+            "enero",
+            "febrero",
+            "marzo",
+            "abril",
+            "mayo",
+            "junio",
+            "julio",
+            "agosto",
+            "septiembre",
+            "octubre",
+            "noviembre",
+            "diciembre",
+        ];
+        const clave = (d) =>
+            [
+                d.getFullYear(),
+                String(d.getMonth() + 1).padStart(2, "0"),
+                String(d.getDate()).padStart(2, "0"),
+            ].join("-");
+        const hoy = new Date(anio, mes - 1, diaMes);
+        const reservables = [];
+        const cursor = new Date(hoy);
+        for (
+            let salto = 0;
+            reservables.length < Number(form.dataset.dias);
+            salto++
+        ) {
+            if (salto > 0) cursor.setDate(cursor.getDate() + 1);
+            if (cursor.getDay() === 0) continue;
+            if (salto === 0 && corteHoy > ultimaHora) continue;
+            reservables.push(clave(cursor));
+        }
+
+        /* Hoja de calendario de dos semanas, de lunes a domingo: la actual
+           y la siguiente. Los días reservables caben siempre dentro (son
+           pocos y empiezan hoy), y con dos filas el botón de confirmar queda
+           más cerca que con el mes entero. Solo los reservables son radios;
+           el resto de días se pinta apagado, como contexto. Si las dos
+           semanas pisan dos meses, el rótulo nombra ambos. */
+        const cajaDias = form.querySelector(".calendario-rejilla");
+        const inicio = new Date(hoy);
+        inicio.setDate(inicio.getDate() - ((inicio.getDay() + 6) % 7));
+        const fin = new Date(inicio);
+        fin.setDate(fin.getDate() + 13);
+        form.querySelector(".calendario-mes").textContent =
+            inicio.getMonth() === fin.getMonth()
+                ? `${MESES[inicio.getMonth()]} ${inicio.getFullYear()}`
+                : `${MESES[inicio.getMonth()]} – ${MESES[fin.getMonth()]} ${fin.getFullYear()}`;
+
+        for (
+            const d = new Date(inicio);
+            d <= fin;
+            d.setDate(d.getDate() + 1)
+        ) {
+            const valor = clave(d);
+            const numero = document.createElement("span");
+            numero.textContent = d.getDate();
+            if (!reservables.includes(valor)) {
+                numero.className = "calendario-dia calendario-dia--apagado";
+                cajaDias.append(numero);
+                continue;
+            }
+            const celda = document.createElement("label");
+            celda.className = "calendario-dia";
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = "fecha";
+            radio.value = valor;
+            if (valor === clave(hoy)) radio.dataset.hoy = "";
+            celda.append(radio, numero);
+            cajaDias.append(celda);
+        }
+
+        /* Con hoy elegido desaparecen las horas anteriores al corte (y se
+           desmarca la que hubiera); cualquier otro día las ofrece todas. El
+           primer día va marcado de inicio para que las horas a la vista ya
+           sean las reservables. */
+        const filtrarHoras = () => {
+            const esHoy = !!cajaDias.querySelector("input[data-hoy]:checked");
+            chipsHora.forEach(({ radio, chip, minutos }) => {
+                const fuera = esHoy && minutos < corteHoy;
+                chip.hidden = fuera;
+                radio.disabled = fuera;
+                if (fuera) radio.checked = false;
+            });
+        };
+        cajaDias.querySelector("input").checked = true;
+        cajaDias.addEventListener("change", filtrarHoras);
+        filtrarHoras();
+
+        const grupos = [...form.querySelectorAll("fieldset[data-grupo]")];
+        const marcar = (bloque, ok) => {
+            bloque.classList.toggle(
+                bloque.matches("fieldset")
+                    ? "optin-pregunta--error"
+                    : "optin-campo--error",
+                !ok,
+            );
+            bloque.querySelector(".optin-error").hidden = ok;
+        };
+        grupos.forEach((fs) =>
+            fs.addEventListener("change", () => marcar(fs, true)),
+        );
+        campoEmail.addEventListener("input", () => marcar(campoEmail, true));
+
+        const enviar = (url, body) =>
+            fetch(url, {
+                method: "POST",
+                mode: "no-cors",
+                keepalive: true,
+                body,
+            }).catch(() => {});
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            let primerFallo = null;
+            const emailInput = campoEmail.querySelector("input");
+            if (!lead.email) {
+                const ok =
+                    emailInput.value.trim() !== "" &&
+                    emailInput.checkValidity();
+                marcar(campoEmail, ok);
+                if (!ok) primerFallo = campoEmail;
+            }
+            const eleccion = {};
+            grupos.forEach((fs) => {
+                const marcado = fs.querySelector("input:checked");
+                marcar(fs, !!marcado);
+                if (marcado) eleccion[fs.dataset.grupo] = marcado.value;
+                else if (!primerFallo) primerFallo = fs;
+            });
+            if (primerFallo) {
+                primerFallo.scrollIntoView({
+                    block: "center",
+                    behavior: "smooth",
+                });
+                return;
+            }
+
+            const email = lead.email || emailInput.value.trim();
+            const boton = form.querySelector('button[type="submit"]');
+            boton.disabled = true;
+            boton.querySelector(".title").textContent = "Enviando…";
+
+            const envios = [];
+            if (lead.formId) {
+                const ml = new FormData();
+                ml.append("fields[email]", email);
+                ml.append(
+                    "fields[hora_llamada]",
+                    `${eleccion.fecha} ${eleccion.hora}`,
+                );
+                ml.append("ml-submit", "1");
+                ml.append("anticsrf", "true");
+                envios.push(
+                    enviar(
+                        `https://assets.mailerlite.com/jsonp/${form.dataset.mlAccount}/forms/${lead.formId}/subscribe`,
+                        ml,
+                    ),
+                );
+            }
+            if (form.dataset.calendario) {
+                envios.push(
+                    enviar(
+                        form.dataset.calendario,
+                        new URLSearchParams({
+                            email,
+                            nombre: lead.nombre,
+                            telefono: lead.telefono,
+                            fecha: eleccion.fecha,
+                            hora: eleccion.hora,
+                        }),
+                    ),
+                );
+            }
+
+            /* Las respuestas son opacas (no-cors) y los envíos van con
+               keepalive, así que sobreviven al cambio de página: la espera
+               tiene tope para que un endpoint lento no deje al visitante
+               mirando el botón. */
+            await Promise.race([
+                Promise.all(envios),
+                new Promise((listo) => setTimeout(listo, 2500)),
+            ]);
+            /* La thank-you repite al visitante el día y la hora que acaba de
+               elegir. */
+            try {
+                sessionStorage.setItem("lead_cita", `${eleccion.fecha} ${eleccion.hora}`);
+            } catch (_) {}
+            window.location.href = form.dataset.success || "/";
+        });
+    });
+</script>

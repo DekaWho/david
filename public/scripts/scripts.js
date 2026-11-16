@@ -453,6 +453,17 @@ document.querySelectorAll('form[data-ml-form-id]').forEach((form, posicionOptin)
            otro dispositivo la marca no existe y el popup saldrá igual. */
         localStorage.setItem('optin-enviado', '1');
 
+        /* Datos del lead para el selector de hora (ElegirHora.astro) de la
+           página a la que se redirige: así ese paso solo pide el hueco, sin
+           volver a preguntar quién es. sessionStorage: viven lo que la
+           pestaña. lead_form es el form al que el selector volverá a postear
+           para guardar la hora en el mismo contacto. */
+        sessionStorage.setItem('lead_email', emailInput.value);
+        sessionStorage.setItem('lead_form', form.dataset.mlFormId);
+        campos.forEach((campo) => {
+            sessionStorage.setItem(`lead_${campo.dataset.campo}`, valorCampo(campo));
+        });
+
         window.location.href = successUrl;
     });
 });

@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ElegirHora from "../components/ElegirHora.astro";
+---
+
+<BaseLayout
+    titulo="Te falta un paso"
+    favicon="warning"
+    bodyClass="hoja-blanca"
+    noindex={true}
+    scripts={false}
+    trackEvento="Lead"
+>
+    <div class="banner" style="padding-top: 1.5rem;">
+        <section class="hero">
+            <div class="barra-progreso">
+                <div class="barra-progreso-escala" aria-hidden="true">
+                    <span>0%</span>
+                    <span>100%</span>
+                </div>
+                <div
+                    class="barra-progreso-track"
+                    role="progressbar"
+                    aria-valuenow="75"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-label="Progreso de tu llamada: 75%"
+                >
+                    <span
+                        class="barra-progreso-relleno"
+                        style="--progreso: 75%"
+                    ></span>
+                </div>
+            </div>
+            <h1 style="color: var(--rojo);">Te falta un paso</h1>
+        </section>
+
+        <ElegirHora />
+    </div>
+</BaseLayout>
