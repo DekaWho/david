@@ -1055,7 +1055,9 @@ li::marker {
    suman al margen inferior del pretitular y al superior del CTA. */
 .agenda .banner h1.banner-h1--medium {
     font-size: 1.6rem;
-    margin-top: var(--gap-md);
+    /* Arriba, medio escalón: la primera pregunta cuelga de la foto, como dicha
+       por quien aparece en ella. */
+    margin-top: calc(var(--gap-md) / 2);
     margin-bottom: var(--gap-md);
 }
 /* A este cuerpo, la columna recortada al 88% de /oferta parte el subtítulo en
@@ -1084,6 +1086,23 @@ li::marker {
     .agenda .banner h1.banner-h1--medium {
         font-size: clamp(1.45rem, 2.3vw, 1.9rem);
     }
+}
+/* El titular son tres frases en un solo h1 (dos preguntas y la promesa): cada
+   una va en su línea, separadas por algo menos de un renglón: cada frase
+   respira sola sin que dejen de leerse como una secuencia. Un único h1 y no tres porque la
+   página debe tener un solo titular principal para buscadores y lectores de
+   pantalla. La del medio va en Kalam (.inciso-hand): a igual peso las tres
+   empataban, y el cambio de voz deja la promesa como remate. */
+.agenda .banner h1 > .h1-linea {
+    display: block;
+}
+.agenda .banner h1 > .h1-linea + .h1-linea {
+    margin-top: 0.9em;
+}
+/* Tras la línea manuscrita el hueco crece: las dos preguntas forman pareja y
+   la promesa es otra pieza, la respuesta. */
+.agenda .banner h1 > .h1-linea.inciso-hand + .h1-linea {
+    margin-top: 1.4em;
 }
 /* Apunte a mano bajo el titular, el mismo de /recursos: pegado al h1 para
    leerse como anotación suya, recto. En tinta y no en rojo: el rojo queda
