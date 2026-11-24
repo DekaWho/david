@@ -1038,7 +1038,7 @@ li::marker {
    cada hueco es la suma de los dos márgenes, así que el de abajo se suma al
    margin-top del párrafo de plazos que lo sigue. */
 .agenda .banner .hero > .block--calendario {
-    margin-top: var(--gap-sm);
+    margin-top: var(--gap-lg);
     margin-bottom: var(--gap-sm);
 }
 .agenda .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
@@ -1146,6 +1146,20 @@ li::marker {
     .agenda .banner .hero > p.inciso-hand {
         margin-top: var(--gap-lg);
     }
+    /* A lo ancho el párrafo de plazos queda en dos líneas cortas y se leía
+       pegado al botón y descolgado del cuerpo: gana aire por arriba y lo
+       pierde todo por abajo, donde hero y banner ceden su margen y su padding
+       para que el dibujo que abre el cuerpo arranque justo bajo él (el
+       padding-top de .cuerpo--blanco se anula más abajo, tras su regla). */
+    .agenda .banner .hero > .block--calendario {
+        margin-bottom: var(--gap-xl);
+    }
+    .agenda .banner .hero {
+        margin-bottom: 0;
+    }
+    .agenda .banner {
+        padding-bottom: 0;
+    }
 }
 /* Primer tramo del cuerpo en blanco de lado a lado, continuando el del hero:
    la página corre en blanco desde el titular hasta la franja de tinta de las
@@ -1167,6 +1181,11 @@ li::marker {
     background: var(--blanco);
     box-shadow: 0 0 0 100vmax var(--blanco);
     clip-path: inset(0 -100vmax);
+}
+@media (min-width: 801px) {
+    .agenda .cuerpo--blanco {
+        padding-top: 0;
+    }
 }
 /* Carta que abre el cuerpo: una hoja de papel sobre el blanco, al ancho de la
    columna de lectura y no en banda de lado a lado, para que se lea como una

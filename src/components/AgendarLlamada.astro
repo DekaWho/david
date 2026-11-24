@@ -13,12 +13,14 @@
    `posicion` sustituye ese ordinal por un código 9x en las instancias fuera
    del flujo de la página (el CTA flotante .cta-sticky). */
 import OptinAgendarLlamada from "./OptinAgendarLlamada.astro";
-const { texto = "Reservar llamada", posicion } = Astro.props;
+const { texto = "Reservar Llamada", posicion } = Astro.props;
 ---
 
 <dialog class="agenda-popup" aria-label="Reservar llamada">
     <form method="dialog">
-        <button class="agenda-popup-close" aria-label="Cerrar">×</button>
+        <button class="agenda-popup-close" aria-label="Cerrar">
+            ×
+        </button>
     </form>
     <OptinAgendarLlamada posicion={posicion} />
 </dialog>
@@ -27,5 +29,7 @@ const { texto = "Reservar llamada", posicion } = Astro.props;
     <span class="body">
         <span class="title">{texto}</span>
     </span>
-    <span class="arrow" aria-hidden="true">→</span>
+    <span class="arrow" aria-hidden="true">
+        →
+    </span>
 </button>
