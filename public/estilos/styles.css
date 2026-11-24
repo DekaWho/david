@@ -1033,14 +1033,13 @@ li::marker {
     margin-top: 5px;
 }
 /* El CTA va justo bajo el titular, que es la promesa que el botón resuelve:
-   hueco corto por arriba para que se lean como una pieza. En el flex del
-   .hero los márgenes no colapsan: cada hueco es la suma de los dos márgenes.
-   Cierra el hero, así que el margin-bottom se suma al padding-bottom del
-   .banner. El `.banner` del selector gana en especificidad al
-   `.banner .hero > :last-child { margin-bottom: 0 }` compartido. */
+   hueco corto por arriba, que se suma al margin-bottom del h1, para que se
+   lean como una pieza. En el flex del .hero los márgenes no colapsan:
+   cada hueco es la suma de los dos márgenes, así que el de abajo se suma al
+   margin-top del párrafo de plazos que lo sigue. */
 .agenda .banner .hero > .block--calendario {
-    margin-top: var(--gap-md);
-    margin-bottom: var(--gap-2xl);
+    margin-top: var(--gap-sm);
+    margin-bottom: var(--gap-sm);
 }
 .agenda .banner h1.banner-h1--medium:has(+ h2 > .inciso-hand) {
     margin-bottom: var(--gap-md);
@@ -1055,9 +1054,9 @@ li::marker {
    suman al margen inferior del pretitular y al superior del CTA. */
 .agenda .banner h1.banner-h1--medium {
     font-size: 1.6rem;
-    /* Arriba, medio escalón: la primera pregunta cuelga de la foto, como dicha
-       por quien aparece en ella. */
-    margin-top: calc(var(--gap-md) / 2);
+    /* Arriba, un cuarto de escalón: la primera pregunta cuelga de la foto, como
+       dicha por quien aparece en ella. */
+    margin-top: calc(var(--gap-md) / 4);
     margin-bottom: var(--gap-md);
 }
 /* A este cuerpo, la columna recortada al 88% de /oferta parte el subtítulo en
@@ -1097,12 +1096,22 @@ li::marker {
     display: block;
 }
 .agenda .banner h1 > .h1-linea + .h1-linea {
-    margin-top: 0.9em;
+    margin-top: 0.6em;
+}
+/* Las dos preguntas van un escalón por debajo de la promesa: son el arranque
+   que lleva hasta ella, y a su mismo cuerpo le disputaban el peso del titular.
+   La manuscrita baja en la misma proporción sobre el 0.9em de .inciso-hand,
+   que ya corrige el ojo grande de Kalam. */
+.agenda .banner h1 > .h1-linea:first-child {
+    font-size: 0.9em;
+}
+.agenda .banner h1 > .h1-linea.inciso-hand {
+    font-size: 0.81em;
 }
 /* Tras la línea manuscrita el hueco crece: las dos preguntas forman pareja y
    la promesa es otra pieza, la respuesta. */
 .agenda .banner h1 > .h1-linea.inciso-hand + .h1-linea {
-    margin-top: 1.4em;
+    margin-top: 1.1em;
 }
 /* Apunte a mano bajo el titular, el mismo de /recursos: pegado al h1 para
    leerse como anotación suya, recto. En tinta y no en rojo: el rojo queda
@@ -1137,10 +1146,106 @@ li::marker {
     .agenda .banner .hero > p.inciso-hand {
         margin-top: var(--gap-lg);
     }
-    .agenda .banner .hero > .block--calendario {
-        margin-top: var(--gap-lg);
-        margin-bottom: var(--gap-4xl);
+}
+/* Primer tramo del cuerpo en blanco de lado a lado, continuando el del hero:
+   la página corre en blanco desde el titular hasta la franja de tinta de las
+   reseñas, y el papel queda reservado para la hoja de la carta. Misma técnica
+   box-shadow + clip-path de .seccion-blanca, aplicada al .cuerpo entero para
+   no partir su contenido en bandas. El padding sustituye al margen superior
+   de .cuerpo y al del primer hijo: con el clip, un margen que colapsara hacia
+   fuera dejaría una tira de papel entre el hero y este tramo. */
+.agenda .banner:has(+ .cuerpo--blanco) {
+    margin-bottom: 0;
+}
+.agenda .cuerpo--blanco > .doodle:first-child {
+    margin-top: 0;
+}
+.agenda .cuerpo--blanco {
+    margin-top: 0;
+    padding-top: calc(var(--gap-md) / 2);
+    padding-bottom: var(--gap-xl);
+    background: var(--blanco);
+    box-shadow: 0 0 0 100vmax var(--blanco);
+    clip-path: inset(0 -100vmax);
+}
+/* Carta que abre el cuerpo: una hoja de papel sobre el blanco, al ancho de la
+   columna de lectura y no en banda de lado a lado, para que se lea como una
+   pieza con principio y fin. La hoja la pinta un ::before que sobresale un
+   poco del texto por los lados sin mover la columna: el texto sigue alineado
+   con el resto del cuerpo y la hoja cabe en el padding lateral de .cuerpo en
+   móvil. Va en pseudo-elemento y no como fondo de la caja para que la sombra
+   contornee la hoja entera, vuelo incluido; el isolation la mantiene por
+   encima del blanco de .cuerpo--blanco aunque vaya en z-index negativo.
+   Sombra de tinta, corta y con poco blur: levanta la hoja del blanco sin
+   pasar a la sombra blanda de interfaz. Los párrafos van mucho más juntos que
+   el --gap-3xl del body: son frases de una línea que se leen de corrido, y con
+   el hueco base cada una quedaba aislada. */
+.agenda .historia {
+    --historia-vuelo: 0.75rem;
+    position: relative;
+    isolation: isolate;
+    margin: 0 0 var(--gap-2xl);
+    padding: var(--gap-lg) 0;
+}
+.agenda .historia::before {
+    content: "";
+    position: absolute;
+    inset: 0 calc(var(--historia-vuelo) * -1);
+    z-index: -1;
+    background: var(--papel);
+    box-shadow: 0 2px 5px color-mix(in srgb, var(--negro) 18%, transparent);
+}
+@media (max-width: 800px) {
+    /* En móvil el .cuerpo casi no tiene padding lateral, así que el vuelo
+       sacaba la hoja hasta el borde de la pantalla y dejaba de leerse como
+       hoja. Aquí se invierte: la hoja se retira del borde con margen y el aire
+       entre su canto y el texto lo pone el padding. */
+    .agenda .historia {
+        --historia-vuelo: 0px;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        padding-left: 0.9rem;
+        padding-right: 0.9rem;
     }
+    /* Al mínimo del clamp de .doodle, que es el que rige en móvil, los dibujos
+       quedaban en miniatura frente a la hoja que encabezan. Los dos al mismo
+       lado para que se lean como pareja. */
+    .agenda .cuerpo--blanco > .doodle {
+        width: 8.5rem;
+    }
+}
+/* La figura de Sísifo llega con la piedra hasta el borde inferior de su
+   lienzo: con el margen base de .doodle la roca rozaba la hoja de debajo. */
+.agenda .doodle--sisifo {
+    margin-bottom: var(--gap-lg);
+}
+/* Dos hojas seguidas son la misma carta partida en dos tiempos: el corte de
+   blanco entre ellas es una pausa, no el salto de sección que separa la
+   última del bloque siguiente. */
+.agenda .historia:has(~ .historia) {
+    margin-bottom: var(--gap-lg);
+}
+.agenda .historia > p {
+    margin: 0 2px var(--gap-md);
+    /* Interlineado prieto: con el hueco entre párrafos haciendo de pausa, al
+       1.5 del body las líneas de una misma frase se separaban casi tanto como
+       dos frases distintas. */
+    line-height: 1.2;
+}
+.agenda .historia > p:last-child {
+    margin-bottom: 0;
+}
+/* Párrafo de plazos bajo el CTA, cerrando el hero: centrado como el titular.
+   Es la letra pequeña de lo que se reserva, así que va después del botón y no
+   entre el titular y él. */
+.agenda .banner .hero > p:not(.inciso-hand) {
+    text-align: center;
+    margin-bottom: 0;
+    /* Una chispa bajo el cuerpo de lectura y con el interlineado prieto: son
+       dos líneas de apoyo al titular, y al 1.5 del body se abrían como un
+       párrafo del cuerpo. */
+    font-size: calc(var(--text-body) * 0.94);
+    line-height: 1.3;
 }
 
 /* En /youtube lo que precede al CTA no es el subtítulo del titular sino la
@@ -2913,6 +3018,11 @@ p.pitch-titular .aside-hand {
     mask-image: url(/imgs/svg/weightlifting-svgrepo-com.svg);
 }
 
+.doodle--trofeo::before {
+    -webkit-mask-image: url(/imgs/svg/trophy-svgrepo-com.svg);
+    mask-image: url(/imgs/svg/trophy-svgrepo-com.svg);
+}
+
 .doodle--corona {
     width: clamp(4rem, 7vw, 5rem);
     /* El SVG viene con el viewBox ceñido al trazo, así que el lienzo copia esa
@@ -3074,15 +3184,15 @@ h2:has(+ .diamond) {
    full-bleed a los lados con la técnica box-shadow + clip-path de .seccion-
    blanca; abajo topa con la franja .seccion-tinta, que pasa a ser el único corte
    de color. El blanco queda continuo desde el bloque anterior hasta la tinta.
-   La banda solo se proyecta si lo anterior es blanco (el banner o un .cuerpo
-   que cierra en .seccion-blanca): tras un .cuerpo sobre papel, una banda blanca
+   La banda solo se proyecta si lo anterior es blanco (el banner, un .cuerpo
+   que cierra en .seccion-blanca o un .cuerpo--blanco entero): tras un .cuerpo sobre papel, una banda blanca
    suelta alrededor del titular se leería como un corte de color sin motivo, así
    que ahí el titular se queda sobre el papel como en cualquier otra página. */
 .reviews-blanco .cuerpo > .seccion-blanca:last-child {
     margin-bottom: 0;
 }
 .reviews-blanco
-    :is(.banner, .cuerpo:has(> .seccion-blanca:last-child))
+    :is(.banner, .cuerpo:has(> .seccion-blanca:last-child), .cuerpo--blanco)
     + .titulo-breaker--bg-oscuro:has(+ .seccion-tinta) {
     margin: 0 auto var(--gap-lg);
     box-shadow: 0 0 0 100vmax var(--blanco);
